@@ -5,7 +5,6 @@ namespace app\controllers\reports;
 use Yii;
 use yii\base\Exception;
 use yii\filters\AccessControl;
-use yii\web\HttpException;
 use yii\web\Response;
 use yii\helpers\Json;
 use yii\bootstrap5\ActiveForm;
@@ -290,13 +289,16 @@ final class ControlController extends BaseController
                 end($items);
 
                 while( $value = current($items) ) {
-                    $periods[] = date('d.m.Y H:i', $value['start']);
+                    $periods[] = date(
+                        format: Yii::$app->settings->get('system', 'app_language_dateTimeMin'),
+                        timestamp: $value['start']
+                    );
                     prev($items);
                 }
             }
         } else {
             for($i=0; $i <= 10; $i++) {
-                $periods[] = date('d.m.Y', strtotime("-$i day"));
+                $periods[] = Yii::$app->formatter->asDate(strtotime("-$i day"));
             }
         }
 

@@ -1180,6 +1180,14 @@ class m240412_140314_rights_item_childDataInsert extends Migration
         'parent' => 'template.edit.main',
         'child' => 'template.view.main',
     ],
+    [
+        'parent' => 'role_dataCheckFull',
+        'child' => 'data.checkFull',
+    ],
+    [
+        'parent' => 'role_dataCreateFor',
+        'child' => 'data.createFor',
+    ],
 ]
         );
     }
