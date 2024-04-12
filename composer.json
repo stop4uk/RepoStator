@@ -1,0 +1,75 @@
+{
+    "name": "stop4uk/repostator",
+    "description": "Reports & Statistics. Send-Form-Get. Make any report easy. A system for receiving data and generating reports",
+    "keywords": ["stop4uk", "repostator", "report", "generate report", "statistic", "getting data"],
+    "homepage": "https://www.repostator.github.io",
+    "type": "project",
+    "license": "BSD-3-Clause",
+    "support": {
+        "issues": "https://github.com/stop4uk/repostator/issues?state=open",
+        "source": "https://github.com/stop4uk/repostator"
+    },
+    "minimum-stability": "stable",
+    "require": {
+        "php": ">=8.1",
+        "yiisoft/yii2": "~2.0.45",
+        "yiisoft/yii2-bootstrap5": "~2.0.2",
+        "yiisoft/yii2-symfonymailer": "~2.0.3",
+        "yiisoft/yii2-queue": "^2.3",
+        "yii2tech/ar-softdelete": "^1.0",
+        "kartik-v/yii2-widget-select2": "^2.2",
+        "kartik-v/yii2-date-range": "^1.7",
+        "kartik-v/yii2-widget-datepicker": "^1.4",
+        "twbs/bootstrap-icons": "^1.10",
+        "klisl/yii2-nested-sets-drag-and-drop": "^1.3",
+        "mihaildev/yii2-ckeditor": "*",
+        "phpoffice/phpspreadsheet": "^2.0"
+    },
+    "require-dev": {
+        "yiisoft/yii2-debug": "~2.1.0",
+        "yiisoft/yii2-gii": "~2.2.0",
+        "insolita/yii2-migration-generator": "^3.2"
+    },
+    "config": {
+        "allow-plugins": {
+            "yiisoft/yii2-composer": true,
+            "composer/installers": true,
+            "oomphinc/composer-installers-extender": true
+        },
+        "process-timeout": 1800,
+        "fxp-asset": {
+            "enabled": false
+        }
+    },
+    "scripts": {
+        "post-install-cmd": [
+            "yii\\composer\\Installer::postInstall"
+        ],
+        "post-create-project-cmd": [
+            "yii\\composer\\Installer::postCreateProject",
+            "yii\\composer\\Installer::postInstall"
+        ]
+    },
+    "extra": {
+        "yii\\composer\\Installer::postCreateProject": {
+            "setPermission": [
+                {
+                    "runtime": "0777",
+                    "web/assets": "0777",
+                    "yii": "0755"
+                }
+            ]
+        },
+        "yii\\composer\\Installer::postInstall": {
+            "generateCookieValidationKey": [
+                "config/web.php"
+            ]
+        }
+    },
+    "repositories": [
+        {
+            "type": "composer",
+            "url": "https://asset-packagist.org"
+        }
+    ]
+}

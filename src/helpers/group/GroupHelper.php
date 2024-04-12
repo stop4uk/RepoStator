@@ -1,0 +1,33 @@
+<?php
+
+namespace app\helpers\group;
+
+use Yii;
+
+use app\traits\GetLabelTrait;
+
+/**
+ * @author Stop4uk <stop4uk@yandex.ru>
+ * @package app\helpers\group
+ */
+final class GroupHelper
+{
+    use GetLabelTrait;
+
+    public static function labels(): array
+    {
+        return [
+            'code' => Yii::t('entities', 'Код'),
+            'name' => Yii::t('entities', 'Название'),
+            'name_full' => Yii::t('entities', 'Полное название'),
+            'description' => Yii::t('entities', 'Описание'),
+            'accept_send' => Yii::t('entities', 'Отправка сведений'),
+            'type_id' => Yii::t('entities', 'Тип'),
+            'create_at' => Yii::t('entities', 'Создана'),
+            'create_uid' => Yii::t('entities', 'Создал'),
+            'update_at' => Yii::t('entities', 'Обновлена'),
+            'update_uid' => Yii::t('entities', 'Обновил'),
+            'record_status' => Yii::t('entities', 'Статус группы')
+        ];
+    }
+}
