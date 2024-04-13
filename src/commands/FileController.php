@@ -13,6 +13,7 @@ use app\entities\report\{
     ReportFormTemplateEntity,
     ReportFormJobEntity
 };
+use app\helpers\CommonHelper;
 
 /**
  * @author Stop4uk <stop4uk@yandex.ru>
@@ -32,9 +33,12 @@ final class FileController extends Controller
             }
         }
 
-        $jobs = ArrayHelper::map(ReportFormJobEntity::find()
+        $queryJobs = ReportFormJobEntity::find()
             ->where(['job_status' => ReportFormJobEntity::STATUS_COMPLETE])
-            ->all(), 'id', 'file', 'template_id');
+            ->all();
+
+        $jobs = ArrayHelper::map($queryJobs, 'id', 'file', 'template_id');
+        $jobsForDelete = ArrayHelper::map($queryJobs, 'file', 'id');
 
         if ( !is_dir(Yii::getAlias(Yii::$app->params['downloadFormFilesAlias'])) ) {
             exit(0);
@@ -54,7 +58,7 @@ final class FileController extends Controller
             ) {
                 $fTimes = [];
                 foreach ($jobs[$templateID] as $file) {
-                    $fTimes[filemtime($file)][] = $file;
+                    $fTimes[Yii::getAlias(filemtime($file))][] = $file;
                 }
 
                 if ( $fTimes ) {
@@ -63,7 +67,9 @@ final class FileController extends Controller
                     foreach ($fTimes as $time => $elements) {
                         foreach($elements as $saveFile) {
                             if ( $count > 0) {
-                                FileHelper::unlink($saveFile);
+                                if ( CommonHelper::deleteFileAttempt($saveFile) ) {
+                                    ReportFormJobEntity::deleteAll(['id' => $jobsForDelete[$saveFile]]);
+                                }
                                 $count--;
                             }
 
@@ -77,11 +83,13 @@ final class FileController extends Controller
             foreach ($jobs as $templateID => $files) {
                 $maxSaveTime = $templates[$templateID];
                 foreach ($files as $file) {
-                    $createdTime = filemtime($file);
+                    $createdTime = Yii::getAlias(filemtime($file));
                     $diffTime = ((time() - $createdTime) <= $maxSaveTime);
 
                     if ( $diffTime ) {
-                        FileHelper::unlink($file);
+                        if ( CommonHelper::deleteFileAttempt($file) ) {
+                            ReportFormJobEntity::deleteAll(['id' => $jobsForDelete[$saveFile]]);
+                        }
                     }
                 }
             }
