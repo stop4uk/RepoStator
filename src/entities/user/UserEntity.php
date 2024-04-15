@@ -23,7 +23,7 @@ use app\helpers\user\UserHelper;
  * @property string $lastname
  * @property string $firstname
  * @property string|null $middlename
- * @property int $phone
+ * @property int|null $phone
  * @property int $account_status
  * @property string $account_key
  * @property int|null $account_cpass_required

@@ -37,7 +37,7 @@ final class RegisterForm extends Model
     public function rules(): array
     {
         return [
-            [['email', 'password', 'lastname', 'firstname', 'phone'], 'required'],
+            [['email', 'password', 'lastname', 'firstname'], 'required'],
             ['email', 'trim'],
             ['email', 'email'],
             ['email', 'string', 'length' => [4, 58]],
@@ -50,10 +50,6 @@ final class RegisterForm extends Model
             [
                 'email', 'unique', 'targetClass' => UserEntity::class, 'targetAttribute' => 'email',
                 'message' => Yii::t('models_error', 'Данный Email адрес уже зарегистрирован в системе')
-            ],
-            [
-                'phone', 'unique', 'targetClass' => UserEntity::class, 'targetAttribute' => 'phone',
-                'message' => Yii::t('models_error', 'Данный телефон уже зарегистрирован в системе')
             ],
             ['account_status', 'default', 'value' => Yii::$app->settings->get('auth', 'login_withoutVerification')
                 ? UserEntity::STATUS_ACTIVE

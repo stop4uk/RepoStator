@@ -22,7 +22,7 @@ use app\helpers\{
  * @property string $lastname
  * @property string $firstname
  * @property string|null $middlename
- * @property int $phone
+ * @property int|null $phone
  * @property int $account_status
  * @property int $account_cpass_required
  * @property int $group
@@ -100,14 +100,7 @@ final class UserModel extends BaseModel
                 'whenClient' => 'function(attribute, value) { return (value.length == 0 && ' . Json::encode($this->isNewEntity) . '); }'
             ],
 
-            ['phone', 'required', 'message' => Yii::t('models_error', 'Телефон обязателен')],
             ['phone', 'string', 'length' => [10, 10]],
-            [
-                'phone',
-                'unique', 'targetClass' => UserEntity::class,
-                'filter' => $this->getUniqueFilterString(true),
-                'message' => Yii::t('models_error', 'Данный телефон уже зарегистрирован в системе')
-            ],
 
             ['lastname', 'string', 'length' => [2, 48]],
             [['firstname', 'middlename'], 'string', 'length' => [2, 24]],
