@@ -219,4 +219,5 @@ return [
     'Расчет будет произведен за МЕСЯЦ, в который попадает КРАЙНЯЯ выбранная дата периода, с учетом ее как максимальной' => 'The calculation will be made for the MONTH in which the DEADLINE of the selected period falls, taking it into account as the maximum',
     'Изменить' => 'Change',
     'Восстановить' => 'Restore',
+    'Назад' => 'Go back',
 ];
