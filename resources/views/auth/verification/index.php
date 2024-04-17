@@ -41,7 +41,7 @@ use yii\bootstrap5\Html;
                 <?php
                     if ( Yii::$app->settings->get('auth', 'signup_enableMain') ) {
                         echo Yii::t('views' ,'{link} или ', [
-                            'link' => Html::a(Yii::t('views', 'Зарегистрироваться'), ['/signup'])
+                            'link' => Html::a(Yii::t('views', 'Зарегистрироваться'), ['/register'])
                         ]);
                     }
 
