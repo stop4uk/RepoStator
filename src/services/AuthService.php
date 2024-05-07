@@ -91,7 +91,7 @@ final class AuthService extends Component implements ServiceInterface
         ) {
             $transaction->commit();
 
-            $this->trigger(self::EVENT_AFTER_SIGNUP, new AuthEvent([
+            $this->trigger(self::EVENT_AFTER_REGISTER, new AuthEvent([
                 'user' => $newUser,
                 'request' => $request
             ]));
