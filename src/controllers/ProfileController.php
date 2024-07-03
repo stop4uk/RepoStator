@@ -57,7 +57,7 @@ final class ProfileController extends BaseController
     {
         $entity = $this->findEntity();
         $entity->scenario = UserEntity::SCENARIO_UPDATE;
-        
+
         $model = new ProfileModel($entity);
 
         $userEmailChangeForm = new UserEmailChangeForm();
