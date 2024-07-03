@@ -120,7 +120,10 @@ class ReportFormJobEntity extends BaseAR
         $this->job_status = self::STATUS_COMPLETE;
         $this->file = Yii::$app->params['downloadFormFilesAlias'] . DIRECTORY_SEPARATOR . $file;
 
-        if ( CommonHelper::saveAttempt($this, 'Reports.Jobs') ) {
+        if (
+            CommonHelper::saveAttempt($this, 'Reports.Jobs')
+            && Yii::$app->settings->get('report', 'notification_tComplete')
+        ) {
             $this->trigger(self::EVENT_AFTER_COMPLETE, new StatisticEvent([
                 'jobEntity' => $this,
                 'template' => $this->template,
@@ -132,7 +135,10 @@ class ReportFormJobEntity extends BaseAR
     public function setError(): void
     {
         $this->job_status = self::STATUS_ERROR;
-        if ( CommonHelper::saveAttempt($this, 'Reports.Jobs') ) {
+        if (
+            CommonHelper::saveAttempt($this, 'Reports.Jobs')
+            && Yii::$app->settings->get('report', 'notification_tError')
+        ) {
             $this->trigger(self::EVENT_AFTER_ERROR, new StatisticEvent([
                 'jobEntity' => $this,
                 'template' => $this->template,
