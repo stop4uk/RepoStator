@@ -13,6 +13,7 @@ use yii\web\{
 use yii\bootstrap5\ActiveForm;
 
 use app\base\BaseController;
+use app\entities\user\UserEntity;
 use app\models\user\ProfileModel;
 use app\repositories\user\UserRepository;
 use app\services\ProfileService;
@@ -55,6 +56,8 @@ final class ProfileController extends BaseController
     public function actionIndex()
     {
         $entity = $this->findEntity();
+        $entity->scenario = UserEntity::SCENARIO_UPDATE;
+        
         $model = new ProfileModel($entity);
 
         $userEmailChangeForm = new UserEmailChangeForm();
