@@ -10,6 +10,8 @@ use yii\bootstrap5\Modal;
 use yii\bootstrap5\ActiveForm;
 use yii\bootstrap5\Html;
 
+$userCanChangeEmail = Yii::$app->settings->get('auth', 'profile_enableChangeEmail');
+
 $form = ActiveForm::begin([
     'id' => 'profile-form',
     'enableAjaxValidation' => true,
@@ -47,23 +49,24 @@ $form = ActiveForm::begin([
 <?php ActiveForm::end(); ?>
 
     <div class="row mt-2">
-        <div class="col-6">
+        <?php if ( $userCanChangeEmail ): ?>
+            <div class="col-6">
+                <?php
+                    Modal::begin([
+                        'title' => Yii::t('views', 'Смена Email адреса'),
+                        'toggleButton' => [
+                            'label' => Yii::t('views', 'Сенить Email'),
+                            'class' => 'btn btn-dark w-100'
+                        ],
+                    ]);
+                        echo $this->render('changeEmail', ['userEmailChangeForm' => $userEmailChangeForm]);
+                    Modal::end();
+                ?>
+            </div>
+        <?php endif; ?>
+        <div class="col-<?= $userCanChangeEmail ? '6' : '12' ?>">
             <?php
                 Modal::begin([
-                    'title' => Yii::t('views', 'Смена Email адреса'),
-                    'toggleButton' => [
-                        'label' => Yii::t('views', 'Сенить Email'),
-                        'class' => 'btn btn-dark w-100'
-                    ],
-                ]);
-                    echo $this->render('changeEmail', ['userEmailChangeForm' => $userEmailChangeForm]);
-                Modal::end();
-            ?>
-        </div>
-        <div class="col-6">
-            <?php
-                Modal::begin([
-                    #'size' => Modal::SIZE_LARGE,
                     'title' => Yii::t('views', 'Обновление пароля'),
                     'toggleButton' => [
                         'label' => Yii::t('views', 'Сменить пароль'),

@@ -2,11 +2,13 @@
 
 namespace app\services;
 
-use app\base\BaseAR;
 use Yii;
 use yii\base\Exception;
 
-use app\base\BaseService;
+use app\base\{
+    BaseService,
+    BaseAR
+};
 use app\interfaces\{
     BaseARInterface,
     ModelInterface
@@ -50,10 +52,20 @@ final class UserService extends BaseService
 
                 $oldAttribtues['sName'] = $model->getEntity()->shortName;
                 $oldAttribtues['account_key'] = $model->getEntity()->account_key;
-                $this->trigger($isNewEntity ? self::EVENT_AFTER_ADD : self::EVENT_AFTER_CHANGE, new UserEvent([
-                    'user' => $model->attributes,
-                    'userEntity' => $oldAttribtues
-                ]));
+
+                if ( Yii::$app->settings->get('auth', 'users_notification_add') && $isNewEntity ) {
+                    $this->trigger(self::EVENT_AFTER_ADD, new UserEvent([
+                        'user' => $model->attributes,
+                        'userEntity' => $oldAttribtues
+                    ]));
+                }
+
+                if ( Yii::$app->settings->get('auth', 'users_notification_change') && !$isNewEntity ) {
+                    $this->trigger(self::EVENT_AFTER_CHANGE, new UserEvent([
+                        'user' => $model->attributes,
+                        'userEntity' => $oldAttribtues
+                    ]));
+                }
 
                 return true;
             }
@@ -75,9 +87,12 @@ final class UserService extends BaseService
         if ( $this->beforeDelete($entity) && $entity->softDelete() ) {
             $transaction->commit();
 
-            $this->trigger(self::EVENT_AFTER_DELETE, new UserEvent([
-                'userEntity' => $entity
-            ]));
+            if ( Yii::$app->settings->get('auth', 'users_notification_delete') ) {
+                $this->trigger(self::EVENT_AFTER_DELETE, new UserEvent([
+                    'userEntity' => $entity
+                ]));
+            }
+
             return true;
         }
 
@@ -127,7 +142,6 @@ final class UserService extends BaseService
                 $model->getEntity()->group->updated_uid = Yii::$app->getUser()->id;
                 $model->getEntity()->group->softDelete();
             }
-
 
             if ( $model->group != $model->hasGroup ) {
                 $relationGroup = new UserGroupEntity();

@@ -81,7 +81,9 @@ use yii\bootstrap5\Html;
                         'link' => Html::a(Yii::t('views', 'Авторизоваться'), ['/login'])
                     ]);
 
-                    echo Html::a(Yii::t('views', 'Восстановить пароль'), ['/recovery']);
+                    if ( Yii::$app->settings->get('auth', 'login_recovery') ) {
+                        echo Html::a(Yii::t('views', 'Восстановить пароль'), ['/recovery']);
+                    }
                 ?>
             </p>
         </div>
