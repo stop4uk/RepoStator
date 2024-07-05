@@ -35,9 +35,3 @@ $this->params['breadcrumbs'] = [
         </div>
     </div>
 </div>
-
-<?php
-
-$this->registerJs(<<<JS
-    $('.dd').nestable('collapseAll');
-JS);
