@@ -14,7 +14,6 @@ $this->params['breadcrumbs'] = [
     Yii::t('views', 'Админпанель'),
     ['label' => Yii::t('views', 'Группы'), 'url' => Url::to(['/admin/groups'])],
 ];
-$groups = Yii::$app->getUser()->getIdentity()->groups;
 
 ?>
 <div class="row">
