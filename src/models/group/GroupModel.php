@@ -55,7 +55,7 @@ class GroupModel extends BaseModel
     public function rules(): array
     {
         return [
-            ['code', 'string', 'length' => [2,6], 'message' => Yii::t('models_error', 'Длина от 2 до 6 символов')],
+            ['code', 'string', 'length' => [1,10], 'message' => Yii::t('models_error', 'Длина от 2 до 6 символов')],
             ['name', 'required', 'message' => Yii::t('models_error', 'Название обязательно')],
             ['name', 'string', 'length' => [4,64], 'message' => Yii::t('models_error', 'Длина от 4 до 64 символов')],
             [
