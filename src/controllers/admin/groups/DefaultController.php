@@ -3,7 +3,10 @@
 namespace app\controllers\admin\groups;
 
 use yii\filters\AccessControl;
-use yii\helpers\Url;
+use yii\helpers\{
+    ArrayHelper,
+    Url
+};
 use klisl\nestable\NodeMoveAction;
 
 use app\base\BaseController;
@@ -115,10 +118,11 @@ final class DefaultController extends BaseController
 
     public function actionMap(): string
     {
+        $groups = ArrayHelper::map(GroupEntity::find()->all(), 'id', 'name');
         $query = GroupNestedEntity::find()
             ->with(['group'])
             ->where(['depth' => 0]);
 
-        return $this->render('map', compact('query'));
+        return $this->render('map', compact('query', 'groups'));
     }
 }
