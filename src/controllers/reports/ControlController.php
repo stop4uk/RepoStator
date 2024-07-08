@@ -43,7 +43,7 @@ final class ControlController extends BaseController
                 'class' => AccessControl::class,
                 'rules' => [
                     [
-                        'actions' => ['index'],
+                        'actions' => ['index', 'getperiods'],
                         'allow' => true,
                         'roles' => [
                             'data.list',
@@ -275,6 +275,8 @@ final class ControlController extends BaseController
     public function actionGetperiods($report_id): array
     {
         $this->response->format = Response::FORMAT_JSON;
+
+        $dateFormat = str_replace('php:', '', Yii::$app->settings->get('system', 'app_language_dateTimeMin'));
         $periods = [];
         $report = ReportEntity::find()
             ->where(['id' => $report_id])
@@ -290,7 +292,7 @@ final class ControlController extends BaseController
 
                 while( $value = current($items) ) {
                     $periods[] = date(
-                        format: Yii::$app->settings->get('system', 'app_language_dateTimeMin'),
+                        format: $dateFormat,
                         timestamp: $value['start']
                     );
                     prev($items);
