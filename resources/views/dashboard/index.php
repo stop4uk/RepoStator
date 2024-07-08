@@ -20,14 +20,14 @@ Pjax::begin(['id' => 'dashBoard', 'enablePushState' => false, 'clientOptions' =>
 
 ?>
 
-<div class="row">
-    <div class="col-12">
-        <div class="card">
-            <div class="card-header">
-                <?= Yii::t('views', 'Напоминания'); ?>
-            </div>
-            <div class="card-body">
-                <?php
+    <div class="row">
+        <div class="col-12">
+            <div class="card">
+                <div class="card-header">
+                    <?= Yii::t('views', 'Напоминания'); ?>
+                </div>
+                <div class="card-body">
+                    <?php
                     if ( !$needSentData || !Yii::$app->getUser()->can('data.send') ) {
                         echo Html::tag(
                             name: 'h4',
@@ -63,49 +63,11 @@ Pjax::begin(['id' => 'dashBoard', 'enablePushState' => false, 'clientOptions' =>
                         }
                         echo Html::endTag('div');
                     }
-                ?>
+                    ?>
+                </div>
             </div>
         </div>
     </div>
-</div>
-
-<div class="row">
-    <div class="col-12">
-        <div class="card">
-            <div class="card-header">
-                <?= Yii::t('views', 'Статистика передачи сведений'); ?>
-            </div>
-            <div class="card-body">
-                <?php
-                    if ( !$sentData ) {
-                        echo Html::tag(
-                            name: 'h4',
-                            content: Yii::t('views', 'Вы еще не передавали сведения за какой-либо отчет'),
-                            options: ['class' => 'text-muted text-center']
-                        );
-                    } else {
-                        echo Html::beginTag('div', ['class' => 'row']);
-                            foreach ($sentData as $row) {
-                                if ( isset($reports[$row['report_id']]) ) {
-                                    echo Html::beginTag('div', ['class' => 'col-auto border border-primary rounded p-2 m-2']);
-                                        echo Html::tag(
-                                            name: 'span',
-                                            content: Yii::t('views', 'Отчет <strong>{name}</strong>: {count} сведений', [
-                                                'name' => $reports[$row['report_id']],
-                                                'count' => $row['id']
-                                            ]),
-                                        );
-                                    echo Html::endTag('div');
-                                }
-                            }
-                        echo Html::endTag('div');
-                    }
-                ?>
-            </div>
-        </div>
-    </div>
-</div>
-
 
 <?php if ( Yii::$app->getUser()->can('statistic') ): ?>
     <div class="row">
@@ -170,7 +132,7 @@ Pjax::begin(['id' => 'dashBoard', 'enablePushState' => false, 'clientOptions' =>
                             ],
                         ],
                     ]); ?>
-                    </div>
+                </div>
             </div>
         </div>
     </div>
