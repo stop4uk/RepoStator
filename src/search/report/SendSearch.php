@@ -4,7 +4,6 @@ namespace app\search\report;
 
 use Yii;
 use yii\base\Model;
-use yii\db\Query;
 use yii\data\ActiveDataProvider;
 use yii\helpers\{
     HtmlPurifier,
@@ -66,19 +65,21 @@ final class SendSearch extends Model
     public function search($params): ActiveDataProvider
     {
         $groups = $this->groupsCanSent;
+        $subQueryForMaxRecordsIds = ReportDataEntity::find()
+            ->select('MAX(id) as id')
+            ->andFilterWhere(['in', 'group_id', array_keys($groups)])
+            ->orderBy(['id DESC', 'report_datetime DESC'])
+            ->groupBy(['report_id', 'group_id'])
+            ->limit(1)
+            ->asArray();
+
         $query = ReportRepository::getAllow(
             groups: $this->groups,
             asQuery: true,
         )->with([
-            'data' => function($query) use ($groups) {
-                $subQueryForMaxIds = (new Query())
-                    ->select('MAX(id) as id')
-                    ->from(ReportDataEntity::tableName())
-                    ->andFilterWhere(['in', 'group_id', array_keys($groups)])
-                    ->groupBy(['report_id', 'group_id']);
-
+            'data' => function($query) use ($groups, $subQueryForMaxRecordsIds) {
                 $query->andFilterWhere(['in', 'group_id', array_keys($groups)])
-                    ->andFilterWhere(['in', 'id', $subQueryForMaxIds])
+                    ->andFilterWhere(['in', 'id', ArrayHelper::map($subQueryForMaxRecordsIds, 'id', 'id')])
                     ->orderBy('report_datetime DESC');
             }
         ]);
