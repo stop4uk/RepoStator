@@ -20,8 +20,9 @@ final class AuthEventDispatcher
     public static function login(AuthEvent $event): void
     {
         $session = new UserSessionEntity();
+        $session->save();
 
-        if ( $session->save() && Yii::$app->settings->get('auth', 'login_sendEmailAfter') ) {
+        if ( Yii::$app->settings->get('auth', 'login_sendEmailAfter') ) {
             Yii::$app->queue->push(new SendEmailJob([
                 'template' => 'auth/signin',
                 'email' => $event->user->email,
