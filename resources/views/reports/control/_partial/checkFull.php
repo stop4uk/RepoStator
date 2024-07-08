@@ -144,7 +144,6 @@ $this->registerJs(<<< JS
                     }
                 },
                 success: function (data) {
-                    console.log(data.items);
                     if ( data.items ) {
                         $.each(data.items, function(index, value) {
                             let appendOption = new Option(value, value, false, false);
