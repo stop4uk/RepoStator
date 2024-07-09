@@ -11,6 +11,8 @@ use yii\helpers\{
 use yii\bootstrap5\Html;
 use app\helpers\CommonHelper;
 
+$blockedRecord = (bool)!$model->record_status;
+
 ?>
 
 <div class="card mb-2">
@@ -18,18 +20,20 @@ use app\helpers\CommonHelper;
         <div class="row">
             <div class="col-8">
                 <div class="col-12">
-                    <?= Html::tag('span', $model->name, ['class' => 'h5']) . ' ' . Html::tag('span', "#{$model->record}", ['class' => 'text-muted small']); ?>
+                    <?= Html::tag('span', $model->name, ['class' => 'h5 ' . ($blockedRecord ? 'text-muted' : '')]) . ' ' . Html::tag('span', "#{$model->record}", ['class' => 'text-muted small']); ?>
                 </div>
                 <div class="col-12 mt-1 text-muted small">
                     <?php
-                        preg_match_all('/\"(.*?)\"/', $model->rule, $constants);
-                        $countRuleMessage = Yii::t('views', '{n, plural, =1{одна константа} one{# константа} few{# константы} many{# констант} other{# констант}}', ['n' => count($constants[1] ?: 0)]);
+                        if ( !$blockedRecord ) {
+                            preg_match_all('/\"(.*?)\"/', $model->rule, $constants);
+                            $countRuleMessage = Yii::t('views', '{n, plural, =1{одна константа} one{# константа} few{# константы} many{# констант} other{# констант}}', ['n' => count($constants[1] ?: 0)]);
 
-                        echo Html::tag('span', $countRuleMessage, ['class' => 'badge bg-primary me-1']);
+                            echo Html::tag('span', $countRuleMessage, ['class' => 'badge bg-primary me-1']);
 
-                        if ( $model->description ) {
-                            $description = strip_tags(Json::decode($model->description));
-                            echo strlen(strip_tags($description)) > 50 ? mb_substr(strip_tags($description), 0, 50).' ...' : strip_tags($description);
+                            if ( $model->description ) {
+                                $description = strip_tags(Json::decode($model->description));
+                                echo strlen(strip_tags($description)) > 50 ? mb_substr(strip_tags($description), 0, 50).' ...' : strip_tags($description);
+                            }
                         }
                     ?>
                 </div>
@@ -81,17 +85,23 @@ use app\helpers\CommonHelper;
                         }
 
                         if (
-                            Yii::$app->getUser()->can('constantRule.edit.main', $ruleArray)
-                            || Yii::$app->getUser()->can('constantRule.edit.group', $ruleArray)
-                            || Yii::$app->getUser()->can('constantRule.edit.all', $ruleArray)
+                            !$blockedRecord
+                            && (
+                                Yii::$app->getUser()->can('constantRule.edit.main', $ruleArray)
+                                || Yii::$app->getUser()->can('constantRule.edit.group', $ruleArray)
+                                || Yii::$app->getUser()->can('constantRule.edit.all', $ruleArray)
+                            )
                         ) {
                             echo  Html::a('<i class="bi bi-pen text-dark me-2"></i>', Url::to(['edit', 'id' => $model->id]), ['data-pjax' => 0]);
                         }
 
                         if (
-                            Yii::$app->getUser()->can('constantRule.delete.main', $ruleArray)
-                            || Yii::$app->getUser()->can('constantRule.delete.group', $ruleArray)
-                            || Yii::$app->getUser()->can('constantRule.delete.all', $ruleArray)
+                            !$blockedRecord
+                            && (
+                                Yii::$app->getUser()->can('constantRule.delete.main', $ruleArray)
+                                || Yii::$app->getUser()->can('constantRule.delete.group', $ruleArray)
+                                || Yii::$app->getUser()->can('constantRule.delete.all', $ruleArray)
+                            )
                         ) {
                             echo Html::tag('span', '<i class="bi bi-trash text-dark"></i>', [
                                 'role' => 'button',

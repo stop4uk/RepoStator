@@ -9,6 +9,8 @@ use yii\helpers\Json;
 use yii\bootstrap5\Html;
 use app\helpers\CommonHelper;
 
+$blockedRecord = (bool)!$model->record_status;
+
 ?>
 
 <div class="card mb-2">
@@ -16,23 +18,25 @@ use app\helpers\CommonHelper;
         <div class="row">
             <div class="col-8">
                 <div class="col-12">
-                    <?= Html::tag('span', $model->name, ['class' => 'h5']) . ' ' . Html::tag('span', "#{$model->report->name}", ['class' => 'text-muted small']); ?>
+                    <?= Html::tag('span', $model->name, ['class' => 'h5 ' . ($blockedRecord ? 'text-muted' : '')]) . ' ' . Html::tag('span', "#{$model->report->name}", ['class' => 'text-muted small']);?>
                 </div>
                 <div class="col-12 mt-1 text-muted small">
                     <?php
-                        $dataContent = Json::decode($model->content);
-                        $counts = ['groups' => count($dataContent['groups']), 'constants' => 0];
+                        if ( !$blockedRecord ) {
+                            $dataContent = Json::decode($model->content);
+                            $counts = ['groups' => count($dataContent['groups']), 'constants' => 0];
 
-                        foreach ($dataContent['constants'] as $groupItems) {
-                            $counts['constants'] += count($groupItems);
+                            foreach ($dataContent['constants'] as $groupItems) {
+                                $counts['constants'] += count($groupItems);
+                            }
+
+                            $messages = [
+                                Yii::t('views', '{n, plural, =1{1 раздел} one{# раздел} few{# раздела} many{# разделов} other{# разделов}}', ['n' => $counts['groups']]),
+                                Yii::t('views', '{n, plural, =1{1 показатель} one{# показатель} few{# показателя} many{# показателей} other{# показателей}}', ['n' => $counts['constants']]),
+                            ];
+
+                            echo Html::tag('span', implode(' # ', $messages), ['class' => 'badge bg-primary']);
                         }
-
-                        $messages = [
-                            Yii::t('views', '{n, plural, =1{1 раздел} one{# раздел} few{# раздела} many{# разделов} other{# разделов}}', ['n' => $counts['groups']]),
-                            Yii::t('views', '{n, plural, =1{1 показатель} one{# показатель} few{# показателя} many{# показателей} other{# показателей}}', ['n' => $counts['constants']]),
-                        ];
-
-                        echo Html::tag('span', implode(' # ', $messages), ['class' => 'badge bg-primary']);
                     ?>
                 </div>
             </div>
@@ -83,17 +87,23 @@ use app\helpers\CommonHelper;
                         }
 
                         if (
-                            Yii::$app->getUser()->can('structure.edit.main', $ruleArray)
-                            || Yii::$app->getUser()->can('structure.edit.group', $ruleArray)
-                            || Yii::$app->getUser()->can('structure.edit.all', $ruleArray)
+                            !$blockedRecord
+                            && (
+                                Yii::$app->getUser()->can('structure.edit.main', $ruleArray)
+                                || Yii::$app->getUser()->can('structure.edit.group', $ruleArray)
+                                || Yii::$app->getUser()->can('structure.edit.all', $ruleArray)
+                            )
                         ) {
                             echo  Html::a('<i class="bi bi-pen text-dark me-2"></i>', Url::to(['edit', 'id' => $model->id]), ['data-pjax' => 0]);
                         }
 
                         if (
-                            Yii::$app->getUser()->can('structure.delete.main', $ruleArray)
-                            || Yii::$app->getUser()->can('structure.delete.group', $ruleArray)
-                            || Yii::$app->getUser()->can('structure.delete.all', $ruleArray)
+                            !$blockedRecord
+                            && (
+                                Yii::$app->getUser()->can('structure.delete.main', $ruleArray)
+                                || Yii::$app->getUser()->can('structure.delete.group', $ruleArray)
+                                || Yii::$app->getUser()->can('structure.delete.all', $ruleArray)
+                            )
                         ) {
                             echo Html::tag('span', '<i class="bi bi-trash text-dark"></i>', [
                                 'role' => 'button',

@@ -8,6 +8,8 @@ use yii\helpers\Url;
 use yii\bootstrap5\Html;
 use app\helpers\CommonHelper;
 
+$blockedRecord = (bool)!$model->record_status;
+
 ?>
 
 <div class="card mb-2">
@@ -15,11 +17,17 @@ use app\helpers\CommonHelper;
         <div class="row">
             <div class="col-8">
                 <div class="col-12">
-                    <?= Html::tag('span', $model->name, ['class' => 'h5']) . ' ' . Html::tag('span', "#{$model->record}", ['class' => 'text-muted small']); ?>
+                    <?= Html::tag('span', $model->name, ['class' => 'h5 ' . ($blockedRecord ? 'text-muted' : '')]) . ' ' . Html::tag('span', "#{$model->record}", ['class' => 'text-muted small']); ?>
                 </div>
                 <div class="col-12 mt-1 text-muted small">
                     <?php if ( $model->name_full ) {
-                        echo strlen(strip_tags($model->name_full)) > 50 ? mb_substr(strip_tags($model->name_full), 0, 50).' ...' : strip_tags($model->name_full);
+                        echo Html::tag(
+                            'span',
+                            strlen(strip_tags($model->name_full)) > 50 ? mb_substr(strip_tags($model->name_full), 0, 50).' ...' : strip_tags($model->name_full),
+                            [
+                                'class' => ($blockedRecord ? 'text-muted' : '')
+                            ]
+                        );
                     } else echo '&nbsp;' ?>
                 </div>
             </div>
@@ -70,17 +78,23 @@ use app\helpers\CommonHelper;
                         }
 
                         if (
-                            Yii::$app->getUser()->can('constant.edit.main', $ruleArray)
-                            || Yii::$app->getUser()->can('constant.edit.group', $ruleArray)
-                            || Yii::$app->getUser()->can('constant.edit.all', $ruleArray)
+                            !$blockedRecord
+                            && (
+                                Yii::$app->getUser()->can('constant.edit.main', $ruleArray)
+                                || Yii::$app->getUser()->can('constant.edit.group', $ruleArray)
+                                || Yii::$app->getUser()->can('constant.edit.all', $ruleArray)
+                            )
                         ) {
                             echo  Html::a('<i class="bi bi-pen text-dark me-2"></i>', Url::to(['edit', 'id' => $model->id]), ['data-pjax' => 0]);
                         }
 
                         if (
-                            Yii::$app->getUser()->can('constant.delete.main', $ruleArray)
-                            || Yii::$app->getUser()->can('constant.delete.group', $ruleArray)
-                            || Yii::$app->getUser()->can('constant.delete.all', $ruleArray)
+                            !$blockedRecord
+                            && (
+                                Yii::$app->getUser()->can('constant.delete.main', $ruleArray)
+                                || Yii::$app->getUser()->can('constant.delete.group', $ruleArray)
+                                || Yii::$app->getUser()->can('constant.delete.all', $ruleArray)
+                            )
                         ) {
                             echo Html::tag('span', '<i class="bi bi-trash text-dark"></i>', [
                                 'role' => 'button',

@@ -10,6 +10,8 @@ use yii\bootstrap5\Html;
 use app\entities\report\ReportFormTemplateEntity;
 use app\helpers\CommonHelper;
 
+$blockedRecord = (bool)!$model->record_status;
+
 ?>
 
 <div class="card mb-2">
@@ -17,7 +19,7 @@ use app\helpers\CommonHelper;
         <div class="row">
             <div class="col-6">
                 <div class="col-12">
-                    <?= Html::tag('span', $model->name, ['class' => 'h5']) . ' ' . Html::tag('span', "#{$model->report->name}", ['class' => 'text-muted small']); ?>
+                    <?= Html::tag('span', $model->name, ['class' => 'h5 ' . ($blockedRecord ? 'text-muted' : '')]) . ' ' . Html::tag('span', "#{$model->report->name}", ['class' => 'text-muted small']); ?>
                 </div>
             </div>
             <div class="col-4 d-flex align-items-center justify-content-center">
@@ -89,17 +91,23 @@ use app\helpers\CommonHelper;
                         }
 
                         if (
-                            Yii::$app->getUser()->can('template.edit.main', $ruleArray)
-                            || Yii::$app->getUser()->can('template.edit.group', $ruleArray)
-                            || Yii::$app->getUser()->can('template.edit.all', $ruleArray)
+                            !$blockedRecord
+                            && (
+                                Yii::$app->getUser()->can('template.edit.main', $ruleArray)
+                                || Yii::$app->getUser()->can('template.edit.group', $ruleArray)
+                                || Yii::$app->getUser()->can('template.edit.all', $ruleArray)
+                            )
                         ) {
                             echo  Html::a('<i class="bi bi-pen text-dark me-2"></i>', Url::to(['edit', 'id' => $model->id]), ['data-pjax' => 0]);
                         }
 
                         if (
-                            Yii::$app->getUser()->can('template.delete.main', $ruleArray)
-                            || Yii::$app->getUser()->can('template.delete.group', $ruleArray)
-                            || Yii::$app->getUser()->can('template.delete.all', $ruleArray)
+                            !$blockedRecord
+                            && (
+                                Yii::$app->getUser()->can('template.delete.main', $ruleArray)
+                                || Yii::$app->getUser()->can('template.delete.group', $ruleArray)
+                                || Yii::$app->getUser()->can('template.delete.all', $ruleArray)
+                            )
                         ) {
                             echo Html::tag('span', '<i class="bi bi-trash text-dark"></i>', [
                                 'role' => 'button',
