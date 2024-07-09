@@ -64,25 +64,10 @@ final class SendSearch extends Model
 
     public function search($params): ActiveDataProvider
     {
-        $groups = $this->groupsCanSent;
-        $subQueryForMaxRecordsIds = ReportDataEntity::find()
-            ->select('MAX(id) as id')
-            ->andFilterWhere(['in', 'group_id', array_keys($groups)])
-            ->orderBy(['id DESC', 'report_datetime DESC'])
-            ->groupBy(['report_id', 'group_id'])
-            ->limit(1)
-            ->asArray();
-
         $query = ReportRepository::getAllow(
             groups: $this->groups,
             asQuery: true,
-        )->with([
-            'data' => function($query) use ($groups, $subQueryForMaxRecordsIds) {
-                $query->andFilterWhere(['in', 'group_id', array_keys($groups)])
-                    ->andFilterWhere(['in', 'id', ArrayHelper::map($subQueryForMaxRecordsIds, 'id', 'id')])
-                    ->orderBy('report_datetime DESC');
-            }
-        ]);
+        );
 
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
@@ -112,45 +97,27 @@ final class SendSearch extends Model
 
         foreach ($models as $index => $model) {
             $nowTime = time();
-            $sentReports = ArrayHelper::map($model->data, 'group_id', 'report_datetime');
-            $model->timePeriod = DataHelper::getTimePeriods($model, $nowTime, true);
+            $groupsOnly = $model->groups_only ? CommonHelper::explodeField($model->groups_only) : [];
 
-            if ( !$sentReports ) {
+            $model->timePeriod = DataHelper::getTimePeriods($model, $nowTime, true);
+            $model->canAddedFor = [];
+            $canAddedNow = ($nowTime >= $model->timePeriod->start && $nowTime <= $model->timePeriod->end);
+
+            if ( $model->timePeriod ) {
+                $dataQuery = ReportDataEntity::find()
+                    ->select('group_id')
+                    ->where(['report_id' => $model->id])
+                    ->andWhere(['between', 'report_datetime', $model->timePeriod->start, $model->timePeriod->end])
+                    ->groupBy(['group_id'])
+                    ->asArray();
+
+                $sentData = ArrayHelper::map($dataQuery->all(), 'group_id', 'group_id');
                 foreach ($this->groupsCanSent as $groupId => $groupName) {
                     if (
-                        !$model->groups_only ||
-                        in_array($groupId, CommonHelper::explodeField($model->groups_only))
+                        ( !$groupsOnly || in_array($groupId, $groupsOnly) )
+                        && $canAddedNow
                     ) {
-                        if (
-                            !$model->timePeriod ||
-                            ( $nowTime >= $model->timePeriod->start && $nowTime <= $model->timePeriod->end )
-                        ) {
-                            $model->canAddedFor[] = [
-                                'groupId' => $groupId,
-                                'groupName' => $groupName,
-                                'reportId' => $model->id,
-                            ];
-                        }
-                    }
-                }
-
-                if ( !$model->canAddedFor ) {
-                    unset($models[$index]);
-                }
-
-                continue;
-            }
-
-            foreach ($this->groupsCanSent as $groupId => $groupName) {
-                if (
-                    !$model->groups_only ||
-                    in_array($groupId, CommonHelper::explodeField($model->groups_only))
-                ) {
-                    if (
-                        !$model->timePeriod ||
-                        ($nowTime >= $model->timePeriod->start && $nowTime <= $model->timePeriod->end)
-                    ) {
-                        if ( !in_array($groupId, array_keys($sentReports)) ) {
+                        if ( $sentData && !in_array($groupId, $sentData) ) {
                             $model->canAddedFor[] = [
                                 'groupId' => $groupId,
                                 'groupName' => $groupName,
@@ -160,18 +127,19 @@ final class SendSearch extends Model
                             continue;
                         }
 
-                        if (
-                            !$model->timePeriod ||
-                            !($sentReports[$groupId] >= $model->timePeriod->start && $sentReports[$groupId] <= $model->timePeriod->end)
-                        ) {
-                            $model->canAddedFor[] = [
-                                'groupId' => $groupId,
-                                'groupName' => $groupName,
-                                'reportId' => $model->id,
-                            ];
-                        }
+                        $model->canAddedFor[] = [
+                            'groupId' => $groupId,
+                            'groupName' => $groupName,
+                            'reportId' => $model->id,
+                        ];
                     }
                 }
+            } else {
+                $model->canAddedFor[] = [
+                    'groupId' => $groupId,
+                    'groupName' => $groupName,
+                    'reportId' => $model->id,
+                ];
             }
 
             if ( !$model->canAddedFor ) {
