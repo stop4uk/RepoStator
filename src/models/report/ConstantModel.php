@@ -113,6 +113,9 @@ final class ConstantModel extends BaseModel
             ['reports_only', 'each', 'rule' => ['in', 'range' => array_keys($this->reports), 'message' => Yii::t('models_error', 'Один из указанных отчетов Вам недоступен')]],
 
             [['name', 'name_full', 'record', 'description', 'union_rules'], 'filter', 'filter' => fn($value) => HtmlPurifier::process($value)],
+
+            ['union_rules', 'match', 'pattern' => '~^(\p{L}|\p{N}|\p{Zs}|\p{Sm}|[.])+$~u', 'message' => Yii::t('models_error', 'Допускается указание букв, цифр, пробела, точки и математических символов')],
+            ['union_rules', 'match', 'pattern' => '/=/', 'message' => Yii::t('models_error', 'Правило объединения в обязательном порядке должно содержать разделитель в виде символа "="')],
         ];
     }
 

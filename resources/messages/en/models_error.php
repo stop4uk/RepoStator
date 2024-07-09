@@ -70,4 +70,6 @@ return [
     'Одно из значений не может быть выбрано и использовано' => 'One of the values cannot be selected and used',
     'Email обязателен' => 'Email is required',
     'Телефон обязателен' => 'Phone is required',
+    'Допускается указание букв, цифр, пробела, точки и математических символов' => 'It is allowed to specify letters, numbers, spaces, dots and mathematical symbols',
+    'Правило объединения в обязательном порядке должно содержать разделитель в виде символа "="' => 'The join rule must necessarily contain a separator in the form of a "=" character',
 ];
