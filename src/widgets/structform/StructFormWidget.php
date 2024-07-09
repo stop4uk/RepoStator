@@ -73,8 +73,12 @@ class StructFormWidget extends Widget
         if ( $this->model->structure->use_union_rules ) {
             foreach ($data as $item) {
                 if ( isset($this->constants[$item]['union_rules']) && $this->constants[$item]['union_rules'] ) {
-                    $rules = explode('=', $this->constants[$item]['union_rules']);
-                    $results[$rules[0]][$rules[1]][] = $item;
+                    if ( str_contains('=', $this->constants[$item]['union_rules']) ) {
+                        $rules = explode('=', $this->constants[$item]['union_rules']);
+                        $results[$rules[0]][$rules[1]][] = $item;
+                    } else {
+                        $results['###'][] = $item;
+                    }
                 } else {
                     $results['###'][] = $item;
                 }
