@@ -91,11 +91,15 @@ final class ConstantruleController extends BaseController
                             $recordInformation = ConstantruleRepository::get($this->request->get('id'));
 
                             return [
-                                'created_uid' => $recordInformation->created_uid,
-                                'created_gid' => $recordInformation->created_gid,
-                                'record_status' => $recordInformation->record_status
+                                'created_uid' => $recordInformation?->created_uid,
+                                'created_gid' => $recordInformation?->created_gid,
+                                'record_status' => $recordInformation?->record_status
                             ];
                         },
+                        'matchCallback' => function($rule, $action) {
+                            $recordInformation = ConstantruleRepository::get($this->request->get('id'));
+                            return ($recordInformation && $recordInformation->record_status);
+                        }
                     ],
                     [
                         'actions' => ['delete'],
@@ -109,11 +113,15 @@ final class ConstantruleController extends BaseController
                             $recordInformation = ConstantruleRepository::get($this->request->get('id'));
 
                             return [
-                                'created_uid' => $recordInformation->created_uid,
-                                'created_gid' => $recordInformation->created_gid,
-                                'record_status' => $recordInformation->record_status
+                                'created_uid' => $recordInformation?->created_uid,
+                                'created_gid' => $recordInformation?->created_gid,
+                                'record_status' => $recordInformation?->record_status
                             ];
                         },
+                        'matchCallback' => function($rule, $action) {
+                            $recordInformation = ConstantruleRepository::get($this->request->get('id'));
+                            return ($recordInformation && $recordInformation->record_status);
+                        }
                     ],
                     [
                         'actions' => ['enable'],

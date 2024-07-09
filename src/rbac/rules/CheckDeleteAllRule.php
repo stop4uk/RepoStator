@@ -18,8 +18,9 @@ final class CheckDeleteAllRule extends Rule
         if (
             !isset($params['record_status'])
             || !isset($params['created_gid'])
+            || !$params['created_gid']
+            || !array_key_exists($params['created_gid'], Yii::$app->getUser()->getIdentity()->groups)
             || $params['record_status']
-            || !in_array($params['created_gid'],  array_keys(Yii::$app->getUser()->getIdentity()->groups))
         ) {
             return false;
         }

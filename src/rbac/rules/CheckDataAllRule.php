@@ -17,7 +17,8 @@ final class CheckDataAllRule extends Rule
     {
         if (
             !isset($params['group'])
-            || !in_array($params['group'],  array_keys(Yii::$app->getUser()->getIdentity()->groups))
+            || !$params['group']
+            || !array_key_exists($params['group'], Yii::$app->getUser()->getIdentity()->groups)
         ) {
             return false;
         }

@@ -21,6 +21,7 @@ final class CheckUserAllRule extends Rule
             !isset($params['record_status'])
             || !isset($params['id'])
             || !$params['record_status']
+            || !$params['id']
         ) {
             return false;
         }

@@ -19,6 +19,7 @@ final class CheckGroupRule extends Rule
             !isset($params['record_status'])
             || !isset($params['created_gid'])
             || !$params['record_status']
+            || !$params['created_gid']
             || $params['created_gid'] != Yii::$app->getUser()->getIdentity()->group
         ) {
             return false;

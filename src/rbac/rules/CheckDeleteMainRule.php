@@ -17,7 +17,8 @@ final class CheckDeleteMainRule extends Rule
     {
         if (
             !isset($params['record_status'])
-            || !isset($params['created_gid'])
+            || !isset($params['created_uid'])
+            || !$params['created_uid']
             || $params['record_status']
             || $params['created_uid'] != Yii::$app->getUser()->id
         ) {

@@ -20,6 +20,7 @@ final class CheckUserDeleteAllRule extends Rule
         if (
             !isset($params['record_status'])
             || !isset($params['id'])
+            || !$params['id']
             || $params['record_status']
         ) {
             return false;
