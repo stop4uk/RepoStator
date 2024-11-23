@@ -4,14 +4,16 @@ namespace app\forms\user;
 
 use Yii;
 use yii\base\Model;
-use yii\helpers\HtmlPurifier;
 
 use app\base\BaseAR;
 use app\entities\user\{
     UserEntity,
     UserEmailchangeEntity
 };
-use app\helpers\user\UserHelper;
+use app\helpers\{
+    HtmlPurifier,
+    user\UserHelper
+};
 
 /**
  * @property string $email

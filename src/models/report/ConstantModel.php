@@ -3,10 +3,7 @@
 namespace app\models\report;
 
 use Yii;
-use yii\helpers\{
-    Json,
-    HtmlPurifier
-};
+use yii\helpers\Json;
 
 use app\base\BaseModel;
 use app\entities\report\{
@@ -17,6 +14,7 @@ use app\repositories\report\ReportRepository;
 use app\helpers\{
     CommonHelper,
     RbacHelper,
+    HtmlPurifier,
     report\ConstantHelper
 };
 

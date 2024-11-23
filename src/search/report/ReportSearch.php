@@ -4,12 +4,12 @@ namespace app\search\report;
 
 use yii\base\Model;
 use yii\data\ActiveDataProvider;
-use yii\helpers\HtmlPurifier;
 
 use app\repositories\report\ReportRepository;
 use app\helpers\{
+    RbacHelper,
+    HtmlPurifier,
     report\ReportHelper,
-    RbacHelper
 };
 use app\traits\CleanDataProviderByRoleTrait;
 

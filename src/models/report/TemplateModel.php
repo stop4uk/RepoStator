@@ -4,10 +4,7 @@ namespace app\models\report;
 
 use Yii;
 use yii\web\UploadedFile;
-use yii\helpers\{
-    ArrayHelper,
-    HtmlPurifier,
-};
+use yii\helpers\ArrayHelper;
 
 use app\base\BaseModel;
 use app\entities\report\ReportFormTemplateEntity;
@@ -20,6 +17,7 @@ use app\repositories\{
 use app\helpers\{
     CommonHelper,
     RbacHelper,
+    HtmlPurifier,
     report\TemplateHelper
 };
 

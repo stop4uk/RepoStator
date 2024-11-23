@@ -7,10 +7,12 @@ use yii\behaviors\{
     BlameableBehavior,
     TimestampBehavior
 };
-use yii\helpers\HtmlPurifier;
 
 use app\base\BaseAR;
-use app\helpers\user\UserSessionHelper;
+use app\helpers\{
+    HtmlPurifier,
+    user\UserSessionHelper
+};
 
 /**
  * @property int $user_id

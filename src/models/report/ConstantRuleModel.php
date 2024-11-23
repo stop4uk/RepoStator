@@ -2,12 +2,8 @@
 
 namespace app\models\report;
 
-use app\interfaces\BaseARInterface;
 use Yii;
-use yii\helpers\{
-    Json,
-    HtmlPurifier
-};
+use yii\helpers\Json;
 
 use app\base\BaseModel;
 use app\entities\report\{
@@ -22,6 +18,7 @@ use app\repositories\{
 use app\helpers\{
     CommonHelper,
     RbacHelper,
+    HtmlPurifier,
     report\ConstantRuleHelper
 };
 

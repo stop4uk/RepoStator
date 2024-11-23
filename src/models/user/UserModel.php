@@ -5,15 +5,15 @@ namespace app\models\user;
 use Yii;
 use yii\helpers\{
     ArrayHelper,
-    HtmlPurifier,
     Json
 };
 
 use app\base\BaseModel;
 use app\entities\user\UserEntity;
 use app\helpers\{
+    HtmlPurifier,
+    RbacHelper,
     user\UserHelper,
-    RbacHelper
 };
 
 /**

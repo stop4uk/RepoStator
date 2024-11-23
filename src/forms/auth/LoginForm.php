@@ -4,12 +4,14 @@ namespace app\forms\auth;
 
 use Yii;
 use yii\base\Model;
-use yii\helpers\HtmlPurifier;
 use yii\bootstrap5\Html;
 
 use app\entities\user\UserEntity;
 use app\repositories\user\UserRepository;
-use app\helpers\AuthHelper;
+use app\helpers\{
+    HtmlPurifier,
+    AuthHelper
+};
 
 /**
  * @property string $email

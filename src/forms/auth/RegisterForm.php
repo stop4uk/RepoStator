@@ -4,11 +4,11 @@ namespace app\forms\auth;
 
 use Yii;
 use yii\base\Model;
-use yii\helpers\HtmlPurifier;
 
 use app\entities\user\UserEntity;
 use app\helpers\{
     AuthHelper,
+    HtmlPurifier,
     user\UserHelper
 };
 

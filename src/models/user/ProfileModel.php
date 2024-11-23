@@ -2,12 +2,12 @@
 
 namespace app\models\user;
 
-use Yii;
-use yii\helpers\HtmlPurifier;
-
 use app\base\BaseModel;
-use app\helpers\user\UserHelper;
 use app\entities\user\UserEntity;
+use app\helpers\{
+    HtmlPurifier,
+    user\UserHelper
+};
 
 /**
  * @property string $email

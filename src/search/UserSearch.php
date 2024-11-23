@@ -5,14 +5,13 @@ namespace app\search;
 use Yii;
 use yii\base\Model;
 use yii\data\ActiveDataProvider;
-use yii\helpers\ArrayHelper;
-use yii\helpers\HtmlPurifier;
 
 use app\entities\user\UserEntity;
 use app\repositories\user\UserRepository;
 use app\helpers\{
     CommonHelper,
     RbacHelper,
+    HtmlPurifier,
     user\UserHelper
 };
 
