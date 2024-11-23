@@ -65,6 +65,7 @@ services:
     volumes:
       - ./application:/var/www/html
       - ./docker/config/supervisord.conf:/etc/supervisor/supervisord.conf
+      - ./docker/config/cron:/var/spool/cron/crontabs/root
       - ./docker/runtime/logs/supervisor:/var/log/supervisor
     environment:
       PHP_IDE_CONFIG: "serverName=Docker"
