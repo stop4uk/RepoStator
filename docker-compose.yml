@@ -19,6 +19,7 @@ services:
       - repostator
   php-fpm: &web
     build: ./docker/build/php
+    container_name: repostator-server
     environment:
       PHP__display_errors: 'On'
       PHP__opcache.enable: 'Off'
@@ -58,15 +59,16 @@ services:
       - repostator
   supervisor:
     <<: *web
-    entrypoint: [ "/usr/bin/supervisord", "-c", "/etc/supervisor/supervisord.conf" ]
+    container_name: repostator-supervisor
     volumes:
       - ./application:/var/www/html
       - ./docker/config/supervisord.conf:/etc/supervisor/supervisord.conf
       - ./docker/config/cron:/var/spool/cron/crontabs/root
+      - ./docker/config/php/conf.d:/usr/local/etc/php/conf.d
       - ./docker/runtime/logs/supervisor:/var/log/supervisor
-    environment:
-      PHP_IDE_CONFIG: "serverName=Docker"
-
+    entrypoint: [ "/usr/bin/supervisord", "-c", "/etc/supervisor/supervisord.conf" ]
+    networks:
+      - repostator
 
 #  PHPMyAdmin config
 #  phpmyadmin:
