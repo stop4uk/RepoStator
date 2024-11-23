@@ -1,17 +1,20 @@
 <?php
 
-/**
- * @var \app\search\report\ReportSearch $searchModel
- * @var \yii\data\ActiveDataProvider $dataProvider
- */
-
 use yii\helpers\Url;
 use yii\widgets\Pjax;
 use yii\grid\ActionColumn;
 use yii\bootstrap5\Html;
 
 use app\widgets\GridView;
-use app\helpers\CommonHelper;
+use app\helpers\{
+    CommonHelper,
+    RbacHelper
+};
+
+/**
+ * @var \app\search\report\ReportSearch $searchModel
+ * @var \yii\data\ActiveDataProvider $dataProvider
+ */
 
 $this->title = Yii::t('views', 'Список отчетов');
 
@@ -120,6 +123,7 @@ $this->title = Yii::t('views', 'Список отчетов');
                             return $resultString;
                         }
                     ],
+                    'created_at:datetime',
                     [
                         'class' => ActionColumn::class,
                         'header' => false,
@@ -146,33 +150,36 @@ $this->title = Yii::t('views', 'Список отчетов');
                         'visibleButtons' => [
                             'view' => function($model) {
                                 $ruleArray = $model->toArray(['created_uid', 'created_gid', 'record_status']);
+                                $rolesArray = [
+                                    'report.view.main',
+                                    'report.view.group',
+                                    'report.view.all',
+                                    'report.view.delete.main',
+                                    'report.view.delete.group',
+                                    'report.view.delete.all'
+                                ];
 
-                                return (
-                                    Yii::$app->getUser()->can('report.view.main', $ruleArray)
-                                    || Yii::$app->getUser()->can('report.view.group', $ruleArray)
-                                    || Yii::$app->getUser()->can('report.view.all', $ruleArray)
-                                    || Yii::$app->getUser()->can('report.view.delete.main', $ruleArray)
-                                    || Yii::$app->getUser()->can('report.view.delete.group', $ruleArray)
-                                    || Yii::$app->getUser()->can('report.view.delete.all', $ruleArray)
-                                );
+                                return RbacHelper::canArray($rolesArray, $ruleArray);
                             },
                             'edit' => function($model){
                                 $ruleArray = $model->toArray(['created_uid', 'created_gid', 'record_status']);
+                                $rolesArray = [
+                                    'report.edit.main',
+                                    'report.edit.group',
+                                    'report.edit.all',
+                                ];
 
-                                return (
-                                    Yii::$app->getUser()->can('report.edit.main', $ruleArray)
-                                    || Yii::$app->getUser()->can('report.edit.group', $ruleArray)
-                                    || Yii::$app->getUser()->can('report.edit.all', $ruleArray)
-                                );
+                                return RbacHelper::canArray($rolesArray, $ruleArray);
                             },
                             'delete' => function($model){
                                 $ruleArray = $model->toArray(['created_uid', 'created_gid', 'record_status']);
+                                $rolesArray = [
+                                    'report.delete.main',
+                                    'report.delete.group',
+                                    'report.delete.all',
+                                ];
 
-                                return (
-                                    Yii::$app->getUser()->can('report.delete.main', $ruleArray)
-                                    || Yii::$app->getUser()->can('report.delete.group', $ruleArray)
-                                    || Yii::$app->getUser()->can('report.delete.all', $ruleArray)
-                                );
+                                return RbacHelper::canArray($rolesArray, $ruleArray);
                             }
                         ]
                     ],
