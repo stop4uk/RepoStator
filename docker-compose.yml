@@ -18,7 +18,7 @@ services:
     networks:
       - repostator
   php-fpm: &web
-    build: /docker/build/php/Dockerfile
+    build: ./docker/build/php
     environment:
       PHP__display_errors: 'On'
       PHP__opcache.enable: 'Off'
