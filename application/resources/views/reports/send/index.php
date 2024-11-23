@@ -28,7 +28,7 @@ $this->title = Yii::t('views', 'Выбор отчета для передачи'
         <?= ListView::widget([
             'dataProvider' => $dataProvider,
             'layout' => '{items}',
-            'emptyText' => Yii::t('views', 'Отчеты для передачи отсутствут'),
+            'emptyText' => Yii::t('views', 'Отчеты для передачи отсутствуют'),
             'emptyTextOptions' => [
                 'class' => 'alert alert-success text-center fw-bold'
             ],
