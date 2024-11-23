@@ -19,7 +19,7 @@ $this->params['breadcrumbs'] = [
 ?>
 
 <div class="row">
-    <div class="col-12 offset-md-5 offset-xl-8 col-md-7 col-xl-4">
+    <div class="col-12 offset-md-6 offset-xl-7 col-md-7 col-xl-5">
         <div class="card">
             <div class="card-body py-0">
                 <table class="table table-borderless">
