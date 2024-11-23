@@ -50,7 +50,7 @@ Pjax::begin(['id' => 'dashBoard', 'enablePushState' => false, 'clientOptions' =>
                                 echo Html::tag(
                                     name: 'p',
                                     content: Yii::t('views', 'Одна из доступных Вам групп не передала ' .
-                                        'отчет <strong>{name}</strong> в установленный период. <br /><span class="small">{period}</span>',
+                                        '<strong>{name}</strong> в установленный период. <br /><span class="small">{period}</span>',
                                         [
                                             'name' => $model->name,
                                             'period' => $timePeriodMessage
