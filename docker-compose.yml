@@ -1,0 +1,115 @@
+version: '3.2'
+networks:
+  repostator:
+    driver: bridge
+services:
+  nginx:
+    image: nginx:latest
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - ./application:/var/www/html
+      - ./docker/config/nginx.conf:/etc/nginx/conf.d/default.conf
+      - ./docker/runtime/logs/nginx:/var/log/nginx
+    depends_on:
+      - php-fpm
+      - mysql
+    networks:
+      - repostator
+  php-fpm: &web
+    build: /docker/build/php/Dockerfile
+    environment:
+      PHP__display_errors: 'On'
+      PHP__opcache.enable: 'Off'
+      PHP__memory_limit: '1024M'
+      PHP__post_max_size: '256M'
+      PHP__upload_max_size: '128M'
+      PHP__upload_max_filesize: '64M'
+      PHP__date.timezone: '"Europe/Moscow"'
+      PHP_php5enmod: 'memcached mysqli pdo_mysql zip gd soap intl'
+      HTTPD__DocumentRoot: '/var/www/html/public'
+      HTTPD__ServerAdmin: 'stop4uk@yandex.ru'
+      HTTPD__AddDefaultCharset: 'UTF-8'
+    volumes:
+      - ./application:/var/www/html
+    depends_on:
+      - mysql
+    networks:
+      - repostator
+  mysql:
+    image: mariadb:latest
+    restart: on-failure
+    ports:
+      - "3306:3306"
+    expose:
+      - '3306'
+    environment:
+      MYSQL_ROOT_PASSWORD: ''
+    volumes:
+      - ./docker/runtime/mysql:/var/lib/mysql
+      - ./docker/runtime/logs/mysql:/var/log/mysql
+    networks:
+      - repostator
+  mailhog:
+    image: mailhog/mailhog:latest
+    restart: on-failure
+    ports:
+      - 1025:1025
+      - 8025:8025
+    networks:
+      - repostator
+  supervisor:
+    <<: *web
+    entrypoint: [ "/usr/bin/supervisord", "-c", "/etc/supervisor/supervisord.conf" ]
+    volumes:
+      - ./application:/var/www/html
+      - ./docker/config/supervisord.conf:/etc/supervisor/supervisord.conf
+      - ./docker/runtime/logs/supervisor:/var/log/supervisor
+    environment:
+      PHP_IDE_CONFIG: "serverName=Docker"
+
+
+#  PHPMyAdmin config
+#  phpmyadmin:
+#    image: phpmyadmin:latest
+#    restart: on-failure
+#    ports:
+#      - '8888:80'
+#    environment:
+#      - PMA_ARBITRARY=1
+#      - PMA_HOST=mysql
+#      - UPLOAD_LIMIT=300M
+#    depends_on:
+#      - mysql
+#    networks:
+#      - repostator
+
+#  Apache2 config server
+#  server:
+#    image: alterway/php:8.1-apache
+#    environment:
+#      PHP__display_errors: 'On'
+#      PHP__opcache.enable: 'Off'
+#      PHP__memory_limit: '1024M'
+#      PHP__post_max_size: '256M'
+#      PHP__upload_max_size: '128M'
+#      PHP__upload_max_filesize: '64M'
+#      PHP__date.timezone: '"Europe/Moscow"'
+#      PHP_php5enmod: 'memcached mysqli pdo_mysql zip gd soap intl xdebug'
+#      HTTPD__DocumentRoot: '/var/www/html/public'
+#      HTTPD__ServerAdmin: 'stop4uk@yandex.ru'
+#      HTTPD__AddDefaultCharset: 'UTF-8'
+#      HTTPD_a2enmod: 'rewrite status expires'
+#    ports:
+#      - 80:80
+#    expose:
+#      - '80'
+#    volumes:
+#      - ./application:/var/www/html:delegated
+#      - ./docker/runtime/logs/apache:/var/log/apache2
+#    depends_on:
+#      - mysql
+#      - mailhog
+#    networks:
+#      - repostator
