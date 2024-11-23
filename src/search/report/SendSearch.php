@@ -2,13 +2,9 @@
 
 namespace app\search\report;
 
-use Yii;
 use yii\base\Model;
 use yii\data\ActiveDataProvider;
-use yii\helpers\{
-    HtmlPurifier,
-    ArrayHelper
-};
+use yii\helpers\ArrayHelper;
 
 use app\entities\report\ReportDataEntity;
 use app\repositories\{
@@ -18,6 +14,7 @@ use app\repositories\{
 use app\helpers\{
     CommonHelper,
     RbacHelper,
+    HtmlPurifier,
     report\ReportHelper,
     report\DataHelper
 };
@@ -101,17 +98,23 @@ final class SendSearch extends Model
 
             $model->timePeriod = DataHelper::getTimePeriods($model, $nowTime, true);
             $model->canAddedFor = [];
-            $canAddedNow = ($nowTime >= $model->timePeriod->start && $nowTime <= $model->timePeriod->end);
 
-            if ( $model->timePeriod ) {
-                $dataQuery = ReportDataEntity::find()
-                    ->select('group_id')
-                    ->where(['report_id' => $model->id])
-                    ->andWhere(['between', 'report_datetime', $model->timePeriod->start, $model->timePeriod->end])
-                    ->groupBy(['group_id'])
-                    ->asArray();
+            if ($this->groupsCanSent) {
+                $canAddedNow = true;
+                $sentData = [];
 
-                $sentData = ArrayHelper::map($dataQuery->all(), 'group_id', 'group_id');
+                if ($model->timePeriod) {
+                    $canAddedNow = ($nowTime >= $model->timePeriod->start && $nowTime <= $model->timePeriod->end);
+                    $dataQuery = ReportDataEntity::find()
+                        ->select('group_id')
+                        ->where(['report_id' => $model->id])
+                        ->andWhere(['between', 'report_datetime', $model->timePeriod->start, $model->timePeriod->end])
+                        ->groupBy(['group_id'])
+                        ->asArray();
+
+                    $sentData = ArrayHelper::map($dataQuery->all(), 'group_id', 'group_id');
+                }
+
                 foreach ($this->groupsCanSent as $groupId => $groupName) {
                     if (
                         ( !$groupsOnly || in_array($groupId, $groupsOnly) )
@@ -134,12 +137,6 @@ final class SendSearch extends Model
                         ];
                     }
                 }
-            } else {
-                $model->canAddedFor[] = [
-                    'groupId' => $groupId,
-                    'groupName' => $groupName,
-                    'reportId' => $model->id,
-                ];
             }
 
             if ( !$model->canAddedFor ) {
