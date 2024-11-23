@@ -1,10 +1,12 @@
 <?php
 
+use yii\web\UrlNormalizer;
+
 return [
     'enablePrettyUrl' => true,
     'showScriptName' => false,
     'normalizer' => [
-        'class' => \yii\web\UrlNormalizer::class,
+        'class' => UrlNormalizer::class,
         'normalizeTrailingSlash' => true,
         'collapseSlashes' => true,
     ],

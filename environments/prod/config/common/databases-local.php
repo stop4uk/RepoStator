@@ -1,9 +1,11 @@
 <?php
 
+use yii\db\Connection;
+
 return [
     'components' => [
         'db' => [
-            'class' => \yii\db\Connection::class,
+            'class' => Connection::class,
             'dsn' => 'mysql:host=mysql;dbname=repostator',
             'username' => 'root',
             'password' => '',

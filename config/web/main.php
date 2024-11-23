@@ -1,5 +1,10 @@
 <?php
 
+use app\bootstrap\WebBootstrap;
+use app\events\handlers\WebEventHandler;
+use app\components\Identity;
+use app\rbac\RbacDbmanager;
+
 $params = array_merge(
     require __DIR__ . '/../params.php',
     require __DIR__ . '/../params-web-local.php',
@@ -15,12 +20,12 @@ return [
     ],
     'viewPath' => '@resources/views',
     'bootstrap' => [
-        \app\bootstrap\WebBootstrap::class,
-        \app\events\handlers\WebEventHandler::class,
+        WebBootstrap::class,
+        WebEventHandler::class,
     ],
     'components' => [
         'user' => [
-            'identityClass' => \app\components\Identity::class,
+            'identityClass' => Identity::class,
             'enableAutoLogin' => true,
             'loginUrl' => ['login'],
             'identityCookie' => [
@@ -28,7 +33,7 @@ return [
             ],
         ],
         'authManager' => [
-            'class' => \app\rbac\RbacDbmanager::class,
+            'class' => RbacDbmanager::class,
         ],
         'errorHandler' => [
             'errorAction' => 'error/fault',

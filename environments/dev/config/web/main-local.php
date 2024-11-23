@@ -1,5 +1,10 @@
 <?php
 
+use yii\web\Cookie;
+use yii\queue\debug\Panel;
+use yii\gii\Module as GiiModule;
+use yii\debug\Module as DebugModule;
+
 return [
     'bootstrap' => [
         'debug',
@@ -7,14 +12,14 @@ return [
     ],
     'modules' => [
         'debug' => [
-            'class' => \yii\debug\Module::class,
+            'class' => DebugModule::class,
             'panels' => [
-                'queue' => \yii\queue\debug\Panel::class,
+                'queue' => Panel::class,
             ],
             'allowedIPs' => ['*'],
         ],
         'gii' => [
-            'class' => \yii\gii\Module::class,
+            'class' => GiiModule::class,
             'allowedIPs' => ['*'],
         ],
     ],
@@ -43,7 +48,7 @@ return [
             'cookieParams' => [
                 'httponly' => true,
                 'secure' => true,
-                'sameSite' => \yii\web\Cookie::SAME_SITE_STRICT,
+                'sameSite' => Cookie::SAME_SITE_STRICT,
             ],
         ],
     ]

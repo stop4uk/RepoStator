@@ -1,5 +1,11 @@
 <?php
 
+use yii\i18n\PhpMessageSource;
+
+use app\bootstrap\CoreBootstrap;
+use app\events\handlers\CoreEventHandler;
+use app\components\Settings;
+
 return [
     'name' => "REPOStator. Reports & Statistics",
     'sourceLanguage' => 'ru',
@@ -18,14 +24,14 @@ return [
     ],
     'bootstrap' => [
         'log',
-        \app\bootstrap\CoreBootstrap::class,
-        \app\events\handlers\CoreEventHandler::class,
+        CoreBootstrap::class,
+        CoreEventHandler::class,
     ],
     'components' => [
         'i18n' => [
             'translations' => [
                 '*' => [
-                    'class' => \yii\i18n\PhpMessageSource::class,
+                    'class' => PhpMessageSource::class,
                     'basePath' => '@resources/messages',
                     'forceTranslation' => true,
                 ],
@@ -40,7 +46,7 @@ return [
             ]
         ],
         'settings' => [
-            'class' => \app\components\Settings::class,
+            'class' => Settings::class,
             'preLoad' => [
                 'system'
             ]

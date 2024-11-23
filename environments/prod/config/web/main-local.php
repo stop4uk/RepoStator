@@ -1,5 +1,7 @@
 <?php
 
+use yii\web\Cookie;
+
 return [
     'components' => [
         'authManager' => [
@@ -29,7 +31,7 @@ return [
             'cookieParams' => [
                 'httponly' => true,
                 'secure' => true,
-                'sameSite' => \yii\web\Cookie::SAME_SITE_STRICT,
+                'sameSite' => Cookie::SAME_SITE_STRICT,
             ],
         ],
     ]
