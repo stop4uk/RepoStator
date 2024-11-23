@@ -28,9 +28,6 @@ services:
       PHP__upload_max_filesize: '64M'
       PHP__date.timezone: '"Europe/Moscow"'
       PHP_php5enmod: 'memcached mysqli pdo_mysql zip gd soap intl'
-      HTTPD__DocumentRoot: '/var/www/html/public'
-      HTTPD__ServerAdmin: 'stop4uk@yandex.ru'
-      HTTPD__AddDefaultCharset: 'UTF-8'
     volumes:
       - ./application:/var/www/html
     depends_on:
