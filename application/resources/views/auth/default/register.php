@@ -6,6 +6,7 @@ use yii\bootstrap5\Html;
 /**
  * @var \app\forms\auth\SignupForm $model
  */
+
 ?>
 
 <div class="row">
