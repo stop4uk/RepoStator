@@ -64,6 +64,7 @@ final class ControlCreateForForm extends Model
         return [
             [['group', 'report', 'period'], 'required'],
             [['group', 'report'], 'integer'],
+            ['group', 'in', 'range' => array_keys($this->groups)],
             ['period', 'validatePeriod'],
             ['report', 'in', 'range' => array_keys($this->reports)],
             ['report', 'checkSend'],

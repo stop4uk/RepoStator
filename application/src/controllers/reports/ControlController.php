@@ -94,20 +94,7 @@ final class ControlController extends BaseController
                     [
                         'actions' => ['createfor'],
                         'allow' => true,
-                        'matchCallback' => function ($rule, $action) {
-                            if ( $this->request->isPost ) {
-                                $group_id = $this->request->post('ControlCreateForForm')['group'];
-
-                                if ( $group_id ) {
-                                    return (
-                                        Yii::$app->getUser()->can('data.createFor')
-                                        && in_array($group_id, array_keys(Yii::$app->getUser()->getIdentity()->groups))
-                                    );
-                                }
-                            }
-
-                            return false;
-                        }
+                        'roles' => ['data.createFor'],
                     ],
                     [
                         'actions' => ['checkfull'],
