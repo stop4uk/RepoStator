@@ -21,7 +21,12 @@ class GridView extends BaseGrid
     public $responsiveWrap = false;
     public $persistResize = true;
 
-    public $options = ['class' => 'grid-view table-responsive'];
+    public $options = [
+        'class' => 'grid-view table-responsive'
+    ];
+    public $emptyTextOptions = [
+        'class' => 'alert alert-danger text-center fw-bold mb-0'
+    ];
 
     public $headerContainer = [
         'class' => ''
