@@ -220,4 +220,5 @@ return [
     'Изменить' => 'Change',
     'Восстановить' => 'Restore',
     'Назад' => 'Go back',
+    'Описание' => 'Description',
 ];

@@ -45,7 +45,33 @@ $this->title = Yii::t('views', 'Список отчетов');
                 'emptyTextOptions' => ['class' => 'alert alert-danger text-center fw-bold'],
                 'tableOptions' => ['class' => 'table'],
                 'columns' => [
-                    'name',
+                    [
+                        'attribute' => 'name',
+                        'headerOptions' => [
+                            'width' => '30%'
+                        ],
+                        'format' => 'html',
+                        'value' => function($data) {
+                            $resultString = Html::tag('i', '', [
+                                'class' => 'bi bi-circle-fill me-2 text-' . CommonHelper::getYesOrNoRecordColor($data->record_status),
+                                'data-bs-toggle' => 'tooltip',
+                                'data-bs-placement' => 'bottom',
+                                'title' => Yii::t('views', 'Статус записи: {status}', ['status' => CommonHelper::getYesOrNoRecord($data->record_status)])
+                            ]) . $data->name;
+
+                            if($data->description) {
+                                $resultString .= Html::tag('i', '', [
+                                    'class' => 'ms-2 bi bi-question-circle',
+                                    'role' => 'button',
+                                    'data-bs-toggle' => 'popover',
+                                    'title' => Yii::t('views', 'Описание'),
+                                    'data-bs-content' => Html::decode($data->description)
+                                ]);
+                            }
+
+                            return $resultString;
+                        }
+                    ],
                     [
                         'label' => null,
                         'format' => 'html',
@@ -91,19 +117,15 @@ $this->title = Yii::t('views', 'Список отчетов');
                     ],
                     [
                         'label' => null,
+                        'headerOptions' => [
+                            'width' => '8%'
+                        ],
                         'format' => 'html',
                         'value' => function($data) {
                             $resultString = '';
 
-                            $resultString .= Html::tag('i', '', [
-                                'class' => 'bi bi-circle-fill text-' . CommonHelper::getYesOrNoRecordColor($data->record_status),
-                                'data-bs-toggle' => 'tooltip',
-                                'data-bs-placement' => 'bottom',
-                                'title' => Yii::t('views', 'Статус записи: {status}', ['status' => CommonHelper::getYesOrNoRecord($data->record_status)])
-                            ]);
-
                             if ( $data->groups_only ) {
-                                $resultString .= Html::tag('span', '<i class="bi bi-exclamation-triangle ms-2"></i>', [
+                                $resultString .= Html::tag('span', '<i class="bi bi-exclamation-triangle ms-1"></i>', [
                                     'class' => 'text-danger fw-bold',
                                     'data-bs-toggle' => 'tooltip',
                                     'data-bs-placement' => 'bottom',
@@ -112,7 +134,7 @@ $this->title = Yii::t('views', 'Список отчетов');
                             }
 
                             if ( $data->groups_required ) {
-                                $resultString .= Html::tag('span', '<i class="bi bi-card-checklist ms-2"></i>', [
+                                $resultString .= Html::tag('span', '<i class="bi bi-card-checklist ms-1"></i>', [
                                     'class' => 'text-primary fw-bold',
                                     'data-bs-toggle' => 'tooltip',
                                     'data-bs-placement' => 'bottom',
@@ -123,7 +145,13 @@ $this->title = Yii::t('views', 'Список отчетов');
                             return $resultString;
                         }
                     ],
-                    'created_at:datetime',
+                    [
+                        'attribute' => 'created_at',
+                        'headerOptions' => [
+                            'width' => '20%'
+                        ],
+                        'format' => ['date', Yii::$app->settings->get('system', 'app_language_dateTime')],
+                    ],
                     [
                         'class' => ActionColumn::class,
                         'header' => false,
@@ -132,10 +160,10 @@ $this->title = Yii::t('views', 'Список отчетов');
                         'template' => '{view} {edit} {delete}',
                         'buttons' => [
                             'view' => function($url, $model) {
-                                return Html::a('<i class="bi bi-eye text-dark me-2"></i>', Url::to(['view', 'id' => $model->id]), ['data-pjax' => 0]);
+                                return Html::a('<i class="bi bi-eye text-dark"></i>', Url::to(['view', 'id' => $model->id]), ['data-pjax' => 0]);
                             },
                             'edit' => function($url, $model) {
-                                return Html::a('<i class="bi bi-pen text-dark me-2"></i>', Url::to(['edit', 'id' => $model->id]), ['data-pjax' => 0]);
+                                return Html::a('<i class="bi bi-pen text-dark"></i>', Url::to(['edit', 'id' => $model->id]), ['data-pjax' => 0]);
                             },
                             'delete' => function($url, $model) {
                                 return Html::tag('span', '<i class="bi bi-trash text-dark"></i>', [
