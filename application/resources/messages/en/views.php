@@ -168,7 +168,7 @@ return [
     'Новый отчет' => 'New Report',
     'Редактирование отчета' => 'Editing the report',
     'Список отчетов' => 'List of reports',
-    'Отчеты отсутствут' => 'Reports are missing',
+    'Отчеты отсутствуют' => 'Reports are missing',
     'Просмотр отчета' => 'Viewing the report',
     'Перерыв передачи: ' => 'Transmission break: ',
     '{n, plural, =1{# месяц} one{# месяц} few{# месяца} many{# месяцев} other{# месяцев}}' => '{n, plural, =1{# month} one{# month} few{# months} many{# months} other{# months}}',
