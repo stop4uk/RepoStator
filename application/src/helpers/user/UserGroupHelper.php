@@ -19,10 +19,10 @@ final class UserGroupHelper
         return [
             'group_id' => Yii::t('entities', 'Группа'),
             'user_id' => Yii::t('entities', 'Сотрудник'),
-            'create_at' => Yii::t('entities', 'Добавлен'),
-            'create_uid' => Yii::t('entities', 'Добавил'),
-            'update_at' => Yii::t('entities', 'Исключен'),
-            'update_uid' => Yii::t('entities', 'Исключил'),
+            'created_at' => Yii::t('entities', 'Добавлен'),
+            'created_uid' => Yii::t('entities', 'Добавил'),
+            'updated_at' => Yii::t('entities', 'Исключен'),
+            'updated_uid' => Yii::t('entities', 'Исключил'),
             'record_status' => Yii::t('entities', 'Текущий статус'),
         ];
     }

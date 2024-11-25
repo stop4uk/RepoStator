@@ -23,10 +23,10 @@ final class GroupHelper
             'description' => Yii::t('entities', 'Описание'),
             'accept_send' => Yii::t('entities', 'Отправка сведений'),
             'type_id' => Yii::t('entities', 'Тип'),
-            'create_at' => Yii::t('entities', 'Создана'),
-            'create_uid' => Yii::t('entities', 'Создал'),
-            'update_at' => Yii::t('entities', 'Обновлена'),
-            'update_uid' => Yii::t('entities', 'Обновил'),
+            'created_at' => Yii::t('entities', 'Создана'),
+            'created_uid' => Yii::t('entities', 'Создал'),
+            'updated_at' => Yii::t('entities', 'Обновлена'),
+            'updated_uid' => Yii::t('entities', 'Обновил'),
             'record_status' => Yii::t('entities', 'Статус группы')
         ];
     }

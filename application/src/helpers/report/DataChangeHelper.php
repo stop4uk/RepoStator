@@ -27,8 +27,8 @@ final class DataChangeHelper
             'report_id' => Yii::t('entities', 'Отчет'),
             'data_id' => Yii::t('entities', 'Запись'),
             'content' => Yii::t('entities', 'Внесенные измененя'),
-            'create_at' => Yii::t('entities', 'Внесены'),
-            'create_uid' => Yii::t('entities', 'Внес'),
+            'created_at' => Yii::t('entities', 'Внесены'),
+            'created_uid' => Yii::t('entities', 'Внес'),
         ];
     }
 

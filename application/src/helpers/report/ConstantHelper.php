@@ -23,10 +23,10 @@ final class ConstantHelper
             'description' => Yii::t('entities', 'Описание'),
             'union_rules' => Yii::t('entities', 'Правила объединения'),
             'reports_only' => Yii::t('entities', 'Только для отчетов'),
-            'create_at' => Yii::t('entities', 'Созданы'),
-            'create_uid' => Yii::t('entities', 'Создал'),
-            'update_at' => Yii::t('entities', 'Обновлены'),
-            'update_uid' => Yii::t('entities', 'Обновил'),
+            'created_at' => Yii::t('entities', 'Созданы'),
+            'created_uid' => Yii::t('entities', 'Создал'),
+            'updated_at' => Yii::t('entities', 'Обновлены'),
+            'updated_uid' => Yii::t('entities', 'Обновил'),
             'record_status' => Yii::t('entities', 'Статус прав доступа'),
 
             'limitReport' => Yii::t('models', 'Ограничена отчетом')
