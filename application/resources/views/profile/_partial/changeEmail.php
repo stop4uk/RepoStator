@@ -1,12 +1,12 @@
 <?php
 
-/**
- * @var \app\forms\user\UserEmailChangeForm $userEmailChangeForm
- */
-
 use yii\helpers\Url;
 use yii\bootstrap5\Html;
 use yii\bootstrap5\ActiveForm;
+
+/**
+ * @var \app\forms\user\UserEmailChangeForm $userEmailChangeForm
+ */
 
 $form = ActiveForm::begin([
     'id' => 'changeemail-form',

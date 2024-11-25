@@ -1,13 +1,5 @@
 <?php
 
-/**
- * @var \yii\web\View $this
- * @var \app\models\user\ProfileModel $model
- * @var \app\forms\user\UserEmailChangeForm $userEmailChangeForm
- * @var \app\forms\user\UserPasswordChangeForm $userPasswordChangeForm
- * @var array $emailchangesDataProvider
- */
-
 use yii\helpers\{
     Url,
     ArrayHelper
@@ -21,31 +13,39 @@ use yii\bootstrap5\{
 
 use app\widgets\GridView;
 
+/**
+ * @var \yii\web\View $this
+ * @var \app\models\user\ProfileModel $model
+ * @var \app\forms\user\UserEmailChangeForm $userEmailChangeForm
+ * @var \app\forms\user\UserPasswordChangeForm $userPasswordChangeForm
+ * @var array $emailchangesDataProvider
+ */
+
 $this->title = Yii::t('views', 'Профиль');
 
 ?>
 
 <div class="row">
-    <div class="col-md-4 col-xl-3">
+    <div class="col-md-4 col-xxl-3">
         <div class="card mb-3">
             <div class="card-header">
-                <h5 class="h6 card-title">
+                <h5 class="h6 card-title d-inline">
                     <?= Yii::t('views', 'Последний сеанс'); ?>
-                    <?php
-                        Modal::begin([
-                            'size' => Modal::SIZE_LARGE,
-                            'title' => Yii::t('views', 'Последние 20 авторизаций'),
-                            'toggleButton' => [
-                                'label' => Yii::t('views', 'История'),
-                                'class' => 'badge bg-dark border-0 ms-2'
-                            ],
-                        ]);
-                            echo $this->render('_partial/authHistory', [
-                                'data' => $model->getEntity()->sessions
-                            ]);
-                        Modal::end();
-                    ?>
                 </h5>
+                <?php
+                    Modal::begin([
+                        'size' => Modal::SIZE_LARGE,
+                        'title' => Yii::t('views', 'Последние 20 авторизаций'),
+                        'toggleButton' => [
+                            'label' => Yii::t('views', 'История'),
+                            'class' => 'badge bg-dark border-0 float-end'
+                        ],
+                    ]);
+                        echo $this->renderAjax('_partial/authHistory', [
+                            'data' => $model->getEntity()->sessions
+                        ]);
+                    Modal::end();
+                ?>
             </div>
             <hr class="my-0" />
             <div class="card-body">
@@ -93,7 +93,7 @@ $this->title = Yii::t('views', 'Профиль');
         </div>
     </div>
 
-    <div class="col-md-8 col-xl-9">
+    <div class="col-md-8 col-xxl-9">
         <div class="card">
             <div class="card-header">
                 <h5 class="card-title mb-0">

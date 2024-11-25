@@ -1,12 +1,12 @@
 <?php
 
-/**
- * @var \app\forms\user\UserPasswordChangeForm $userPasswordChangeForm
- */
-
 use yii\helpers\Url;
 use yii\bootstrap5\Html;
 use yii\bootstrap5\ActiveForm;
+
+/**
+ * @var \app\forms\user\UserPasswordChangeForm $userPasswordChangeForm
+ */
 
 $form = ActiveForm::begin([
     'id' => 'changepassword-form',

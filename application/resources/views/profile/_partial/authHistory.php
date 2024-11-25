@@ -23,9 +23,13 @@ Pjax::begin(['id' => 'authList', 'enablePushState' => false, 'clientOptions' => 
         'columns' => [
             [
                 'attribute' => 'created_at',
+                'contentOptions' => ['width' => '25%'],
                 'format' => ['date', Yii::$app->settings->get('system', 'app_language_dateTime')]
             ],
-            'ip',
+            [
+                'attribute' => 'ip',
+                'contentOptions' => ['width' => '15%'],
+            ],
             [
                 'attribute' => 'client',
                 'contentOptions' => ['class' => 'small'],
