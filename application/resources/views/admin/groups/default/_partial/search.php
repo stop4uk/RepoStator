@@ -1,14 +1,14 @@
 <?php
 
-/**
- * @var \app\search\group\GroupSearch $searchModel
- */
-
 use yii\helpers\Url;
 use yii\bootstrap5\Html;
 use yii\bootstrap5\ActiveForm;
 
 use app\helpers\CommonHelper;
+
+/**
+ * @var \app\search\group\GroupSearch $searchModel
+ */
 
 $resource = Url::to(['/admin/groups']);
 
@@ -27,27 +27,27 @@ $resource = Url::to(['/admin/groups']);
             <div class="col-12 col-md-2">
                 <?= $form->field($searchModel, 'code'); ?>
             </div>
-            <div class="col-12 col-md-4 col-xl-3">
+            <div class="col-12 col-md-4 col-xl-4 col-xxl-3">
                 <?= $form->field($searchModel, 'name'); ?>
             </div>
-            <div class="col-12 col-md-6 col-xl-3">
+            <div class="col-12 col-md-6 col-xl-6 col-xxl-3">
                 <?= $form->field($searchModel, 'name_full'); ?>
             </div>
-            <div class="col-12 col-md-3 col-xl-2">
+            <div class="col-12 col-md-3 col-xl-3 col-xxl-2">
                 <?= $form->field($searchModel, 'accept_send')->dropDownList(CommonHelper::getFilterReplaceData(CommonHelper::getDefaultDropdown()), ['prompt' => Yii::t('views', 'Выберите')]); ?>
             </div>
-            <div class="col-12 col-md-4 col-xl-2">
+            <div class="col-12 col-md-4 col-xl-3 col-xxl-2">
                 <?= $form->field($searchModel, 'type_id')->dropDownList($searchModel->types, ['prompt' => Yii::t('views', 'Выберите')]); ?>
             </div>
-            <div class="col-6 col-md-3 col-xl-6">
+            <div class="col-6 col-md-3 col-xxl-6">
                 <div class="d-grid gap-2">
-                    <label class="form-label mb-0 d-none d-md-block d-xl-none">&nbsp;</label>
+                    <label class="form-label mb-0 d-none d-md-block d-xxl-none">&nbsp;</label>
                     <?= Html::submitButton(Yii::t('views', 'Поиск'), ['class' => 'btn btn-dark']) ?>
                 </div>
             </div>
-            <div class="col-6 col-md-2 col-xl-6">
+            <div class="col-6 col-md-2 col-xl-3 col-xxl-6">
                 <div class="d-grid gap-2">
-                    <label class="form-label mb-0 d-none d-md-block d-xl-none">&nbsp;</label>
+                    <label class="form-label mb-0 d-none d-md-block d-xxl-none">&nbsp;</label>
                     <?= Html::a(Yii::t('views', 'Очистить'), $resource, ['class' => 'btn btn-danger']) ?>
                 </div>
             </div>

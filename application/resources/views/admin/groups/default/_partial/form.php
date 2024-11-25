@@ -1,14 +1,14 @@
 <?php
 
-/**
- * @var \app\models\group\GroupModel $model
- */
-
 use yii\bootstrap5\Html;
 use yii\bootstrap5\ActiveForm;
 use mihaildev\ckeditor\CKEditor;
 
 use app\helpers\CommonHelper;
+
+/**
+ * @var \app\models\group\GroupModel $model
+ */
 
 $form = ActiveForm::begin([
     'id' => 'group-form',

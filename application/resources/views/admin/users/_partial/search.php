@@ -28,29 +28,31 @@ $resource = Url::to(['/admin/users']);
             ]
         ]); ?>
         <div class="row">
-            <div class="col-12 col-md-3 col-xl-2">
+            <div class="col-12 col-md-3 col-xl-3 col-xxl-2">
                 <?= $form->field($searchModel, 'email'); ?>
             </div>
-            <div class="col-12 col-md-5 col-xl-4">
+            <div class="col-12 col-md-5 col-xl-6 col-xxl-4">
                 <?= $form->field($searchModel, 'name'); ?>
             </div>
-            <div class="col-12 col-md-4 col-xl-2">
+            <div class="col-12 col-md-4 col-xl-3 col-xxl-2">
                 <?= $form->field($searchModel, 'account_status')->dropDownList(CommonHelper::getFilterReplaceData(UserHelper::statuses()), ['prompt' => Yii::t('views', 'Выберите')]); ?>
             </div>
-            <div class="col-12 col-xl-4">
+            <div class="col-12 col-xl-6 col-xxl-4">
                 <?= $form->field($searchModel, 'hasGroup')->widget(Select2::class, [
                     'data' => $searchModel->groups,
                     'options' => ['placeholder' => '', 'multiple' => false],
                     'pluginOptions' => ['allowClear' => true],
                 ]); ?>
             </div>
-            <div class="col-6">
+            <div class="col-6 col-xl-3 col-xxl-6">
                 <div class="d-grid gap-2">
+                    <label class="form-label mb-0 d-none d-xl-block d-xxl-none">&nbsp;</label>
                     <?= Html::submitButton(Yii::t('views', 'Поиск'), ['class' => 'btn btn-dark']) ?>
                 </div>
             </div>
-            <div class="col-6">
+            <div class="col-6 col-xl-3 col-xxl-6">
                 <div class="d-grid gap-2">
+                    <label class="form-label mb-0 d-none d-xl-block d-xxl-none">&nbsp;</label>
                     <?= Html::a(Yii::t('views', 'Очистить'), $resource, ['class' => 'btn btn-danger']) ?>
                 </div>
             </div>

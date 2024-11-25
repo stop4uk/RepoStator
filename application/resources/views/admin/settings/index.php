@@ -1,9 +1,5 @@
 <?php
 
-/**
- * @var \app\models\SettingModel $model
- */
-
 use yii\helpers\Url;
 use yii\bootstrap5\Html;
 use yii\bootstrap5\ActiveForm;
@@ -12,6 +8,10 @@ use kartik\select2\Select2;
 
 use app\helpers\CommonHelper;
 use app\helpers\report\JobHelper;
+
+/**
+ * @var \app\models\SettingModel $model
+ */
 
 $this->title = Yii::t('views', 'Настройки');
 
@@ -23,12 +23,11 @@ $form = ActiveForm::begin([
     'validateOnBlur' => false,
 ]);
 
-echo $form->field($model, 'key[]')->hiddenInput()->label(false);
+    echo $form->field($model, 'key[]')->hiddenInput()->label(false);
 
-    ?>
+?>
 
 <?php foreach ($model->settingsInArray as $category => $items): ?>
-
     <div class="card">
         <div class="card-header">
             <?= Yii::t('views', 'Категория: <strong>{name}</strong>', ['name' => $category]); ?>
@@ -52,4 +51,5 @@ echo $form->field($model, 'key[]')->hiddenInput()->label(false);
         <?= Html::submitButton(Yii::t('views', 'Сохранить'), ['class' => 'btn btn-primary']); ?>
     </div>
 
-<?php ActiveForm::end();
+<?php
+    ActiveForm::end();

@@ -1,15 +1,15 @@
 <?php
 
-/**
- * @var \app\search\LogSearch $searchModel
- */
-
 use yii\helpers\Url;
 use yii\bootstrap5\Html;
 use yii\bootstrap5\ActiveForm;
 use kartik\daterange\DateRangePicker;
 
 use app\helpers\CommonHelper;
+
+/**
+ * @var \app\search\LogSearch $searchModel
+ */
 
 $resource = Url::to(['/admin/logs']);
 
@@ -25,19 +25,19 @@ $resource = Url::to(['/admin/logs']);
             ]
         ]); ?>
         <div class="row">
-            <div class="col-12 col-md-2">
+            <div class="col-12 col-md-2 col-xxl-1">
                 <?= $form->field($searchModel, 'level')->input('number'); ?>
             </div>
-            <div class="col-12 col-md-4">
+            <div class="col-12 col-md-4 col-xxl-3">
                 <?= $form->field($searchModel, 'category'); ?>
             </div>
-            <div class="col-12 col-md-6">
+            <div class="col-12 col-md-6 col-xxl-2">
                 <?= $form->field($searchModel, 'prefix'); ?>
             </div>
-            <div class="col-12 col-md-7">
+            <div class="col-12 col-md-7 col-xxl-3">
                 <?= $form->field($searchModel, 'message'); ?>
             </div>
-            <div class="col-12 col-md-5">
+            <div class="col-12 col-md-5 col-xxl-3">
                 <?= $form->field($searchModel, 'log_time')->widget(DateRangePicker::class, [
                     'convertFormat' => true,
                     'pluginOptions' => [

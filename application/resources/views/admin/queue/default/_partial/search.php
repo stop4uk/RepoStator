@@ -1,15 +1,15 @@
 <?php
 
-/**
- * @var \app\search\QueueSearch $searchModel
- */
-
 use yii\helpers\Url;
 use yii\bootstrap5\Html;
 use yii\bootstrap5\ActiveForm;
 use kartik\daterange\DateRangePicker;
 
 use app\helpers\CommonHelper;
+
+/**
+ * @var \app\search\QueueSearch $searchModel
+ */
 
 $resource = Url::to(['/admin/queue']);
 
@@ -25,16 +25,16 @@ $resource = Url::to(['/admin/queue']);
             ]
         ]); ?>
         <div class="row">
-            <div class="col-12 col-md-2 col-xl-1">
+            <div class="col-12 col-md-2 col-xxl-1">
                 <?= $form->field($searchModel, 'id')->input('number'); ?>
             </div>
-            <div class="col-12 col-md-3 col-xl-2">
+            <div class="col-12 col-md-3 col-xl-5 col-xxl-2">
                 <?= $form->field($searchModel, 'channel'); ?>
             </div>
-            <div class="col-12 col-md-7 col-xl-3">
+            <div class="col-12 col-md-7 col-xl-5 col-xxl-3">
                 <?= $form->field($searchModel, 'job'); ?>
             </div>
-            <div class="col-12 col-md-6 col-xl-3">
+            <div class="col-12 col-md-6 col-xxl-3">
                 <?= $form->field($searchModel, 'pushed_at')->widget(DateRangePicker::class, [
                     'convertFormat' => true,
                     'pluginOptions' => [
@@ -45,7 +45,7 @@ $resource = Url::to(['/admin/queue']);
                     ]
                 ]); ?>
             </div>
-            <div class="col-12 col-md-6 col-xl-3">
+            <div class="col-12 col-md-6 col-xxl-3">
                 <?= $form->field($searchModel, 'done_at')->widget(DateRangePicker::class, [
                     'convertFormat' => true,
                     'pluginOptions' => [

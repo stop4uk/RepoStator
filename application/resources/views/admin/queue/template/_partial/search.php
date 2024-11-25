@@ -1,9 +1,5 @@
 <?php
 
-/**
- * @var \app\search\report\JobSearch $searchModel
- */
-
 use yii\helpers\Url;
 use yii\bootstrap5\Html;
 use yii\bootstrap5\ActiveForm;
@@ -12,6 +8,10 @@ use kartik\select2\Select2;
 
 use app\helpers\CommonHelper;
 use app\helpers\report\JobHelper;
+
+/**
+ * @var \app\search\report\JobSearch $searchModel
+ */
 
 $resource = Url::to(['/admin/queue/template']);
 
@@ -27,17 +27,17 @@ $resource = Url::to(['/admin/queue/template']);
             ]
         ]); ?>
         <div class="row">
-            <div class="col-12 col-md-3 col-xl-2">
+            <div class="col-12 col-md-3 col-xxl-2">
                 <?= $form->field($searchModel, 'job_status')->dropDownList(CommonHelper::getFilterReplaceData(JobHelper::statuses()), ['prompt' => Yii::t('views', 'Выберите')]); ?>
             </div>
-            <div class="col-12 col-md-4 col-xl-3">
+            <div class="col-12 col-md-4 col-xxl-3">
                 <?= $form->field($searchModel, 'report_id')->widget(Select2::class, [
                     'data' => $searchModel->reports,
                     'options' => ['placeholder' => '', 'multiple' => false],
                     'pluginOptions' => ['allowClear' => true],
                 ]); ?>
             </div>
-            <div class="col-12 col-md-5 col-xl-3">
+            <div class="col-12 col-md-5 col-xxl-3">
                 <?= $form->field($searchModel, 'template_id')->widget(Select2::class, [
                     'data' => $searchModel->templates,
                     'options' => ['placeholder' => '', 'multiple' => false],
@@ -51,7 +51,7 @@ $resource = Url::to(['/admin/queue/template']);
                     'pluginOptions' => ['allowClear' => true],
                 ]); ?>
             </div>
-            <div class="col-12 col-md-6 col-xl-3">
+            <div class="col-12 col-md-6 col-xl-4 col-xxl-3">
                 <?= $form->field($searchModel, 'created_at')->widget(DateRangePicker::class, [
                     'convertFormat' => true,
                     'pluginOptions' => [
@@ -62,7 +62,7 @@ $resource = Url::to(['/admin/queue/template']);
                     ]
                 ]); ?>
             </div>
-            <div class="col-12 col-md-6 col-xl-3">
+            <div class="col-12 col-md-6 col-xl-4 col-xxl-3">
                 <?= $form->field($searchModel, 'updated_at')->widget(DateRangePicker::class, [
                     'convertFormat' => true,
                     'pluginOptions' => [
@@ -73,15 +73,15 @@ $resource = Url::to(['/admin/queue/template']);
                     ]
                 ]); ?>
             </div>
-            <div class="col-6 col-xl-3">
+            <div class="col-6 col-xxl-3">
                 <div class="d-grid gap-2">
-                    <label class="form-label mb-0 d-none d-xl-block">&nbsp;</label>
+                    <label class="form-label mb-0 d-none d-xxl-block">&nbsp;</label>
                     <?= Html::submitButton(Yii::t('views', 'Поиск'), ['class' => 'btn btn-dark']) ?>
                 </div>
             </div>
-            <div class="col-6 col-xl-3">
+            <div class="col-6 col-xxl-3">
                 <div class="d-grid gap-2">
-                    <label class="form-label mb-0 d-none d-xl-block">&nbsp;</label>
+                    <label class="form-label mb-0 d-none d-xxl-block">&nbsp;</label>
                     <?= Html::a(Yii::t('views', 'Очистить'), $resource, ['class' => 'btn btn-danger']) ?>
                 </div>
             </div>

@@ -1,12 +1,12 @@
 <?php
 
-/**
- * @var \app\models\group\GroupTypeModel $model
- */
-
 use yii\bootstrap5\Html;
 use yii\bootstrap5\ActiveForm;
 use mihaildev\ckeditor\CKEditor;
+
+/**
+ * @var \app\models\group\GroupTypeModel $model
+ */
 
 $form = ActiveForm::begin([
     'id' => 'grouptype-form',
