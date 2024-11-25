@@ -1,11 +1,5 @@
 <?php
 
-/**
- * @var \app\search\report\ConstantSearch $searchModel
- * @var \yii\data\ActiveDataProvider $dataProvider
- * @var array $reportsList
- */
-
 use yii\helpers\Url;
 use yii\widgets\Pjax;
 use yii\grid\ActionColumn;
@@ -16,6 +10,12 @@ use yii\bootstrap5\{
 
 use app\widgets\GridView;
 use app\helpers\CommonHelper;
+
+/**
+ * @var \app\search\report\ConstantSearch $searchModel
+ * @var \yii\data\ActiveDataProvider $dataProvider
+ * @var array $reportsList
+ */
 
 $this->title = Yii::t('views', 'Контроль за передачей');
 
@@ -76,41 +76,34 @@ $this->title = Yii::t('views', 'Контроль за передачей');
                         'emptyText' => Yii::t('views', 'Подходящие под контроль сведения отсутствуют, или не указаны фильтры отбора'),
                         'columns' => [
                             [
-                                'attribute' => 'record_status',
-                                'label' => false,
+                                'attribute' => 'report_id',
+                                'headerOptions' => [
+                                    'width' => '40%'
+                                ],
                                 'format' => 'raw',
-                                'value' => fn($data) => Html::tag(
-                                    'i',
-                                    '',
-                                    [
-                                        'class' => 'bi bi-circle-fill text-' . CommonHelper::getYesOrNoRecordColor($data->record_status),
+                                'value' => function($data) {
+                                    return Html::tag('i','', [
+                                        'class' => 'bi bi-circle-fill me-2 text-' . CommonHelper::getYesOrNoRecordColor($data->record_status),
                                         'data-bs-toggle' => 'tooltip',
                                         'data-bs-placement' => 'bottom',
-                                        'title' => Yii::t('views', 'Статус записи: {status}', [
-                                            'status' =>  CommonHelper::getYesOrNoRecord($data->record_status)
-                                        ])
-                                    ]
-                                )
-                            ],
-                            [
-                                'attribute' => 'report_datetime',
-                                'format' => ['date', 'php:d.m.Y H:i'],
-                            ],
-                            [
-                                'attribute' => 'report_id',
-                                'value' => fn($data) => $data->report->name
-                            ],
-                            [
-                                'attribute' => 'group_id',
-                                'value' => fn($data) => $data->group->name
+                                        'title' => Yii::t('views', 'Статус записи: {status}', ['status' =>  CommonHelper::getYesOrNoRecord($data->record_status)])
+                                    ]) . $data->report->name . Html::tag('span', '#' . Yii::$app->getFormatter()->asDatetime($data->report_datetime), ['class' => 'ms-1 text-muted small']);
+                                }
                             ],
                             [
                                 'attribute' => 'created_uid',
-                                'value' => fn($data) => $data->createdUser->shortName,
+                                'headerOptions' => [
+                                    'width' => '30%'
+                                ],
+                                'format' => 'html',
+                                'value' => fn($data) => $data->createdUser->shortName . Html::tag('span', "#{$data->group->name}", ['class' => 'ms-1 text-muted small'])
                             ],
                             [
                                 'attribute' => 'created_at',
-                                'format' => ['date', 'php:d.m.Y H:i'],
+                                'headerOptions' => [
+                                    'width' => '20%'
+                                ],
+                                'format' => ['date', Yii::$app->settings->get('system', 'app_language_dateTime')],
                             ],
                             [
                                 'class' => ActionColumn::class,

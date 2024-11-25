@@ -184,20 +184,5 @@ $this->title = Yii::t('views', 'Список структур');
             ]); ?>
         </div>
     </div>
-
-        echo ListView::widget([
-            'dataProvider' => $dataProvider,
-            'layout' => '{items}',
-            'emptyText' => Yii::t('views', 'Стурктуры для просмотра отсутствуют'),
-            'emptyTextOptions' => ['class' => 'alert alert-danger text-center fw-bold'],
-            'itemView' => '_partial/list_item',
-            'options' => ['class' => 'row'],
-            'itemOptions' => ['class' => 'col-12 col-xl-6'],
-            'pager' => ['class' => Pager::class]
-        ]);
-        echo Pager::widget([
-            'pagination' => $dataProvider->getPagination(),
-        ]);
-
 <?php
     Pjax::end();

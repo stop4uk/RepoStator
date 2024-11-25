@@ -101,7 +101,7 @@ $this->title = Yii::t('views', 'Список правил');
                                     'class' => 'text-danger fw-bold',
                                     'data-bs-toggle' => 'tooltip',
                                     'data-bs-placement' => 'bottom',
-                                    'title' => Yii::t('views', "Только для \"{reportName}\"", ['reportName' => $data->report->name]),
+                                    'title' => Yii::t('views', 'Только для "{reportName}"', ['reportName' => $data->report->name]),
                                 ]);
                             }
 
