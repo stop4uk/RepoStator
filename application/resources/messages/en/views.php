@@ -144,7 +144,7 @@ return [
     'Правила сложения отсутствуют' => 'There are no addition rules',
     'Просмотр правила' => 'Viewing a rule',
     '{n, plural, =1{одна константа} one{# константа} few{# константы} many{# констант} other{# констант}}' => '{n, plural, =1{one constant} one{# constant} few{# constants} many{# constants} other{#constants}}',
-    'Доступно для конкретного отчета' => 'Available for a specific report',
+    'Только для "{reportName}"' => 'Only for "{reportName}"',
     'Расчет для {n, plural, =1{одной группы} one{# группы} few{# групп} many{# групп} other{# групп}}' => 'Calculation for {n, plural, =1{one group} one{# groups} few{# groups} many{# groups} other{# groups}}',
     'Вы действительно хотите удалить правило "{name}"?' => 'Do you really want to remove the "{name}" rule?',
     'Контроль' => 'Control',
