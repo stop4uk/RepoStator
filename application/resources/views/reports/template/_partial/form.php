@@ -1,10 +1,5 @@
 <?php
 
-/**
- * @var \yii\web\View $this
- * @var \app\models\report\TemplateModel $model
- */
-
 use yii\helpers\Url;
 use yii\helpers\Json;
 use yii\bootstrap5\Html;
@@ -14,6 +9,11 @@ use kartik\select2\Select2;
 use app\helpers\CommonHelper;
 use app\helpers\report\TemplateHelper;
 use app\entities\report\ReportFormTemplateEntity;
+
+/**
+ * @var \yii\web\View $this
+ * @var \app\models\report\TemplateModel $model
+ */
 
 $dataForTables = ['columns' => [], 'rows' => []];
 if ( !$model->getIsNewEntity() && $model->form_type == ReportFormTemplateEntity::REPORT_TYPE_DYNAMIC ) {

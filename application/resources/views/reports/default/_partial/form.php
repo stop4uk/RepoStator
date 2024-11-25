@@ -1,14 +1,14 @@
 <?php
 
-/**
- * @var \app\models\report\ReportModel $model
- * @var \yii\web\View $this
- */
-
 use yii\bootstrap5\Html;
 use yii\bootstrap5\ActiveForm;
 use kartik\select2\Select2;
 use mihaildev\ckeditor\CKEditor;
+
+/**
+ * @var \app\models\report\ReportModel $model
+ * @var \yii\web\View $this
+ */
 
 $form = ActiveForm::begin([
     'id' => 'report-form',

@@ -1,13 +1,13 @@
 <?php
 
-/**
- * @var \app\models\report\DataModel $model
- */
-
 use yii\helpers\Url;
 use yii\bootstrap5\Html;
 
 use app\widgets\structform\StructFormWidget;
+
+/**
+ * @var \app\models\report\DataModel $model
+ */
 
 $this->params['breadcrumbs'] = [
     ['label' => Yii::t('views', 'Отчеты'), 'url' => Url::to(['/reports'])],

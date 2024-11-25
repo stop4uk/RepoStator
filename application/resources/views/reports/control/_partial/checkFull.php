@@ -1,18 +1,18 @@
 <?php
 
-/**
- * @var \yii\web\View $this
- * @var \app\forms\ControlCheckFullForm $model
- * @var array $groups
- * @var array $reports
- */
-
 use yii\helpers\Url;
 use yii\bootstrap5\ActiveForm;
 use yii\bootstrap5\Html;
 use kartik\select2\Select2;
 
 use app\forms\report\ControlCheckFullForm;
+
+/**
+ * @var \yii\web\View $this
+ * @var \app\forms\ControlCheckFullForm $model
+ * @var array $groups
+ * @var array $reports
+ */
 
 $model = new ControlCheckFullForm(['reports' => $reports]);
 $fieldPeriodInput = Html::getInputId($model, 'period');

@@ -1,15 +1,15 @@
 <?php
 
-/**
- * @var \app\search\report\ConstantSearch $searchModel
- */
-
 use yii\helpers\Url;
 use yii\bootstrap5\Html;
 use yii\bootstrap5\ActiveForm;
 use kartik\select2\Select2;
 
 use app\helpers\CommonHelper;
+
+/**
+ * @var \app\search\report\ConstantSearch $searchModel
+ */
 
 $resource = Url::to(['/reports/constant']);
 

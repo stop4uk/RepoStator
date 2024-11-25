@@ -1,10 +1,10 @@
 <?php
 
+use yii\bootstrap5\Html;
+
 /**
  * @var \app\entities\report\ReportEntity $model
  */
-
-use yii\bootstrap5\Html;
 
 $timePeriodMessage = Yii::t(
     'views',

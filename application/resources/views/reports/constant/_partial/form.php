@@ -1,13 +1,13 @@
 <?php
 
-/**
- * @var \app\models\report\ConstantModel $model
- */
-
 use yii\bootstrap5\Html;
 use yii\bootstrap5\ActiveForm;
 use kartik\select2\Select2;
 use mihaildev\ckeditor\CKEditor;
+
+/**
+ * @var \app\models\report\ConstantModel $model
+ */
 
 $form = ActiveForm::begin([
     'id' => 'reportconstant-form',

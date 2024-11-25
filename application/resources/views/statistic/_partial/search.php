@@ -1,9 +1,5 @@
 <?php
 
-/**
- * @var \app\search\StatisticSearch $searchModel
- */
-
 use yii\helpers\Url;
 use yii\bootstrap5\Html;
 use yii\bootstrap5\ActiveForm;
@@ -11,6 +7,10 @@ use kartik\select2\Select2;
 
 use app\helpers\CommonHelper;
 use app\helpers\report\JobHelper;
+
+/**
+ * @var \app\search\StatisticSearch $searchModel
+ */
 
 $resource = Url::to(['/statistic']);
 $form = ActiveForm::begin([

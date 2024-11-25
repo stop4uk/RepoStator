@@ -1,10 +1,10 @@
 <?php
 
+use yii\helpers\Url;
+
 /**
  * @var \app\models\report\ConstantRuleModel $model
  */
-
-use yii\helpers\Url;
 
 $this->title = Yii::t('views', 'Новое правило');
 
@@ -15,13 +15,8 @@ $this->params['breadcrumbs'] = [
 
 ?>
 
-<div class="row">
-    <div class="col-12">
-        <div class="card">
-            <div class="card-body">
-                <?= $this->render('_partial/form', compact('model')); ?>
-            </div>
-        </div>
+<div class="card">
+    <div class="card-body">
+        <?= $this->render('_partial/form', compact('model')); ?>
     </div>
 </div>
-

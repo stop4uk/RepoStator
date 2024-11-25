@@ -1,14 +1,14 @@
 <?php
 
-/**
- * @var \app\search\report\SendSearch $searchModel
- * @var \yii\data\ActiveDataProvider $dataProvider
- */
-
 use yii\widgets\Pjax;
 use yii\widgets\ListView;
 
 use app\widgets\Pager;
+
+/**
+ * @var \app\search\report\SendSearch $searchModel
+ * @var \yii\data\ActiveDataProvider $dataProvider
+ */
 
 $this->title = Yii::t('views', 'Выбор отчета для передачи');
 

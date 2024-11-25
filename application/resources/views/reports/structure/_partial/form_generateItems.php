@@ -1,13 +1,13 @@
 <?php
 
+use yii\bootstrap5\Html;
+use kartik\select2\Select2;
+
 /**
  * @var \yii\web\View $this
  * @var \app\models\report\StructureModel $model
  * @var int|string|null $additionalField
  */
-
-use yii\bootstrap5\Html;
-use kartik\select2\Select2;
 
 ?>
     <div class="col-12 col-md-4">

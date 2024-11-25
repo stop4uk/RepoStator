@@ -1,16 +1,16 @@
 <?php
 
-/**
- * @var \yii\web\View $this
- * @var \app\models\report\ConstantRuleModel $model
- */
-
 use yii\helpers\Json;
 use yii\helpers\Url;
 use yii\bootstrap5\Html;
 use yii\bootstrap5\ActiveForm;
 use kartik\select2\Select2;
 use mihaildev\ckeditor\CKEditor;
+
+/**
+ * @var \yii\web\View $this
+ * @var \app\models\report\ConstantRuleModel $model
+ */
 
 $form = ActiveForm::begin([
     'id' => 'reportconstantrule-form',

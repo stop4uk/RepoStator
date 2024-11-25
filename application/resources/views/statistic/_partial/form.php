@@ -1,10 +1,5 @@
 <?php
 
-/**
- * @var \yii\web\View $this
- * @var \app\forms\StatisticForm $model
- */
-
 use yii\helpers\Url;
 use yii\helpers\Json;
 use yii\bootstrap5\Html;
@@ -14,6 +9,11 @@ use kartik\daterange\DateRangePicker;
 
 use app\entities\report\ReportFormTemplateEntity;
 use app\helpers\CommonHelper;
+
+/**
+ * @var \yii\web\View $this
+ * @var \app\forms\StatisticForm $model
+ */
 
 $templateListField = Html::getInputId($model, 'template');
 $periodField = Html::getInputId($model, 'period');

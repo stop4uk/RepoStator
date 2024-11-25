@@ -1,17 +1,17 @@
 <?php
 
-/**
- * @var \yii\web\View $this
- * @var \app\forms\report\ControlCreateForForm $model
- * @var array $reports
- */
-
 use yii\helpers\Url;
 use yii\bootstrap5\ActiveForm;
 use yii\bootstrap5\Html;
 use kartik\select2\Select2;
 
 use app\forms\report\ControlCreateForForm;
+
+/**
+ * @var \yii\web\View $this
+ * @var \app\forms\report\ControlCreateForForm $model
+ * @var array $reports
+ */
 
 $model = new ControlCreateForForm(['reports' => $reports]);
 $fieldPeriodInput = Html::getInputId($model, 'period');
