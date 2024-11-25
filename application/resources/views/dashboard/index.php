@@ -1,12 +1,5 @@
 <?php
 
-/**
- * @var \yii\data\ActiveDataProvider $queueTemplates
- * @var \yii\data\ActiveDataProvider $needSentData
- * @var array $reports
- * @var array $sentData
- */
-
 use yii\helpers\Url;
 use yii\widgets\Pjax;
 use yii\grid\ActionColumn;
@@ -15,11 +8,17 @@ use yii\bootstrap5\Html;
 use app\widgets\GridView;
 use app\helpers\report\JobHelper;
 
+/**
+ * @var \yii\data\ActiveDataProvider $queueTemplates
+ * @var \yii\data\ActiveDataProvider $needSentData
+ * @var array $reports
+ * @var array $sentData
+ */
+
 $this->title = Yii::t('views', 'Общие показатели');
 Pjax::begin(['id' => 'dashBoard', 'enablePushState' => false, 'clientOptions' => ['method' => 'POST']]);
 
 ?>
-
     <div class="row">
         <div class="col-12">
             <div class="card">
@@ -28,41 +27,41 @@ Pjax::begin(['id' => 'dashBoard', 'enablePushState' => false, 'clientOptions' =>
                 </div>
                 <div class="card-body">
                     <?php
-                    if ( !$needSentData || !Yii::$app->getUser()->can('data.send') ) {
-                        echo Html::tag(
-                            name: 'h4',
-                            content: Yii::t('views', 'Все отчеты на текущий момент переданы'),
-                            options: ['class' => 'text-muted text-center']
-                        );
-                    } else {
-                        echo Html::beginTag('div', ['class' => 'row']);
-                        foreach ($needSentData->getModels() as $index => $model) {
-                            $timePeriodMessage = Yii::t(
-                                'views',
-                                $model->timePeriod ? 'Период с {start} по {end}' : 'Без ограничений передачи', [
-                                    'start' => isset($model->timePeriod->start) ? date('d.m.Y H:i', $model->timePeriod->start) : null,
-                                    'end' => isset($model->timePeriod->end) ? date('d.m.Y H:i', $model->timePeriod->end) : null
-                                ]
+                        if ( !$needSentData || !Yii::$app->getUser()->can('data.send') ) {
+                            echo Html::tag(
+                                name: 'h4',
+                                content: Yii::t('views', 'Все отчеты на текущий момент переданы'),
+                                options: ['class' => 'text-muted text-center']
                             );
-
-                            if ( $model->timePeriod ) {
-                                echo Html::beginTag('div', ['class' => 'col-12']);
-                                echo Html::tag(
-                                    name: 'p',
-                                    content: Yii::t('views', 'Одна из доступных Вам групп не передала ' .
-                                        '<strong>{name}</strong> в установленный период. <br /><span class="small">{period}</span>',
-                                        [
-                                            'name' => $model->name,
-                                            'period' => $timePeriodMessage
-                                        ]
-                                    ),
-                                    options: ['class' => 'border border-danger rounded p-2']
+                        } else {
+                            echo Html::beginTag('div', ['class' => 'row']);
+                            foreach ($needSentData->getModels() as $index => $model) {
+                                $timePeriodMessage = Yii::t(
+                                    'views',
+                                    $model->timePeriod ? 'Период с {start} по {end}' : 'Без ограничений передачи', [
+                                        'start' => isset($model->timePeriod->start) ? date('d.m.Y H:i', $model->timePeriod->start) : null,
+                                        'end' => isset($model->timePeriod->end) ? date('d.m.Y H:i', $model->timePeriod->end) : null
+                                    ]
                                 );
-                                echo Html::endTag('div');
+
+                                if ( $model->timePeriod ) {
+                                    echo Html::beginTag('div', ['class' => 'col-12']);
+                                    echo Html::tag(
+                                        name: 'p',
+                                        content: Yii::t('views', 'Одна из доступных Вам групп не передала ' .
+                                            '<strong>{name}</strong> в установленный период. <br /><span class="small">{period}</span>',
+                                            [
+                                                'name' => $model->name,
+                                                'period' => $timePeriodMessage
+                                            ]
+                                        ),
+                                        options: ['class' => 'border border-danger rounded p-2']
+                                    );
+                                    echo Html::endTag('div');
+                                }
                             }
+                            echo Html::endTag('div');
                         }
-                        echo Html::endTag('div');
-                    }
                     ?>
                 </div>
             </div>
@@ -115,20 +114,20 @@ Pjax::begin(['id' => 'dashBoard', 'enablePushState' => false, 'clientOptions' =>
                                 'template' => '{download}',
                                 'buttons' => [
                                     'download' => function($url, $model) {
-                                        if ( $model->file ) {
-                                            return Html::a(
-                                                '<i class="bi bi-file-arrow-down text-dark"></i>',
-                                                Url::to(['download', 'path' => base64_encode($model->file)]),
-                                                [
-                                                    'data-pjax' => 0,
-                                                    'data-bs-toggle' => 'tooltip',
-                                                    'data-bs-placement' => 'bottom',
-                                                    'title' => Yii::t('views', 'Скачать'),
-                                                ]
-                                            );
-                                        }
+                                        return Html::a('<i class="bi bi-file-arrow-down text-dark"></i>',
+                                            Url::to(['download', 'path' => base64_encode($model->file)]),
+                                            [
+                                                'data-pjax' => 0,
+                                                'data-bs-toggle' => 'tooltip',
+                                                'data-bs-placement' => 'bottom',
+                                                'title' => Yii::t('views', 'Скачать'),
+                                            ]
+                                        );
                                     },
                                 ],
+                                'visibleButtons' => [
+                                    'download' => fn($model) => $model->file
+                                ]
                             ],
                         ],
                     ]); ?>
@@ -139,10 +138,10 @@ Pjax::begin(['id' => 'dashBoard', 'enablePushState' => false, 'clientOptions' =>
 <?php endif; ?>
 
 <?php
-Pjax::end();
+    Pjax::end();
 
-$this->registerJs(<<<JS
-    setInterval(function(){
-        $.pjax.reload({container:'#dashBoard', method: "POST", async: true, push: false});
-    }, 20000);
+    $this->registerJs(<<<JS
+        setInterval(function(){
+            $.pjax.reload({container:'#dashBoard', method: "POST", async: true, push: false});
+        }, 20000);
 JS);
