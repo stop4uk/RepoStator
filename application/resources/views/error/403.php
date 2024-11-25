@@ -1,11 +1,11 @@
 <?php
 
+use yii\bootstrap5\Html;
+
 /**
  * @var string $statusCode
  * @var string $message
  */
-
-use yii\bootstrap5\Html;
 
 ?>
 
