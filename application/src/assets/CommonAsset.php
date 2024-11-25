@@ -2,7 +2,15 @@
 
 namespace app\assets;
 
-use yii\web\AssetBundle;
+use yii\web\{
+    AssetBundle,
+    YiiAsset
+};
+
+use yii\bootstrap5\{
+    BootstrapPluginAsset,
+    BootstrapIconAsset
+};
 
 /**
  * @author Stop4uk <stop4uk@yandex.ru>
@@ -19,8 +27,8 @@ final class CommonAsset extends AssetBundle
         'assets/js/core.js'
     ];
     public $depends = [
-        \yii\web\YiiAsset::class,
-        \yii\bootstrap5\BootstrapIconAsset::class,
-        \yii\bootstrap5\BootstrapPluginAsset::class,
+        YiiAsset::class,
+        BootstrapIconAsset::class,
+        BootstrapPluginAsset::class,
     ];
 }
