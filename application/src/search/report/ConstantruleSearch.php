@@ -94,7 +94,7 @@ final class ConstantruleSearch extends Model
             groups: $this->groups,
             active: $this->onlyActive,
             asQuery: true
-        );
+        )->with(['report']);
 
         $dataProvider = new ActiveDataProvider([
             'query' => $query,

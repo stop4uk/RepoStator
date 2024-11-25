@@ -8,6 +8,7 @@ use yii\behaviors\{
     BlameableBehavior,
     TimestampBehavior
 };
+use yii\db\ActiveQuery;
 use yii\helpers\Json;
 use yii2tech\ar\softdelete\SoftDeleteBehavior;
 
@@ -89,6 +90,11 @@ final class ReportConstantRuleEntity extends BaseAR
     public function attributeLabels(): array
     {
         return ConstantRuleHelper::labels();
+    }
+
+    public function getReport(): ActiveQuery
+    {
+        return $this->hasOne(ReportEntity::class, ['id' => 'report_id']);
     }
 
     public function beforeSave($insert): bool
