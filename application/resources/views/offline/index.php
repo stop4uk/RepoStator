@@ -1,10 +1,3 @@
-<?php
-
-use yii\bootstrap5\ActiveForm;
-use yii\bootstrap5\Html;
-
-?>
-
 <div class="row">
     <div class="col-sm-10 col-md-8 col-lg-6 col-xl-5 mx-auto d-table h-100">
         <div class="d-table-cell align-middle">
