@@ -71,12 +71,16 @@ $this->title = Yii::t('views', 'Список констант');
                                 ]);
                             }
 
-                            $name = $data->name;
                             if ($data->name_full) {
-                                $name .= Html::tag('span', '#' . $data->name_full, ['class' => 'small text-muted ms-2']);
+                                $resultString .= Html::tag('i', '', [
+                                    'class' => 'bi bi-textarea me-2',
+                                    'data-bs-toggle' => 'tooltip',
+                                    'data-bs-placement' => 'bottom',
+                                    'title' => $data->name_full
+                                ]);
                             }
 
-                            return $resultString . $name;
+                            return $resultString . $data->name . Html::tag('span', '#' . $data->record, ['class' => 'small text-muted ms-2']);
                         }
                     ],
                     [
@@ -89,7 +93,7 @@ $this->title = Yii::t('views', 'Список констант');
                             $resultString = '';
 
                             if ( $data->reports_only ) {
-                                $resultString .= Html::tag('span', '<i class="bi bi-exclamation-triangle p-1 me-2"></i>', [
+                                $resultString .= Html::tag('span', '<i class="bi bi-exclamation-triangle p-1"></i>', [
                                     'class' => 'text-danger fw-bold',
                                     'data-bs-toggle' => 'tooltip',
                                     'data-bs-placement' => 'bottom',
@@ -98,7 +102,7 @@ $this->title = Yii::t('views', 'Список констант');
                             }
 
                             if ( $data->union_rules ) {
-                                $resultString .= Html::tag('span', '<i class="bi bi-columns-gap p-1 me-2"></i>', [
+                                $resultString .= Html::tag('span', '<i class="bi bi-columns-gap p-1 ms-1"></i>', [
                                     'class' => 'text-primary fw-bold',
                                     'data-bs-toggle' => 'tooltip',
                                     'data-bs-placement' => 'bottom',
@@ -179,18 +183,6 @@ $this->title = Yii::t('views', 'Список констант');
             ]); ?>
         </div>
     </div>
-        echo ListView::widget([
-            'dataProvider' => $dataProvider,
-            'layout' => '{items}',
-            'emptyText' => Yii::t('views', 'Константы для просмотра отсутствуют'),
-            'emptyTextOptions' => ['class' => 'alert alert-danger text-center fw-bold'],
-            'itemView' => '_partial/list_item',
-            'options' => ['class' => 'row'],
-            'itemOptions' => ['class' => 'col-12 col-xl-6'],
-        ]);
-        echo Pager::widget([
-            'pagination' => $dataProvider->getPagination(),
-        ]);
 <?php
     Pjax::end();
 
