@@ -1,15 +1,15 @@
 <?php
 
-/**
- * @var \app\search\report\ReportSearch $searchModel
- */
-
 use yii\helpers\Url;
 use yii\bootstrap5\Html;
 use yii\bootstrap5\ActiveForm;
 use kartik\select2\Select2;
 
 use app\helpers\CommonHelper;
+
+/**
+ * @var \app\search\report\ReportSearch $searchModel
+ */
 
 $resource = Url::to(['/reports']);
 
@@ -42,19 +42,19 @@ $resource = Url::to(['/reports']);
                     'pluginOptions' => ['allowClear' => true],
                 ]); ?>
             </div>
-            <div class="col-12 col-md-4 col-xl-2">
+            <div class="col-12 col-md-4 col-xl-3 col-xxl-2">
                 <?= $form->field($searchModel, 'left_period')->input('number'); ?>
             </div>
-            <div class="col-12 col-md-4 col-xl-2">
+            <div class="col-12 col-md-4 col-xl-4 col-xxl-2">
                 <?= $form->field($searchModel, 'block_minutes')->input('number'); ?>
             </div>
-            <div class="col-6 col-xl-4">
+            <div class="col-6 col-xl-2 col-xxl-4">
                 <div class="d-grid gap-2">
                     <label class="form-label mb-0 d-none d-xl-block">&nbsp;</label>
                     <?= Html::submitButton(Yii::t('views', 'Поиск'), ['class' => 'btn btn-dark']) ?>
                 </div>
             </div>
-            <div class="col-6 col-xl-4">
+            <div class="col-6 col-xl-3 col-xxl-4">
                 <div class="d-grid gap-2">
                     <label class="form-label mb-0 d-none d-xl-block">&nbsp;</label>
                     <?= Html::a(Yii::t('views', 'Очистить'), $resource, ['class' => 'btn btn-danger']) ?>

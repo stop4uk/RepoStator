@@ -50,26 +50,29 @@ $this->title = Yii::t('views', 'Список отчетов');
                         'headerOptions' => [
                             'width' => '30%'
                         ],
-                        'format' => 'html',
+                        'format' => 'raw',
                         'value' => function($data) {
                             $resultString = Html::tag('i', '', [
                                 'class' => 'bi bi-circle-fill me-2 text-' . CommonHelper::getYesOrNoRecordColor($data->record_status),
                                 'data-bs-toggle' => 'tooltip',
                                 'data-bs-placement' => 'bottom',
                                 'title' => Yii::t('views', 'Статус записи: {status}', ['status' => CommonHelper::getYesOrNoRecord($data->record_status)])
-                            ]) . $data->name;
+                            ]);
 
                             if($data->description) {
                                 $resultString .= Html::tag('i', '', [
-                                    'class' => 'ms-2 bi bi-question-circle',
+                                    'class' => 'me-2 bi bi-question-circle',
+                                    'tabindex' => 0,
                                     'role' => 'button',
-                                    'data-bs-toggle' => 'popover',
                                     'title' => Yii::t('views', 'Описание'),
-                                    'data-bs-content' => Html::decode($data->description)
+                                    'data-bs-toggle' => 'popover',
+                                    'data-bs-content' => $data->description,
+                                    'data-bs-html' => 'true',
+                                    'data-bs-trigger' => 'focus'
                                 ]);
                             }
 
-                            return $resultString;
+                            return $resultString . $data->name;
                         }
                     ],
                     [
@@ -120,7 +123,7 @@ $this->title = Yii::t('views', 'Список отчетов');
                         'headerOptions' => [
                             'width' => '8%'
                         ],
-                        'format' => 'html',
+                        'format' => 'raw',
                         'value' => function($data) {
                             $resultString = '';
 
