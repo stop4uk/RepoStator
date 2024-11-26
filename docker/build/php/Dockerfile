@@ -34,10 +34,6 @@ RUN apt-get update && apt-get upgrade -y && apt-get install -y \
 #Timezone and locales
 RUN cp /usr/share/zoneinfo/Europe/Moscow /etc/localtime
 
-ENV LANG=ru_RU.UTF-8
-ENV LANGUAGE=ru_RU:UTF-8
-ENV LC_ALL=ru_RU.UTF-8
-
 #PHP config
 COPY ./docker/config/www.conf /usr/local/etc/php-fpm.d/www.conf
 COPY ./docker/config/php.ini /usr/local/etc/php/php.ini

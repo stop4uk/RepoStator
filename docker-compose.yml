@@ -47,7 +47,7 @@ services:
         HOST_UID: 1000
         HOST_GID: 1000
         WEB_PORT_HTTP: ${WEB_PORT_HTTP}
-        WEB_PORT_SSL: ${WEB_PORT_HTTPS}
+        WEB_PORT_HTTPS: ${WEB_PORT_HTTPS}
     volumes:
       - ./src:/var/www/html
       - ./docker/runtime/composer:/var/www/.composer
