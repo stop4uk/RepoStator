@@ -1,10 +1,10 @@
 <?php
 
-namespace app\search;
+namespace app\useCases\admin\search;
 
 use yii\data\ActiveDataProvider;
 
-use app\entities\QueueEntity;
+use app\useCasees\system\entities\QueueEntity;
 
 /**
  * @author Stop4uk <stop4uk@yandex.ru>

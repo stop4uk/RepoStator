@@ -1,10 +1,10 @@
 <?php
 
-namespace app\search;
+namespace app\useCases\admin\search;
 
 use yii\data\ActiveDataProvider;
 
-use app\entities\LogEntity;
+use app\useCases\system\entities\LogEntity;
 
 /**
  * @author Stop4uk <stop4uk@yandex.ru>

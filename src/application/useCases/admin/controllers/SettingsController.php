@@ -1,12 +1,15 @@
 <?php
 
-namespace app\controllers\admin;
+namespace app\useCases\admin\controllers;
 
-use app\components\base\BaseController;
-use app\models\SettingModel;
-use yii\bootstrap5\ActiveForm;
-use yii\filters\AccessControl;
 use yii\web\Response;
+use yii\filters\AccessControl;
+use yii\bootstrap5\ActiveForm;
+
+use app\components\{
+    base\BaseController,
+    settings\SettingModel
+};
 
 /**
  * @author Stop4uk <stop4uk@yandex.ru>

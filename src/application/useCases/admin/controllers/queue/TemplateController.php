@@ -1,11 +1,12 @@
 <?php
 
-namespace app\controllers\admin\queue;
+namespace app\useCases\admin\controllers\queue;
+
+use yii\filters\AccessControl;
 
 use app\actions\IndexAction;
 use app\components\base\BaseController;
-use app\search\report\JobSearch;
-use yii\filters\AccessControl;
+use app\useCases\report\search\JobSearch;
 
 /**
  * @author Stop4uk <stop4uk@yandex.ru>
