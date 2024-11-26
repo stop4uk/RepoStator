@@ -6,17 +6,20 @@ use yii\{
     debug\Module as DebugModule,
     gii\Module as GiiModule
 };
+use yii\helpers\ArrayHelper;
 
 use app\components\{
     bootstrap\WebBootstrap,
     events\handlers\WebEventHandler,
-    rbac\RbacDbmanager,
-    Identity
+};
+use app\useCases\users\{
+    components\rbac\RbacDbmanager,
+    components\Identity
 };
 
 $params = array_merge(
     require __DIR__ . '/_params_common.php',
-    require __DIR__ . '/params_web.php',
+    require __DIR__ . '/_params_web.php',
 );
 
 $config = [
@@ -82,7 +85,7 @@ $config = [
     'params' => $params,
 ];
 
-if (bool(getenv('YII_GII'))) {
+if ((bool)getenv('YII_GII')) {
     $config['modules']['gii'] = [
         'class' => GiiModule::class,
         'allowedIPs' => ['*'],
@@ -91,7 +94,7 @@ if (bool(getenv('YII_GII'))) {
     $config['bootstrap'][] = 'gii';
 }
 
-if (bool(getenv('YII_DEBUG'))) {
+if ((bool)getenv('YII_DEBUG')) {
     $config['modules']['debug'] = [
         'class' => DebugModule::class,
         'panels' => [
@@ -103,4 +106,4 @@ if (bool(getenv('YII_DEBUG'))) {
     $config['bootstrap'][] = 'debug';
 }
 
-return $config;
+return ArrayHelper::merge($config, require __DIR__ . '/common.php');

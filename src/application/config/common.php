@@ -13,7 +13,7 @@ use yii\symfonymailer\Mailer;
 use app\components\{
     bootstrap\CommonBootstrap,
     events\handlers\CommonEventHandler,
-    Settings
+    settins\Settings
 };
 
 return [
