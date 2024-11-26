@@ -37,3 +37,9 @@ ssh: ## Get bash inside docker container
 
 exec: ## Run command inside docker container
 	@HOST_UID=$(HOST_UID) HOST_GID=$(HOST_GID) WEB_PORT_HTTP=$(WEB_PORT_HTTP) WEB_PORT_HTTPS=$(WEB_PORT_HTTPS) DB_PORT=${DB_PORT} INNODB_USE_NATIVE_AIO=$(INNODB_USE_NATIVE_AIO) docker compose $(PR_NAME) exec $(OPTION_T) $(PHP_USER) web $$cmd
+
+exec-bash:
+	@HOST_UID=$(HOST_UID) HOST_GID=$(HOST_GID) WEB_PORT_HTTP=$(WEB_PORT_HTTP) WEB_PORT_HTTPS=$(WEB_PORT_HTTPS) DB_PORT=${DB_PORT} INNODB_USE_NATIVE_AIO=$(INNODB_USE_NATIVE_AIO) docker compose $(PR_NAME) exec $(OPTION_T) $(PHP_USER) web bash -c "$(cmd)"
+
+composer-install: ## Installs composer dependencies
+	@make exec-bash cmd="COMPOSER_MEMORY_LIMIT=-1 composer install --optimize-autoloader"
