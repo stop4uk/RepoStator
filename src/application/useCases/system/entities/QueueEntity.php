@@ -1,9 +1,10 @@
 <?php
 
-namespace app\entities;
+namespace app\useCases\system\entities;
+
+use Yii;
 
 use app\components\base\BaseAR;
-use Yii;
 
 /**
  * @property string $channel

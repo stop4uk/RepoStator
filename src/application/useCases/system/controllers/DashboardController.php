@@ -1,12 +1,16 @@
 <?php
 
-namespace app\controllers;
+namespace app\useCases\system\controllers;
+
+use yii\filters\AccessControl;
 
 use app\components\base\BaseController;
-use app\helpers\RbacHelper;
-use app\repositories\report\ReportBaseRepository;
-use app\search\report\{JobSearch, SendSearch};
-use yii\filters\AccessControl;
+use app\useCases\users\helpers\RbacHelper;
+use app\useCases\reports\{
+    repositories\ReportBaseRepository,
+    search\JobSearch,
+    search\SendSearch
+};
 
 /**
  * @author Stop4uk <stop4uk@yandex.ru>
