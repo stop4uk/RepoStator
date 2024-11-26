@@ -1,2 +1,2 @@
 # Cron use www-data with sudo, because we need to redirect logs into /dev/stdout /dev/stderr for container
-
+30 1 * * * php /var/www/html/yii cache/flush-all
