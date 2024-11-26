@@ -1,19 +1,35 @@
 <?php
 
-namespace app\controllers\reports;
+namespace app\useCases\reports\controllers;
 
-use app\actions\{CreateEditAction, DeleteAction, EnableAction, IndexAction, ViewAction,};
-use app\components\base\{BaseController};
-use app\components\base\BaseAR;
-use app\entities\report\ReportFormTemplateEntity;
-use app\helpers\RbacHelper;
-use app\models\report\TemplateModel;
-use app\repositories\{report\ConstantBaseRepository, report\ConstantruleBaseRepository, report\TemplateBaseRepository};
-use app\search\report\TemplateSearch;
-use app\services\report\TemplateService;
-use yii\filters\AccessControl;
-use yii\helpers\{ArrayHelper, Url};
 use yii\web\Response;
+use yii\filters\AccessControl;
+use yii\helpers\{
+    ArrayHelper,
+    Url
+};
+
+use app\actions\{
+    CreateEditAction,
+    DeleteAction,
+    EnableAction,
+    IndexAction,
+    ViewAction
+};
+use app\components\{
+    base\BaseController,
+    base\BaseAR
+};
+use app\useCases\reports\{
+    entities\ReportFormTemplateEntity,
+    models\TemplateModel,
+    repositories\ConstantBaseRepository,
+    repositories\ConstantruleBaseRepository,
+    repositories\TemplateBaseRepository,
+    services\TemplateService,
+    search\TemplateSearch
+};
+use app\useCases\users\helpers\RbacHelper;
 
 /**
  * @author Stop4uk <stop4uk@yandex.ru>

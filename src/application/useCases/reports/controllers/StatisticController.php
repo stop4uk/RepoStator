@@ -1,16 +1,19 @@
 <?php
 
-namespace app\controllers;
+namespace app\useCases\reports\controllers;
+
+use yii\web\Response;
+use yii\filters\AccessControl;
+use yii\bootstrap5\ActiveForm;
 
 use app\components\base\BaseController;
-use app\factories\FormTemplateFactory;
-use app\forms\StatisticForm;
-use app\helpers\RbacHelper;
-use app\repositories\report\TemplateBaseRepository;
-use app\search\report\JobSearch;
-use yii\bootstrap5\ActiveForm;
-use yii\filters\AccessControl;
-use yii\web\Response;
+use app\useCases\reports\{
+    components\factories\FormTemplateFactory,
+    forms\StatisticForm,
+    repositories\TemplateBaseRepository,
+    search\JobSearch
+};
+use app\useCases\users\helpers\RbacHelper;
 
 /**
  * @author Stop4uk <stop4uk@yandex.ru>
