@@ -2,18 +2,18 @@
 
 use yii\console\controllers\MigrateController;
 
-use app\bootstrap\ConsoleBootstrap;
-use app\events\handlers\ConsoleEventHandler;
+use app\components\{
+    bootstrap\ConsoleBootstrap,
+    events\handlers\ConsoleEventHandler
+};
 
 $params = array_merge(
-    require __DIR__ . '/../params.php',
-    require __DIR__ . '/../params-console-local.php',
+    require __DIR__ . '/_params_common.php',
+    require __DIR__ . '/_params_console.php',
 );
 
 return [
-    'id' => 'repostator_console',
     'bootstrap' => [
-        'queue',
         ConsoleBootstrap::class,
         ConsoleEventHandler::class,
     ],
@@ -21,7 +21,6 @@ return [
     'controllerMap' => [
         'migrate' => [
             'class' => MigrateController::class,
-            'migrationPath' => '@migrations',
         ]
     ],
     'components' => [
