@@ -1,15 +1,15 @@
 <?php
 
-namespace app\useCases\users\search\group;
+namespace app\useCases\admin\search\group;
 
 use yii\base\Model;
 use yii\data\ActiveDataProvider;
 
 use app\helpers\CommonHelper;
 use app\useCases\users\{
+    helpers\group\GroupHelper,
     repositories\group\GroupRepository,
-    repositories\group\GroupTypeRepository,
-    helpers\group\GroupHelper
+    repositories\group\GroupTypeRepository
 };
 
 /**

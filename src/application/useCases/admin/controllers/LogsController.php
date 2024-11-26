@@ -1,12 +1,16 @@
 <?php
 
-namespace app\controllers\admin;
+namespace app\useCases\admin\controllers;
 
-use app\actions\{IndexAction, ViewAction};
-use app\components\base\BaseController;
-use app\entities\LogEntity;
-use app\search\LogSearch;
 use yii\filters\AccessControl;
+
+use app\actions\{
+    IndexAction,
+    ViewAction
+};
+use app\components\base\BaseController;
+use app\useCases\system\entities\LogEntity;
+use app\useCases\admin\search\LogSearch;
 
 /**
  * @author Stop4uk <stop4uk@yandex.ru>
