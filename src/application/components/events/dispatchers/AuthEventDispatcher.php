@@ -3,8 +3,9 @@
 namespace app\components\events\dispatchers;
 
 use app\components\events\objects\AuthEvent;
-use app\entities\user\{UserRightEntity, UserSessionEntity};
 use app\jobs\SendEmailJob;
+use entities\user\{UserSessionEntity};
+use entities\user\UserRightEntity;
 use Yii;
 
 /**

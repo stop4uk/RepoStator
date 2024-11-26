@@ -1,13 +1,12 @@
 <?php
 
-use yii\helpers\Url;
-use yii\bootstrap5\Html;
-use yii\bootstrap5\ActiveForm;
-
 use app\helpers\CommonHelper;
+use yii\bootstrap5\ActiveForm;
+use yii\bootstrap5\Html;
+use yii\helpers\Url;
 
 /**
- * @var \app\search\group\GroupSearch $searchModel
+ * @var \search\group\GroupSearch $searchModel
  */
 
 $resource = Url::to(['/admin/groups']);

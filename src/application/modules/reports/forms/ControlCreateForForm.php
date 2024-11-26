@@ -3,8 +3,8 @@
 namespace forms;
 
 use app\helpers\RbacHelper;
-use app\repositories\{group\GroupBaseRepository};
 use entities\ReportEntity;
+use repositories\{group\GroupRepository};
 use repositories\DataBaseRepository;
 use repositories\ReportBaseRepository;
 use Yii;
@@ -37,7 +37,7 @@ final class ControlCreateForForm extends Model
     public function __construct($config = [])
     {
         $groups = RbacHelper::getAllowGroupsArray('data.edit.all');
-        $this->groups = GroupBaseRepository::getAllBy(
+        $this->groups = GroupRepository::getAllBy(
             condition: ['id' => array_keys($groups), 'accept_send' => 1],
             asArray: true
         );

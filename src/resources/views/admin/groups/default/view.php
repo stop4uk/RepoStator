@@ -4,7 +4,7 @@ use yii\bootstrap5\Html;
 use yii\helpers\Url;
 
 /**
- * @var \app\models\group\GroupModel $model
+ * @var \models\group\GroupModel $model
  * @var \yii\web\View $this
  */
 

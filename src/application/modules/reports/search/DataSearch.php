@@ -3,9 +3,9 @@
 namespace search;
 
 use app\helpers\{RbacHelper};
-use app\repositories\{user\UserBaseRepository};
 use app\traits\CleanDataProviderByRoleTrait;
 use DataHelper;
+use repositories\{user\UserRepository};
 use repositories\ConstantBaseRepository;
 use repositories\DataBaseRepository;
 use repositories\ReportBaseRepository;
@@ -73,7 +73,7 @@ final class DataSearch extends Model
             groups: $this->groups,
             active: $this->onlyActive
         );
-        $this->usersAllow =  UserBaseRepository::getAllow(
+        $this->usersAllow =  UserRepository::getAllow(
             groups: $this->groups,
             active: $this->onlyActive
         );

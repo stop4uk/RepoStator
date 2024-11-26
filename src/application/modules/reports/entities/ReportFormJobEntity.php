@@ -4,8 +4,8 @@ namespace entities;
 
 use app\components\base\BaseAR;
 use app\components\events\objects\StatisticEvent;
-use app\entities\user\UserEntity;
 use app\helpers\{CommonHelper};
+use entities\user\UserEntity;
 use JobHelper;
 use Yii;
 use yii\behaviors\{AttributeBehavior, BlameableBehavior, TimestampBehavior};

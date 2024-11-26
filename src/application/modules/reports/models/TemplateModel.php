@@ -4,8 +4,8 @@ namespace models;
 
 use app\components\base\BaseModel;
 use app\helpers\{CommonHelper, HtmlPurifier, RbacHelper};
-use app\repositories\{group\GroupBaseRepository};
 use entities\ReportFormTemplateEntity;
+use repositories\{group\GroupRepository};
 use repositories\ConstantBaseRepository;
 use repositories\ConstantruleBaseRepository;
 use repositories\ReportBaseRepository;
@@ -69,7 +69,7 @@ final class TemplateModel extends BaseModel
     public function __construct(ReportFormTemplateEntity $entity, $config = [])
     {
         $this->groups = RbacHelper::getAllowGroupsArray('structure.list.all');
-        $this->groupsCanSent = GroupBaseRepository::getAllBy(
+        $this->groupsCanSent = GroupRepository::getAllBy(
             condition: ['id' => array_keys($this->groups), 'accept_send' => 1],
             asArray: true
         );

@@ -1,23 +1,16 @@
 <?php
 
-use yii\helpers\{
-    Url,
-    ArrayHelper
-};
-use yii\widgets\Pjax;
-use yii\grid\ActionColumn;
-use yii\bootstrap5\{
-    Html,
-    Modal
-};
-
 use app\widgets\GridView;
+use yii\bootstrap5\{Html, Modal};
+use yii\grid\ActionColumn;
+use yii\helpers\{ArrayHelper, Url};
+use yii\widgets\Pjax;
 
 /**
  * @var \yii\web\View $this
- * @var \app\models\user\ProfileModel $model
- * @var \app\forms\user\UserEmailChangeForm $userEmailChangeForm
- * @var \app\forms\user\UserPasswordChangeForm $userPasswordChangeForm
+ * @var \models\user\ProfileModel $model
+ * @var \forms\user\UserEmailChangeForm $userEmailChangeForm
+ * @var \forms\user\UserPasswordChangeForm $userPasswordChangeForm
  * @var array $emailchangesDataProvider
  */
 

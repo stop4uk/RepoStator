@@ -1,7 +1,7 @@
 <?php
 
 /**
- * @var \app\models\user\UserModel $model
+ * @var \models\user\UserModel $model
  */
 
 use yii\helpers\Url;

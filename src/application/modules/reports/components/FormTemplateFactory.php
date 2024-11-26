@@ -3,9 +3,9 @@
 namespace components;
 
 use app\components\base\BaseProcessorInterface;
-use app\forms\StatisticForm;
 use components\processors\{ToFileBaseProcessor};
 use components\processors\ToFileByJobBaseProcessor;
+use forms\StatisticForm;
 use repositories\TemplateBaseRepository;
 
 /**

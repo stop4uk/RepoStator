@@ -4,10 +4,10 @@ namespace models;
 
 use app\components\base\BaseModel;
 use app\helpers\{CommonHelper, HtmlPurifier, RbacHelper};
-use app\repositories\{group\GroupBaseRepository};
 use ConstantRuleHelper;
 use entities\{ReportConstantRuleEntity};
 use entities\ReportConstantEntity;
+use repositories\{group\GroupRepository};
 use repositories\ConstantBaseRepository;
 use repositories\ReportBaseRepository;
 use Yii;
@@ -44,7 +44,7 @@ final class ConstantRuleModel extends BaseModel
     public function __construct(ReportConstantRuleEntity $entity, array $config = [])
     {
         $groupsAllow = RbacHelper::getAllowGroupsArray('constantRule.list.all');
-        $groupsCanSent = GroupBaseRepository::getAllBy(
+        $groupsCanSent = GroupRepository::getAllBy(
             condition: ['id' => array_keys($groupsAllow), 'accept_send' => 1],
             asArray: true
         );

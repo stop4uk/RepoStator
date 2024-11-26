@@ -3,8 +3,9 @@
 namespace entities;
 
 use app\components\base\BaseAR;
-use app\entities\{group\GroupEntity, user\UserEntity};
 use DataHelper;
+use entities\{user\UserEntity};
+use entities\group\GroupEntity;
 use models\DataModel;
 use Yii;
 use yii\behaviors\{AttributeBehavior, BlameableBehavior, TimestampBehavior};

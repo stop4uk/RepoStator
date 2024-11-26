@@ -2,8 +2,8 @@
 
 namespace app\components\base;
 
-use app\forms\StatisticForm;
 use entities\ReportFormTemplateEntity;
+use forms\StatisticForm;
 
 /**
  * @author Stop4uk <stop4uk@yandex.ru>

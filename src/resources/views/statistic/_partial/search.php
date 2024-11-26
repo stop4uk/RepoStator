@@ -7,7 +7,7 @@ use yii\bootstrap5\Html;
 use yii\helpers\Url;
 
 /**
- * @var \app\search\StatisticSearch $searchModel
+ * @var \search\StatisticSearch $searchModel
  */
 
 $resource = Url::to(['/statistic']);

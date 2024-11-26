@@ -1,11 +1,11 @@
 <?php
 
-use yii\helpers\Url;
-use yii\bootstrap5\Html;
 use yii\bootstrap5\ActiveForm;
+use yii\bootstrap5\Html;
+use yii\helpers\Url;
 
 /**
- * @var \app\forms\user\UserEmailChangeForm $userEmailChangeForm
+ * @var \forms\user\UserEmailChangeForm $userEmailChangeForm
  */
 
 $form = ActiveForm::begin([

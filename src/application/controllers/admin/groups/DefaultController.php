@@ -4,12 +4,13 @@ namespace app\controllers\admin\groups;
 
 use app\actions\{CreateEditAction, DeleteAction, EnableAction, IndexAction, ViewAction,};
 use app\components\base\BaseController;
-use app\entities\group\{GroupEntity, GroupNestedEntity};
-use app\models\group\GroupModel;
-use app\repositories\group\GroupBaseRepository;
-use app\search\group\GroupSearch;
-use app\services\group\GroupService;
+use entities\group\{GroupNestedEntity};
+use entities\group\GroupEntity;
+use group\GroupService;
 use klisl\nestable\NodeMoveAction;
+use models\group\GroupModel;
+use repositories\group\GroupRepository;
+use search\group\GroupSearch;
 use yii\filters\AccessControl;
 use yii\helpers\{ArrayHelper, Url};
 
@@ -66,7 +67,7 @@ final class DefaultController extends BaseController
             ],
             'view' => [
                 'class' => ViewAction::class,
-                'repository' => GroupBaseRepository::class,
+                'repository' => GroupRepository::class,
                 'requestID' => $this->request->get('id'),
                 'model' => GroupModel::class,
                 'exceptionMessage' => 'Запрашиваемая группа не найдена'
@@ -74,7 +75,7 @@ final class DefaultController extends BaseController
             'edit' => [
                 'class' => CreateEditAction::class,
                 'actionType' => 'edit',
-                'repository' => GroupBaseRepository::class,
+                'repository' => GroupRepository::class,
                 'requestID' => $this->request->get('id'),
                 'model' => GroupModel::class,
                 'service' => $this->service,
@@ -86,7 +87,7 @@ final class DefaultController extends BaseController
             ],
             'delete' => [
                 'class' => DeleteAction::class,
-                'repository' => GroupBaseRepository::class,
+                'repository' => GroupRepository::class,
                 'requestID' => $this->request->get('id'),
                 'service' => $this->service,
                 'errorMessage' => 'При удалении группы возникли ошибки. Пожалуйста, проверьте логи',
@@ -95,7 +96,7 @@ final class DefaultController extends BaseController
             ],
             'enable' => [
                 'class' => EnableAction::class,
-                'repository' => GroupBaseRepository::class,
+                'repository' => GroupRepository::class,
                 'requestID' => $this->request->get('id'),
                 'service' => $this->service,
                 'exceptionMessage' => 'Заправшиваемая группа не найдена'

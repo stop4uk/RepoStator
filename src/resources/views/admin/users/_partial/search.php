@@ -1,18 +1,15 @@
 <?php
 
 /**
- * @var \app\search\UserSearch $searchModel
+ * @var \search\UserSearch $searchModel
  */
 
-use yii\helpers\Url;
-use yii\bootstrap5\Html;
-use yii\bootstrap5\ActiveForm;
+use app\helpers\{CommonHelper};
+use helpers\user\UserHelper;
 use kartik\select2\Select2;
-
-use app\helpers\{
-    CommonHelper,
-    user\UserHelper
-};
+use yii\bootstrap5\ActiveForm;
+use yii\bootstrap5\Html;
+use yii\helpers\Url;
 
 $resource = Url::to(['/admin/users']);
 

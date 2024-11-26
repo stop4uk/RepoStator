@@ -7,8 +7,6 @@
 use yii\bootstrap5\Html;
 use yii\helpers\Url;
 
-use app\helpers\user\UserHelper;
-
 ?>
 
 <table class="s-4 w-full" role="presentation" style="width: 100%;">

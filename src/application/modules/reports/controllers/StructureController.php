@@ -7,10 +7,10 @@ use app\components\base\{BaseController,};
 use app\components\base\BaseAR;
 use app\helpers\CommonHelper;
 use app\helpers\RbacHelper;
-use app\repositories\{group\GroupBaseRepository};
 use app\widgets\Repeater\actions\{AddAction, DeleteAction as RepeaterDeleteAction};
 use entities\ReportStructureEntity;
 use models\StructureModel;
+use repositories\{group\GroupRepository};
 use repositories\ConstantBaseRepository;
 use repositories\ReportBaseRepository;
 use repositories\StructureBaseRepository;
@@ -220,7 +220,7 @@ final class StructureController extends BaseController
 
         $reportInformation = ReportBaseRepository::get($report_id);
         $groupsAllow = RbacHelper::getAllowGroupsArray('constantRule.list.all');
-        $groupsCanSent = GroupBaseRepository::getAllBy(
+        $groupsCanSent = GroupRepository::getAllBy(
             condition: ['id' => array_keys($groupsAllow), 'accept_send' => 1],
             asArray: true
         );
