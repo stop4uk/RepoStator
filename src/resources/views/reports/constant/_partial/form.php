@@ -1,12 +1,12 @@
 <?php
 
-use yii\bootstrap5\Html;
-use yii\bootstrap5\ActiveForm;
 use kartik\select2\Select2;
 use mihaildev\ckeditor\CKEditor;
+use yii\bootstrap5\ActiveForm;
+use yii\bootstrap5\Html;
 
 /**
- * @var \app\models\report\ConstantModel $model
+ * @var \models\ConstantModel $model
  */
 
 $form = ActiveForm::begin([

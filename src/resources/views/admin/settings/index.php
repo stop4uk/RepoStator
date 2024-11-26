@@ -1,13 +1,7 @@
 <?php
 
-use yii\helpers\Url;
-use yii\bootstrap5\Html;
 use yii\bootstrap5\ActiveForm;
-use kartik\daterange\DateRangePicker;
-use kartik\select2\Select2;
-
-use app\helpers\CommonHelper;
-use app\helpers\report\JobHelper;
+use yii\bootstrap5\Html;
 
 /**
  * @var \app\models\SettingModel $model

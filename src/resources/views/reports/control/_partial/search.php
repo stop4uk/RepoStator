@@ -1,15 +1,14 @@
 <?php
 
-use yii\helpers\Url;
-use yii\bootstrap5\Html;
-use yii\bootstrap5\ActiveForm;
-use kartik\select2\Select2;
-use kartik\daterange\DateRangePicker;
-
 use app\helpers\CommonHelper;
+use kartik\daterange\DateRangePicker;
+use kartik\select2\Select2;
+use yii\bootstrap5\ActiveForm;
+use yii\bootstrap5\Html;
+use yii\helpers\Url;
 
 /**
- * @var \app\search\report\ConstantSearch $searchModel
+ * @var \search\ConstantSearch $searchModel
  */
 
 $resource = Url::to(['/reports/control']);

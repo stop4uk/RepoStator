@@ -1,21 +1,14 @@
 <?php
 
-use yii\helpers\{
-    Url,
-    Json
-};
-use yii\widgets\Pjax;
-use yii\grid\ActionColumn;
-use yii\bootstrap5\Html;
-
+use app\helpers\{CommonHelper, RbacHelper};
 use app\widgets\GridView;
-use app\helpers\{
-    CommonHelper,
-    RbacHelper
-};
+use yii\bootstrap5\Html;
+use yii\grid\ActionColumn;
+use yii\helpers\{Json, Url};
+use yii\widgets\Pjax;
 
 /**
- * @var \app\search\report\StructureSearch $searchModel
+ * @var \search\StructureSearch $searchModel
  * @var \yii\data\ActiveDataProvider $dataProvider
  * @var array $groupList
  */

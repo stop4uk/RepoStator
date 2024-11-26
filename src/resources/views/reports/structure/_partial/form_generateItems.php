@@ -1,11 +1,11 @@
 <?php
 
-use yii\bootstrap5\Html;
 use kartik\select2\Select2;
+use yii\bootstrap5\Html;
 
 /**
  * @var \yii\web\View $this
- * @var \app\models\report\StructureModel $model
+ * @var \models\StructureModel $model
  * @var int|string|null $additionalField
  */
 

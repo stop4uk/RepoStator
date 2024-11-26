@@ -1,12 +1,11 @@
 <?php
 
-use yii\widgets\Pjax;
-use yii\widgets\ListView;
-
 use app\widgets\Pager;
+use yii\widgets\ListView;
+use yii\widgets\Pjax;
 
 /**
- * @var \app\search\report\SendSearch $searchModel
+ * @var \search\SendSearch $searchModel
  * @var \yii\data\ActiveDataProvider $dataProvider
  */
 

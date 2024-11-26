@@ -3,7 +3,7 @@
 use yii\helpers\Url;
 
 /**
- * @var \app\models\report\ConstantModel $model
+ * @var \models\ConstantModel $model
  */
 
 $this->title = Yii::t('views', 'Новая константа');

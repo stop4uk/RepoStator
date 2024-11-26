@@ -2,19 +2,13 @@
 
 namespace app\search;
 
+use app\helpers\{CommonHelper, RbacHelper};
+use entities\ReportFormJobEntity;
+use JobHelper;
+use repositories\{TemplateBaseRepository};
+use repositories\ReportBaseRepository;
 use Yii;
 use yii\data\ActiveDataProvider;
-
-use app\entities\report\ReportFormJobEntity;
-use app\repositories\report\{
-    ReportBaseRepository,
-    TemplateBaseRepository
-};
-use app\helpers\{
-    CommonHelper,
-    RbacHelper,
-    report\JobHelper
-};
 
 /**
  * @author Stop4uk <stop4uk@yandex.ru>

@@ -3,7 +3,7 @@
 use yii\bootstrap5\Html;
 
 /**
- * @var \app\entities\report\ReportEntity $model
+ * @var \entities\ReportEntity $model
  */
 
 $timePeriodMessage = Yii::t(

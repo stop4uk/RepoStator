@@ -1,11 +1,11 @@
 <?php
 
-use yii\helpers\Url;
-use yii\bootstrap5\Html;
 use yii\bootstrap5\ActiveForm;
+use yii\bootstrap5\Html;
+use yii\helpers\Url;
 
 /**
- * @var \app\search\report\SendSearch $searchModel
+ * @var \search\SendSearch $searchModel
  */
 
 $resource = Url::to(['/reports/work']);

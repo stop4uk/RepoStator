@@ -1,10 +1,10 @@
 <?php
 
-use yii\helpers\Url;
 use yii\bootstrap5\Html;
+use yii\helpers\Url;
 
 /**
- * @var \app\models\report\ConstantRuleModel $model
+ * @var \models\ConstantRuleModel $model
  * @var \yii\web\View $this
  */
 

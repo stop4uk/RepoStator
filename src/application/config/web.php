@@ -6,6 +6,7 @@ use yii\{
     debug\Module as DebugModule,
     gii\Module as GiiModule
 };
+use yii\helpers\ArrayHelper;
 
 use app\components\{
     bootstrap\WebBootstrap,
@@ -103,4 +104,4 @@ if (bool(getenv('YII_DEBUG'))) {
     $config['bootstrap'][] = 'debug';
 }
 
-return $config;
+return ArrayHelper::merge($config, require __DIR__ . '/common.php');

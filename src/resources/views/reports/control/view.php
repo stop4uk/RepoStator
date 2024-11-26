@@ -1,13 +1,12 @@
 <?php
 
-use yii\helpers\Url;
+use app\widgets\structform\StructFormWidget;
 use yii\bootstrap5\Html;
 use yii\bootstrap5\Modal;
-
-use app\widgets\structform\StructFormWidget;
+use yii\helpers\Url;
 
 /**
- * @var \app\models\report\DataModel $model
+ * @var \models\DataModel $model
  */
 
 $this->params['breadcrumbs'] = [

@@ -1,10 +1,10 @@
 <?php
 
-use yii\helpers\Url;
 use yii\bootstrap5\Html;
+use yii\helpers\Url;
 
 /**
- * @var \app\models\report\TemplateModel $model
+ * @var \models\TemplateModel $model
  * @var \yii\web\View $this
  */
 
