@@ -1,12 +1,7 @@
 FROM php:8.1-fpm AS base
 
-ARG HOST_UID=1000
-ARG HOST_GID=1000
-ARG INSIDE_DOCKER_CONTAINER=1
-
 ENV APP_HOME /var/www/html
 ENV USERNAME=www-data
-ENV INSIDE_DOCKER_CONTAINER=$INSIDE_DOCKER_CONTAINER
 
 COPY --from=mlocati/php-extension-installer /usr/bin/install-php-extensions /usr/local/bin/
 

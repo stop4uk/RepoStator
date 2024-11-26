@@ -1,11 +1,13 @@
+version: "3.8"
+
 services:
   nginx:
     image: "nginx:latest"
     container_name: ${PROJECT_NAME}-nginx
     restart: always
     ports:
-      - "${WEB_PORT_HTTP}:80"
-      - "${WEB_PORT_HTTPS}:443"
+      - ${WEB_PORT_HTTP}:80
+      - ${WEB_PORT_HTTPS}:443
     depends_on:
       - web
       - mysql
@@ -22,9 +24,7 @@ services:
     restart: always
     container_name: ${PROJECT_NAME}-mysql
     ports:
-      - "${DB_PORT}:3306"
-    expose:
-      - ${DB_PORT}
+      - ${DB_PORT}:3306
     networks:
       - repostator
     volumes:
@@ -32,10 +32,11 @@ services:
       - ./docker/runtime/db/mysql:/var/lib/mysql
       - ./docker/runtime/logs/mysql:/var/log/mysql
     environment:
-      MYSQL_ROOT_PASSWORD: ${DB_PASS}
       MYSQL_DATABASE: ${DB_NAME}
+      MYSQL_ROOT_USER: ${DB_USER}
+      MYSQL_ROOT_PASSWORD: ${DB_PASS}
+      MYSQL_ROOT_HOST: "%"
   web: &application-template
-    image: ${PROJECT_NAME}-web:latest
     container_name: ${PROJECT_NAME}-web
     restart: always
     build:
@@ -77,8 +78,8 @@ services:
     container_name: ${PROJECT_NAME}-mailhog
     restart: on-failure
     ports:
-      - "${MAIL_PORT}:1025"
-      - "8025:8025"
+      - ${MAIL_PORT}:1025
+      - 8025:8025
     networks:
       - repostator
 networks:
