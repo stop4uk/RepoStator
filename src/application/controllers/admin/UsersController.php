@@ -2,26 +2,16 @@
 
 namespace app\controllers\admin;
 
-use Yii;
+use app\actions\{CreateEditAction, DeleteAction, EnableAction, IndexAction, ViewAction,};
+use app\components\base\{BaseController};
+use app\components\base\BaseAR;
+use app\entities\user\UserEntity;
+use app\models\user\UserModel;
+use app\repositories\user\UserBaseRepository;
+use app\search\UserSearch;
+use app\services\UserService;
 use yii\filters\AccessControl;
 use yii\helpers\Url;
-
-use app\base\{
-    BaseAR,
-    BaseController
-};
-use app\actions\{
-    IndexAction,
-    CreateEditAction,
-    ViewAction,
-    DeleteAction,
-    EnableAction,
-};
-use app\services\UserService;
-use app\entities\user\UserEntity;
-use app\repositories\user\UserRepository;
-use app\models\user\UserModel;
-use app\search\UserSearch;
 
 /**
  * @author Stop4uk <stop4uk@yandex.ru>
@@ -53,7 +43,7 @@ final class UsersController extends BaseController
                             'admin.user.view.delete.all',
                         ],
                         'roleParams' => function($rule) {
-                            $recordInformation = UserRepository::get(
+                            $recordInformation = UserBaseRepository::get(
                                 id: $this->request->get('id'),
                                 active: false
                             );
@@ -80,7 +70,7 @@ final class UsersController extends BaseController
                             'admin.user.edit.all'
                         ],
                         'roleParams' => function($rule) {
-                            $recordInformation = UserRepository::get($this->request->get('id'));
+                            $recordInformation = UserBaseRepository::get($this->request->get('id'));
 
                             return [
                                 'id' => $recordInformation->id,
@@ -97,7 +87,7 @@ final class UsersController extends BaseController
                             'admin.user.delete.all'
                         ],
                         'roleParams' => function($rule) {
-                            $recordInformation = UserRepository::get($this->request->get('id'));
+                            $recordInformation = UserBaseRepository::get($this->request->get('id'));
 
                             return [
                                 'id' => $recordInformation->id,
@@ -114,7 +104,7 @@ final class UsersController extends BaseController
                             'admin.user.enable.all'
                         ],
                         'roleParams' => function($rule) {
-                            $recordInformation = UserRepository::get(
+                            $recordInformation = UserBaseRepository::get(
                                 id: $this->request->get('id'),
                                 active: false
                             );
@@ -158,7 +148,7 @@ final class UsersController extends BaseController
             ],
             'view' => [
                 'class' => ViewAction::class,
-                'repository' => UserRepository::class,
+                'repository' => UserBaseRepository::class,
                 'repositoryRelations' => ['group', 'rights'],
                 'requestID' => $this->request->get('id'),
                 'model' => UserModel::class,
@@ -168,7 +158,7 @@ final class UsersController extends BaseController
                 'class' => CreateEditAction::class,
                 'actionType' => 'edit',
                 'entityScenario' => UserEntity::SCENARIO_UPDATE_BY_ADMIN,
-                'repository' => UserRepository::class,
+                'repository' => UserBaseRepository::class,
                 'repositoryRelations' => ['group', 'rights'],
                 'requestID' => $this->request->get('id'),
                 'model' => UserModel::class,
@@ -179,7 +169,7 @@ final class UsersController extends BaseController
             ],
             'delete' => [
                 'class' => DeleteAction::class,
-                'repository' => UserRepository::class,
+                'repository' => UserBaseRepository::class,
                 'requestID' => $this->request->get('id'),
                 'service' => $this->service,
                 'errorMessage' => 'При удалении пользователя возникли ошибки. Пожалуйста, проверьте логи',
@@ -188,7 +178,7 @@ final class UsersController extends BaseController
             ],
             'enable' => [
                 'class' => EnableAction::class,
-                'repository' => UserRepository::class,
+                'repository' => UserBaseRepository::class,
                 'requestID' => $this->request->get('id'),
                 'service' => $this->service,
                 'exceptionMessage' => 'Пользователь не найден, или, просмотр запрещен'

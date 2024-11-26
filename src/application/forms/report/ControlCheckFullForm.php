@@ -2,21 +2,14 @@
 
 namespace app\forms\report;
 
+use app\components\base\BaseAR;
+use app\entities\report\{ReportDataEntity, ReportEntity};
+use app\helpers\{CommonHelper, RbacHelper};
+use app\repositories\report\ReportBaseRepository;
 use Yii;
 use yii\base\Model;
 use yii\helpers\ArrayHelper;
 use yii\validators\DateValidator;
-
-use app\base\BaseAR;
-use app\entities\report\{
-    ReportEntity,
-    ReportDataEntity
-};
-use app\repositories\report\ReportRepository;
-use app\helpers\{
-    CommonHelper,
-    RbacHelper
-};
 
 /**
  * @property int $report
@@ -41,7 +34,7 @@ final class ControlCheckFullForm extends Model
     {
         if ( !$this->reports ) {
             $groups = RbacHelper::getAllowGroupsArray('data.list.all');
-            $this->reports = ReportRepository::getAllow(
+            $this->reports = ReportBaseRepository::getAllow(
                 groups: $groups
             );
         }
@@ -86,7 +79,7 @@ final class ControlCheckFullForm extends Model
     public function beforeValidate(): bool
     {
         if ( $this->report ) {
-            $this->reportData = ReportRepository::get($this->report);
+            $this->reportData = ReportBaseRepository::get($this->report);
         }
 
         return parent::beforeValidate();

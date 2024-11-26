@@ -2,13 +2,9 @@
 
 namespace app\entities\user;
 
+use app\components\base\BaseAR;
 use Yii;
-use yii\behaviors\{
-    BlameableBehavior,
-    TimestampBehavior
-};
-
-use app\base\BaseAR;
+use yii\behaviors\{BlameableBehavior, TimestampBehavior};
 
 /**
  * @property string $item_name

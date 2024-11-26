@@ -8,7 +8,7 @@ use app\entities\{
     user\UserEntity,
     group\GroupNestedEntity
 };
-use app\repositories\group\GroupRepository;
+use app\repositories\group\GroupBaseRepository;
 use app\helpers\user\UserHelper;
 
 /**
@@ -89,7 +89,7 @@ final class Identity implements IdentityInterface
         $mainID = $this->user->group->group_id ?? null;
 
         if ($mainID) {
-            $allGroups = GroupRepository::getAll([], true);
+            $allGroups = GroupBaseRepository::getAll([], true);
             $nestedRecord = GroupNestedEntity::find()->where(['group_id' => $mainID])->limit(1)->one();
 
             $groups = [$mainID => $allGroups[$mainID]];

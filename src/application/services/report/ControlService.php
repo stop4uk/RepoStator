@@ -2,17 +2,14 @@
 
 namespace app\services\report;
 
+use app\components\base\{BaseModelInterface};
+use app\components\base\BaseARInterface;
+use app\components\base\BaseService;
+use app\entities\report\ReportDataChangeEntity;
+use app\helpers\CommonHelper;
 use Yii;
 use yii\base\Exception;
 use yii\helpers\Json;
-
-use app\base\BaseService;
-use app\interfaces\{
-    BaseARInterface,
-    ModelInterface
-};
-use app\entities\report\ReportDataChangeEntity;
-use app\helpers\CommonHelper;
 
 /**
  * @author Stop4uk <stop4uk@yandex.ru>
@@ -20,7 +17,7 @@ use app\helpers\CommonHelper;
  */
 final class ControlService extends BaseService
 {
-    public function edit(ModelInterface $model): BaseARInterface
+    public function edit(BaseModelInterface $model): BaseARInterface
     {
         $changeData = $this->beforeEdit($model);
         $model->getEntity()->recordAction($model);
@@ -60,7 +57,7 @@ final class ControlService extends BaseService
         throw new Exception(Yii::t('exceptions', $errorMessage));
     }
 
-    private function beforeEdit(ModelInterface $model): array
+    private function beforeEdit(BaseModelInterface $model): array
     {
         $oldContent = Json::decode($model->getEntity()->content);
         $newContent = $model->content;
@@ -104,8 +101,8 @@ final class ControlService extends BaseService
     }
 
     private function afterEdit(
-        ModelInterface $model,
-        array $changeData = []
+        BaseModelInterface $model,
+        array              $changeData = []
     ): bool {
         if ( !$changeData ) {
             return true;

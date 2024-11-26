@@ -2,15 +2,11 @@
 
 namespace app\forms\auth;
 
+use app\components\base\BaseAR;
+use app\entities\user\UserEntity;
+use app\helpers\{AuthHelper, HtmlPurifier};
 use Yii;
 use yii\base\Model;
-
-use app\base\BaseAR;
-use app\entities\user\UserEntity;
-use app\helpers\{
-    AuthHelper,
-    HtmlPurifier
-};
 
 /**
  * @property string|null $email

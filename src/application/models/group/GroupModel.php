@@ -2,13 +2,12 @@
 
 namespace app\models\group;
 
+use app\components\base\BaseModel;
+use app\entities\group\GroupEntity;
+use app\helpers\group\GroupHelper;
+use app\repositories\group\GroupTypeBaseRepository;
 use Yii;
 use yii\helpers\Json;
-
-use app\base\BaseModel;
-use app\entities\group\GroupEntity;
-use app\repositories\group\GroupTypeRepository;
-use app\helpers\group\GroupHelper;
 
 /**
  * @property string|null $code
@@ -36,7 +35,7 @@ class GroupModel extends BaseModel
 
     public function __construct(GroupEntity $entity, $config = [])
     {
-        $this->types = GroupTypeRepository::getAll(
+        $this->types = GroupTypeBaseRepository::getAll(
             asArray: true
         );
 

@@ -2,21 +2,13 @@
 
 namespace app\entities\report;
 
+use app\components\base\BaseAR;
+use app\helpers\{CommonHelper, report\ConstantHelper};
+use app\models\report\ConstantModel;
 use Yii;
-use yii\behaviors\{
-    AttributeBehavior,
-    BlameableBehavior,
-    TimestampBehavior
-};
+use yii\behaviors\{AttributeBehavior, BlameableBehavior, TimestampBehavior};
 use yii\helpers\Json;
 use yii2tech\ar\softdelete\SoftDeleteBehavior;
-
-use app\base\BaseAR;
-use app\helpers\{
-    CommonHelper,
-    report\ConstantHelper
-};
-use app\models\report\ConstantModel;
 
 /**
  * @property string $record

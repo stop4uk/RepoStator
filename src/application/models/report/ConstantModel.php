@@ -2,21 +2,12 @@
 
 namespace app\models\report;
 
+use app\components\base\BaseModel;
+use app\entities\report\{ReportConstantEntity, ReportConstantRuleEntity};
+use app\helpers\{CommonHelper, HtmlPurifier, RbacHelper, report\ConstantHelper};
+use app\repositories\report\ReportBaseRepository;
 use Yii;
 use yii\helpers\Json;
-
-use app\base\BaseModel;
-use app\entities\report\{
-    ReportConstantRuleEntity,
-    ReportConstantEntity
-};
-use app\repositories\report\ReportRepository;
-use app\helpers\{
-    CommonHelper,
-    RbacHelper,
-    HtmlPurifier,
-    report\ConstantHelper
-};
 
 /**
  * @property string $record
@@ -45,7 +36,7 @@ final class ConstantModel extends BaseModel
     public function __construct(ReportConstantEntity $entity, array $config = [])
     {
         $groups = RbacHelper::getAllowGroupsArray('constant.list.all');
-        $this->reports = ReportRepository::getAllow(
+        $this->reports = ReportBaseRepository::getAllow(
             groups: $groups
         );
 

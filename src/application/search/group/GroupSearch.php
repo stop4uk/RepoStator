@@ -6,8 +6,8 @@ use yii\base\Model;
 use yii\data\ActiveDataProvider;
 
 use app\repositories\group\{
-    GroupRepository,
-    GroupTypeRepository
+    GroupBaseRepository,
+    GroupTypeBaseRepository
 };
 use app\helpers\{
     CommonHelper,
@@ -39,11 +39,11 @@ final class GroupSearch extends Model
 
     public function __construct($config = [])
     {
-        $this->types = GroupTypeRepository::getAll(
+        $this->types = GroupTypeBaseRepository::getAll(
             asArray: true
         );
 
-        $this->groups = GroupRepository::getAll(
+        $this->groups = GroupBaseRepository::getAll(
             asArray: true
         );
 
@@ -69,7 +69,7 @@ final class GroupSearch extends Model
 
     public function search($params): ActiveDataProvider
     {
-        $query = GroupRepository::getAllBy(
+        $query = GroupBaseRepository::getAllBy(
             condition: ['id' => array_keys($this->groups)],
             relations: ['type']
         );

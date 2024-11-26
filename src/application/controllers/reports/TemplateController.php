@@ -2,35 +2,18 @@
 
 namespace app\controllers\reports;
 
-use Yii;
-use yii\helpers\{
-    Url,
-    ArrayHelper
-};
-use yii\filters\AccessControl;
-use yii\web\Response;
-
-use app\base\{
-    BaseAR,
-    BaseController
-};
-use app\actions\{
-    IndexAction,
-    CreateEditAction,
-    ViewAction,
-    DeleteAction,
-    EnableAction,
-};
-use app\services\report\TemplateService;
+use app\actions\{CreateEditAction, DeleteAction, EnableAction, IndexAction, ViewAction,};
+use app\components\base\{BaseController};
+use app\components\base\BaseAR;
 use app\entities\report\ReportFormTemplateEntity;
-use app\repositories\{
-    report\ConstantRepository,
-    report\ConstantruleRepository,
-    report\TemplateRepository
-};
-use app\models\report\TemplateModel;
-use app\search\report\TemplateSearch;
 use app\helpers\RbacHelper;
+use app\models\report\TemplateModel;
+use app\repositories\{report\ConstantBaseRepository, report\ConstantruleBaseRepository, report\TemplateBaseRepository};
+use app\search\report\TemplateSearch;
+use app\services\report\TemplateService;
+use yii\filters\AccessControl;
+use yii\helpers\{ArrayHelper, Url};
+use yii\web\Response;
 
 /**
  * @author Stop4uk <stop4uk@yandex.ru>
@@ -63,7 +46,7 @@ final class TemplateController extends BaseController
                             'template.view.all.delete'
                         ],
                         'roleParams' => function($rule) {
-                            $recordInformation = TemplateRepository::get(
+                            $recordInformation = TemplateBaseRepository::get(
                                 id: $this->request->get('id'),
                                 active: false
                             );
@@ -89,7 +72,7 @@ final class TemplateController extends BaseController
                             'template.edit.all'
                         ],
                         'roleParams' => function($rule) {
-                            $recordInformation = TemplateRepository::get($this->request->get('id'));
+                            $recordInformation = TemplateBaseRepository::get($this->request->get('id'));
 
                             return [
                                 'created_uid' => $recordInformation?->created_uid,
@@ -98,7 +81,7 @@ final class TemplateController extends BaseController
                             ];
                         },
                         'matchCallback' => function($rule, $action) {
-                            $recordInformation = TemplateRepository::get($this->request->get('id'));
+                            $recordInformation = TemplateBaseRepository::get($this->request->get('id'));
                             return ($recordInformation && $recordInformation->record_status);
                         }
                     ],
@@ -111,7 +94,7 @@ final class TemplateController extends BaseController
                             'template.delete.all'
                         ],
                         'roleParams' => function($rule) {
-                            $recordInformation = TemplateRepository::get($this->request->get('id'));
+                            $recordInformation = TemplateBaseRepository::get($this->request->get('id'));
 
                             return [
                                 'created_uid' => $recordInformation?->created_uid,
@@ -120,7 +103,7 @@ final class TemplateController extends BaseController
                             ];
                         },
                         'matchCallback' => function($rule, $action) {
-                            $recordInformation = TemplateRepository::get($this->request->get('id'));
+                            $recordInformation = TemplateBaseRepository::get($this->request->get('id'));
                             return ($recordInformation && $recordInformation->record_status);
                         }
                     ],
@@ -133,7 +116,7 @@ final class TemplateController extends BaseController
                             'template.enable.all'
                         ],
                         'roleParams' => function($rule) {
-                            $recordInformation = TemplateRepository::get(
+                            $recordInformation = TemplateBaseRepository::get(
                                 id: $this->request->get('id'),
                                 active: false
                             );
@@ -177,7 +160,7 @@ final class TemplateController extends BaseController
             ],
             'view' => [
                 'class' => ViewAction::class,
-                'repository' => TemplateRepository::class,
+                'repository' => TemplateBaseRepository::class,
                 'repositoryRelations' => ['report'],
                 'requestID' => $this->request->get('id'),
                 'model' => TemplateModel::class,
@@ -187,7 +170,7 @@ final class TemplateController extends BaseController
                 'class' => CreateEditAction::class,
                 'actionType' => 'edit',
                 'entityScenario' => BaseAR::SCENARIO_UPDATE,
-                'repository' => TemplateRepository::class,
+                'repository' => TemplateBaseRepository::class,
                 'repositoryRelations' => ['report'],
                 'requestID' => $this->request->get('id'),
                 'model' => TemplateModel::class,
@@ -198,7 +181,7 @@ final class TemplateController extends BaseController
             ],
             'delete' => [
                 'class' => DeleteAction::class,
-                'repository' => TemplateRepository::class,
+                'repository' => TemplateBaseRepository::class,
                 'requestID' => $this->request->get('id'),
                 'service' => $this->service,
                 'errorMessage' => 'При удалении шаблона формирования возникли проблемы. Пожалуйста, обратитесь к администратору',
@@ -207,7 +190,7 @@ final class TemplateController extends BaseController
             ],
             'enable' => [
                 'class' => EnableAction::class,
-                'repository' => TemplateRepository::class,
+                'repository' => TemplateBaseRepository::class,
                 'requestID' => $this->request->get('id'),
                 'service' => $this->service,
                 'exceptionMessage' => 'Запрашиваемый шаблон формирования отчета не найден, или недоступен'
@@ -221,11 +204,11 @@ final class TemplateController extends BaseController
 
         $groups = RbacHelper::getAllowGroupsArray('template.list.all');
         $mergeConstantAndRules = ArrayHelper::merge(
-            ConstantRepository::getAllow(
+            ConstantBaseRepository::getAllow(
                 reports: [$report_id => $report_id],
                 groups: $groups
             ),
-            ConstantruleRepository::getAllow(
+            ConstantruleBaseRepository::getAllow(
                 reports: [$report_id => $report_id],
                 groups: $groups
             )

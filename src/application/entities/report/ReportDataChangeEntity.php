@@ -2,18 +2,13 @@
 
 namespace app\entities\report;
 
-use Yii;
-use yii\behaviors\{
-    AttributeBehavior,
-    BlameableBehavior,
-    TimestampBehavior
-};
-use yii\helpers\Json;
-use yii\db\ActiveQuery;
-
-use app\base\BaseAR;
+use app\components\base\BaseAR;
 use app\entities\user\UserEntity;
 use app\helpers\report\DataChangeHelper;
+use Yii;
+use yii\behaviors\{AttributeBehavior, BlameableBehavior, TimestampBehavior};
+use yii\db\ActiveQuery;
+use yii\helpers\Json;
 
 /**
  * @property int $report_id

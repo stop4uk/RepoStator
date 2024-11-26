@@ -2,25 +2,18 @@
 
 namespace app\controllers;
 
-use Yii;
-use yii\filters\AccessControl;
-use yii\base\Exception;
-use yii\data\ArrayDataProvider;
-use yii\web\{
-    Response,
-    NotFoundHttpException
-};
-use yii\bootstrap5\ActiveForm;
-
-use app\base\BaseController;
+use app\components\base\BaseController;
 use app\entities\user\UserEntity;
+use app\forms\user\{UserEmailChangeForm, UserPasswordChangeForm};
 use app\models\user\ProfileModel;
-use app\repositories\user\UserRepository;
+use app\repositories\user\UserBaseRepository;
 use app\services\ProfileService;
-use app\forms\user\{
-    UserEmailChangeForm,
-    UserPasswordChangeForm
-};
+use Yii;
+use yii\base\Exception;
+use yii\bootstrap5\ActiveForm;
+use yii\data\ArrayDataProvider;
+use yii\filters\AccessControl;
+use yii\web\{NotFoundHttpException, Response};
 
 /**
  * @author Stop4uk <stop4uk@yandex.ru>
@@ -152,7 +145,7 @@ final class ProfileController extends BaseController
 
     private function findEntity(bool $withOutRelations = false)
     {
-        $query = UserRepository::get(Yii::$app->getUser()->id, $withOutRelations
+        $query = UserBaseRepository::get(Yii::$app->getUser()->id, $withOutRelations
             ? []
             : ['rights', 'sessions', 'lastAuth', 'emailChanges']
         );

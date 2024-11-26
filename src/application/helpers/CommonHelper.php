@@ -2,18 +2,12 @@
 
 namespace app\helpers;
 
+use app\components\base\{BaseModel};
+use app\components\base\BaseAR;
 use Yii;
 use yii\base\Exception;
-use yii\helpers\{
-    ArrayHelper,
-    FileHelper
-};
 use yii\bootstrap5\Html;
-
-use app\base\{
-    BaseAR,
-    BaseModel
-};
+use yii\helpers\{ArrayHelper, FileHelper};
 
 /**
  * @author Stop4uk <stop4uk@yandex.ru>

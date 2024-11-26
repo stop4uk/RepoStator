@@ -2,12 +2,9 @@
 
 namespace app\models\user;
 
-use app\base\BaseModel;
+use app\components\base\BaseModel;
 use app\entities\user\UserEntity;
-use app\helpers\{
-    HtmlPurifier,
-    user\UserHelper
-};
+use app\helpers\{HtmlPurifier, user\UserHelper};
 
 /**
  * @property string $email

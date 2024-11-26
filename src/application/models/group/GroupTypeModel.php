@@ -2,12 +2,11 @@
 
 namespace app\models\group;
 
-use Yii;
-use yii\helpers\Json;
-
-use app\base\BaseModel;
+use app\components\base\BaseModel;
 use app\entities\group\GroupTypeEntity;
 use app\helpers\group\GroupTypeHelper;
+use Yii;
+use yii\helpers\Json;
 
 /**
  * @property string $name;

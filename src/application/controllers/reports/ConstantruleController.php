@@ -2,34 +2,20 @@
 
 namespace app\controllers\reports;
 
+use app\actions\{CreateEditAction, DeleteAction, EnableAction, IndexAction, ViewAction,};
+use app\components\base\{BaseController,};
+use app\components\base\BaseAR;
+use app\entities\report\ReportConstantRuleEntity;
 use app\helpers\CommonHelper;
-use app\repositories\group\GroupRepository;
-use Yii;
+use app\helpers\RbacHelper;
+use app\models\report\ConstantRuleModel;
+use app\repositories\group\GroupBaseRepository;
+use app\repositories\report\{ConstantBaseRepository, ConstantruleBaseRepository, ReportBaseRepository};
+use app\search\report\ConstantruleSearch;
+use app\services\report\ConstantruleService;
 use yii\filters\AccessControl;
 use yii\helpers\Url;
 use yii\web\Response;
-
-use app\base\{
-    BaseAR,
-    BaseController,
-};
-use app\actions\{
-    IndexAction,
-    CreateEditAction,
-    ViewAction,
-    DeleteAction,
-    EnableAction,
-};
-use app\services\report\ConstantruleService;
-use app\entities\report\ReportConstantRuleEntity;
-use app\repositories\report\{
-    ConstantruleRepository,
-    ConstantRepository,
-    ReportRepository
-};
-use app\models\report\ConstantRuleModel;
-use app\search\report\ConstantruleSearch;
-use app\helpers\RbacHelper;
 
 /**
  * @author Stop4uk <stop4uk@yandex.ru>
@@ -62,7 +48,7 @@ final class ConstantruleController extends BaseController
                             'constantRule.view.all.delete'
                         ],
                         'roleParams' => function($rule) {
-                            $recordInformation = ConstantruleRepository::get(
+                            $recordInformation = ConstantruleBaseRepository::get(
                                 id: $this->request->get('id'),
                                 active: false
                             );
@@ -88,7 +74,7 @@ final class ConstantruleController extends BaseController
                             'constantRule.edit.all',
                         ],
                         'roleParams' => function($rule) {
-                            $recordInformation = ConstantruleRepository::get($this->request->get('id'));
+                            $recordInformation = ConstantruleBaseRepository::get($this->request->get('id'));
 
                             return [
                                 'created_uid' => $recordInformation?->created_uid,
@@ -97,7 +83,7 @@ final class ConstantruleController extends BaseController
                             ];
                         },
                         'matchCallback' => function($rule, $action) {
-                            $recordInformation = ConstantruleRepository::get($this->request->get('id'));
+                            $recordInformation = ConstantruleBaseRepository::get($this->request->get('id'));
                             return ($recordInformation && $recordInformation->record_status);
                         }
                     ],
@@ -110,7 +96,7 @@ final class ConstantruleController extends BaseController
                             'constantRule.delete.all',
                         ],
                         'roleParams' => function($rule) {
-                            $recordInformation = ConstantruleRepository::get($this->request->get('id'));
+                            $recordInformation = ConstantruleBaseRepository::get($this->request->get('id'));
 
                             return [
                                 'created_uid' => $recordInformation?->created_uid,
@@ -119,7 +105,7 @@ final class ConstantruleController extends BaseController
                             ];
                         },
                         'matchCallback' => function($rule, $action) {
-                            $recordInformation = ConstantruleRepository::get($this->request->get('id'));
+                            $recordInformation = ConstantruleBaseRepository::get($this->request->get('id'));
                             return ($recordInformation && $recordInformation->record_status);
                         }
                     ],
@@ -132,7 +118,7 @@ final class ConstantruleController extends BaseController
                             'constantRule.enable.all',
                         ],
                         'roleParams' => function($rule) {
-                            $recordInformation = ConstantruleRepository::get(
+                            $recordInformation = ConstantruleBaseRepository::get(
                                 id: $this->request->get('id'),
                                 active: false
                             );
@@ -178,7 +164,7 @@ final class ConstantruleController extends BaseController
             ],
             'view' => [
                 'class' => ViewAction::class,
-                'repository' => ConstantruleRepository::class,
+                'repository' => ConstantruleBaseRepository::class,
                 'requestID' => $this->request->get('id'),
                 'model' => ConstantRuleModel::class,
                 'exceptionMessage' => 'Запрашиваемое правило сложения не найдено, или недоступно'
@@ -187,7 +173,7 @@ final class ConstantruleController extends BaseController
                 'class' => CreateEditAction::class,
                 'actionType' => 'edit',
                 'entityScenario' => BaseAR::SCENARIO_UPDATE,
-                'repository' => ConstantruleRepository::class,
+                'repository' => ConstantruleBaseRepository::class,
                 'requestID' => $this->request->get('id'),
                 'model' => ConstantRuleModel::class,
                 'service' => $this->service,
@@ -199,7 +185,7 @@ final class ConstantruleController extends BaseController
             ],
             'delete' => [
                 'class' => DeleteAction::class,
-                'repository' => ConstantruleRepository::class,
+                'repository' => ConstantruleBaseRepository::class,
                 'requestID' => $this->request->get('id'),
                 'service' => $this->service,
                 'errorMessage' => 'При удалении правила сложения возникли проблемы. Пожалуйста, обратитесь к администратору',
@@ -208,7 +194,7 @@ final class ConstantruleController extends BaseController
             ],
             'enable' => [
                 'class' => EnableAction::class,
-                'repository' => ConstantruleRepository::class,
+                'repository' => ConstantruleBaseRepository::class,
                 'requestID' => $this->request->get('id'),
                 'service' => $this->service,
                 'exceptionMessage' => 'Запрашиваемое правило сложения не найдено, или недоступно'
@@ -221,14 +207,14 @@ final class ConstantruleController extends BaseController
         $this->response->format = Response::FORMAT_JSON;
 
         $groupsAllow = RbacHelper::getAllowGroupsArray('constantRule.list.all');
-        $groupsCanSent = GroupRepository::getAllBy(
+        $groupsCanSent = GroupBaseRepository::getAllBy(
             condition: ['id' => array_keys($groupsAllow), 'accept_send' => 1],
             asArray: true
         );
 
 
         if ( $report_id ) {
-            $reportInformation = ReportRepository::get($report_id);
+            $reportInformation = ReportBaseRepository::get($report_id);
 
             $reports  = [$report_id => $report_id];
             if ( $reportInformation && $reportInformation->groups_only) {
@@ -238,12 +224,12 @@ final class ConstantruleController extends BaseController
             }
         } else {
             $groups = $groupsCanSent;
-            $reports = ReportRepository::getAllow(
+            $reports = ReportBaseRepository::getAllow(
                 groups: $groups
             );
         }
 
-        $contentConstants = ConstantRepository::getAllow(
+        $contentConstants = ConstantBaseRepository::getAllow(
             reports: $reports,
             groups: $groupsAllow
         );

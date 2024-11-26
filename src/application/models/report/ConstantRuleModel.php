@@ -2,25 +2,12 @@
 
 namespace app\models\report;
 
+use app\components\base\BaseModel;
+use app\entities\report\{ReportConstantEntity, ReportConstantRuleEntity};
+use app\helpers\{CommonHelper, HtmlPurifier, RbacHelper, report\ConstantRuleHelper};
+use app\repositories\{group\GroupBaseRepository, report\ConstantBaseRepository, report\ReportBaseRepository};
 use Yii;
 use yii\helpers\Json;
-
-use app\base\BaseModel;
-use app\entities\report\{
-    ReportConstantEntity,
-    ReportConstantRuleEntity
-};
-use app\repositories\{
-    group\GroupRepository,
-    report\ConstantRepository,
-    report\ReportRepository
-};
-use app\helpers\{
-    CommonHelper,
-    RbacHelper,
-    HtmlPurifier,
-    report\ConstantRuleHelper
-};
 
 /**
  * @property string $record
@@ -53,13 +40,13 @@ final class ConstantRuleModel extends BaseModel
     public function __construct(ReportConstantRuleEntity $entity, array $config = [])
     {
         $groupsAllow = RbacHelper::getAllowGroupsArray('constantRule.list.all');
-        $groupsCanSent = GroupRepository::getAllBy(
+        $groupsCanSent = GroupBaseRepository::getAllBy(
             condition: ['id' => array_keys($groupsAllow), 'accept_send' => 1],
             asArray: true
         );
 
         if ( !$entity->id !== null && $entity->report_id ) {
-            $reportInformation = ReportRepository::get($entity->report_id);
+            $reportInformation = ReportBaseRepository::get($entity->report_id);
             $reports  = [$entity->report_id => $entity->report_id];
 
 
@@ -70,18 +57,18 @@ final class ConstantRuleModel extends BaseModel
             }
         } else {
             $groups = $groupsCanSent;
-            $reports = ReportRepository::getAllow(
+            $reports = ReportBaseRepository::getAllow(
                 groups: $groups
             );
         }
 
         $this->groups = $groups;
 
-        $this->reports = ReportRepository::getAllow(
+        $this->reports = ReportBaseRepository::getAllow(
             groups: $groupsAllow
         );
 
-        $this->constants = ConstantRepository::getAllow(
+        $this->constants = ConstantBaseRepository::getAllow(
             reports: $reports,
             groups: $groupsAllow
         );
@@ -100,7 +87,7 @@ final class ConstantRuleModel extends BaseModel
         }
 
         if ( !$this->isNewEntity && $this->groups_only) {
-            $reportData = ReportRepository::get($this->report_id);
+            $reportData = ReportBaseRepository::get($this->report_id);
             if ( $reportData->groups_only ) {
                 foreach ($this->groups as $group => $name ) {
                     if ( !in_array($group, CommonHelper::explodeField($reportData->groups_only)) ) {
@@ -183,7 +170,7 @@ final class ConstantRuleModel extends BaseModel
                 'константы, которые указаны в кавычках, или, само математическое правило неверно'));
         } else {
             $constantForCheck = match( (bool)$this->report_id) {
-                true => ConstantRepository::getAllow(
+                true => ConstantBaseRepository::getAllow(
                     reports: [$this->report_id => $this->report_id],
                     groups: $this->groups
                 ),

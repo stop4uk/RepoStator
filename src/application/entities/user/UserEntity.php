@@ -2,20 +2,14 @@
 
 namespace app\entities\user;
 
+use app\components\base\{BaseModel};
+use app\components\base\BaseAR;
+use app\helpers\user\UserHelper;
 use Yii;
 use yii\base\Model;
-use yii\behaviors\{
-    BlameableBehavior,
-    TimestampBehavior
-};
+use yii\behaviors\{BlameableBehavior, TimestampBehavior};
 use yii\db\ActiveQuery;
 use yii2tech\ar\softdelete\SoftDeleteBehavior;
-
-use app\base\{
-    BaseAR,
-    BaseModel
-};
-use app\helpers\user\UserHelper;
 
 /**
  * @property string $email

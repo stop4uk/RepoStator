@@ -2,35 +2,23 @@
 
 namespace app\controllers\reports;
 
+use app\actions\{CreateEditAction, DeleteAction, EnableAction, IndexAction, ViewAction,};
+use app\components\base\{BaseController,};
+use app\components\base\BaseAR;
+use app\entities\report\ReportStructureEntity;
 use app\helpers\CommonHelper;
+use app\helpers\RbacHelper;
+use app\models\report\StructureModel;
+use app\repositories\{group\GroupBaseRepository,
+    report\ConstantBaseRepository,
+    report\ReportBaseRepository,
+    report\StructureBaseRepository};
+use app\search\report\StructureSearch;
+use app\services\report\StructureService;
+use app\widgets\Repeater\actions\{AddAction, DeleteAction as RepeaterDeleteAction};
 use yii\filters\AccessControl;
 use yii\helpers\Url;
 use yii\web\Response;
-
-use app\base\{
-    BaseAR,
-    BaseController,
-};
-use app\actions\{
-    IndexAction,
-    CreateEditAction,
-    ViewAction,
-    DeleteAction,
-    EnableAction,
-};
-use app\services\report\StructureService;
-use app\entities\report\ReportStructureEntity;
-use app\repositories\{group\GroupRepository,
-    report\ReportRepository,
-    report\StructureRepository,
-    report\ConstantRepository};
-use app\models\report\StructureModel;
-use app\search\report\StructureSearch;
-use app\helpers\RbacHelper;
-use app\widgets\Repeater\actions\{
-    AddAction,
-    DeleteAction as RepeaterDeleteAction
-};
 
 /**
  * @author Stop4uk <stop4uk@yandex.ru>
@@ -63,7 +51,7 @@ final class StructureController extends BaseController
                             'structure.view.all.delete'
                         ],
                         'roleParams' => function($rule) {
-                            $recordInformation = StructureRepository::get(
+                            $recordInformation = StructureBaseRepository::get(
                                 id: $this->request->get('id'),
                                 active: false
                             );
@@ -89,7 +77,7 @@ final class StructureController extends BaseController
                             'structure.edit.all'
                         ],
                         'roleParams' => function($rule) {
-                            $recordInformation = StructureRepository::get($this->request->get('id'));
+                            $recordInformation = StructureBaseRepository::get($this->request->get('id'));
 
                             return [
                                 'created_uid' => $recordInformation?->created_uid,
@@ -98,7 +86,7 @@ final class StructureController extends BaseController
                             ];
                         },
                         'matchCallback' => function($rule, $action) {
-                            $recordInformation = StructureRepository::get($this->request->get('id'));
+                            $recordInformation = StructureBaseRepository::get($this->request->get('id'));
                             return ($recordInformation && $recordInformation->record_status);
                         }
                     ],
@@ -111,7 +99,7 @@ final class StructureController extends BaseController
                             'structure.delete.all'
                         ],
                         'roleParams' => function($rule) {
-                            $recordInformation = StructureRepository::get($this->request->get('id'));
+                            $recordInformation = StructureBaseRepository::get($this->request->get('id'));
 
                             return [
                                 'created_uid' => $recordInformation?->created_uid,
@@ -120,7 +108,7 @@ final class StructureController extends BaseController
                             ];
                         },
                         'matchCallback' => function($rule, $action) {
-                            $recordInformation = StructureRepository::get($this->request->get('id'));
+                            $recordInformation = StructureBaseRepository::get($this->request->get('id'));
                             return ($recordInformation && $recordInformation->record_status);
                         }
                     ],
@@ -133,7 +121,7 @@ final class StructureController extends BaseController
                             'structure.enable.all'
                         ],
                         'roleParams' => function($rule) {
-                            $recordInformation = StructureRepository::get(
+                            $recordInformation = StructureBaseRepository::get(
                                 id: $this->request->get('id'),
                                 active: false
                             );
@@ -179,7 +167,7 @@ final class StructureController extends BaseController
             ],
             'view' => [
                 'class' => ViewAction::class,
-                'repository' => StructureRepository::class,
+                'repository' => StructureBaseRepository::class,
                 'requestID' => $this->request->get('id'),
                 'model' => StructureModel::class,
                 'exceptionMessage' => 'Запрашиваемая структура передачи отчета не найдена, или недоступна'
@@ -188,7 +176,7 @@ final class StructureController extends BaseController
                 'class' => CreateEditAction::class,
                 'actionType' => 'edit',
                 'entityScenario' => BaseAR::SCENARIO_UPDATE,
-                'repository' => StructureRepository::class,
+                'repository' => StructureBaseRepository::class,
                 'requestID' => $this->request->get('id'),
                 'model' => StructureModel::class,
                 'service' => $this->service,
@@ -200,7 +188,7 @@ final class StructureController extends BaseController
             ],
             'delete' => [
                 'class' => DeleteAction::class,
-                'repository' => StructureRepository::class,
+                'repository' => StructureBaseRepository::class,
                 'requestID' => $this->request->get('id'),
                 'service' => $this->service,
                 'errorMessage' => 'При удалении структуры возникли проблемы. Пожалуйста, обратитесь к администратору',
@@ -209,7 +197,7 @@ final class StructureController extends BaseController
             ],
             'enable' => [
                 'class' => EnableAction::class,
-                'repository' => StructureRepository::class,
+                'repository' => StructureBaseRepository::class,
                 'requestID' => $this->request->get('id'),
                 'service' => $this->service,
                 'exceptionMessage' => 'Запрашиваемая структура передачи отчета не найдена, или недоступна'
@@ -230,9 +218,9 @@ final class StructureController extends BaseController
     {
         $this->response->format = Response::FORMAT_JSON;
 
-        $reportInformation = ReportRepository::get($report_id);
+        $reportInformation = ReportBaseRepository::get($report_id);
         $groupsAllow = RbacHelper::getAllowGroupsArray('constantRule.list.all');
-        $groupsCanSent = GroupRepository::getAllBy(
+        $groupsCanSent = GroupBaseRepository::getAllBy(
             condition: ['id' => array_keys($groupsAllow), 'accept_send' => 1],
             asArray: true
         );
@@ -244,7 +232,7 @@ final class StructureController extends BaseController
             false => $groupsCanSent
         };
 
-        $contentConstants = ConstantRepository::getAllow(
+        $contentConstants = ConstantBaseRepository::getAllow(
             reports: [$report_id => $report_id],
             groups: $groupsAllow
         );

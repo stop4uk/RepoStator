@@ -2,15 +2,12 @@
 
 namespace app\services\report;
 
+use app\components\base\{BaseModelInterface};
+use app\components\base\BaseARInterface;
+use app\components\base\BaseService;
+use app\helpers\CommonHelper;
 use Yii;
 use yii\base\Exception;
-
-use app\base\BaseService;
-use app\interfaces\{
-    BaseARInterface,
-    ModelInterface
-};
-use app\helpers\CommonHelper;
 
 /**
  * @author Stop4uk <stop4uk@yandex.ru>
@@ -58,7 +55,7 @@ final class TemplateService extends BaseService
         throw new Exception(Yii::t('exceptions', 'При удалении шаблона отчета возникли ошибки. Пожалуйста, обратитесь к администратору'));
     }
 
-    private function beforeSetAttributes(ModelInterface $model): ModelInterface
+    private function beforeSetAttributes(BaseModelInterface $model): BaseModelInterface
     {
         if (
             $model->oldTemplate

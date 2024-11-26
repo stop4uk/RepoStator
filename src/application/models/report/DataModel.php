@@ -2,30 +2,20 @@
 
 namespace app\models\report;
 
-use Yii;
-use yii\helpers\{
-    Json,
-    ArrayHelper,
-};
-
-use app\base\{
-    BaseAR,
-    BaseModel
-};
-use app\entities\{
-    group\GroupEntity,
+use app\components\base\{BaseModel};
+use app\components\base\BaseAR;
+use app\entities\{group\GroupEntity,
     report\ReportDataChangeEntity,
     report\ReportEntity,
     report\ReportStructureEntity,
-    user\UserEntity,
-};
-use app\repositories\{
-    group\GroupRepository,
-    report\DataRepository,
-    report\ReportRepository,
-    report\StructureRepository
-};
+    user\UserEntity,};
 use app\helpers\report\DataHelper;
+use app\repositories\{group\GroupBaseRepository,
+    report\DataBaseRepository,
+    report\ReportBaseRepository,
+    report\StructureBaseRepository};
+use Yii;
+use yii\helpers\{ArrayHelper, Json,};
 
 /**
  * @property int $report_id
@@ -75,9 +65,9 @@ final class DataModel extends BaseModel
                 $this->content = Json::decode($this->content);
             }
         } else {
-            $this->group = GroupRepository::get($this->group_id);
-            $this->report = ReportRepository::get($this->report_id);
-            $this->structure = StructureRepository::getByReportAndGroup($this->report_id, $this->group_id);
+            $this->group = GroupBaseRepository::get($this->group_id);
+            $this->report = ReportBaseRepository::get($this->report_id);
+            $this->structure = StructureBaseRepository::getByReportAndGroup($this->report_id, $this->group_id);
             $this->createdUser = null;
             $this->changes = [];
         }
@@ -120,7 +110,7 @@ final class DataModel extends BaseModel
                     'подходит под периоды отправки сведений'));
             }
 
-            $query = DataRepository::getAllBy(['report_id' => $this->report_id, 'group_id' => $this->group_id], [])->all();
+            $query = DataBaseRepository::getAllBy(['report_id' => $this->report_id, 'group_id' => $this->group_id], [])->all();
             if ( $query ) {
                 foreach ($query as $row) {
                     if ( $this->report_datetime == $row->report_datetime && !$this->form_control ) {

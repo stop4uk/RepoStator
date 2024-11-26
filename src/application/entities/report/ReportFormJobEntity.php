@@ -2,21 +2,13 @@
 
 namespace app\entities\report;
 
-use Yii;
-use yii\db\ActiveQuery;
-use yii\behaviors\{
-    AttributeBehavior,
-    BlameableBehavior,
-    TimestampBehavior
-};
-
-use app\base\BaseAR;
-use app\events\objects\StatisticEvent;
+use app\components\base\BaseAR;
+use app\components\events\objects\StatisticEvent;
 use app\entities\user\UserEntity;
-use app\helpers\{
-    CommonHelper,
-    report\JobHelper
-};
+use app\helpers\{CommonHelper, report\JobHelper};
+use Yii;
+use yii\behaviors\{AttributeBehavior, BlameableBehavior, TimestampBehavior};
+use yii\db\ActiveQuery;
 
 /**
  * @property string $job_id

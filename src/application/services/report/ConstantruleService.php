@@ -2,7 +2,7 @@
 
 namespace app\services\report;
 
-use app\base\BaseService;
+use app\components\base\BaseService;
 
 /**
  * @author Stop4uk <stop4uk@yandex.ru>

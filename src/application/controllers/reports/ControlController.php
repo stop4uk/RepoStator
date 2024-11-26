@@ -2,33 +2,21 @@
 
 namespace app\controllers\reports;
 
+use app\actions\{DeleteAction, EnableAction, IndexAction, ViewAction,};
+use app\components\base\BaseController;
+use app\entities\report\{ReportDataEntity, ReportEntity};
+use app\forms\report\{ControlCheckFullForm, ControlCreateForForm};
+use app\helpers\report\DataHelper;
+use app\models\report\DataModel;
+use app\repositories\report\DataBaseRepository;
+use app\search\report\DataSearch;
+use app\services\report\ControlService;
 use Yii;
 use yii\base\Exception;
-use yii\filters\AccessControl;
-use yii\web\Response;
-use yii\helpers\Json;
 use yii\bootstrap5\ActiveForm;
-
-use app\base\BaseController;
-use app\actions\{
-    IndexAction,
-    ViewAction,
-    DeleteAction,
-    EnableAction,
-};
-use app\services\report\ControlService;
-use app\entities\report\{
-    ReportEntity,
-    ReportDataEntity
-};
-use app\models\report\DataModel;
-use app\repositories\report\DataRepository;
-use app\helpers\report\DataHelper;
-use app\forms\report\{
-    ControlCheckFullForm,
-    ControlCreateForForm
-};
-use app\search\report\DataSearch;
+use yii\filters\AccessControl;
+use yii\helpers\Json;
+use yii\web\Response;
 
 /**
  * @author Stop4uk <stop4uk@yandex.ru>
@@ -61,7 +49,7 @@ final class ControlController extends BaseController
                             'data.view.delete.all',
                         ],
                         'roleParams' => function($rule) {
-                            $recordInformation = DataRepository::get(
+                            $recordInformation = DataBaseRepository::get(
                                 id: $this->request->get('id'),
                                 active: false
                             );
@@ -82,7 +70,7 @@ final class ControlController extends BaseController
                             'data.edit.all'
                         ],
                         'roleParams' => function($rule) {
-                            $recordInformation = DataRepository::get($this->request->get('id'));
+                            $recordInformation = DataBaseRepository::get($this->request->get('id'));
 
                             return [
                                 'created_uid' => $recordInformation->created_uid,
@@ -110,7 +98,7 @@ final class ControlController extends BaseController
                             'data.delete.all'
                         ],
                         'roleParams' => function($rule) {
-                            $recordInformation = DataRepository::get($this->request->get('id'));
+                            $recordInformation = DataBaseRepository::get($this->request->get('id'));
 
                             return [
                                 'name' => 'delete',
@@ -129,7 +117,7 @@ final class ControlController extends BaseController
                             'data.enable.all'
                         ],
                         'roleParams' => function($rule) {
-                            $recordInformation = DataRepository::get(
+                            $recordInformation = DataBaseRepository::get(
                                 id: $this->request->get('id'),
                                 active: false
                             );
@@ -164,14 +152,14 @@ final class ControlController extends BaseController
             ],
             'view' => [
                 'class' => ViewAction::class,
-                'repository' => DataRepository::class,
+                'repository' => DataBaseRepository::class,
                 'requestID' => $this->request->get('id'),
                 'model' => DataModel::class,
                 'exceptionMessage' => 'Запрашиваемые сведения отчета не найдены, или недоступны'
             ],
             'delete' => [
                 'class' => DeleteAction::class,
-                'repository' => DataRepository::class,
+                'repository' => DataBaseRepository::class,
                 'requestID' => $this->request->get('id'),
                 'service' => $this->service,
                 'errorMessage' => 'При удалении переданных сведений возникли ошибки. Пожалуйста, обратитесь к администратору',
@@ -180,7 +168,7 @@ final class ControlController extends BaseController
             ],
             'enable' => [
                 'class' => EnableAction::class,
-                'repository' => DataRepository::class,
+                'repository' => DataBaseRepository::class,
                 'requestID' => $this->request->get('id'),
                 'service' => $this->service,
                 'exceptionMessage' => 'Запрашиваемые сведения отчета не найдены, или недоступны',
@@ -296,7 +284,7 @@ final class ControlController extends BaseController
 
     private function findEntity(int $id): ReportDataEntity
     {
-        $query = DataRepository::get($id, ['report', 'group', 'structure', 'changes', 'createdUser']);
+        $query = DataBaseRepository::get($id, ['report', 'group', 'structure', 'changes', 'createdUser']);
 
         if ( $query !== null) {
             return $query;

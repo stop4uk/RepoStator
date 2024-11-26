@@ -2,18 +2,14 @@
 
 namespace app\controllers\auth;
 
+use app\components\base\BaseController;
+use app\forms\auth\{LoginForm, RegisterForm};
+use app\services\AuthBaseService;
 use Yii;
 use yii\base\Exception;
-use yii\web\Response;
-use yii\filters\AccessControl;
 use yii\bootstrap5\ActiveForm;
-
-use app\base\BaseController;
-use app\services\AuthService;
-use app\forms\auth\{
-    LoginForm,
-    RegisterForm
-};
+use yii\filters\AccessControl;
+use yii\web\Response;
 
 /**
  * @author Stop4uk <stop4uk@yandex.ru>
@@ -22,10 +18,10 @@ use app\forms\auth\{
 final class DefaultController extends BaseController
 {
     public function __construct(
-        $id,
-        $module,
-        private readonly AuthService $service,
-        $config = []
+                                         $id,
+                                         $module,
+        private readonly AuthBaseService $service,
+                                         $config = []
     ) {
         parent::__construct($id, $module, $config);
     }

@@ -2,7 +2,7 @@
 
 namespace app\services\report;
 
-use app\base\BaseService;
+use app\components\base\BaseService;
 use app\entities\report\ReportConstantRuleEntity;
 
 /**

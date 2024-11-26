@@ -2,19 +2,12 @@
 
 namespace app\services\report;
 
+use app\components\base\{BaseService};
+use app\components\base\BaseAR;
+use app\components\base\BaseARInterface;
+use app\entities\{report\ReportDataEntity, report\ReportFormTemplateEntity, report\ReportStructureEntity,};
 use Yii;
 use yii\base\Exception;
-
-use app\base\{
-    BaseAR,
-    BaseService
-};
-use app\interfaces\BaseARInterface;
-use app\entities\{
-    report\ReportDataEntity,
-    report\ReportFormTemplateEntity,
-    report\ReportStructureEntity,
-};
 
 /**
  * @author Stop4uk <stop4uk@yandex.ru>

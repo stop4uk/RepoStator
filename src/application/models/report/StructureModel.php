@@ -2,23 +2,15 @@
 
 namespace app\models\report;
 
+use app\components\base\BaseModel;
+use app\entities\report\ReportStructureEntity;
+use app\helpers\{CommonHelper, HtmlPurifier, RbacHelper, report\StructureHelper};
+use app\repositories\{group\GroupBaseRepository,
+    report\ConstantBaseRepository,
+    report\ReportBaseRepository,
+    report\StructureBaseRepository};
 use Yii;
 use yii\helpers\Json;
-
-use app\base\BaseModel;
-use app\repositories\{
-    report\ReportRepository,
-    report\ConstantRepository,
-    group\GroupRepository,
-    report\StructureRepository
-};
-use app\entities\report\ReportStructureEntity;
-use app\helpers\{
-    CommonHelper,
-    RbacHelper,
-    HtmlPurifier,
-    report\StructureHelper
-};
 
 /**
  * @property int report_id
@@ -57,14 +49,14 @@ final class StructureModel extends BaseModel
     public function __construct(ReportStructureEntity $entity, $config = [])
     {
         $this->groups = RbacHelper::getAllowGroupsArray('structure.list.all');
-        $this->groupsCanSent = GroupRepository::getAllBy(
+        $this->groupsCanSent = GroupBaseRepository::getAllBy(
             condition: ['id' => array_keys($this->groups), 'accept_send' => 1],
             asArray: true
         );
-        $this->reports = ReportRepository::getAllow(
+        $this->reports = ReportBaseRepository::getAllow(
             groups: $this->groups
         );
-        $this->constants = ConstantRepository::getAllow(
+        $this->constants = ConstantBaseRepository::getAllow(
             reports: $this->reports,
             groups: $this->groups
         );
@@ -85,7 +77,7 @@ final class StructureModel extends BaseModel
         }
 
         if ( !$this->isNewEntity && $this->groups_only) {
-            $reportData = ReportRepository::get($this->report_id);
+            $reportData = ReportBaseRepository::get($this->report_id);
             if ( $reportData->groups_only ) {
                 foreach ($this->groups as $group => $name ) {
                     if ( !in_array($group, CommonHelper::explodeField($reportData->groups_only)) ) {
@@ -135,7 +127,7 @@ final class StructureModel extends BaseModel
     {
         if ( $this->groups_only ) {
             if ( $this->report_id ) {
-                $reportData = ReportRepository::get($this->report_id);
+                $reportData = ReportBaseRepository::get($this->report_id);
             }
 
             foreach ($this->groups_only as $group) {
@@ -162,11 +154,11 @@ final class StructureModel extends BaseModel
         }
 
         if ( $this->report_id ) {
-            $allowStructures = StructureRepository::getAllow(
+            $allowStructures = StructureBaseRepository::getAllow(
                 reports: [$this->report_id => $this->report_id],
                 groups: $this->groups
             );
-            $structuresList = StructureRepository::getAllBy(
+            $structuresList = StructureBaseRepository::getAllBy(
                 condition: ['id' => array_keys($allowStructures), 'report_id' => $this->report_id]
             )->all();
             $resultQuery = ['empty' => 0, 'withOnly' => []];

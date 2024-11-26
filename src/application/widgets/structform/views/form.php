@@ -2,15 +2,15 @@
 
 /**
  * @var \yii\web\View $this
- * @var \app\base\BaseModel $model
+ * @var \app\components\base\BaseModel $model
  * @var array $constants
  * @var string $formId
  * @var string $formField
  * @var bool $view
  */
 
-use yii\bootstrap5\Html;
 use yii\bootstrap5\ActiveForm;
+use yii\bootstrap5\Html;
 
 $firstElement = array_key_first($model->structureContent['groups']);
 $form = ActiveForm::begin([

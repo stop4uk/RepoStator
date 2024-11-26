@@ -2,22 +2,15 @@
 
 namespace app\controllers\reports;
 
+use app\actions\{CreateEditAction, DeleteAction, EnableAction, IndexAction, ViewAction,};
+use app\components\base\BaseController;
+use app\entities\report\ReportEntity;
+use app\models\report\ReportModel;
+use app\repositories\report\ReportBaseRepository;
+use app\search\report\ReportSearch;
+use app\services\report\ReportService;
 use yii\filters\AccessControl;
 use yii\helpers\Url;
-
-use app\base\BaseController;
-use app\actions\{
-    IndexAction,
-    CreateEditAction,
-    ViewAction,
-    DeleteAction,
-    EnableAction,
-};
-use app\services\report\ReportService;
-use app\entities\report\ReportEntity;
-use app\repositories\report\ReportRepository;
-use app\models\report\ReportModel;
-use app\search\report\ReportSearch;
 
 /**
  * @author Stop4uk <stop4uk@yandex.ru>
@@ -50,7 +43,7 @@ final class DefaultController extends BaseController
                             'report.view.all.delete',
                         ],
                         'roleParams' => function($rule) {
-                            $recordInformation = ReportRepository::get(
+                            $recordInformation = ReportBaseRepository::get(
                                 id: $this->request->get('id'),
                                 active: false
                             );
@@ -76,7 +69,7 @@ final class DefaultController extends BaseController
                             'report.edit.all'
                         ],
                         'roleParams' => function($rule) {
-                            $recordInformation = ReportRepository::get($this->request->get('id'));
+                            $recordInformation = ReportBaseRepository::get($this->request->get('id'));
 
                             return [
                                 'created_uid' => $recordInformation->created_uid,
@@ -94,7 +87,7 @@ final class DefaultController extends BaseController
                             'report.delete.all'
                         ],
                         'roleParams' => function($rule) {
-                            $recordInformation = ReportRepository::get($this->request->get('id'));
+                            $recordInformation = ReportBaseRepository::get($this->request->get('id'));
 
                             return [
                                 'created_uid' => $recordInformation->created_uid,
@@ -112,7 +105,7 @@ final class DefaultController extends BaseController
                             'report.enable.all'
                         ],
                         'roleParams' => function($rule) {
-                            $recordInformation = ReportRepository::get(
+                            $recordInformation = ReportBaseRepository::get(
                                 id: $this->request->get('id'),
                                 active: false
                             );
@@ -157,7 +150,7 @@ final class DefaultController extends BaseController
             ],
             'view' => [
                 'class' => ViewAction::class,
-                'repository' => ReportRepository::class,
+                'repository' => ReportBaseRepository::class,
                 'requestID' => $this->request->get('id'),
                 'model' => ReportModel::class,
                 'exceptionMessage' => 'Запрашиваемый отчет не найден, или недоступен'
@@ -165,7 +158,7 @@ final class DefaultController extends BaseController
             'edit' => [
                 'class' => CreateEditAction::class,
                 'actionType' => 'edit',
-                'repository' => ReportRepository::class,
+                'repository' => ReportBaseRepository::class,
                 'requestID' => $this->request->get('id'),
                 'model' => ReportModel::class,
                 'service' => $this->service,
@@ -177,7 +170,7 @@ final class DefaultController extends BaseController
             ],
             'delete' => [
                 'class' => DeleteAction::class,
-                'repository' => ReportRepository::class,
+                'repository' => ReportBaseRepository::class,
                 'requestID' => $this->request->get('id'),
                 'service' => $this->service,
                 'errorMessage' => 'При удалении отчета возникли ошибки. Пожалуйста, обратитесь к администратору',
@@ -186,7 +179,7 @@ final class DefaultController extends BaseController
             ],
             'enable' => [
                 'class' => EnableAction::class,
-                'repository' => ReportRepository::class,
+                'repository' => ReportBaseRepository::class,
                 'requestID' => $this->request->get('id'),
                 'service' => $this->service,
                 'exceptionMessage' => 'Запрашиваемый отчет не найден, или недоступен'

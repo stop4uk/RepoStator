@@ -2,17 +2,12 @@
 
 namespace app\forms\auth;
 
+use app\components\base\BaseAR;
+use app\entities\user\UserEntity;
+use app\helpers\{AuthHelper, HtmlPurifier, user\UserHelper};
+use app\repositories\user\UserBaseRepository;
 use Yii;
 use yii\base\Model;
-
-use app\base\BaseAR;
-use app\entities\user\UserEntity;
-use app\repositories\user\UserRepository;
-use app\helpers\{
-    AuthHelper,
-    HtmlPurifier,
-    user\UserHelper
-};
 
 /**
  * @property string|null $email
@@ -112,7 +107,7 @@ final class RecoveryForm extends Model
     private function getUser(): ?UserEntity
     {
         if ( $this->_user === null ) {
-            $this->_user = UserRepository::getBy(['account_key' => $this->authKey]);
+            $this->_user = UserBaseRepository::getBy(['account_key' => $this->authKey]);
         }
 
         return $this->_user;

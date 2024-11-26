@@ -5,7 +5,7 @@ namespace app\jobs;
 use yii\base\BaseObject;
 use yii\queue\JobInterface;
 
-use app\processors\ToFileProcessor;
+use app\processors\ToFileBaseProcessor;
 use app\entities\report\ReportFormTemplateEntity;
 use app\forms\StatisticForm;
 
@@ -21,7 +21,7 @@ final class FormTemplateJob extends BaseObject implements JobInterface
 
     public function execute($queue)
     {
-        $processor = new ToFileProcessor($this->form, $this->template);
+        $processor = new ToFileBaseProcessor($this->form, $this->template);
         $processor->setJobID($this->jobID);
         $processor->run();
     }

@@ -7,7 +7,7 @@ use yii\base\Model;
 use yii\data\ActiveDataProvider;
 
 use app\entities\user\UserEntity;
-use app\repositories\user\UserRepository;
+use app\repositories\user\UserBaseRepository;
 use app\helpers\{
     CommonHelper,
     RbacHelper,
@@ -40,7 +40,7 @@ final class UserSearch extends Model
             'admin.user.view.delete'
         ]);
         $this->groups = RbacHelper::getAllowGroupsArray('admin.user.list.all');
-        $this->allowUsers = UserRepository::getAllow(
+        $this->allowUsers = UserBaseRepository::getAllow(
             groups: $this->groups,
             active: $this->onlyActive
         );
@@ -69,8 +69,8 @@ final class UserSearch extends Model
     public function search($params): ActiveDataProvider
     {
         $query = match ( Yii::$app->getUser()->can('admin') ) {
-            true => UserRepository::getAll(active: $this->onlyActive),
-            false => UserRepository::getAllBy(
+            true => UserBaseRepository::getAll(active: $this->onlyActive),
+            false => UserBaseRepository::getAllBy(
                 condition: ['id' => array_keys($this->allowUsers)],
                 relations: ['group'],
                 active: $this->onlyActive

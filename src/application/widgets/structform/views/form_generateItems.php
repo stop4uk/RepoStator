@@ -2,7 +2,7 @@
 
 /**
  * @var \yii\bootstrap5\ActiveForm $form
- * @var \app\base\BaseModel $model
+ * @var \app\components\base\BaseModel $model
  * @var array $constants
  * @var string $formField
  * @var array $elements
@@ -10,6 +10,7 @@
  */
 
 use yii\bootstrap5\Html;
+
 if ( isset($elements['###']) ) {
     foreach ($elements['###'] as $item) {
         if ( isset($constants[$item]) ) {

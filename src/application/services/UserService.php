@@ -2,25 +2,16 @@
 
 namespace app\services;
 
+use app\components\base\{BaseARInterface, BaseService};
+use app\components\base\{BaseModelInterface};
+use app\components\base\BaseAR;
+use app\components\events\objects\UserEvent;
+use app\entities\user\{UserGroupEntity, UserRightEntity};
+use app\helpers\CommonHelper;
+use app\models\user\UserModel;
+use app\repositories\user\UserGroupBaseRepository;
 use Yii;
 use yii\base\Exception;
-
-use app\base\{
-    BaseService,
-    BaseAR
-};
-use app\interfaces\{
-    BaseARInterface,
-    ModelInterface
-};
-use app\events\objects\UserEvent;
-use app\entities\user\{
-    UserGroupEntity,
-    UserRightEntity
-};
-use app\repositories\user\UserGroupRepository;
-use app\models\user\UserModel;
-use app\helpers\CommonHelper;
 
 /**
  * @author Stop4uk <stop4uk@yandex.ru>
@@ -33,9 +24,9 @@ final class UserService extends BaseService
     const EVENT_AFTER_DELETE = 'user.afterDelete';
 
     public function save(
-        ModelInterface $model,
-        string $categoryForLog = null,
-        string $errorMessage = null
+        BaseModelInterface $model,
+        string             $categoryForLog = null,
+        string             $errorMessage = null
     ): BaseARInterface|bool {
         $isNewEntity = $model->isNewEntity;
         $oldAttribtues = $model->getEntity()->oldAttributes;
@@ -117,7 +108,7 @@ final class UserService extends BaseService
 
     private function beforeDelete($entity): bool
     {
-        $relationGroup = UserGroupRepository::getBy(['user_id' => $entity->id]);
+        $relationGroup = UserGroupBaseRepository::getBy(['user_id' => $entity->id]);
 
         if ( $relationGroup ) {
             $relationGroup->updated_at = time();

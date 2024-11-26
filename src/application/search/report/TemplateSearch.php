@@ -6,10 +6,10 @@ use yii\base\Model;
 use yii\data\ActiveDataProvider;
 
 use app\repositories\{
-    report\ConstantRepository,
-    report\ConstantruleRepository,
-    report\ReportRepository,
-    report\TemplateRepository
+    report\ConstantBaseRepository,
+    report\ConstantruleBaseRepository,
+    report\ReportBaseRepository,
+    report\TemplateBaseRepository
 };
 use app\helpers\{
     CommonHelper,
@@ -66,16 +66,16 @@ final class TemplateSearch extends Model
             'structure.view.delete.all'
         ]);
         $this->groups = RbacHelper::getAllowGroupsArray('structure.list.all');
-        $this->reports = ReportRepository::getAllow(
+        $this->reports = ReportBaseRepository::getAllow(
             groups: $this->groups,
             active: $this->onlyActive
         );
-        $this->constants = ConstantRepository::getAllow(
+        $this->constants = ConstantBaseRepository::getAllow(
             reports: $this->reports,
             groups: $this->groups,
             active: $this->onlyActive
         );
-        $this->constantsRule = ConstantruleRepository::getAllow(
+        $this->constantsRule = ConstantruleBaseRepository::getAllow(
             reports: $this->reports,
             groups: $this->groups,
             active: $this->onlyActive
@@ -105,7 +105,7 @@ final class TemplateSearch extends Model
 
     public function search($params): ActiveDataProvider
     {
-        $query = TemplateRepository::getAllow(
+        $query = TemplateBaseRepository::getAllow(
             reports: $this->reports,
             groups: $this->groups,
             active: $this->onlyActive,

@@ -5,7 +5,7 @@ namespace app\search\report;
 use yii\base\Model;
 use yii\data\ActiveDataProvider;
 
-use app\repositories\report\ReportRepository;
+use app\repositories\report\ReportBaseRepository;
 use app\helpers\{
     RbacHelper,
     HtmlPurifier,
@@ -70,7 +70,7 @@ final class ReportSearch extends Model
 
     public function search($params): ActiveDataProvider
     {
-        $query = ReportRepository::getAllow(
+        $query = ReportBaseRepository::getAllow(
             groups: $this->groups,
             active: $this->onlyActive,
             asQuery: true

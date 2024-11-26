@@ -2,11 +2,10 @@
 
 namespace app\widgets\Repeater\actions;
 
+use app\components\base\BaseAR;
+use app\components\base\BaseModel;
 use Yii;
 use yii\base\Action;
-
-use app\base\BaseAR;
-use app\base\BaseModel;
 
 class AddAction extends Action
 {

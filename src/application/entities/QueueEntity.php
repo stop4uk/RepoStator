@@ -2,9 +2,8 @@
 
 namespace app\entities;
 
+use app\components\base\BaseAR;
 use Yii;
-
-use app\base\BaseAR;
 
 /**
  * @property string $channel

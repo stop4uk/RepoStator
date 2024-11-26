@@ -2,16 +2,15 @@
 
 namespace app\controllers;
 
-use yii\bootstrap5\ActiveForm;
-use yii\filters\AccessControl;
-use yii\web\Response;
-
-use app\base\BaseController;
-use app\repositories\report\TemplateRepository;
-use app\search\report\JobSearch;
+use app\components\base\BaseController;
 use app\factories\FormTemplateFactory;
 use app\forms\StatisticForm;
 use app\helpers\RbacHelper;
+use app\repositories\report\TemplateBaseRepository;
+use app\search\report\JobSearch;
+use yii\bootstrap5\ActiveForm;
+use yii\filters\AccessControl;
+use yii\web\Response;
 
 /**
  * @author Stop4uk <stop4uk@yandex.ru>
@@ -65,7 +64,7 @@ final class StatisticController extends BaseController
         $this->response->format = Response::FORMAT_JSON;
         $groups = RbacHelper::getAllowGroupsArray('constantRule.list.all');
 
-        return ['elements' => TemplateRepository::getAllow(
+        return ['elements' => TemplateBaseRepository::getAllow(
             reports: [$report_id => $report_id],
             groups: $groups
         )];
@@ -75,7 +74,7 @@ final class StatisticController extends BaseController
     {
         $this->response->format = Response::FORMAT_JSON;
 
-        $template = TemplateRepository::get($template_id);
+        $template = TemplateBaseRepository::get($template_id);
         if ( $template ) {
             return $template->toArray(['form_datetime']);
         }

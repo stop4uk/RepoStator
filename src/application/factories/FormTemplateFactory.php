@@ -2,13 +2,10 @@
 
 namespace app\factories;
 
-use app\processors\{
-    ToFileProcessor,
-    ToFileByJobProcessor
-};
-use app\interfaces\ProcessorInterface;
-use app\repositories\report\TemplateRepository;
+use app\components\base\BaseProcessorInterface;
 use app\forms\StatisticForm;
+use app\processors\{ToFileBaseProcessor, ToFileByJobBaseProcessor};
+use app\repositories\report\TemplateBaseRepository;
 
 /**
  * @author Stop4uk <stop4uk@yandex.ru>
@@ -16,13 +13,13 @@ use app\forms\StatisticForm;
  */
 class FormTemplateFactory
 {
-    public static function process(StatisticForm $form): ProcessorInterface
+    public static function process(StatisticForm $form): BaseProcessorInterface
     {
-        $template = TemplateRepository::get($form->template);
+        $template = TemplateBaseRepository::get($form->template);
 
         return match( (bool)$template->form_usejobs ) {
-            true => new ToFileByJobProcessor($form, $template),
-            false => new ToFileProcessor($form, $template)
+            true => new ToFileByJobBaseProcessor($form, $template),
+            false => new ToFileBaseProcessor($form, $template)
         };
     }
 }

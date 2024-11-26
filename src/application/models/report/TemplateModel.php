@@ -2,24 +2,16 @@
 
 namespace app\models\report;
 
-use Yii;
-use yii\web\UploadedFile;
-use yii\helpers\ArrayHelper;
-
-use app\base\BaseModel;
+use app\components\base\BaseModel;
 use app\entities\report\ReportFormTemplateEntity;
-use app\repositories\{
-    group\GroupRepository,
-    report\ConstantRepository,
-    report\ConstantruleRepository,
-    report\ReportRepository
-};
-use app\helpers\{
-    CommonHelper,
-    RbacHelper,
-    HtmlPurifier,
-    report\TemplateHelper
-};
+use app\helpers\{CommonHelper, HtmlPurifier, RbacHelper, report\TemplateHelper};
+use app\repositories\{group\GroupBaseRepository,
+    report\ConstantBaseRepository,
+    report\ConstantruleBaseRepository,
+    report\ReportBaseRepository};
+use Yii;
+use yii\helpers\ArrayHelper;
+use yii\web\UploadedFile;
 
 /**
  * @property string $name
@@ -76,19 +68,19 @@ final class TemplateModel extends BaseModel
     public function __construct(ReportFormTemplateEntity $entity, $config = [])
     {
         $this->groups = RbacHelper::getAllowGroupsArray('structure.list.all');
-        $this->groupsCanSent = GroupRepository::getAllBy(
+        $this->groupsCanSent = GroupBaseRepository::getAllBy(
             condition: ['id' => array_keys($this->groups), 'accept_send' => 1],
             asArray: true
         );
-        $this->reports = ReportRepository::getAllow(
+        $this->reports = ReportBaseRepository::getAllow(
             groups: $this->groups
         );
 
-        $constants = ConstantRepository::getAllow(
+        $constants = ConstantBaseRepository::getAllow(
             reports: $this->reports,
             groups: $this->groups
         );
-        $constantsRule = ConstantruleRepository::getAllow(
+        $constantsRule = ConstantruleBaseRepository::getAllow(
             reports: $this->reports,
             groups: $this->groups
         );

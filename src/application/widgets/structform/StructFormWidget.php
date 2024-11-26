@@ -7,7 +7,7 @@ use yii\base\Widget;
 use yii\web\NotFoundHttpException;
 
 use app\entities\report\ReportDataEntity;
-use app\repositories\report\ConstantRepository;
+use app\repositories\report\ConstantBaseRepository;
 use app\helpers\RbacHelper;
 
 /**
@@ -35,7 +35,7 @@ class StructFormWidget extends Widget
         parent::__construct($config);
 
         $groups = RbacHelper::getAllowGroupsArray('data.send.all');
-        $this->constants = ConstantRepository::getAllow(
+        $this->constants = ConstantBaseRepository::getAllow(
             reports: [$this->model->report_id => $this->model->report_id],
             groups: $groups,
             fullInformation: true

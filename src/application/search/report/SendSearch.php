@@ -8,8 +8,8 @@ use yii\helpers\ArrayHelper;
 
 use app\entities\report\ReportDataEntity;
 use app\repositories\{
-    group\GroupRepository,
-    report\ReportRepository
+    group\GroupBaseRepository,
+    report\ReportBaseRepository
 };
 use app\helpers\{
     CommonHelper,
@@ -38,7 +38,7 @@ final class SendSearch extends Model
     public function __construct($config = [])
     {
         $this->groups = RbacHelper::getAllowGroupsArray('data.send.all');
-        $this->groupsCanSent = GroupRepository::getAllBy(
+        $this->groupsCanSent = GroupBaseRepository::getAllBy(
             condition: ['accept_send' => 1, 'id' => array_keys($this->groups)],
             asArray: true
         );
@@ -61,7 +61,7 @@ final class SendSearch extends Model
 
     public function search($params): ActiveDataProvider
     {
-        $query = ReportRepository::getAllow(
+        $query = ReportBaseRepository::getAllow(
             groups: $this->groups,
             asQuery: true,
         );

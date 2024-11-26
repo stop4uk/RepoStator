@@ -6,9 +6,9 @@ use yii\base\Model;
 use yii\data\ActiveDataProvider;
 
 use app\repositories\{
-    report\ConstantRepository,
-    report\ConstantruleRepository,
-    report\ReportRepository
+    report\ConstantBaseRepository,
+    report\ConstantruleBaseRepository,
+    report\ReportBaseRepository
 };
 use app\helpers\{
     RbacHelper,
@@ -55,11 +55,11 @@ final class ConstantruleSearch extends Model
             'constantRule.view.delete.all'
         ]);
         $this->groups = RbacHelper::getAllowGroupsArray('constantRule.list.all');
-        $this->reports = ReportRepository::getAllow(
+        $this->reports = ReportBaseRepository::getAllow(
             groups: $this->groups,
             active: $this->onlyActive
         );
-        $this->constants = ConstantRepository::getAllow(
+        $this->constants = ConstantBaseRepository::getAllow(
             reports: $this->reports,
             groups: $this->groups,
             active: $this->onlyActive
@@ -89,7 +89,7 @@ final class ConstantruleSearch extends Model
 
     public function search($params): ActiveDataProvider
     {
-        $query = ConstantruleRepository::getAllow(
+        $query = ConstantruleBaseRepository::getAllow(
             reports: $this->reports,
             groups: $this->groups,
             active: $this->onlyActive,

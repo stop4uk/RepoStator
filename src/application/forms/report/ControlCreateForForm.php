@@ -8,9 +8,9 @@ use yii\validators\DateValidator;
 
 use app\entities\report\ReportEntity;
 use app\repositories\{
-    group\GroupRepository,
-    report\ReportRepository,
-    report\DataRepository
+    group\GroupBaseRepository,
+    report\ReportBaseRepository,
+    report\DataBaseRepository
 };
 use app\helpers\RbacHelper;
 
@@ -40,7 +40,7 @@ final class ControlCreateForForm extends Model
     public function __construct($config = [])
     {
         $groups = RbacHelper::getAllowGroupsArray('data.edit.all');
-        $this->groups = GroupRepository::getAllBy(
+        $this->groups = GroupBaseRepository::getAllBy(
             condition: ['id' => array_keys($groups), 'accept_send' => 1],
             asArray: true
         );
@@ -51,7 +51,7 @@ final class ControlCreateForForm extends Model
     public function init()
     {
         if ( !$this->reports ) {
-            $this->reports = ReportRepository::getAllow(
+            $this->reports = ReportBaseRepository::getAllow(
                 groups: $this->groups
             );
         }
@@ -99,7 +99,7 @@ final class ControlCreateForForm extends Model
     public function checkSend($attribute)
     {
         if ( !$this->hasErrors() && $this->reportData->left_period ) {
-            $query = DataRepository::getBy([
+            $query = DataBaseRepository::getBy([
                 'group_id' => $this->group,
                 'report_id' => $this->report,
                 'report_datetime' => $this->period
@@ -114,7 +114,7 @@ final class ControlCreateForForm extends Model
     public function beforeValidate()
     {
         if ( $this->report ) {
-            $this->reportData = ReportRepository::get($this->report);
+            $this->reportData = ReportBaseRepository::get($this->report);
         }
 
         parent::beforeValidate();

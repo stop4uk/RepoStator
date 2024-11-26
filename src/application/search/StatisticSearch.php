@@ -7,8 +7,8 @@ use yii\data\ActiveDataProvider;
 
 use app\entities\report\ReportFormJobEntity;
 use app\repositories\report\{
-    ReportRepository,
-    TemplateRepository
+    ReportBaseRepository,
+    TemplateBaseRepository
 };
 use app\helpers\{
     CommonHelper,
@@ -34,11 +34,11 @@ final class StatisticSearch extends Model
         parent::__construct($config);
 
         $this->groups = RbacHelper::getAllowGroupsArray('constant.list.all');
-        $this->reports = ReportRepository::getAllow(
+        $this->reports = ReportBaseRepository::getAllow(
             groups: $this->groups,
             active: $this->onlyActive
         );
-        $this->templates = TemplateRepository::getAllow(
+        $this->templates = TemplateBaseRepository::getAllow(
             reports: $this->reports,
             groups: $this->groups
         );

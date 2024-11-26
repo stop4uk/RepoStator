@@ -2,17 +2,10 @@
 
 namespace app\entities\user;
 
+use app\components\base\BaseAR;
+use app\helpers\{HtmlPurifier, user\UserSessionHelper};
 use Yii;
-use yii\behaviors\{
-    BlameableBehavior,
-    TimestampBehavior
-};
-
-use app\base\BaseAR;
-use app\helpers\{
-    HtmlPurifier,
-    user\UserSessionHelper
-};
+use yii\behaviors\{BlameableBehavior, TimestampBehavior};
 
 /**
  * @property int $user_id

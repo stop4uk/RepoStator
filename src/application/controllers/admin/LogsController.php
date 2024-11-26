@@ -2,11 +2,8 @@
 
 namespace app\controllers\admin;
 
-use app\base\BaseController;
-use app\actions\{
-    IndexAction,
-    ViewAction
-};
+use app\actions\{IndexAction, ViewAction};
+use app\components\base\BaseController;
 use app\entities\LogEntity;
 use app\search\LogSearch;
 use yii\filters\AccessControl;
