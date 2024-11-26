@@ -3,10 +3,10 @@
 namespace components\processors;
 
 use app\components\base\BaseProcessorInterface;
+use app\forms\StatisticForm;
 use app\helpers\CommonHelper;
 use entities\{ReportFormTemplateEntity};
 use entities\ReportFormJobEntity;
-use forms\StatisticForm;
 use jobs\FormTemplateJob;
 use Yii;
 use yii\helpers\Url;

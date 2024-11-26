@@ -8,9 +8,9 @@ use yii\widgets\Pjax;
 
 /**
  * @var \yii\web\View $this
- * @var \search\StatisticSearch $searchModel
+ * @var \app\search\StatisticSearch $searchModel
  * @var \yii\data\ActiveDataProvider $dataProvider
- * @var \forms\StatisticForm $form
+ * @var \app\forms\StatisticForm $form
  */
 
 $this->title = Yii::t('views', 'Статистика');

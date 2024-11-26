@@ -3,8 +3,8 @@
 namespace app\components\events\dispatchers;
 
 use app\components\events\objects\UserEvent;
+use app\helpers\user\UserHelper;
 use app\jobs\SendEmailJob;
-use helpers\user\UserHelper;
 use Yii;
 
 /**

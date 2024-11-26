@@ -3,7 +3,7 @@
 use yii\helpers\Url;
 
 /**
- * @var \models\group\GroupTypeModel $model
+ * @var \app\models\group\GroupTypeModel $model
  */
 
 $this->title = Yii::t('views', 'Редактирование типа группы');

@@ -1,12 +1,15 @@
 <?php
 
-use helpers\user\UserHelper;
-use kartik\select2\Select2;
-use yii\bootstrap5\ActiveForm;
+use yii\helpers\Json;
+use yii\helpers\Url;
 use yii\bootstrap5\Html;
+use yii\bootstrap5\ActiveForm;
+use kartik\select2\Select2;
+
+use app\helpers\user\UserHelper;
 
 /**
- * @var \models\user\UserModel $model
+ * @var \app\models\user\UserModel $model
  */
 
 $form = ActiveForm::begin([

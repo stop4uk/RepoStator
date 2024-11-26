@@ -4,13 +4,12 @@ namespace models;
 
 use app\components\base\{BaseModel};
 use app\components\base\BaseAR;
+use app\entities\{group\GroupEntity, user\UserEntity,};
+use app\repositories\{group\GroupBaseRepository};
 use DataHelper;
-use entities\{user\UserEntity,};
-use entities\group\GroupEntity;
 use entities\ReportDataChangeEntity;
 use entities\ReportEntity;
 use entities\ReportStructureEntity;
-use repositories\{group\GroupRepository};
 use repositories\DataBaseRepository;
 use repositories\ReportBaseRepository;
 use repositories\StructureBaseRepository;
@@ -65,7 +64,7 @@ final class DataModel extends BaseModel
                 $this->content = Json::decode($this->content);
             }
         } else {
-            $this->group = GroupRepository::get($this->group_id);
+            $this->group = GroupBaseRepository::get($this->group_id);
             $this->report = ReportBaseRepository::get($this->report_id);
             $this->structure = StructureBaseRepository::getByReportAndGroup($this->report_id, $this->group_id);
             $this->createdUser = null;

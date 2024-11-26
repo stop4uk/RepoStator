@@ -1,14 +1,15 @@
 <?php
 
-use app\helpers\CommonHelper;
-use app\widgets\GridView;
-use yii\bootstrap5\Html;
-use yii\grid\ActionColumn;
 use yii\helpers\Url;
 use yii\widgets\Pjax;
+use yii\grid\ActionColumn;
+use yii\bootstrap5\Html;
+
+use app\widgets\GridView;
+use app\helpers\CommonHelper;
 
 /**
- * @var \search\group\GroupTypeSearch $searchModel
+ * @var \app\search\group\GroupTypeSearch $searchModel
  * @var \yii\data\ActiveDataProvider $dataProvider
  */
 

@@ -11,7 +11,7 @@ use yii\helpers\Url;
 
 /**
  * @var \yii\web\View $this
- * @var \forms\StatisticForm $model
+ * @var \app\forms\StatisticForm $model
  */
 
 $templateListField = Html::getInputId($model, 'template');

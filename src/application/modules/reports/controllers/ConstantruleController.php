@@ -7,12 +7,12 @@ use app\components\base\{BaseController,};
 use app\components\base\BaseAR;
 use app\helpers\CommonHelper;
 use app\helpers\RbacHelper;
+use app\repositories\group\GroupBaseRepository;
 use entities\ReportConstantRuleEntity;
 use models\ConstantRuleModel;
 use repositories\{ReportBaseRepository};
 use repositories\ConstantBaseRepository;
 use repositories\ConstantruleBaseRepository;
-use repositories\group\GroupRepository;
 use search\ConstantruleSearch;
 use services\ConstantruleService;
 use yii\filters\AccessControl;
@@ -209,7 +209,7 @@ final class ConstantruleController extends BaseController
         $this->response->format = Response::FORMAT_JSON;
 
         $groupsAllow = RbacHelper::getAllowGroupsArray('constantRule.list.all');
-        $groupsCanSent = GroupRepository::getAllBy(
+        $groupsCanSent = GroupBaseRepository::getAllBy(
             condition: ['id' => array_keys($groupsAllow), 'accept_send' => 1],
             asArray: true
         );

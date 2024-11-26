@@ -4,8 +4,8 @@ namespace models;
 
 use app\components\base\BaseModel;
 use app\helpers\{CommonHelper, HtmlPurifier, RbacHelper};
+use app\repositories\{group\GroupBaseRepository};
 use entities\ReportStructureEntity;
-use repositories\{group\GroupRepository};
 use repositories\ConstantBaseRepository;
 use repositories\ReportBaseRepository;
 use repositories\StructureBaseRepository;
@@ -50,7 +50,7 @@ final class StructureModel extends BaseModel
     public function __construct(ReportStructureEntity $entity, $config = [])
     {
         $this->groups = RbacHelper::getAllowGroupsArray('structure.list.all');
-        $this->groupsCanSent = GroupRepository::getAllBy(
+        $this->groupsCanSent = GroupBaseRepository::getAllBy(
             condition: ['id' => array_keys($this->groups), 'accept_send' => 1],
             asArray: true
         );

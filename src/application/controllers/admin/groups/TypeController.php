@@ -4,11 +4,11 @@ namespace app\controllers\admin\groups;
 
 use app\actions\{CreateEditAction, DeleteAction, EnableAction, IndexAction, ViewAction,};
 use app\components\base\BaseController;
-use entities\group\GroupTypeEntity;
-use group\GroupTypeService;
-use models\group\GroupTypeModel;
-use repositories\group\GroupTypeRepository;
-use search\group\GroupTypeSearch;
+use app\entities\group\GroupTypeEntity;
+use app\models\group\GroupTypeModel;
+use app\repositories\group\GroupTypeBaseRepository;
+use app\search\group\GroupTypeSearch;
+use app\services\group\GroupTypeService;
 use yii\filters\AccessControl;
 use yii\helpers\Url;
 
@@ -61,7 +61,7 @@ final class TypeController extends BaseController
             ],
             'view' => [
                 'class' => ViewAction::class,
-                'repository' => GroupTypeRepository::class,
+                'repository' => GroupTypeBaseRepository::class,
                 'requestID' => $this->request->get('id'),
                 'model' => GroupTypeModel::class,
                 'exceptionMessage' => 'Запрашиваемый тип группы не найден'
@@ -69,7 +69,7 @@ final class TypeController extends BaseController
             'edit' => [
                 'class' => CreateEditAction::class,
                 'actionType' => 'edit',
-                'repository' => GroupTypeRepository::class,
+                'repository' => GroupTypeBaseRepository::class,
                 'requestID' => $this->request->get('id'),
                 'model' => GroupTypeModel::class,
                 'service' => $this->service,
@@ -81,7 +81,7 @@ final class TypeController extends BaseController
             ],
             'delete' => [
                 'class' => DeleteAction::class,
-                'repository' => GroupTypeRepository::class,
+                'repository' => GroupTypeBaseRepository::class,
                 'requestID' => $this->request->get('id'),
                 'service' => $this->service,
                 'errorMessage' => 'При удалении типа группы возникли ошибки. Пожалуйста, проверьте логи',
@@ -90,7 +90,7 @@ final class TypeController extends BaseController
             ],
             'enable' => [
                 'class' => EnableAction::class,
-                'repository' => GroupTypeRepository::class,
+                'repository' => GroupTypeBaseRepository::class,
                 'requestID' => $this->request->get('id'),
                 'service' => $this->service,
                 'exceptionMessage' => 'Запрашиваемый тип группы не найден'

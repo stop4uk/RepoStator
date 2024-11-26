@@ -1,12 +1,13 @@
 <?php
 
 /**
- * @var \entities\user\UserSessionEntity[] $data
+ * @var \app\entities\user\UserSessionEntity[] $data
  */
 
-use app\widgets\GridView;
 use yii\data\ArrayDataProvider;
 use yii\widgets\Pjax;
+
+use app\widgets\GridView;
 
 $dataProvider = new ArrayDataProvider([
     'allModels' => $data,

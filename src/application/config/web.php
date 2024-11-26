@@ -1,12 +1,19 @@
 <?php
 
-use app\components\{bootstrap\WebBootstrap, events\handlers\WebEventHandler};
-use components\Identity;
-use components\rbac\RbacDbmanager;
-use yii\{debug\Module as DebugModule, gii\Module as GiiModule};
-use yii\helpers\ArrayHelper;
-use yii\queue\debug\Panel;
 use yii\web\Cookie;
+use yii\queue\debug\Panel;
+use yii\{
+    debug\Module as DebugModule,
+    gii\Module as GiiModule
+};
+use yii\helpers\ArrayHelper;
+
+use app\components\{
+    bootstrap\WebBootstrap,
+    events\handlers\WebEventHandler,
+    rbac\RbacDbmanager,
+    Identity
+};
 
 $params = array_merge(
     require __DIR__ . '/_params_common.php',

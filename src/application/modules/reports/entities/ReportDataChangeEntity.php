@@ -3,8 +3,8 @@
 namespace entities;
 
 use app\components\base\BaseAR;
+use app\entities\user\UserEntity;
 use DataChangeHelper;
-use entities\user\UserEntity;
 use Yii;
 use yii\behaviors\{AttributeBehavior, BlameableBehavior, TimestampBehavior};
 use yii\db\ActiveQuery;

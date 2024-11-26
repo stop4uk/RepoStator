@@ -4,9 +4,9 @@ namespace models;
 
 use app\components\base\BaseModel;
 use app\helpers\{CommonHelper, HtmlPurifier, RbacHelper};
+use app\repositories\group\GroupBaseRepository;
 use entities\ReportEntity;
 use ReportHelper;
-use repositories\group\GroupRepository;
 use Yii;
 use yii\helpers\Json;
 
@@ -41,7 +41,7 @@ final class ReportModel extends BaseModel
     public function __construct(ReportEntity $entity, $config = [])
     {
         $this->groups = RbacHelper::getAllowGroupsArray('report.list.all');
-        $this->groupsCanSent = GroupRepository::getAllBy(
+        $this->groupsCanSent = GroupBaseRepository::getAllBy(
             condition: ['id' => array_keys($this->groups), 'accept_send' => 1],
             asArray: true
         );

@@ -3,9 +3,9 @@
 namespace app\controllers;
 
 use app\components\base\BaseController;
+use app\forms\StatisticForm;
 use app\helpers\RbacHelper;
 use components\FormTemplateFactory;
-use forms\StatisticForm;
 use repositories\TemplateBaseRepository;
 use search\JobSearch;
 use yii\bootstrap5\ActiveForm;

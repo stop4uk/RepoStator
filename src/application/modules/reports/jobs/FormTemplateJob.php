@@ -2,9 +2,9 @@
 
 namespace jobs;
 
+use app\forms\StatisticForm;
 use components\processors\ToFileBaseProcessor;
 use entities\ReportFormTemplateEntity;
-use forms\StatisticForm;
 use yii\base\BaseObject;
 use yii\queue\JobInterface;
 

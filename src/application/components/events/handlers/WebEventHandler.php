@@ -5,9 +5,7 @@ namespace app\components\events\handlers;
 use app\components\events\dispatchers\{UserEventDispatcher};
 use app\components\events\dispatchers\AuthEventDispatcher;
 use app\components\events\dispatchers\ProfileEventDispatcher;
-use AuthBaseService;
-use ProfileService;
-use UserService;
+use app\services\{AuthBaseService, ProfileService, UserService};
 use Yii;
 use yii\base\{Application, BootstrapInterface, Event};
 

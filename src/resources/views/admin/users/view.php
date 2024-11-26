@@ -1,7 +1,7 @@
 <?php
 
 /**
- * @var \models\user\UserModel $model
+ * @var \app\models\user\UserModel $model
  * @var \yii\web\View $this
  */
 

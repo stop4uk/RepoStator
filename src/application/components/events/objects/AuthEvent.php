@@ -2,7 +2,7 @@
 
 namespace app\components\events\objects;
 
-use entities\user\UserEntity;
+use app\entities\user\UserEntity;
 use yii\base\Event;
 use yii\web\Request;
 
