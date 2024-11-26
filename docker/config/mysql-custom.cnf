@@ -5,6 +5,6 @@ default-character-set = utf8
 default-character-set = utf8
 
 [mysqld]
-collation-server = utf8mb4_general_ci
+collation-server = utf8_general_ci
 init-connect = ‘SET NAMES utf8’
 character-set-server = utf8
