@@ -1,19 +1,22 @@
 <?php
 
-namespace app\repositories\group;
+namespace app\useCases\users\repositories\group;
 
-use app\components\base\{BaseRepositoryInterface};
-use app\components\base\BaseAR;
-use app\components\base\BaseARInterface;
-use app\entities\group\GroupTypeEntity;
 use yii\db\ActiveQuery;
 use yii\helpers\ArrayHelper;
+
+use app\components\base\{
+    BaseAR,
+    BaseARInterface,
+    BaseRepositoryInterface
+};
+use app\useCases\users\entities\group\GroupTypeEntity;
 
 /**
  * @author Stop4uk <stop4uk@yandex.ru>
  * @package app\repositories\report
  */
-final class GroupTypeBaseRepository implements BaseRepositoryInterface
+final class GroupTypeRepository implements BaseRepositoryInterface
 {
     public static function get(
         int $id,

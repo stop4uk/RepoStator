@@ -1,20 +1,33 @@
 <?php
 
-namespace app\services;
+namespace app\useCases\users\services;
 
-use app\components\base\{BaseServiceInterface};
-use app\components\base\BaseAR;
-use app\components\base\BaseARInterface;
-use app\components\events\objects\AuthEvent;
-use app\components\Identity;
-use app\entities\user\{UserEmailchangeEntity, UserEntity};
-use app\forms\auth\{LoginForm, RecoveryForm, RegisterForm, VerificationForm};
-use app\helpers\CommonHelper;
-use app\repositories\user\UserBaseRepository;
 use Yii;
-use yii\base\{Component, Exception};
-use yii\helpers\Json;
+use yii\base\{
+    Component,
+    Exception
+};
 use yii\web\Request;
+use yii\helpers\Json;
+
+use app\components\{
+    base\BaseServiceInterface,
+    base\BaseARInterface,
+    base\BaseAR,
+    events\objects\AuthEvent
+};
+use app\helpers\CommonHelper;
+use app\useCases\users\{
+    components\Identity,
+    entities\user\UserEmailchangeEntity,
+    entities\user\UserEntity,
+    repositories\user\UserRepository,
+    forms\auth\LoginForm,
+    forms\auth\RecoveryForm,
+    forms\auth\RegisterForm,
+    forms\authVerificationForm,
+};
+
 
 /**
  * @author Stop4uk <stop4uk@yandex.ru>
@@ -52,7 +65,7 @@ final class AuthService extends Component implements BaseServiceInterface
     public function logout(): void
     {
         $this->trigger(self::EVENT_BEFORE_LOGOUT, new AuthEvent([
-            'user' => UserBaseRepository::get(Yii::$app->getUser()->id)
+            'user' => UserRepository::get(Yii::$app->getUser()->id)
         ]));
 
         if ( !Yii::$app->getUser()->logout() ) {
@@ -198,7 +211,7 @@ final class AuthService extends Component implements BaseServiceInterface
             $transaction = Yii::$app->db->beginTransaction();
 
             if (CommonHelper::saveAttempt($request, 'Users.InitialData'))  {
-                $user = UserBaseRepository::get($request->user_id);
+                $user = UserRepository::get($request->user_id);
                 $user->scenario = $user::SCENARIO_CHANGE_EMAIL;
                 $user->email = $request->email;
                 if (CommonHelper::saveAttempt($user, 'Users.Profile')) {

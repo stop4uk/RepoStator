@@ -1,12 +1,13 @@
 <?php
 
-namespace app\helpers\user;
+namespace app\useCases\users\helpers\user;
 
-use app\entities\user\UserEntity;
-use traits\GetLabelTrait;
 use Yii;
-use yii\bootstrap5\Html;
 use yii\helpers\ArrayHelper;
+use yii\bootstrap5\Html;
+
+use app\traits\GetLabelTrait;
+use app\useCases\users\entities\user\UserEntity;
 
 /**
  * @author Stop4uk <stop4uk@yandex.ru>

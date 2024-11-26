@@ -1,10 +1,11 @@
 <?php
 
-namespace app\components\rbac\rules;
+namespace app\useCases\users\components\rbac\rules;
 
-use app\repositories\user\UserBaseRepository;
 use Yii;
 use yii\rbac\Rule;
+
+use app\useCases\users\repositories\user\UserBaseRepository;
 
 /**
  * @author Stop4uk <stop4uk@yandex.ru>

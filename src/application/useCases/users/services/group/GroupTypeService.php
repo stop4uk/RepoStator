@@ -1,10 +1,12 @@
 <?php
 
-namespace app\services\group;
+namespace app\useCases\users\services\group;
 
-use app\components\base\BaseARInterface;
-use app\components\base\BaseService;
-use app\entities\group\GroupEntity;
+use app\components\base\{
+    BaseARInterface,
+    BaseService
+};
+use app\useCases\users\entities\group\GroupEntity;
 
 /**
  * @author Stop4uk <stop4uk@yandex.ru>

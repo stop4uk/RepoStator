@@ -1,15 +1,22 @@
 <?php
 
-namespace app\services;
+namespace app\useCases\users\services;
 
-use app\components\base\BaseService;
-use app\components\events\objects\ProfileEvent;
-use app\entities\user\{UserEmailchangeEntity, UserEntity};
-use app\forms\user\{UserEmailChangeForm, UserPasswordChangeForm};
-use app\helpers\CommonHelper;
-use app\repositories\user\UserBaseRepository;
 use Yii;
 use yii\base\Exception;
+
+use app\components\{
+    base\BaseService,
+    events\objects\ProfileEvent
+};
+use app\helpers\CommonHelper;
+use app\useCases\users\{
+    entities\user\UserEmailchangeEntity,
+    entities\user\UserEntity,
+    repositories\user\UserRepository,
+    forms\user\UserEmailChangeForm,
+    forms\user\UserPasswordChangeForm
+};
 
 /**
  * @author Stop4uk <stop4uk@yandex.ru>
@@ -25,7 +32,7 @@ final class ProfileService extends BaseService
         $entity->email = $form->email;
         $entity->key = Yii::$app->getSecurity()->generateRandomString(32);
 
-        $user = UserBaseRepository::get(Yii::$app->getUser()->id);
+        $user = UserRepository::get(Yii::$app->getUser()->id);
         if (CommonHelper::saveAttempt($entity, 'Users.InitialData')) {
             $this->trigger(self::EVENT_AFTER_CHANGEEMAIL, new ProfileEvent([
                 'userName' => $user->shortName,

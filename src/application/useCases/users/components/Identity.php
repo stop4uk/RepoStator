@@ -1,15 +1,15 @@
 <?php
 
-namespace app\components;
+namespace app\useCases\users\components;
 
 use yii\web\IdentityInterface;
 
-use app\entities\{
-    user\UserEntity,
-    group\GroupNestedEntity
+use app\useCases\users\{
+    entities\user\UserEntity,
+    entities\group\GroupNestedEntity,
+    repositories\group\GroupBaseRepository,
+    helpers\user\UserHelper
 };
-use app\repositories\group\GroupBaseRepository;
-use app\helpers\user\UserHelper;
 
 /**
  * @property-read int|null $group

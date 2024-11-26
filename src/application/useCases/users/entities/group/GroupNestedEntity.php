@@ -1,10 +1,11 @@
 <?php
 
-namespace app\entities\group;
+namespace app\useCases\users\entities\group;
+
+use yii\db\ActiveQuery;
+use creocoder\nestedsets\NestedSetsBehavior;
 
 use app\components\base\BaseAR;
-use creocoder\nestedsets\NestedSetsBehavior;
-use yii\db\ActiveQuery;
 
 /**
  * @property int group_id

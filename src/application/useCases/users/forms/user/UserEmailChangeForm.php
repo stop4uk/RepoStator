@@ -1,12 +1,17 @@
 <?php
 
-namespace app\forms\user;
+namespace app\useCases\users\forms\user;
 
-use app\components\base\BaseAR;
-use app\entities\user\{UserEmailchangeEntity, UserEntity};
-use app\helpers\{HtmlPurifier, user\UserHelper};
 use Yii;
 use yii\base\Model;
+
+use app\components\base\BaseAR;
+use app\helpers\HtmlPurifier;
+use app\useCases\users\{
+    entities\user\UserEmailchangeEntity,
+    entities\user\UserEntity,
+    helpers\user\UserHelper
+};
 
 /**
  * @property string $email

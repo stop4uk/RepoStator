@@ -1,15 +1,19 @@
 <?php
 
-namespace app\controllers\auth;
+namespace app\useCases\users\controllers\auth;
 
-use app\components\base\BaseController;
-use app\forms\auth\{LoginForm, RegisterForm};
-use app\services\AuthBaseService;
 use Yii;
 use yii\base\Exception;
-use yii\bootstrap5\ActiveForm;
 use yii\filters\AccessControl;
 use yii\web\Response;
+use yii\bootstrap5\ActiveForm;
+
+use app\components\base\BaseController;
+use app\useCases\users\{
+    forms\auth\LoginForm,
+    forms\auth\RegisterForm,
+    services\AuthBaseService
+};
 
 /**
  * @author Stop4uk <stop4uk@yandex.ru>

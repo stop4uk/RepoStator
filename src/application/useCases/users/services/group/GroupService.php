@@ -1,15 +1,18 @@
 <?php
 
-namespace app\services\group;
+namespace app\useCases\users\services\group;
 
-use app\components\base\{BaseModelInterface};
-use app\components\base\BaseARInterface;
-use app\components\base\BaseService;
-use app\entities\group\GroupNestedEntity;
-use app\helpers\CommonHelper;
 use Yii;
 use yii\base\Exception;
 use yii\helpers\ArrayHelper;
+
+use app\components\base\{
+    BaseModelInterface,
+    BaseARInterface,
+    BaseService,
+};
+use app\helpers\CommonHelper;
+use app\useCases\users\entities\group\GroupNestedEntity;
 
 /**
  * @author Stop4uk <stop4uk@yandex.ru>

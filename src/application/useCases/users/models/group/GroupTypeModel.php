@@ -1,12 +1,15 @@
 <?php
 
-namespace app\models\group;
+namespace app\useCases\users\models\group;
 
-use app\components\base\BaseModel;
-use app\entities\group\GroupTypeEntity;
-use app\helpers\group\GroupTypeHelper;
 use Yii;
 use yii\helpers\Json;
+
+use app\components\base\BaseModel;
+use app\useCases\users\{
+    entities\group\GroupTypeEntity,
+    helpers\group\GroupTypeHelper
+};
 
 /**
  * @property string $name;

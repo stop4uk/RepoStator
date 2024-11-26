@@ -1,17 +1,20 @@
 <?php
 
-namespace app\repositories\user;
+namespace app\useCases\users\repositories\user;
 
-use app\components\base\{BaseRepositoryInterface};
-use app\components\base\BaseARInterface;
-use app\entities\user\UserGroupEntity;
 use yii\helpers\ArrayHelper;
+
+use app\components\base\{
+    BaseARInterface,
+    BaseRepositoryInterface
+};
+use app\useCases\users\entities\user\UserGroupEntity;
 
 /**
  * @author Stop4uk <stop4uk@yandex.ru>
  * @package app\repositories\user
  */
-final class UserGroupBaseRepository implements BaseRepositoryInterface
+final class UserGroupRepository implements BaseRepositoryInterface
 {
     public static function get(int $id, array $relations = [], bool $active = true): ?BaseARInterface
     {

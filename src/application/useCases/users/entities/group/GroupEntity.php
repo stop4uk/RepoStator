@@ -1,13 +1,20 @@
 <?php
 
-namespace app\entities\group;
+namespace app\useCases\users\entities\group;
 
-use app\components\base\BaseAR;
-use app\helpers\group\GroupHelper;
-use app\models\group\GroupModel;
-use yii\behaviors\{BlameableBehavior, TimestampBehavior};
+use yii\behaviors\{
+    BlameableBehavior,
+    TimestampBehavior
+};
 use yii\helpers\Json;
 use yii2tech\ar\softdelete\SoftDeleteBehavior;
+
+use app\components\base\BaseAR;
+use app\useCases\users\{
+    models\group\GroupModel,
+    helpers\group\GroupHelper
+};
+
 
 /**
  * @property string|null $code

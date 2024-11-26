@@ -1,12 +1,16 @@
 <?php
 
-namespace app\entities\user;
+namespace app\useCases\users\entities\user;
+
+use yii\db\ActiveQuery;
+use yii\behaviors\{
+    BlameableBehavior,
+    TimestampBehavior
+};
+use yii2tech\ar\softdelete\SoftDeleteBehavior;
 
 use app\components\base\BaseAR;
-use app\helpers\user\UserGroupHelper;
-use yii\behaviors\{BlameableBehavior, TimestampBehavior};
-use yii\db\ActiveQuery;
-use yii2tech\ar\softdelete\SoftDeleteBehavior;
+use app\useCases\users\helpers\user\UserGroupHelper;
 
 /**
  * @property int $user_id

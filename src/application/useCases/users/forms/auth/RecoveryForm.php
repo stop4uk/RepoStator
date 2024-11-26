@@ -1,13 +1,18 @@
 <?php
 
-namespace app\forms\auth;
+namespace app\useCases\users\forms\auth;
 
-use app\components\base\BaseAR;
-use app\entities\user\UserEntity;
-use app\helpers\{AuthHelper, HtmlPurifier, user\UserHelper};
-use app\repositories\user\UserBaseRepository;
 use Yii;
 use yii\base\Model;
+
+use app\components\base\BaseAR;
+use app\helpers\HtmlPurifier;
+use app\useCases\users\{
+    entities\user\UserEntity,
+    repositories\user\UserBaseRepository,
+    helpers\AuthHelper,
+    helpers\user\UserHelper
+};
 
 /**
  * @property string|null $email

@@ -1,15 +1,20 @@
 <?php
 
-namespace app\entities\user;
+namespace app\useCases\users\entities\user;
 
-use app\components\base\{BaseModel};
-use app\components\base\BaseAR;
-use app\helpers\user\UserHelper;
 use Yii;
-use yii\base\Model;
-use yii\behaviors\{BlameableBehavior, TimestampBehavior};
+use yii\behaviors\{
+    BlameableBehavior,
+    TimestampBehavior
+};
 use yii\db\ActiveQuery;
 use yii2tech\ar\softdelete\SoftDeleteBehavior;
+
+use app\components\base\{
+    BaseModel,
+    BaseAR
+};
+use app\useCases\users\helpers\user\UserHelper;
 
 /**
  * @property string $email
@@ -88,7 +93,7 @@ final class UserEntity extends BaseAR
         ];
     }
 
-    public function recordAction(BaseModel|Model $model): void
+    public function recordAction(BaseModel $model): void
     {
         $password = $this->password;
 

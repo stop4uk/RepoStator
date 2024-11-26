@@ -1,9 +1,10 @@
 <?php
 
-namespace app\helpers\group;
+namespace app\useCases\users\helpers\group;
 
-use traits\GetLabelTrait;
 use Yii;
+
+use app\traits\GetLabelTrait;
 
 /**
  * @author Stop4uk <stop4uk@yandex.ru>

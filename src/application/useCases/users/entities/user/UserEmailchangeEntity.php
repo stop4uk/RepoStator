@@ -1,10 +1,14 @@
 <?php
 
-namespace app\entities\user;
+namespace app\useCases\users\entities\user;
+
+use yii\behaviors\{
+    BlameableBehavior,
+    TimestampBehavior
+};
+use yii2tech\ar\softdelete\SoftDeleteBehavior;
 
 use app\components\base\BaseAR;
-use yii\behaviors\{BlameableBehavior, TimestampBehavior};
-use yii2tech\ar\softdelete\SoftDeleteBehavior;
 
 /**
  * @property int $user_id

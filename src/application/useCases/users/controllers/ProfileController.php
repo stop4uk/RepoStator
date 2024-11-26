@@ -1,19 +1,26 @@
 <?php
 
-namespace app\controllers;
+namespace app\useCases\users\controllers;
 
-use app\components\base\BaseController;
-use app\entities\user\UserEntity;
-use app\forms\user\{UserEmailChangeForm, UserPasswordChangeForm};
-use app\models\user\ProfileModel;
-use app\repositories\user\UserBaseRepository;
-use app\services\ProfileService;
 use Yii;
 use yii\base\Exception;
-use yii\bootstrap5\ActiveForm;
-use yii\data\ArrayDataProvider;
 use yii\filters\AccessControl;
-use yii\web\{NotFoundHttpException, Response};
+use yii\web\{
+    NotFoundHttpException,
+    Response
+};
+use yii\data\ArrayDataProvider;
+use yii\bootstrap5\ActiveForm;
+
+use app\components\base\BaseController;
+use app\useCases\users\{
+    entities\user\UserEntity,
+    forms\user\UserEmailChangeForm,
+    forms\user\UserPasswordChangeForm,
+    models\user\ProfileModel,
+    repositories\user\UserBaseRepository,
+    services\ProfileService
+};
 
 /**
  * @author Stop4uk <stop4uk@yandex.ru>

@@ -1,12 +1,14 @@
 <?php
 
-namespace app\search\group;
+namespace app\useCases\users\search\group;
 
 use yii\base\Model;
 use yii\data\ActiveDataProvider;
 
-use app\repositories\group\GroupTypeBaseRepository;
-use app\helpers\group\GroupTypeHelper;
+use app\useCases\users\{
+    repositories\group\GroupTypeRepository,
+    helpers\group\GroupTypeHelper
+};
 
 /**
  * @property string $name
@@ -32,7 +34,7 @@ final class GroupTypeSearch extends Model
 
     public function search($params): ActiveDataProvider
     {
-        $query = GroupTypeBaseRepository::getAll();
+        $query = GroupTypeRepository::getAll();
 
         $dataProvider = new ActiveDataProvider([
             'query' => $query,

@@ -1,6 +1,6 @@
 <?php
 
-namespace app\helpers;
+namespace app\useCases\users\helpers;
 
 use Yii;
 

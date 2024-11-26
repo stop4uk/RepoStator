@@ -1,11 +1,16 @@
 <?php
 
-namespace app\entities\user;
+namespace app\useCases\users\entities\user;
+
+use Yii;
+use yii\behaviors\{
+    BlameableBehavior,
+    TimestampBehavior
+};
 
 use app\components\base\BaseAR;
-use app\helpers\{HtmlPurifier, user\UserSessionHelper};
-use Yii;
-use yii\behaviors\{BlameableBehavior, TimestampBehavior};
+use app\helpers\HtmlPurifier;
+use app\useCases\users\user\UserSessionHelper;
 
 /**
  * @property int $user_id

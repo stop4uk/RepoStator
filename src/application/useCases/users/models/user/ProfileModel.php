@@ -1,10 +1,13 @@
 <?php
 
-namespace app\models\user;
+namespace app\useCases\users\models\user;
 
 use app\components\base\BaseModel;
-use app\entities\user\UserEntity;
-use app\helpers\{HtmlPurifier, user\UserHelper};
+use app\helpers\HtmlPurifier;;
+use app\useCases\users\{
+    entities\user\UserEntity,
+    helpers\user\UserHelper
+};
 
 /**
  * @property string $email

@@ -1,17 +1,24 @@
 <?php
 
-namespace app\services;
+namespace app\useCases\users\services;
 
-use app\components\base\{BaseARInterface, BaseService};
-use app\components\base\{BaseModelInterface};
-use app\components\base\BaseAR;
-use app\components\events\objects\UserEvent;
-use app\entities\user\{UserGroupEntity, UserRightEntity};
-use app\helpers\CommonHelper;
-use app\models\user\UserModel;
-use app\repositories\user\UserGroupBaseRepository;
 use Yii;
 use yii\base\Exception;
+
+use app\components\{
+    base\BaseARInterface,
+    base\BaseModelInterface,
+    base\BaseAR,
+    base\BaseService,
+    events\objects\UserEvent
+};
+use app\helpers\CommonHelper;
+use app\useCases\users\{
+    entities\user\UserGroupEntity,
+    entities\user\UserRightEntity,
+    models\user\UserModel,
+    repositories\user\UserGroupRepository
+};
 
 /**
  * @author Stop4uk <stop4uk@yandex.ru>
@@ -108,7 +115,7 @@ final class UserService extends BaseService
 
     private function beforeDelete($entity): bool
     {
-        $relationGroup = UserGroupBaseRepository::getBy(['user_id' => $entity->id]);
+        $relationGroup = UserGroupRepository::getBy(['user_id' => $entity->id]);
 
         if ( $relationGroup ) {
             $relationGroup->updated_at = time();

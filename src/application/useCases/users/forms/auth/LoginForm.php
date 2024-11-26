@@ -1,16 +1,16 @@
 <?php
 
-namespace app\forms\auth;
+namespace app\useCases\users\forms\auth;
 
 use Yii;
 use yii\base\Model;
 use yii\bootstrap5\Html;
 
-use app\entities\user\UserEntity;
-use app\repositories\user\UserBaseRepository;
-use app\helpers\{
-    HtmlPurifier,
-    AuthHelper
+use app\helpers\HtmlPurifier;
+use app\useCases\users\{
+    entities\user\UserEntity,
+    repositories\user\UserBaseRepository,
+    helpers\AuthHelper
 };
 
 /**

@@ -1,13 +1,16 @@
 <?php
 
-namespace app\models\group;
+namespace app\useCases\users\models\group;
 
-use app\components\base\BaseModel;
-use app\entities\group\GroupEntity;
-use app\helpers\group\GroupHelper;
-use app\repositories\group\GroupTypeBaseRepository;
 use Yii;
 use yii\helpers\Json;
+
+use app\components\base\BaseModel;
+use app\useCases\users\{
+    entities\group\GroupEntity,
+    repositories\group\GroupTypeBaseRepository,
+    helpers\group\GroupHelper
+};
 
 /**
  * @property string|null $code

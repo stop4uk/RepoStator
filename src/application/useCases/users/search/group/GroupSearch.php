@@ -1,17 +1,15 @@
 <?php
 
-namespace app\search\group;
+namespace app\useCases\users\search\group;
 
 use yii\base\Model;
 use yii\data\ActiveDataProvider;
 
-use app\repositories\group\{
-    GroupBaseRepository,
-    GroupTypeBaseRepository
-};
-use app\helpers\{
-    CommonHelper,
-    group\GroupHelper
+use app\helpers\CommonHelper;
+use app\useCases\users\{
+    repositories\group\GroupRepository,
+    repositories\group\GroupTypeRepository,
+    helpers\group\GroupHelper
 };
 
 /**
@@ -39,11 +37,11 @@ final class GroupSearch extends Model
 
     public function __construct($config = [])
     {
-        $this->types = GroupTypeBaseRepository::getAll(
+        $this->types = GroupTypeRepository::getAll(
             asArray: true
         );
 
-        $this->groups = GroupBaseRepository::getAll(
+        $this->groups = GroupRepository::getAll(
             asArray: true
         );
 
@@ -69,7 +67,7 @@ final class GroupSearch extends Model
 
     public function search($params): ActiveDataProvider
     {
-        $query = GroupBaseRepository::getAllBy(
+        $query = GroupRepository::getAllBy(
             condition: ['id' => array_keys($this->groups)],
             relations: ['type']
         );

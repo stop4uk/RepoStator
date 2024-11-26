@@ -1,11 +1,11 @@
 <?php
 
-namespace app\forms\user;
+namespace app\useCases\users\forms\user;
 
 use Yii;
 use yii\base\Model;
 
-use app\helpers\user\UserHelper;
+use app\useCases\users\helpers\user\UserHelper;
 
 /**
  * @property string $password

@@ -1,13 +1,26 @@
 <?php
 
-namespace app\components\rbac;
+namespace app\useCases\users\components\rbac;
 
 use Yii;
-use yii\base\{InvalidArgumentException, InvalidCallException,};
+use yii\base\{
+    InvalidArgumentException,
+    InvalidCallException
+};
 use yii\caching\CacheInterface;
-use yii\db\{Connection, Expression, Query};
+use yii\db\{
+    Connection,
+    Expression,
+    Query
+};
 use yii\di\Instance;
-use yii\rbac\{Assignment, DbManager, Item, Permission, Role,};
+use yii\rbac\{
+    Assignment,
+    DbManager,
+    Item,
+    Permission,
+    Role
+};
 
 /**
  * @author Stop4uk <stop4uk@yandex.ru>
