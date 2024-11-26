@@ -1,14 +1,22 @@
 <?php
 
-namespace app\entities\report;
+namespace app\useCases\reports\entities;
 
-use app\components\base\BaseAR;
-use app\components\events\objects\StatisticEvent;
-use app\entities\user\UserEntity;
-use app\helpers\{CommonHelper, report\JobHelper};
 use Yii;
-use yii\behaviors\{AttributeBehavior, BlameableBehavior, TimestampBehavior};
+use yii\behaviors\{
+    AttributeBehavior,
+    BlameableBehavior,
+    TimestampBehavior
+};
 use yii\db\ActiveQuery;
+
+use app\components\{
+    base\BaseAR,
+    events\objects\StatisticEvent
+};
+use app\helpers\CommonHelper;
+use app\useCases\reports\helpers\JobHelper;
+use app\useCases\users\entities\user\UserEntity;
 
 /**
  * @property string $job_id

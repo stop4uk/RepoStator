@@ -1,13 +1,15 @@
 <?php
 
-namespace app\jobs;
+namespace app\useCases\reports\jobs;
 
 use yii\base\BaseObject;
 use yii\queue\JobInterface;
 
-use app\processors\ToFileBaseProcessor;
-use app\entities\report\ReportFormTemplateEntity;
-use app\forms\StatisticForm;
+use app\useCases\reports\{
+    components\processors\ToFileBaseProcessor,
+    entities\ReportFormTemplateEntity,
+    forms\StatisticForm
+};
 
 /**
  * @author Stop4uk <stop4uk@yandex.ru>

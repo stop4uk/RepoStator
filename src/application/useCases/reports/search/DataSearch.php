@@ -1,16 +1,22 @@
 <?php
 
-namespace app\search\report;
+namespace app\useCases\reports\search;
 
-use app\helpers\{RbacHelper, report\DataHelper};
-use app\repositories\{report\ConstantBaseRepository,
-    report\DataBaseRepository,
-    report\ReportBaseRepository,
-    report\StructureBaseRepository,
-    user\UserBaseRepository};
-use traits\CleanDataProviderByRoleTrait;
 use yii\base\Model;
 use yii\data\ActiveDataProvider;
+
+use app\useCases\reports\{
+    repositories\ConstantBaseRepository,
+    repositories\DataBaseRepository,
+    repositories\ReportBaseRepository,
+    repositories\StructureBaseRepository,
+    helpers\DataHelper,
+    traits\CleanDataProviderByRoleTrait
+};
+use app\useCases\users\{
+    repositories\user\UserRepository,
+    helpers\RbacHelper
+};
 
 /**
  * @property int|null $group_id
@@ -72,7 +78,7 @@ final class DataSearch extends Model
             groups: $this->groups,
             active: $this->onlyActive
         );
-        $this->usersAllow =  UserBaseRepository::getAllow(
+        $this->usersAllow =  UserRepository::getAllow(
             groups: $this->groups,
             active: $this->onlyActive
         );

@@ -1,12 +1,10 @@
 <?php
 
-namespace app\processors;
+namespace app\useCases\reports\components\processors;
 
-use app\components\base\BaseProcessor;
-use app\components\base\BaseProcessorInterface;
-use app\entities\report\ReportFormJobEntity;
-use app\helpers\{CommonHelper, report\TemplateHelper};
-use PhpOffice\PhpSpreadsheet\{IOFactory,
+use Yii;
+use PhpOffice\PhpSpreadsheet\{
+    IOFactory,
     Reader\IReader,
     Spreadsheet,
     Style\Alignment,
@@ -16,8 +14,16 @@ use PhpOffice\PhpSpreadsheet\{IOFactory,
     Worksheet\PageSetup,
     Worksheet\Worksheet,
     Writer\IWriter,
-    Writer\Xlsx};
-use Yii;
+    Writer\Xlsx
+};
+
+use app\helpers\CommonHelper;
+use app\useCases\reports\{
+    components\base\BaseProcessor,
+    components\base\BaseProcessorInterface,
+    entities\ReportFormJobEntity,
+    helpers\TemplateHelper
+};
 
 /**
  * @author Stop4uk <stop4uk@yandex.ru>

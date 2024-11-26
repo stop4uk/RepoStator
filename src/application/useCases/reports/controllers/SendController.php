@@ -1,19 +1,27 @@
 <?php
 
-namespace app\controllers\reports;
+namespace app\useCases\reports\controllers;
 
-use app\actions\IndexAction;
-use app\components\base\{BaseController,};
-use app\components\base\BaseAR;
-use app\entities\report\ReportDataEntity;
-use app\models\report\DataModel;
-use app\search\report\SendSearch;
-use app\services\report\SendService;
 use Yii;
 use yii\base\Exception;
-use yii\bootstrap5\ActiveForm;
+use yii\web\{
+    BadRequestHttpException,
+    Response
+};
 use yii\filters\AccessControl;
-use yii\web\{BadRequestHttpException, Response};
+use yii\bootstrap5\ActiveForm;
+
+use app\actions\IndexAction;
+use app\components\{
+    base\BaseController,
+    base\BaseAR
+};
+use app\useCases\reports\{
+    entities\ReportDataEntity,
+    models\DataModel,
+    services\SendService,
+    search\SendSearch
+};
 
 /**
  * @author Stop4uk <stop4uk@yandex.ru>

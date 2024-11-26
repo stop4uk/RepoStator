@@ -1,15 +1,19 @@
 <?php
 
-namespace app\services\report;
+namespace app\useCases\reports\services;
 
-use app\components\base\{BaseModelInterface};
-use app\components\base\BaseARInterface;
-use app\components\base\BaseService;
-use app\entities\report\ReportDataChangeEntity;
-use app\helpers\CommonHelper;
 use Yii;
 use yii\base\Exception;
 use yii\helpers\Json;
+
+use app\components\{
+    base\BaseService,
+    base\BaseModelInterface,
+    base\BaseARInterface,
+
+};
+use app\helpers\CommonHelper;
+use app\useCases\reports\entities\ReportDataChangeEntity;
 
 /**
  * @author Stop4uk <stop4uk@yandex.ru>

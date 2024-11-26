@@ -1,11 +1,14 @@
 <?php
 
-namespace app\factories;
+namespace app\useCases\reports\components\factories;
 
-use app\components\base\BaseProcessorInterface;
-use app\forms\StatisticForm;
-use app\processors\{ToFileBaseProcessor, ToFileByJobBaseProcessor};
-use app\repositories\report\TemplateBaseRepository;
+use app\useCases\reports\{
+    components\base\BaseProcessorInterface,
+    components\processors\ToFileBaseProcessor,
+    components\processors\ToFileByJobBaseProcessor,
+    repositories\TemplateBaseRepository,
+    forms\StatisticForm
+};
 
 /**
  * @author Stop4uk <stop4uk@yandex.ru>

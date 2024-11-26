@@ -1,21 +1,36 @@
 <?php
 
-namespace app\controllers\reports;
+namespace app\useCases\reports\controllers;
 
-use app\actions\{CreateEditAction, DeleteAction, EnableAction, IndexAction, ViewAction,};
-use app\components\base\{BaseController,};
-use app\components\base\BaseAR;
-use app\entities\report\ReportConstantRuleEntity;
-use app\helpers\CommonHelper;
-use app\helpers\RbacHelper;
-use app\models\report\ConstantRuleModel;
-use app\repositories\group\GroupBaseRepository;
-use app\repositories\report\{ConstantBaseRepository, ConstantruleBaseRepository, ReportBaseRepository};
-use app\search\report\ConstantruleSearch;
-use app\services\report\ConstantruleService;
 use yii\filters\AccessControl;
 use yii\helpers\Url;
 use yii\web\Response;
+
+use app\actions\{
+    CreateEditAction,
+    DeleteAction,
+    EnableAction,
+    IndexAction,
+    ViewAction
+};
+use app\components\{
+    base\BaseController,
+    base\BaseAR
+};
+use app\helpers\CommonHelper;
+use app\useCases\reports\{
+    entities\ReportConstantRuleEntity,
+    models\ConstantRuleModel,
+    repositories\ConstantRepository,
+    repositories\ConstantruleRepository,
+    repositories\ReportRepository,
+    services\report\ConstantruleService,
+    search\report\ConstantruleSearch
+};
+use app\useCases\users\{
+    helpers\RbacHelper,
+    repositories\group\GroupRepository
+};
 
 /**
  * @author Stop4uk <stop4uk@yandex.ru>
@@ -207,7 +222,7 @@ final class ConstantruleController extends BaseController
         $this->response->format = Response::FORMAT_JSON;
 
         $groupsAllow = RbacHelper::getAllowGroupsArray('constantRule.list.all');
-        $groupsCanSent = GroupBaseRepository::getAllBy(
+        $groupsCanSent = GroupRepository::getAllBy(
             condition: ['id' => array_keys($groupsAllow), 'accept_send' => 1],
             asArray: true
         );

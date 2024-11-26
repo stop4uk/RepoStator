@@ -1,13 +1,22 @@
 <?php
 
-namespace app\models\report;
+namespace app\useCases\reports\models;
 
-use app\components\base\BaseModel;
-use app\entities\report\{ReportConstantEntity, ReportConstantRuleEntity};
-use app\helpers\{CommonHelper, HtmlPurifier, RbacHelper, report\ConstantHelper};
-use app\repositories\report\ReportBaseRepository;
 use Yii;
 use yii\helpers\Json;
+
+use app\components\base\BaseModel;
+use app\helpers\{
+    CommonHelper,
+    HtmlPurifier
+};
+use app\useCases\reports\{
+    entities\ReportConstantEntity,
+    entities\ReportConstantRuleEntity,
+    repositories\ReportBaseRepository,
+    helpers\ConstantHelper
+};
+use app\useCases\users\helpers\RbacHelper;
 
 /**
  * @property string $record

@@ -1,12 +1,12 @@
 <?php
 
-namespace app\forms;
+namespace app\useCases\reports\forms;
 
 use Yii;
 use yii\base\Model;
 
-use app\repositories\report\ReportBaseRepository;
-use app\helpers\RbacHelper;
+use app\useCases\reports\repositories\ReportBaseRepository;
+use app\useCases\users\helpers\RbacHelper;
 
 /**
  * @property int $report

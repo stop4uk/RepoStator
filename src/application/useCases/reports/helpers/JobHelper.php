@@ -1,12 +1,13 @@
 <?php
 
-namespace app\helpers\report;
+namespace app\useCases\reports\helpers;
 
-use app\entities\report\ReportFormJobEntity;
-use traits\GetLabelTrait;
 use Yii;
-use yii\bootstrap5\Html;
 use yii\helpers\ArrayHelper;
+use yii\bootstrap5\Html;
+
+use app\traits\GetLabelTrait;
+use app\useCases\reports\entities\ReportFormJobEntity;
 
 /**
  * @author Stop4uk <stop4uk@yandex.ru>

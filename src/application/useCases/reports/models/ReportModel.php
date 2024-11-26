@@ -1,13 +1,23 @@
 <?php
 
-namespace app\models\report;
+namespace app\useCases\reports\models;
 
-use app\components\base\BaseModel;
-use app\entities\report\ReportEntity;
-use app\helpers\{CommonHelper, HtmlPurifier, RbacHelper, report\ReportHelper};
-use app\repositories\group\GroupBaseRepository;
 use Yii;
 use yii\helpers\Json;
+
+use app\components\base\BaseModel;
+use app\helpers\{
+    CommonHelper,
+    HtmlPurifier
+};
+use app\useCases\reports\{
+    entities\ReportEntity,
+    helpers\ReportHelper
+};
+use app\useCases\users\{
+    repositories\group\GroupRepository,
+    helpers\RbacHelper
+};
 
 /**
  * @property string $name
@@ -40,7 +50,7 @@ final class ReportModel extends BaseModel
     public function __construct(ReportEntity $entity, $config = [])
     {
         $this->groups = RbacHelper::getAllowGroupsArray('report.list.all');
-        $this->groupsCanSent = GroupBaseRepository::getAllBy(
+        $this->groupsCanSent = GroupRepository::getAllBy(
             condition: ['id' => array_keys($this->groups), 'accept_send' => 1],
             asArray: true
         );

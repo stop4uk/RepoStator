@@ -1,9 +1,9 @@
 <?php
 
-namespace app\components\base;
+namespace app\useCases\reports\components\base;
 
-use app\entities\report\ReportFormTemplateEntity;
-use app\forms\StatisticForm;
+use app\useCases\reports\entities\ReportFormTemplateEntity;
+use app\useCases\reports\forms\StatisticForm;
 
 /**
  * @author Stop4uk <stop4uk@yandex.ru>

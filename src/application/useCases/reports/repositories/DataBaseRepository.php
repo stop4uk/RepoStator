@@ -1,12 +1,15 @@
 <?php
 
-namespace app\repositories\report;
+namespace app\useCases\reports\repositories;
 
-use app\components\base\{BaseRepositoryInterface};
-use app\components\base\BaseAR;
-use app\components\base\BaseARInterface;
-use app\entities\report\ReportDataEntity;
 use yii\db\ActiveQuery;
+
+use app\components\{
+    base\BaseRepositoryInterface,
+    base\BaseAR,
+    base\BaseARInterface
+};
+use app\useCases\reports\entities\ReportDataEntity;
 
 /**
  * @author Stop4uk <stop4uk@yandex.ru>

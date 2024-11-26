@@ -1,15 +1,20 @@
 <?php
 
-namespace app\repositories\report;
+namespace app\useCases\reports\repositories;
 
-use app\components\base\{BaseRepositoryInterface};
-use app\components\base\BaseAR;
-use app\components\base\BaseARInterface;
-use app\entities\report\ReportConstantRuleEntity;
 use Yii;
-use yii\db\{ActiveQuery, Expression};
+use yii\db\{
+    ActiveQuery,
+    Expression
+};
 use yii\helpers\ArrayHelper;
 
+use app\components\{
+    base\BaseRepositoryInterface,
+    base\BaseAR,
+    base\BaseARInterface
+};
+use app\useCases\reports\entities\ReportConstantRuleEntity;
 /**
  * @author Stop4uk <stop4uk@yandex.ru>
  * @package app\repositories\report

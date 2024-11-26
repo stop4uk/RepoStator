@@ -1,6 +1,6 @@
 <?php
 
-namespace app\models;
+namespace app\components\settings;
 
 use Yii;
 use yii\base\Model;
@@ -13,7 +13,6 @@ use yii\db\Query;
 final class SettingModel extends Model
 {
     public $key;
-
     public readonly array $settings;
     public readonly array $settingsInArray;
 

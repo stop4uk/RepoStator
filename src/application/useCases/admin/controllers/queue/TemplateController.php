@@ -6,7 +6,7 @@ use yii\filters\AccessControl;
 
 use app\actions\IndexAction;
 use app\components\base\BaseController;
-use app\useCases\report\search\JobSearch;
+use app\useCases\reports\search\JobSearch;
 
 /**
  * @author Stop4uk <stop4uk@yandex.ru>

@@ -1,24 +1,40 @@
 <?php
 
-namespace app\controllers\reports;
+namespace app\useCases\reports\controllers;
 
-use app\actions\{CreateEditAction, DeleteAction, EnableAction, IndexAction, ViewAction,};
-use app\components\base\{BaseController,};
-use app\components\base\BaseAR;
-use app\entities\report\ReportStructureEntity;
-use app\helpers\CommonHelper;
-use app\helpers\RbacHelper;
-use app\models\report\StructureModel;
-use app\repositories\{group\GroupBaseRepository,
-    report\ConstantBaseRepository,
-    report\ReportBaseRepository,
-    report\StructureBaseRepository};
-use app\search\report\StructureSearch;
-use app\services\report\StructureService;
-use app\widgets\Repeater\actions\{AddAction, DeleteAction as RepeaterDeleteAction};
+use yii\web\Response;
 use yii\filters\AccessControl;
 use yii\helpers\Url;
-use yii\web\Response;
+
+use app\actions\{
+    CreateEditAction,
+    DeleteAction,
+    EnableAction,
+    IndexAction,
+    ViewAction
+};
+use app\components\{
+    base\BaseController,
+    base\BaseAR
+};
+use app\helpers\CommonHelper;
+use app\useCases\reports\{
+    entities\ReportStructureEntity,
+    models\StructureModel,
+    repositories\ConstantBaseRepository,
+    repositories\ReportBaseRepository,
+    repositories\StructureBaseRepository,
+    services\StructureService,
+    search\StructureSearch
+};
+use app\useCases\users\{
+    repositories\group\GroupRepository,
+    helpers\RbacHelper
+};
+use app\widgets\Repeater\actions\{
+    AddAction,
+    DeleteAction as RepeaterDeleteAction
+};
 
 /**
  * @author Stop4uk <stop4uk@yandex.ru>
@@ -220,7 +236,7 @@ final class StructureController extends BaseController
 
         $reportInformation = ReportBaseRepository::get($report_id);
         $groupsAllow = RbacHelper::getAllowGroupsArray('constantRule.list.all');
-        $groupsCanSent = GroupBaseRepository::getAllBy(
+        $groupsCanSent = GroupRepository::getAllBy(
             condition: ['id' => array_keys($groupsAllow), 'accept_send' => 1],
             asArray: true
         );

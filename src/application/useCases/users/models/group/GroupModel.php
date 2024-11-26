@@ -25,7 +25,7 @@ use app\useCases\users\{
  * @author Stop4uk <stop4uk@yandex.ru>
  * @package app\models\group
  */
-class GroupModel extends BaseModel
+final class GroupModel extends BaseModel
 {
     public $code;
     public $name;

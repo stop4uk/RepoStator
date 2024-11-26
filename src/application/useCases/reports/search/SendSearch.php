@@ -1,22 +1,24 @@
 <?php
 
-namespace app\search\report;
+namespace app\useCases\reports\search;
 
 use yii\base\Model;
 use yii\data\ActiveDataProvider;
 use yii\helpers\ArrayHelper;
 
-use app\entities\report\ReportDataEntity;
-use app\repositories\{
-    group\GroupBaseRepository,
-    report\ReportBaseRepository
-};
 use app\helpers\{
     CommonHelper,
-    RbacHelper,
     HtmlPurifier,
-    report\ReportHelper,
-    report\DataHelper
+};
+use app\useCases\reports\{
+    entities\ReportDataEntity,
+    repositories\ReportBaseRepository,
+    helpers\ReportHelper,
+    helpers\DataHelper,
+};
+use app\useCases\users\{
+    repositories\group\GroupRepository,
+    helpers\RbacHelper
 };
 
 /**
@@ -38,7 +40,7 @@ final class SendSearch extends Model
     public function __construct($config = [])
     {
         $this->groups = RbacHelper::getAllowGroupsArray('data.send.all');
-        $this->groupsCanSent = GroupBaseRepository::getAllBy(
+        $this->groupsCanSent = GroupRepository::getAllBy(
             condition: ['accept_send' => 1, 'id' => array_keys($this->groups)],
             asArray: true
         );

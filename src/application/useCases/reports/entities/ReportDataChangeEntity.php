@@ -1,14 +1,19 @@
 <?php
 
-namespace app\entities\report;
+namespace app\useCases\reports\entities;
 
-use app\components\base\BaseAR;
-use app\entities\user\UserEntity;
-use app\helpers\report\DataChangeHelper;
 use Yii;
-use yii\behaviors\{AttributeBehavior, BlameableBehavior, TimestampBehavior};
+use yii\behaviors\{
+    AttributeBehavior,
+    BlameableBehavior,
+    TimestampBehavior
+};
 use yii\db\ActiveQuery;
 use yii\helpers\Json;
+
+use app\components\base\BaseAR;
+use app\useCases\users\entities\user\UserEntity;
+use app\useCases\reports\helpers\DataChangeHelper;
 
 /**
  * @property int $report_id

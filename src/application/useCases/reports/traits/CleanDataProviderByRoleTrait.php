@@ -1,6 +1,6 @@
 <?php
 
-namespace traits;
+namespace app\useCases\reports\traits;
 
 use Yii;
 use yii\data\ActiveDataProvider;

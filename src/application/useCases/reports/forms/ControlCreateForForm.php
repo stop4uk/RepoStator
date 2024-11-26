@@ -1,18 +1,20 @@
 <?php
 
-namespace app\forms\report;
+namespace app\useCases\reports\forms;
 
 use Yii;
 use yii\base\Model;
 use yii\validators\DateValidator;
 
-use app\entities\report\ReportEntity;
-use app\repositories\{
-    group\GroupBaseRepository,
-    report\ReportBaseRepository,
-    report\DataBaseRepository
+use app\useCases\reports\{
+    entities\ReportEntity,
+    repositories\ReportBaseRepository,
+    repositories\DataBaseRepository
 };
-use app\helpers\RbacHelper;
+use app\useCases\users\{
+    repositories\group\GroupRepository,
+    helpers\RbacHelper
+};
 
 /**
  * @property int $group
@@ -40,7 +42,7 @@ final class ControlCreateForForm extends Model
     public function __construct($config = [])
     {
         $groups = RbacHelper::getAllowGroupsArray('data.edit.all');
-        $this->groups = GroupBaseRepository::getAllBy(
+        $this->groups = GroupRepository::getAllBy(
             condition: ['id' => array_keys($groups), 'accept_send' => 1],
             asArray: true
         );

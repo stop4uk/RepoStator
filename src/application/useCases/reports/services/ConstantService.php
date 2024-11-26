@@ -1,9 +1,9 @@
 <?php
 
-namespace app\services\report;
+namespace app\useCases\reports\services;
 
 use app\components\base\BaseService;
-use app\entities\report\ReportConstantRuleEntity;
+use app\useCases\reports\entities\ReportConstantRuleEntity;
 
 /**
  * @author Stop4uk <stop4uk@yandex.ru>

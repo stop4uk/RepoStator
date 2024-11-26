@@ -1,15 +1,20 @@
 <?php
 
-namespace app\search\report;
+namespace app\useCases\reports\search;
 
-use app\helpers\{CommonHelper, RbacHelper, report\TemplateHelper};
-use app\repositories\{report\ConstantBaseRepository,
-    report\ConstantruleBaseRepository,
-    report\ReportBaseRepository,
-    report\TemplateBaseRepository};
-use traits\CleanDataProviderByRoleTrait;
 use yii\base\Model;
 use yii\data\ActiveDataProvider;
+
+use app\helpers\CommonHelper;
+use app\useCases\reports\{
+    repositories\ConstantBaseRepository,
+    repositories\ConstantruleBaseRepository,
+    repositories\ReportBaseRepository,
+    repositories\TemplateBaseRepository,
+    traits\CleanDataProviderByRoleTrait,
+    helpers\TemplateHelper
+};
+use app\useCases\users\helpers\RbacHelper;
 
 /**
  * @property string|null $name

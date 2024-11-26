@@ -1,13 +1,16 @@
 <?php
 
-namespace app\services\report;
+namespace app\useCases\reports\services;
 
-use app\components\base\{BaseModelInterface};
-use app\components\base\BaseARInterface;
-use app\components\base\BaseService;
-use app\helpers\CommonHelper;
 use Yii;
 use yii\base\Exception;
+
+use app\components\{
+    base\BaseModelInterface,
+    base\BaseARInterface,
+    base\BaseService
+};
+use app\helpers\CommonHelper;
 
 /**
  * @author Stop4uk <stop4uk@yandex.ru>

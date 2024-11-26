@@ -1,6 +1,6 @@
 <?php
 
-namespace app\services\report;
+namespace app\useCases\reports\services;
 
 use app\components\base\BaseService;
 

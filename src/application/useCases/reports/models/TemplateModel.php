@@ -1,17 +1,27 @@
 <?php
 
-namespace app\models\report;
+namespace app\useCases\reports\models;
 
-use app\components\base\BaseModel;
-use app\entities\report\ReportFormTemplateEntity;
-use app\helpers\{CommonHelper, HtmlPurifier, RbacHelper, report\TemplateHelper};
-use app\repositories\{group\GroupBaseRepository,
-    report\ConstantBaseRepository,
-    report\ConstantruleBaseRepository,
-    report\ReportBaseRepository};
 use Yii;
 use yii\helpers\ArrayHelper;
 use yii\web\UploadedFile;
+
+use app\components\base\BaseModel;
+use app\helpers\{
+    CommonHelper,
+    HtmlPurifier
+};
+use app\useCases\reports\{
+    entities\ReportFormTemplateEntity,
+    repositories\ConstantBaseRepository,
+    repositories\ConstantruleBaseRepository,
+    repositories\ReportBaseRepository,
+    helpers\TemplateHelper
+};
+use app\useCases\users\{
+    repositories\group\GroupRepository,
+    helpers\RbacHelper
+};
 
 /**
  * @property string $name
@@ -68,7 +78,7 @@ final class TemplateModel extends BaseModel
     public function __construct(ReportFormTemplateEntity $entity, $config = [])
     {
         $this->groups = RbacHelper::getAllowGroupsArray('structure.list.all');
-        $this->groupsCanSent = GroupBaseRepository::getAllBy(
+        $this->groupsCanSent = GroupRepository::getAllBy(
             condition: ['id' => array_keys($this->groups), 'accept_send' => 1],
             asArray: true
         );

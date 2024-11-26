@@ -1,13 +1,26 @@
 <?php
 
-namespace app\models\report;
+namespace app\useCases\reports\models;
 
-use app\components\base\BaseModel;
-use app\entities\report\{ReportConstantEntity, ReportConstantRuleEntity};
-use app\helpers\{CommonHelper, HtmlPurifier, RbacHelper, report\ConstantRuleHelper};
-use app\repositories\{group\GroupBaseRepository, report\ConstantBaseRepository, report\ReportBaseRepository};
 use Yii;
 use yii\helpers\Json;
+
+use app\components\base\BaseModel;
+use app\helpers\{
+    CommonHelper,
+    HtmlPurifier
+};;
+use app\useCases\reports\{
+    entities\ReportConstantEntity,
+    entities\ReportConstantRuleEntity,
+    repositories\ConstantBaseRepository,
+    repositories\ReportBaseRepository,
+    helpers\ConstantRuleHelper
+};
+use app\useCases\users\{
+    repositories\group\GroupRepository,
+    helpers\RbacHelper
+};
 
 /**
  * @property string $record
@@ -40,7 +53,7 @@ final class ConstantRuleModel extends BaseModel
     public function __construct(ReportConstantRuleEntity $entity, array $config = [])
     {
         $groupsAllow = RbacHelper::getAllowGroupsArray('constantRule.list.all');
-        $groupsCanSent = GroupBaseRepository::getAllBy(
+        $groupsCanSent = GroupRepository::getAllBy(
             condition: ['id' => array_keys($groupsAllow), 'accept_send' => 1],
             asArray: true
         );

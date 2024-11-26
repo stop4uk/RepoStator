@@ -1,6 +1,6 @@
 <?php
 
-namespace traits;
+namespace app\traits;
 
 use yii\helpers\ArrayHelper;
 

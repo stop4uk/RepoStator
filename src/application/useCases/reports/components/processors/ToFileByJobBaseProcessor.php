@@ -1,14 +1,18 @@
 <?php
 
-namespace app\processors;
+namespace app\useCases\reports\components\processors;
 
-use app\components\base\BaseProcessorInterface;
-use app\entities\report\{ReportFormJobEntity, ReportFormTemplateEntity};
-use app\forms\StatisticForm;
-use app\helpers\CommonHelper;
-use app\jobs\FormTemplateJob;
 use Yii;
 use yii\helpers\Url;
+
+use app\helpers\CommonHelper;
+use app\useCases\reports\{
+    components\base\BaseProcessorInterface,
+    entities\ReportFormJobEntity,
+    entities\ReportFormTemplateEntity,
+    forms\StatisticForm,
+    jobs\FormTemplateJob
+};
 
 /**
  * @author Stop4uk <stop4uk@yandex.ru>

@@ -1,16 +1,25 @@
 <?php
 
-namespace app\controllers\reports;
+namespace app\useCases\reports\controllers;
 
-use app\actions\{CreateEditAction, DeleteAction, EnableAction, IndexAction, ViewAction,};
-use app\components\base\BaseController;
-use app\entities\report\ReportEntity;
-use app\models\report\ReportModel;
-use app\repositories\report\ReportBaseRepository;
-use app\search\report\ReportSearch;
-use app\services\report\ReportService;
 use yii\filters\AccessControl;
 use yii\helpers\Url;
+
+use app\actions\{
+    CreateEditAction,
+    DeleteAction,
+    EnableAction,
+    IndexAction,
+    ViewAction
+};
+use app\components\base\BaseController;
+use app\useCases\reports\{
+    entities\ReportEntity,
+    models\ReportModel,
+    repositories\ReportBaseRepository,
+    services\ReportService,
+    search\ReportSearch
+};
 
 /**
  * @author Stop4uk <stop4uk@yandex.ru>

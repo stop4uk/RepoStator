@@ -1,17 +1,28 @@
 <?php
 
-namespace app\controllers\reports;
+namespace app\useCases\reports\controllers;
 
-use app\actions\{CreateEditAction, DeleteAction, EnableAction, IndexAction, ViewAction,};
-use app\components\base\{BaseController};
-use app\components\base\BaseAR;
-use app\entities\report\ReportConstantEntity;
-use app\models\report\ConstantModel;
-use app\repositories\report\ConstantBaseRepository;
-use app\search\report\ConstantSearch;
-use app\services\report\ConstantService;
 use yii\filters\AccessControl;
 use yii\helpers\Url;
+
+use app\actions\{
+    CreateEditAction,
+    DeleteAction,
+    EnableAction,
+    IndexAction,
+    ViewAction
+};
+use app\components\{
+    base\BaseController,
+    base\BaseAR
+};
+use app\useCases\reports\{
+    entities\ReportConstantEntity,
+    models\ConstantModel,
+    repositories\ConstantBaseRepository,
+    services\ConstantService,
+    search\ConstantSearch
+};
 
 /**
  * @author Stop4uk <stop4uk@yandex.ru>

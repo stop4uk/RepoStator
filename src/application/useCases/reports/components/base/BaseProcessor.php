@@ -1,17 +1,28 @@
 <?php
 
-namespace app\components\base;
+namespace app\useCases\reports\components\base;
 
-use app\entities\report\{ReportDataEntity, ReportFormTemplateEntity};
-use app\forms\StatisticForm;
-use app\helpers\CommonHelper;
-use app\repositories\{group\GroupBaseRepository,
-    group\GroupTypeBaseRepository,
-    report\ConstantBaseRepository,
-    report\ConstantruleBaseRepository};
 use Yii;
 use yii\base\Component;
-use yii\helpers\{ArrayHelper, Json};
+use yii\helpers\{
+    ArrayHelper,
+    Json
+};
+
+use app\components\base\BaseAR;
+use app\helpers\CommonHelper;
+use app\useCases\reports\{
+    entities\ReportDataEntity,
+    entities\ReportFormTemplateEntity,
+    repositories\ConstantBaseRepository,
+    repositories\ConstantruleBaseRepository,
+    forms\StatisticForm,
+};
+
+use app\useCases\users\{
+    repositories\group\GroupRepository,
+    repositories\group\GroupTypeRepository
+};
 
 /**
  * @author Stop4uk <stop4uk@yandex.ru>
@@ -95,7 +106,7 @@ class BaseProcessor extends Component
             $this->template::REPORT_TABLE_TYPE_CONST => 'table_columns'
         };
 
-        $groups = GroupBaseRepository::getAll([]);
+        $groups = GroupRepository::getAll([]);
         $groupsFromTemplate = CommonHelper::explodeField(
             string: $this->template->{$inversionFind[$findColumn]}
         );
@@ -108,7 +119,7 @@ class BaseProcessor extends Component
         }
 
         if ($this->template->use_grouptype) {
-            $types = GroupTypeBaseRepository::getAll([], true);
+            $types = GroupTypeRepository::getAll([], true);
             $groupsWithType = ArrayHelper::map($groups, 'id', 'name', 'type_id');
             $this->groupsToType = ArrayHelper::map($groups, 'id', 'type_id');
 

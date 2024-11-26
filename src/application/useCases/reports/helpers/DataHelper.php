@@ -1,10 +1,11 @@
 <?php
 
-namespace app\helpers\report;
+namespace app\useCases\reports\helpers;
 
-use app\entities\report\ReportEntity;
-use traits\GetLabelTrait;
 use Yii;
+
+use app\traits\GetLabelTrait;
+use app\useCases\reports\entities\ReportEntity;
 
 /**
  * @author Stop4uk <stop4uk@yandex.ru>

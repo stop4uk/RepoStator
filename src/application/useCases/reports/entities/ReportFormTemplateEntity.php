@@ -1,14 +1,25 @@
 <?php
 
-namespace app\entities\report;
+namespace app\useCases\reports\entities;
+
+use Yii;
+use yii\behaviors\{
+    AttributeBehavior,
+    BlameableBehavior,
+    TimestampBehavior
+};
+use yii\db\{
+    ActiveQuery,
+    Expression
+};
+use yii2tech\ar\softdelete\SoftDeleteBehavior;
 
 use app\components\base\BaseAR;
-use app\helpers\{CommonHelper, report\TemplateHelper};
-use app\models\report\TemplateModel;
-use Yii;
-use yii\behaviors\{AttributeBehavior, BlameableBehavior, TimestampBehavior};
-use yii\db\{ActiveQuery, Expression};
-use yii2tech\ar\softdelete\SoftDeleteBehavior;
+use app\helpers\CommonHelper;
+use app\useCases\reports\{
+    models\TemplateModel,
+    helpers\TemplateHelper,
+};
 
 /**
  * @property int $report_id

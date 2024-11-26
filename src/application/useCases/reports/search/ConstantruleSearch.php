@@ -1,12 +1,19 @@
 <?php
 
-namespace app\search\report;
+namespace app\useCases\reports\search;
 
-use app\helpers\{HtmlPurifier, RbacHelper, report\ConstantRuleHelper,};
-use app\repositories\{report\ConstantBaseRepository, report\ConstantruleBaseRepository, report\ReportBaseRepository};
-use traits\CleanDataProviderByRoleTrait;
 use yii\base\Model;
 use yii\data\ActiveDataProvider;
+
+use app\helpers\HtmlPurifier;
+use app\useCases\reports\{
+    repositories\ConstantBaseRepository,
+    repositories\ConstantruleBaseRepository,
+    repositories\ReportBaseRepository,
+    helpers\ConstantRuleHelper,
+    traits\CleanDataProviderByRoleTrait
+};
+use app\useCases\users\helpers\RbacHelper;
 
 /**
  * @property string|null $record

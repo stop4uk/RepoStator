@@ -1,22 +1,32 @@
 <?php
 
-namespace app\controllers\reports;
+namespace app\useCases\reports\controllers;
 
-use app\actions\{DeleteAction, EnableAction, IndexAction, ViewAction,};
-use app\components\base\BaseController;
-use app\entities\report\{ReportDataEntity, ReportEntity};
-use app\forms\report\{ControlCheckFullForm, ControlCreateForForm};
-use app\helpers\report\DataHelper;
-use app\models\report\DataModel;
-use app\repositories\report\DataBaseRepository;
-use app\search\report\DataSearch;
-use app\services\report\ControlService;
 use Yii;
 use yii\base\Exception;
 use yii\bootstrap5\ActiveForm;
 use yii\filters\AccessControl;
 use yii\helpers\Json;
 use yii\web\Response;
+
+use app\actions\{
+    DeleteAction,
+    EnableAction,
+    IndexAction,
+    ViewAction
+};
+use app\components\base\BaseController;
+use app\useCases\reports\{
+    entities\ReportDataEntity,
+    entities\ReportEntity,
+    models\DataModel,
+    forms\ControlCheckFullForm,
+    forms\ControlCreateForForm,
+    repositories\DataBaseRepository,
+    services\ControlService,
+    helpers\DataHelper,
+    search\DataSearch,
+};
 
 /**
  * @author Stop4uk <stop4uk@yandex.ru>

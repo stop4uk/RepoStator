@@ -1,21 +1,31 @@
 <?php
 
-namespace app\models\report;
+namespace app\useCases\reports\models;
 
-use app\components\base\{BaseModel};
-use app\components\base\BaseAR;
-use app\entities\{group\GroupEntity,
-    report\ReportDataChangeEntity,
-    report\ReportEntity,
-    report\ReportStructureEntity,
-    user\UserEntity,};
-use app\helpers\report\DataHelper;
-use app\repositories\{group\GroupBaseRepository,
-    report\DataBaseRepository,
-    report\ReportBaseRepository,
-    report\StructureBaseRepository};
 use Yii;
-use yii\helpers\{ArrayHelper, Json,};
+use yii\helpers\{
+    ArrayHelper,
+    Json
+};
+
+use app\components\{
+    base\BaseModel,
+    base\BaseAR
+};
+use app\useCases\reports\{
+    entities\ReportDataChangeEntity,
+    entities\ReportEntity,
+    entities\ReportStructureEntity,
+    repositories\DataBaseRepository,
+    repositories\ReportBaseRepository,
+    repositories\StructureBaseRepository,
+    helpers\DataHelper
+};
+use app\useCases\users\{
+    entities\group\GroupEntity,
+    entities\user\UserEntity,
+    repositories\group\GroupRepository
+};
 
 /**
  * @property int $report_id
@@ -65,7 +75,7 @@ final class DataModel extends BaseModel
                 $this->content = Json::decode($this->content);
             }
         } else {
-            $this->group = GroupBaseRepository::get($this->group_id);
+            $this->group = GroupRepository::get($this->group_id);
             $this->report = ReportBaseRepository::get($this->report_id);
             $this->structure = StructureBaseRepository::getByReportAndGroup($this->report_id, $this->group_id);
             $this->createdUser = null;

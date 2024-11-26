@@ -1,16 +1,26 @@
 <?php
 
-namespace app\entities\report;
+namespace app\useCases\reports\entities;
 
-use app\components\base\BaseAR;
-use app\entities\{group\GroupEntity, user\UserEntity};
-use app\helpers\report\DataHelper;
-use app\models\report\DataModel;
 use Yii;
-use yii\behaviors\{AttributeBehavior, BlameableBehavior, TimestampBehavior};
+use yii\behaviors\{
+    AttributeBehavior,
+    BlameableBehavior,
+    TimestampBehavior
+};
 use yii\db\ActiveQuery;
 use yii\helpers\Json;
 use yii2tech\ar\softdelete\SoftDeleteBehavior;
+
+use app\components\base\BaseAR;
+use app\useCases\users\{
+    entities\group\GroupEntity,
+    entities\user\UserEntity
+};
+use app\useCases\reports\{
+    models\DataModel,
+    helpers\DataHelper
+};
 
 /**
  * @property int $report_id

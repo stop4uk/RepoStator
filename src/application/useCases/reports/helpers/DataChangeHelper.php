@@ -1,13 +1,19 @@
 <?php
 
-namespace app\helpers\report;
+namespace app\useCases\reports\helpers;
 
-use app\entities\report\ReportDataChangeEntity;
-use app\repositories\report\ConstantBaseRepository;
-use traits\GetLabelTrait;
 use Yii;
+use yii\helpers\{
+    ArrayHelper,
+    Json
+};
 use yii\bootstrap5\Html;
-use yii\helpers\{ArrayHelper, Json};
+
+use app\traits\GetLabelTrait;
+use app\useCases\reports\{
+    entities\ReportDataChangeEntity,
+    repositories\ConstantBaseRepository
+};
 
 /**
  * @author Stop4uk <stop4uk@yandex.ru>
