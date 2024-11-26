@@ -3,8 +3,8 @@
 namespace app\components\events\handlers;
 
 use app\components\events\dispatchers\StatisticEventDispatcher;
-use entities\ReportFormJobEntity;
-use jobs\FormTemplateJob;
+use app\entities\report\ReportFormJobEntity;
+use app\jobs\FormTemplateJob;
 use yii\base\{BootstrapInterface, Event};
 use yii\queue\{ExecEvent, Queue};
 

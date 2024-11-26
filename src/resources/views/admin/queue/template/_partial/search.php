@@ -1,14 +1,16 @@
 <?php
 
-use app\helpers\CommonHelper;
+use yii\helpers\Url;
+use yii\bootstrap5\Html;
+use yii\bootstrap5\ActiveForm;
 use kartik\daterange\DateRangePicker;
 use kartik\select2\Select2;
-use yii\bootstrap5\ActiveForm;
-use yii\bootstrap5\Html;
-use yii\helpers\Url;
+
+use app\helpers\CommonHelper;
+use app\helpers\report\JobHelper;
 
 /**
- * @var \search\JobSearch $searchModel
+ * @var \app\search\report\JobSearch $searchModel
  */
 
 $resource = Url::to(['/admin/queue/template']);

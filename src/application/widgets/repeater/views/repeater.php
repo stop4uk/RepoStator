@@ -2,7 +2,7 @@
 
 /**
  * @var \yii\web\View $this
- * @var \models\StructureModel $model
+ * @var \app\models\report\StructureModel $model
  * @var int $k
  * @var int|string|null $additionalField
  * @var string $buttonDeleteClasses

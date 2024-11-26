@@ -1,10 +1,11 @@
 <?php
 
 use yii\bootstrap5\Accordion;
+use app\helpers\report\DataChangeHelper;
 
 /**
  * @var \yii\web\View $this
- * @var \entities\ReportDataChangeEntity[] $changes
+ * @var \app\entities\report\ReportDataChangeEntity[] $changes
  */
 
 echo Accordion::widget([

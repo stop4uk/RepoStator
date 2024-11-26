@@ -1,14 +1,15 @@
 <?php
 
-use forms\ControlCreateForForm;
-use kartik\select2\Select2;
+use yii\helpers\Url;
 use yii\bootstrap5\ActiveForm;
 use yii\bootstrap5\Html;
-use yii\helpers\Url;
+use kartik\select2\Select2;
+
+use app\forms\report\ControlCreateForForm;
 
 /**
  * @var \yii\web\View $this
- * @var \forms\ControlCreateForForm $model
+ * @var \app\forms\report\ControlCreateForForm $model
  * @var array $reports
  */
 

@@ -1,12 +1,14 @@
 <?php
 
-use app\widgets\GridView;
-use yii\bootstrap5\Html;
 use yii\helpers\Url;
 use yii\widgets\Pjax;
+use yii\bootstrap5\Html;
+
+use app\widgets\GridView;
+use app\helpers\report\JobHelper;
 
 /**
- * @var \search\JobSearch $searchModel
+ * @var \app\search\report\JobSearch $searchModel
  * @var \yii\data\ActiveDataProvider $dataProvider
  */
 

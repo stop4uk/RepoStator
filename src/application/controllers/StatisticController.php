@@ -3,11 +3,11 @@
 namespace app\controllers;
 
 use app\components\base\BaseController;
+use app\factories\FormTemplateFactory;
 use app\forms\StatisticForm;
 use app\helpers\RbacHelper;
-use components\FormTemplateFactory;
-use repositories\TemplateBaseRepository;
-use search\JobSearch;
+use app\repositories\report\TemplateBaseRepository;
+use app\search\report\JobSearch;
 use yii\bootstrap5\ActiveForm;
 use yii\filters\AccessControl;
 use yii\web\Response;

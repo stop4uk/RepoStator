@@ -1,14 +1,18 @@
 <?php
 
-use app\helpers\CommonHelper;
-use app\widgets\GridView;
-use yii\bootstrap5\{Html, Modal};
-use yii\grid\ActionColumn;
 use yii\helpers\Url;
 use yii\widgets\Pjax;
+use yii\grid\ActionColumn;
+use yii\bootstrap5\{
+    Html,
+    Modal
+};
+
+use app\widgets\GridView;
+use app\helpers\CommonHelper;
 
 /**
- * @var \search\ConstantSearch $searchModel
+ * @var \app\search\report\ConstantSearch $searchModel
  * @var \yii\data\ActiveDataProvider $dataProvider
  * @var array $reportsList
  */

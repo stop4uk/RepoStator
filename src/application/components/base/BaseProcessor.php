@@ -2,13 +2,13 @@
 
 namespace app\components\base;
 
+use app\entities\report\{ReportDataEntity, ReportFormTemplateEntity};
 use app\forms\StatisticForm;
 use app\helpers\CommonHelper;
-use app\repositories\{group\GroupBaseRepository, group\GroupTypeBaseRepository};
-use entities\{ReportFormTemplateEntity};
-use entities\ReportDataEntity;
-use repositories\ConstantBaseRepository;
-use repositories\ConstantruleBaseRepository;
+use app\repositories\{group\GroupBaseRepository,
+    group\GroupTypeBaseRepository,
+    report\ConstantBaseRepository,
+    report\ConstantruleBaseRepository};
 use Yii;
 use yii\base\Component;
 use yii\helpers\{ArrayHelper, Json};

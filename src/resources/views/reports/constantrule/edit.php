@@ -3,7 +3,7 @@
 use yii\helpers\Url;
 
 /**
- * @var \models\ConstantRuleModel $model
+ * @var \app\models\report\ConstantRuleModel $model
  */
 
 $this->title = Yii::t('views', 'Редактирование правила');

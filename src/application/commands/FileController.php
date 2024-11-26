@@ -2,12 +2,18 @@
 
 namespace app\commands;
 
-use app\helpers\CommonHelper;
-use entities\{ReportFormTemplateEntity};
-use entities\ReportFormJobEntity;
 use Yii;
 use yii\console\Controller;
-use yii\helpers\{ArrayHelper, FileHelper};
+use yii\helpers\{
+    ArrayHelper,
+    FileHelper
+};
+
+use app\entities\report\{
+    ReportFormTemplateEntity,
+    ReportFormJobEntity
+};
+use app\helpers\CommonHelper;
 
 /**
  * @author Stop4uk <stop4uk@yandex.ru>

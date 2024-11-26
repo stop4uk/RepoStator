@@ -1,16 +1,18 @@
 <?php
 
-use app\helpers\CommonHelper;
-use entities\ReportFormTemplateEntity;
-use kartik\select2\Select2;
-use yii\bootstrap5\ActiveForm;
-use yii\bootstrap5\Html;
-use yii\helpers\Json;
 use yii\helpers\Url;
+use yii\helpers\Json;
+use yii\bootstrap5\Html;
+use yii\bootstrap5\ActiveForm;
+use kartik\select2\Select2;
+
+use app\helpers\CommonHelper;
+use app\helpers\report\TemplateHelper;
+use app\entities\report\ReportFormTemplateEntity;
 
 /**
  * @var \yii\web\View $this
- * @var \models\TemplateModel $model
+ * @var \app\models\report\TemplateModel $model
  */
 
 $dataForTables = ['columns' => [], 'rows' => []];

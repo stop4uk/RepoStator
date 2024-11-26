@@ -1,7 +1,6 @@
 <?php
 
 use yii\console\controllers\MigrateController;
-use yii\helpers\ArrayHelper;
 
 use app\components\{
     bootstrap\ConsoleBootstrap,
@@ -13,7 +12,7 @@ $params = array_merge(
     require __DIR__ . '/_params_console.php',
 );
 
-$config = [
+return [
     'bootstrap' => [
         ConsoleBootstrap::class,
         ConsoleEventHandler::class,
@@ -32,5 +31,3 @@ $config = [
     ],
     'params' => $params
 ];
-
-return ArrayHelper::merge($config, require __DIR__ . '/common.php');

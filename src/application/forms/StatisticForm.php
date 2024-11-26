@@ -2,10 +2,11 @@
 
 namespace app\forms;
 
-use app\helpers\RbacHelper;
-use repositories\ReportBaseRepository;
 use Yii;
 use yii\base\Model;
+
+use app\repositories\report\ReportBaseRepository;
+use app\helpers\RbacHelper;
 
 /**
  * @property int $report

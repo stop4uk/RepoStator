@@ -4,9 +4,8 @@ namespace app\controllers;
 
 use app\components\base\BaseController;
 use app\helpers\RbacHelper;
-use repositories\ReportBaseRepository;
-use search\{SendSearch};
-use search\JobSearch;
+use app\repositories\report\ReportBaseRepository;
+use app\search\report\{JobSearch, SendSearch};
 use yii\filters\AccessControl;
 
 /**

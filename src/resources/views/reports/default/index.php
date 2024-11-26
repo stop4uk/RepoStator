@@ -1,14 +1,18 @@
 <?php
 
-use app\helpers\{CommonHelper, RbacHelper};
-use app\widgets\GridView;
-use yii\bootstrap5\Html;
-use yii\grid\ActionColumn;
 use yii\helpers\Url;
 use yii\widgets\Pjax;
+use yii\grid\ActionColumn;
+use yii\bootstrap5\Html;
+
+use app\widgets\GridView;
+use app\helpers\{
+    CommonHelper,
+    RbacHelper
+};
 
 /**
- * @var \search\ReportSearch $searchModel
+ * @var \app\search\report\ReportSearch $searchModel
  * @var \yii\data\ActiveDataProvider $dataProvider
  */
 
