@@ -18,7 +18,7 @@ use app\useCases\users\{
     forms\user\UserEmailChangeForm,
     forms\user\UserPasswordChangeForm,
     models\user\ProfileModel,
-    repositories\user\UserBaseRepository,
+    repositories\user\UserRepository,
     services\ProfileService
 };
 
@@ -152,7 +152,7 @@ final class ProfileController extends BaseController
 
     private function findEntity(bool $withOutRelations = false)
     {
-        $query = UserBaseRepository::get(Yii::$app->getUser()->id, $withOutRelations
+        $query = UserRepository::get(Yii::$app->getUser()->id, $withOutRelations
             ? []
             : ['rights', 'sessions', 'lastAuth', 'emailChanges']
         );

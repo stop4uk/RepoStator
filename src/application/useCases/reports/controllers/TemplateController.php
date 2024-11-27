@@ -23,9 +23,9 @@ use app\components\{
 use app\useCases\reports\{
     entities\ReportFormTemplateEntity,
     models\TemplateModel,
-    repositories\ConstantBaseRepository,
-    repositories\ConstantruleBaseRepository,
-    repositories\TemplateBaseRepository,
+    repositories\ConstantRepository,
+    repositories\ConstantruleRepository,
+    repositories\TemplateRepository,
     services\TemplateService,
     search\TemplateSearch
 };
@@ -62,7 +62,7 @@ final class TemplateController extends BaseController
                             'template.view.all.delete'
                         ],
                         'roleParams' => function($rule) {
-                            $recordInformation = TemplateBaseRepository::get(
+                            $recordInformation = TemplateRepository::get(
                                 id: $this->request->get('id'),
                                 active: false
                             );
@@ -88,7 +88,7 @@ final class TemplateController extends BaseController
                             'template.edit.all'
                         ],
                         'roleParams' => function($rule) {
-                            $recordInformation = TemplateBaseRepository::get($this->request->get('id'));
+                            $recordInformation = TemplateRepository::get($this->request->get('id'));
 
                             return [
                                 'created_uid' => $recordInformation?->created_uid,
@@ -97,7 +97,7 @@ final class TemplateController extends BaseController
                             ];
                         },
                         'matchCallback' => function($rule, $action) {
-                            $recordInformation = TemplateBaseRepository::get($this->request->get('id'));
+                            $recordInformation = TemplateRepository::get($this->request->get('id'));
                             return ($recordInformation && $recordInformation->record_status);
                         }
                     ],
@@ -110,7 +110,7 @@ final class TemplateController extends BaseController
                             'template.delete.all'
                         ],
                         'roleParams' => function($rule) {
-                            $recordInformation = TemplateBaseRepository::get($this->request->get('id'));
+                            $recordInformation = TemplateRepository::get($this->request->get('id'));
 
                             return [
                                 'created_uid' => $recordInformation?->created_uid,
@@ -119,7 +119,7 @@ final class TemplateController extends BaseController
                             ];
                         },
                         'matchCallback' => function($rule, $action) {
-                            $recordInformation = TemplateBaseRepository::get($this->request->get('id'));
+                            $recordInformation = TemplateRepository::get($this->request->get('id'));
                             return ($recordInformation && $recordInformation->record_status);
                         }
                     ],
@@ -132,7 +132,7 @@ final class TemplateController extends BaseController
                             'template.enable.all'
                         ],
                         'roleParams' => function($rule) {
-                            $recordInformation = TemplateBaseRepository::get(
+                            $recordInformation = TemplateRepository::get(
                                 id: $this->request->get('id'),
                                 active: false
                             );
@@ -176,7 +176,7 @@ final class TemplateController extends BaseController
             ],
             'view' => [
                 'class' => ViewAction::class,
-                'repository' => TemplateBaseRepository::class,
+                'repository' => TemplateRepository::class,
                 'repositoryRelations' => ['report'],
                 'requestID' => $this->request->get('id'),
                 'model' => TemplateModel::class,
@@ -186,7 +186,7 @@ final class TemplateController extends BaseController
                 'class' => CreateEditAction::class,
                 'actionType' => 'edit',
                 'entityScenario' => BaseAR::SCENARIO_UPDATE,
-                'repository' => TemplateBaseRepository::class,
+                'repository' => TemplateRepository::class,
                 'repositoryRelations' => ['report'],
                 'requestID' => $this->request->get('id'),
                 'model' => TemplateModel::class,
@@ -197,7 +197,7 @@ final class TemplateController extends BaseController
             ],
             'delete' => [
                 'class' => DeleteAction::class,
-                'repository' => TemplateBaseRepository::class,
+                'repository' => TemplateRepository::class,
                 'requestID' => $this->request->get('id'),
                 'service' => $this->service,
                 'errorMessage' => 'При удалении шаблона формирования возникли проблемы. Пожалуйста, обратитесь к администратору',
@@ -206,7 +206,7 @@ final class TemplateController extends BaseController
             ],
             'enable' => [
                 'class' => EnableAction::class,
-                'repository' => TemplateBaseRepository::class,
+                'repository' => TemplateRepository::class,
                 'requestID' => $this->request->get('id'),
                 'service' => $this->service,
                 'exceptionMessage' => 'Запрашиваемый шаблон формирования отчета не найден, или недоступен'
@@ -220,11 +220,11 @@ final class TemplateController extends BaseController
 
         $groups = RbacHelper::getAllowGroupsArray('template.list.all');
         $mergeConstantAndRules = ArrayHelper::merge(
-            ConstantBaseRepository::getAllow(
+            ConstantRepository::getAllow(
                 reports: [$report_id => $report_id],
                 groups: $groups
             ),
-            ConstantruleBaseRepository::getAllow(
+            ConstantruleRepository::getAllow(
                 reports: [$report_id => $report_id],
                 groups: $groups
             )

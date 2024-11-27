@@ -7,8 +7,8 @@ use yii\data\ActiveDataProvider;
 
 use app\helpers\CommonHelper;
 use app\useCases\reports\{
-    repositories\ReportBaseRepository,
-    repositories\StructureBaseRepository,
+    repositories\ReportRepository,
+    repositories\StructureRepository,
     traits\CleanDataProviderByRoleTrait,
     helpers\StructureHelper
 };
@@ -48,7 +48,7 @@ final class StructureSearch extends Model
             'structure.view.delete.all'
         ]);
         $this->groups = RbacHelper::getAllowGroupsArray('structure.list.all');
-        $this->reports = ReportBaseRepository::getAllow(
+        $this->reports = ReportRepository::getAllow(
             groups: $this->groups,
             active: $this->onlyActive
         );
@@ -73,7 +73,7 @@ final class StructureSearch extends Model
 
     public function search($params): ActiveDataProvider
     {
-        $query = StructureBaseRepository::getAllow(
+        $query = StructureRepository::getAllow(
             reports: $this->reports,
             groups: $this->groups,
             active: $this->onlyActive,

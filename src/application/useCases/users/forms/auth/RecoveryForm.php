@@ -9,7 +9,7 @@ use app\components\base\BaseAR;
 use app\helpers\HtmlPurifier;
 use app\useCases\users\{
     entities\user\UserEntity,
-    repositories\user\UserBaseRepository,
+    repositories\user\UserRepository,
     helpers\AuthHelper,
     helpers\user\UserHelper
 };
@@ -112,7 +112,7 @@ final class RecoveryForm extends Model
     private function getUser(): ?UserEntity
     {
         if ( $this->_user === null ) {
-            $this->_user = UserBaseRepository::getBy(['account_key' => $this->authKey]);
+            $this->_user = UserRepository::getBy(['account_key' => $this->authKey]);
         }
 
         return $this->_user;

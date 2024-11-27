@@ -9,8 +9,8 @@ use yii\data\ActiveDataProvider;
 use app\helpers\CommonHelper;
 use app\useCases\reports\{
     entities\ReportFormJobEntity,
-    repositories\TemplateBaseRepository,
-    repositories\ReportBaseRepository,
+    repositories\TemplateRepository,
+    repositories\ReportRepository,
     helpers\JobHelper
 };
 use app\useCases\users\helpers\RbacHelper;
@@ -47,10 +47,10 @@ class JobSearch extends Model
     public function __construct($config = [])
     {
         $this->groups = RbacHelper::getAllowGroupsArray('admin.queue.template.all');
-        $this->reports = ReportBaseRepository::getAllow(
+        $this->reports = ReportRepository::getAllow(
             groups: $this->groups
         );
-        $this->templates = TemplateBaseRepository::getAllow(
+        $this->templates = TemplateRepository::getAllow(
             reports: $this->reports,
             groups: $this->groups
         );

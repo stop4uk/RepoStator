@@ -7,7 +7,7 @@ use yii\data\ActiveDataProvider;
 
 use app\helpers\HtmlPurifier;
 use app\useCases\reports\{
-    repositories\ReportBaseRepository,
+    repositories\ReportRepository,
     helpers\ReportHelper,
     traits\CleanDataProviderByRoleTrait
 };
@@ -70,7 +70,7 @@ final class ReportSearch extends Model
 
     public function search($params): ActiveDataProvider
     {
-        $query = ReportBaseRepository::getAllow(
+        $query = ReportRepository::getAllow(
             groups: $this->groups,
             active: $this->onlyActive,
             asQuery: true

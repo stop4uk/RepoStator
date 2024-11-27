@@ -9,7 +9,7 @@ use yii\bootstrap5\Html;
 use app\helpers\HtmlPurifier;
 use app\useCases\users\{
     entities\user\UserEntity,
-    repositories\user\UserBaseRepository,
+    repositories\user\UserRepository,
     helpers\AuthHelper
 };
 
@@ -97,7 +97,7 @@ final class LoginForm extends Model
     private function getUser(): ?UserEntity
     {
         if ( $this->user === null ) {
-            $this->user = UserBaseRepository::getBy(['email' => $this->email]);
+            $this->user = UserRepository::getBy(['email' => $this->email]);
         }
 
         return $this->user;

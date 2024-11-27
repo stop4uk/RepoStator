@@ -19,7 +19,7 @@ use app\components\{
 use app\useCases\reports\{
     entities\ReportConstantEntity,
     models\ConstantModel,
-    repositories\ConstantBaseRepository,
+    repositories\ConstantRepository,
     services\ConstantService,
     search\ConstantSearch
 };
@@ -55,7 +55,7 @@ final class ConstantController extends BaseController
                             'constant.view.delete.all'
                         ],
                         'roleParams' => function($rule) {
-                            $recordInformation = ConstantBaseRepository::get(
+                            $recordInformation = ConstantRepository::get(
                                 id: $this->request->get('id'),
                                 active: false
                             );
@@ -81,7 +81,7 @@ final class ConstantController extends BaseController
                             'constant.edit.all'
                         ],
                         'roleParams' => function($rule) {
-                            $recordInformation = ConstantBaseRepository::get($this->request->get('id'));
+                            $recordInformation = ConstantRepository::get($this->request->get('id'));
 
                             return [
                                 'created_uid' => $recordInformation?->created_uid,
@@ -90,7 +90,7 @@ final class ConstantController extends BaseController
                             ];
                         },
                         'matchCallback' => function($rule, $action) {
-                            $recordInformation = ConstantBaseRepository::get($this->request->get('id'));
+                            $recordInformation = ConstantRepository::get($this->request->get('id'));
                             return ($recordInformation && $recordInformation->record_status);
                         }
                     ],
@@ -103,7 +103,7 @@ final class ConstantController extends BaseController
                             'constant.delete.all'
                         ],
                         'roleParams' => function($rule) {
-                            $recordInformation = ConstantBaseRepository::get($this->request->get('id'));
+                            $recordInformation = ConstantRepository::get($this->request->get('id'));
 
                             return [
                                 'created_uid' => $recordInformation?->created_uid,
@@ -112,7 +112,7 @@ final class ConstantController extends BaseController
                             ];
                         },
                         'matchCallback' => function($rule, $action) {
-                            $recordInformation = ConstantBaseRepository::get($this->request->get('id'));
+                            $recordInformation = ConstantRepository::get($this->request->get('id'));
                             return ($recordInformation && $recordInformation->record_status);
                         }
                     ],
@@ -125,7 +125,7 @@ final class ConstantController extends BaseController
                             'constant.enable.all'
                         ],
                         'roleParams' => function($rule) {
-                            $recordInformation = ConstantBaseRepository::get(
+                            $recordInformation = ConstantRepository::get(
                                 id: $this->request->get('id'),
                                 active: false
                             );
@@ -171,7 +171,7 @@ final class ConstantController extends BaseController
             ],
             'view' => [
                 'class' => ViewAction::class,
-                'repository' => ConstantBaseRepository::class,
+                'repository' => ConstantRepository::class,
                 'requestID' => $this->request->get('id'),
                 'model' => ConstantModel::class,
                 'exceptionMessage' => 'Запрашиваемая константа не найдена, или недоступна'
@@ -180,7 +180,7 @@ final class ConstantController extends BaseController
                 'class' => CreateEditAction::class,
                 'actionType' => 'edit',
                 'entityScenario' => BaseAR::SCENARIO_UPDATE,
-                'repository' => ConstantBaseRepository::class,
+                'repository' => ConstantRepository::class,
                 'requestID' => $this->request->get('id'),
                 'model' => ConstantModel::class,
                 'service' => $this->service,
@@ -192,7 +192,7 @@ final class ConstantController extends BaseController
             ],
             'delete' => [
                 'class' => DeleteAction::class,
-                'repository' => ConstantBaseRepository::class,
+                'repository' => ConstantRepository::class,
                 'requestID' => $this->request->get('id'),
                 'service' => $this->service,
                 'errorMessage' => 'При удалении константы возникли ошибки. Пожалуйста, обратитесь к администратору',
@@ -201,7 +201,7 @@ final class ConstantController extends BaseController
             ],
             'enable' => [
                 'class' => EnableAction::class,
-                'repository' => ConstantBaseRepository::class,
+                'repository' => ConstantRepository::class,
                 'requestID' => $this->request->get('id'),
                 'service' => $this->service,
                 'exceptionMessage' => 'Запрашиваемая константа не найдена, или недоступна'

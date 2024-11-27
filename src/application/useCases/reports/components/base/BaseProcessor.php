@@ -14,8 +14,8 @@ use app\helpers\CommonHelper;
 use app\useCases\reports\{
     entities\ReportDataEntity,
     entities\ReportFormTemplateEntity,
-    repositories\ConstantBaseRepository,
-    repositories\ConstantruleBaseRepository,
+    repositories\ConstantRepository,
+    repositories\ConstantruleRepository,
     forms\StatisticForm,
 };
 
@@ -208,8 +208,8 @@ class BaseProcessor extends Component
 
     public function setIndicators(array $indicatorsArray): void
     {
-        $constants = (ConstantBaseRepository::getAllBy(['record' => $indicatorsArray], []))->all();
-        $rules = (ConstantruleBaseRepository::getAllBy(['record' => $indicatorsArray], []))->all();
+        $constants = (ConstantRepository::getAllBy(['record' => $indicatorsArray], []))->all();
+        $rules = (ConstantruleRepository::getAllBy(['record' => $indicatorsArray], []))->all();
 
         $this->indicators = ArrayHelper::map($constants, 'id', 'record');
         foreach ($constants as $constant) {

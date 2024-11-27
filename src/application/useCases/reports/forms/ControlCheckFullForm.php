@@ -12,7 +12,7 @@ use app\helpers\CommonHelper;
 use app\useCases\reports\{
     entities\ReportDataEntity,
     entities\ReportEntity,
-    repositories\ReportBaseRepository,
+    repositories\ReportRepository,
 };
 use app\useCases\users\helpers\RbacHelper;
 
@@ -39,7 +39,7 @@ final class ControlCheckFullForm extends Model
     {
         if ( !$this->reports ) {
             $groups = RbacHelper::getAllowGroupsArray('data.list.all');
-            $this->reports = ReportBaseRepository::getAllow(
+            $this->reports = ReportRepository::getAllow(
                 groups: $groups
             );
         }
@@ -84,7 +84,7 @@ final class ControlCheckFullForm extends Model
     public function beforeValidate(): bool
     {
         if ( $this->report ) {
-            $this->reportData = ReportBaseRepository::get($this->report);
+            $this->reportData = ReportRepository::get($this->report);
         }
 
         return parent::beforeValidate();

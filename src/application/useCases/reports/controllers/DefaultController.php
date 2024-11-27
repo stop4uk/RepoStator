@@ -16,7 +16,7 @@ use app\components\base\BaseController;
 use app\useCases\reports\{
     entities\ReportEntity,
     models\ReportModel,
-    repositories\ReportBaseRepository,
+    repositories\ReportRepository,
     services\ReportService,
     search\ReportSearch
 };
@@ -52,7 +52,7 @@ final class DefaultController extends BaseController
                             'report.view.all.delete',
                         ],
                         'roleParams' => function($rule) {
-                            $recordInformation = ReportBaseRepository::get(
+                            $recordInformation = ReportRepository::get(
                                 id: $this->request->get('id'),
                                 active: false
                             );
@@ -78,7 +78,7 @@ final class DefaultController extends BaseController
                             'report.edit.all'
                         ],
                         'roleParams' => function($rule) {
-                            $recordInformation = ReportBaseRepository::get($this->request->get('id'));
+                            $recordInformation = ReportRepository::get($this->request->get('id'));
 
                             return [
                                 'created_uid' => $recordInformation->created_uid,
@@ -96,7 +96,7 @@ final class DefaultController extends BaseController
                             'report.delete.all'
                         ],
                         'roleParams' => function($rule) {
-                            $recordInformation = ReportBaseRepository::get($this->request->get('id'));
+                            $recordInformation = ReportRepository::get($this->request->get('id'));
 
                             return [
                                 'created_uid' => $recordInformation->created_uid,
@@ -114,7 +114,7 @@ final class DefaultController extends BaseController
                             'report.enable.all'
                         ],
                         'roleParams' => function($rule) {
-                            $recordInformation = ReportBaseRepository::get(
+                            $recordInformation = ReportRepository::get(
                                 id: $this->request->get('id'),
                                 active: false
                             );
@@ -159,7 +159,7 @@ final class DefaultController extends BaseController
             ],
             'view' => [
                 'class' => ViewAction::class,
-                'repository' => ReportBaseRepository::class,
+                'repository' => ReportRepository::class,
                 'requestID' => $this->request->get('id'),
                 'model' => ReportModel::class,
                 'exceptionMessage' => 'Запрашиваемый отчет не найден, или недоступен'
@@ -167,7 +167,7 @@ final class DefaultController extends BaseController
             'edit' => [
                 'class' => CreateEditAction::class,
                 'actionType' => 'edit',
-                'repository' => ReportBaseRepository::class,
+                'repository' => ReportRepository::class,
                 'requestID' => $this->request->get('id'),
                 'model' => ReportModel::class,
                 'service' => $this->service,
@@ -179,7 +179,7 @@ final class DefaultController extends BaseController
             ],
             'delete' => [
                 'class' => DeleteAction::class,
-                'repository' => ReportBaseRepository::class,
+                'repository' => ReportRepository::class,
                 'requestID' => $this->request->get('id'),
                 'service' => $this->service,
                 'errorMessage' => 'При удалении отчета возникли ошибки. Пожалуйста, обратитесь к администратору',
@@ -188,7 +188,7 @@ final class DefaultController extends BaseController
             ],
             'enable' => [
                 'class' => EnableAction::class,
-                'repository' => ReportBaseRepository::class,
+                'repository' => ReportRepository::class,
                 'requestID' => $this->request->get('id'),
                 'service' => $this->service,
                 'exceptionMessage' => 'Запрашиваемый отчет не найден, или недоступен'

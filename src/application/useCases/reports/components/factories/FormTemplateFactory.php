@@ -4,9 +4,9 @@ namespace app\useCases\reports\components\factories;
 
 use app\useCases\reports\{
     components\base\BaseProcessorInterface,
-    components\processors\ToFileBaseProcessor,
-    components\processors\ToFileByJobBaseProcessor,
-    repositories\TemplateBaseRepository,
+    components\processors\ToFileProcessor,
+    components\processors\ToFileByJobProcessor,
+    repositories\TemplateRepository,
     forms\StatisticForm
 };
 
@@ -18,11 +18,11 @@ class FormTemplateFactory
 {
     public static function process(StatisticForm $form): BaseProcessorInterface
     {
-        $template = TemplateBaseRepository::get($form->template);
+        $template = TemplateRepository::get($form->template);
 
         return match( (bool)$template->form_usejobs ) {
-            true => new ToFileByJobBaseProcessor($form, $template),
-            false => new ToFileBaseProcessor($form, $template)
+            true => new ToFileByJobProcessor($form, $template),
+            false => new ToFileProcessor($form, $template)
         };
     }
 }

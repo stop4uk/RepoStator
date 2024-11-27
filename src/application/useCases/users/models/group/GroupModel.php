@@ -8,7 +8,7 @@ use yii\helpers\Json;
 use app\components\base\BaseModel;
 use app\useCases\users\{
     entities\group\GroupEntity,
-    repositories\group\GroupTypeBaseRepository,
+    repositories\group\GroupTypeRepository,
     helpers\group\GroupHelper
 };
 
@@ -38,7 +38,7 @@ final class GroupModel extends BaseModel
 
     public function __construct(GroupEntity $entity, $config = [])
     {
-        $this->types = GroupTypeBaseRepository::getAll(
+        $this->types = GroupTypeRepository::getAll(
             asArray: true
         );
 

@@ -13,7 +13,7 @@ use app\helpers\{
 use app\useCases\reports\{
     entities\ReportConstantEntity,
     entities\ReportConstantRuleEntity,
-    repositories\ReportBaseRepository,
+    repositories\ReportRepository,
     helpers\ConstantHelper
 };
 use app\useCases\users\helpers\RbacHelper;
@@ -45,7 +45,7 @@ final class ConstantModel extends BaseModel
     public function __construct(ReportConstantEntity $entity, array $config = [])
     {
         $groups = RbacHelper::getAllowGroupsArray('constant.list.all');
-        $this->reports = ReportBaseRepository::getAllow(
+        $this->reports = ReportRepository::getAllow(
             groups: $groups
         );
 

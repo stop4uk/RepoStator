@@ -16,9 +16,9 @@ use app\useCases\reports\{
     entities\ReportDataChangeEntity,
     entities\ReportEntity,
     entities\ReportStructureEntity,
-    repositories\DataBaseRepository,
-    repositories\ReportBaseRepository,
-    repositories\StructureBaseRepository,
+    repositories\DataRepository,
+    repositories\ReportRepository,
+    repositories\StructureRepository,
     helpers\DataHelper
 };
 use app\useCases\users\{
@@ -76,8 +76,8 @@ final class DataModel extends BaseModel
             }
         } else {
             $this->group = GroupRepository::get($this->group_id);
-            $this->report = ReportBaseRepository::get($this->report_id);
-            $this->structure = StructureBaseRepository::getByReportAndGroup($this->report_id, $this->group_id);
+            $this->report = ReportRepository::get($this->report_id);
+            $this->structure = StructureRepository::getByReportAndGroup($this->report_id, $this->group_id);
             $this->createdUser = null;
             $this->changes = [];
         }
@@ -120,7 +120,7 @@ final class DataModel extends BaseModel
                     'подходит под периоды отправки сведений'));
             }
 
-            $query = DataBaseRepository::getAllBy(['report_id' => $this->report_id, 'group_id' => $this->group_id], [])->all();
+            $query = DataRepository::getAllBy(['report_id' => $this->report_id, 'group_id' => $this->group_id], [])->all();
             if ( $query ) {
                 foreach ($query as $row) {
                     if ( $this->report_datetime == $row->report_datetime && !$this->form_control ) {

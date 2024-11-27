@@ -8,8 +8,8 @@ use yii\validators\DateValidator;
 
 use app\useCases\reports\{
     entities\ReportEntity,
-    repositories\ReportBaseRepository,
-    repositories\DataBaseRepository
+    repositories\ReportRepository,
+    repositories\DataRepository
 };
 use app\useCases\users\{
     repositories\group\GroupRepository,
@@ -53,7 +53,7 @@ final class ControlCreateForForm extends Model
     public function init()
     {
         if ( !$this->reports ) {
-            $this->reports = ReportBaseRepository::getAllow(
+            $this->reports = ReportRepository::getAllow(
                 groups: $this->groups
             );
         }
@@ -101,7 +101,7 @@ final class ControlCreateForForm extends Model
     public function checkSend($attribute)
     {
         if ( !$this->hasErrors() && $this->reportData->left_period ) {
-            $query = DataBaseRepository::getBy([
+            $query = DataRepository::getBy([
                 'group_id' => $this->group,
                 'report_id' => $this->report,
                 'report_datetime' => $this->period
@@ -116,7 +116,7 @@ final class ControlCreateForForm extends Model
     public function beforeValidate()
     {
         if ( $this->report ) {
-            $this->reportData = ReportBaseRepository::get($this->report);
+            $this->reportData = ReportRepository::get($this->report);
         }
 
         parent::beforeValidate();

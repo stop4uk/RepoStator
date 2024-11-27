@@ -12,7 +12,7 @@ use yii\bootstrap5\Html;
 use app\traits\GetLabelTrait;
 use app\useCases\reports\{
     entities\ReportDataChangeEntity,
-    repositories\ConstantBaseRepository
+    repositories\ConstantRepository
 };
 
 /**
@@ -50,7 +50,7 @@ final class DataChangeHelper
 
     public static function getItemForAccordion(array $changes): array
     {
-        $constants = ConstantBaseRepository::getAll([], true);
+        $constants = ConstantRepository::getAll([], true);
         $items = [];
 
         foreach ($changes as $row) {

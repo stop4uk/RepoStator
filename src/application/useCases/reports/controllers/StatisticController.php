@@ -10,7 +10,7 @@ use app\components\base\BaseController;
 use app\useCases\reports\{
     components\factories\FormTemplateFactory,
     forms\StatisticForm,
-    repositories\TemplateBaseRepository,
+    repositories\TemplateRepository,
     search\JobSearch
 };
 use app\useCases\users\helpers\RbacHelper;
@@ -67,7 +67,7 @@ final class StatisticController extends BaseController
         $this->response->format = Response::FORMAT_JSON;
         $groups = RbacHelper::getAllowGroupsArray('constantRule.list.all');
 
-        return ['elements' => TemplateBaseRepository::getAllow(
+        return ['elements' => TemplateRepository::getAllow(
             reports: [$report_id => $report_id],
             groups: $groups
         )];
@@ -77,7 +77,7 @@ final class StatisticController extends BaseController
     {
         $this->response->format = Response::FORMAT_JSON;
 
-        $template = TemplateBaseRepository::get($template_id);
+        $template = TemplateRepository::get($template_id);
         if ( $template ) {
             return $template->toArray(['form_datetime']);
         }

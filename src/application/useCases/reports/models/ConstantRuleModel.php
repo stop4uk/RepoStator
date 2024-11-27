@@ -13,8 +13,8 @@ use app\helpers\{
 use app\useCases\reports\{
     entities\ReportConstantEntity,
     entities\ReportConstantRuleEntity,
-    repositories\ConstantBaseRepository,
-    repositories\ReportBaseRepository,
+    repositories\ConstantRepository,
+    repositories\ReportRepository,
     helpers\ConstantRuleHelper
 };
 use app\useCases\users\{
@@ -59,7 +59,7 @@ final class ConstantRuleModel extends BaseModel
         );
 
         if ( !$entity->id !== null && $entity->report_id ) {
-            $reportInformation = ReportBaseRepository::get($entity->report_id);
+            $reportInformation = ReportRepository::get($entity->report_id);
             $reports  = [$entity->report_id => $entity->report_id];
 
 
@@ -70,18 +70,18 @@ final class ConstantRuleModel extends BaseModel
             }
         } else {
             $groups = $groupsCanSent;
-            $reports = ReportBaseRepository::getAllow(
+            $reports = ReportRepository::getAllow(
                 groups: $groups
             );
         }
 
         $this->groups = $groups;
 
-        $this->reports = ReportBaseRepository::getAllow(
+        $this->reports = ReportRepository::getAllow(
             groups: $groupsAllow
         );
 
-        $this->constants = ConstantBaseRepository::getAllow(
+        $this->constants = ConstantRepository::getAllow(
             reports: $reports,
             groups: $groupsAllow
         );
@@ -100,7 +100,7 @@ final class ConstantRuleModel extends BaseModel
         }
 
         if ( !$this->isNewEntity && $this->groups_only) {
-            $reportData = ReportBaseRepository::get($this->report_id);
+            $reportData = ReportRepository::get($this->report_id);
             if ( $reportData->groups_only ) {
                 foreach ($this->groups as $group => $name ) {
                     if ( !in_array($group, CommonHelper::explodeField($reportData->groups_only)) ) {
@@ -183,7 +183,7 @@ final class ConstantRuleModel extends BaseModel
                 'константы, которые указаны в кавычках, или, само математическое правило неверно'));
         } else {
             $constantForCheck = match( (bool)$this->report_id) {
-                true => ConstantBaseRepository::getAllow(
+                true => ConstantRepository::getAllow(
                     reports: [$this->report_id => $this->report_id],
                     groups: $this->groups
                 ),

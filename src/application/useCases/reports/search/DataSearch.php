@@ -6,10 +6,10 @@ use yii\base\Model;
 use yii\data\ActiveDataProvider;
 
 use app\useCases\reports\{
-    repositories\ConstantBaseRepository,
-    repositories\DataBaseRepository,
-    repositories\ReportBaseRepository,
-    repositories\StructureBaseRepository,
+    repositories\ConstantRepository,
+    repositories\DataRepository,
+    repositories\ReportRepository,
+    repositories\StructureRepository,
     helpers\DataHelper,
     traits\CleanDataProviderByRoleTrait
 };
@@ -64,16 +64,16 @@ final class DataSearch extends Model
             'data.view.delete.all'
         ]);
         $this->groups = RbacHelper::getAllowGroupsArray('data.list.all');
-        $this->reports = ReportBaseRepository::getAllow(
+        $this->reports = ReportRepository::getAllow(
             groups: $this->groups,
             active: $this->onlyActive
         );
-        $this->constants = ConstantBaseRepository::getAllow(
+        $this->constants = ConstantRepository::getAllow(
             reports: array_keys($this->reports),
             groups: $this->groups,
             active: $this->onlyActive
         );
-        $this->structures = StructureBaseRepository::getAllow(
+        $this->structures = StructureRepository::getAllow(
             reports: array_keys($this->reports),
             groups: $this->groups,
             active: $this->onlyActive
@@ -108,7 +108,7 @@ final class DataSearch extends Model
 
     public function search($params): ActiveDataProvider
     {
-        $query = DataBaseRepository::getAllow(
+        $query = DataRepository::getAllow(
             groups: $this->groups,
             active: $this->onlyActive,
             asQuery: true

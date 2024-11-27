@@ -5,7 +5,7 @@ namespace app\useCases\users\components\rbac\rules;
 use Yii;
 use yii\rbac\Rule;
 
-use app\useCases\users\repositories\user\UserBaseRepository;
+use app\useCases\users\repositories\user\UserRepository;
 
 /**
  * @author Stop4uk <stop4uk@yandex.ru>
@@ -28,7 +28,7 @@ final class CheckUserDeleteGroupRule extends Rule
 
         $cacheKeyAll = Yii::$app->getUser()->id . '_allowedUserDeleteGroup';
         $users = Yii::$app->cache->getOrSet($cacheKeyAll, function(){
-            return array_keys(UserBaseRepository::getAllow(
+            return array_keys(UserRepository::getAllow(
                 groups: [Yii::$app->getUser()->getIdentity()->group => Yii::$app->getUser()->getIdentity()->group],
                 active: false,
             ));

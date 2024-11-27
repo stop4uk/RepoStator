@@ -12,9 +12,9 @@ use app\helpers\{
 };
 use app\useCases\reports\{
     entities\ReportStructureEntity,
-    repositories\ConstantBaseRepository,
-    repositories\ReportBaseRepository,
-    repositories\StructureBaseRepository,
+    repositories\ConstantRepository,
+    repositories\ReportRepository,
+    repositories\StructureRepository,
     helpers\StructureHelper
 };
 use app\useCases\users\{
@@ -63,10 +63,10 @@ final class StructureModel extends BaseModel
             condition: ['id' => array_keys($this->groups), 'accept_send' => 1],
             asArray: true
         );
-        $this->reports = ReportBaseRepository::getAllow(
+        $this->reports = ReportRepository::getAllow(
             groups: $this->groups
         );
-        $this->constants = ConstantBaseRepository::getAllow(
+        $this->constants = ConstantRepository::getAllow(
             reports: $this->reports,
             groups: $this->groups
         );
@@ -87,7 +87,7 @@ final class StructureModel extends BaseModel
         }
 
         if ( !$this->isNewEntity && $this->groups_only) {
-            $reportData = ReportBaseRepository::get($this->report_id);
+            $reportData = ReportRepository::get($this->report_id);
             if ( $reportData->groups_only ) {
                 foreach ($this->groups as $group => $name ) {
                     if ( !in_array($group, CommonHelper::explodeField($reportData->groups_only)) ) {
@@ -137,7 +137,7 @@ final class StructureModel extends BaseModel
     {
         if ( $this->groups_only ) {
             if ( $this->report_id ) {
-                $reportData = ReportBaseRepository::get($this->report_id);
+                $reportData = ReportRepository::get($this->report_id);
             }
 
             foreach ($this->groups_only as $group) {
@@ -164,11 +164,11 @@ final class StructureModel extends BaseModel
         }
 
         if ( $this->report_id ) {
-            $allowStructures = StructureBaseRepository::getAllow(
+            $allowStructures = StructureRepository::getAllow(
                 reports: [$this->report_id => $this->report_id],
                 groups: $this->groups
             );
-            $structuresList = StructureBaseRepository::getAllBy(
+            $structuresList = StructureRepository::getAllBy(
                 condition: ['id' => array_keys($allowStructures), 'report_id' => $this->report_id]
             )->all();
             $resultQuery = ['empty' => 0, 'withOnly' => []];

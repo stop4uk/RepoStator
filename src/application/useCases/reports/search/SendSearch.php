@@ -12,7 +12,7 @@ use app\helpers\{
 };
 use app\useCases\reports\{
     entities\ReportDataEntity,
-    repositories\ReportBaseRepository,
+    repositories\ReportRepository,
     helpers\ReportHelper,
     helpers\DataHelper,
 };
@@ -63,7 +63,7 @@ final class SendSearch extends Model
 
     public function search($params): ActiveDataProvider
     {
-        $query = ReportBaseRepository::getAllow(
+        $query = ReportRepository::getAllow(
             groups: $this->groups,
             asQuery: true,
         );

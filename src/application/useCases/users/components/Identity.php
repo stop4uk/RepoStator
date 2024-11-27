@@ -7,7 +7,7 @@ use yii\web\IdentityInterface;
 use app\useCases\users\{
     entities\user\UserEntity,
     entities\group\GroupNestedEntity,
-    repositories\group\GroupBaseRepository,
+    repositories\group\GroupRepository,
     helpers\user\UserHelper
 };
 
@@ -89,7 +89,7 @@ final class Identity implements IdentityInterface
         $mainID = $this->user->group->group_id ?? null;
 
         if ($mainID) {
-            $allGroups = GroupBaseRepository::getAll([], true);
+            $allGroups = GroupRepository::getAll([], true);
             $nestedRecord = GroupNestedEntity::find()->where(['group_id' => $mainID])->limit(1)->one();
 
             $groups = [$mainID => $allGroups[$mainID]];

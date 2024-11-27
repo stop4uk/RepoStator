@@ -21,9 +21,9 @@ use app\helpers\CommonHelper;
 use app\useCases\reports\{
     entities\ReportStructureEntity,
     models\StructureModel,
-    repositories\ConstantBaseRepository,
-    repositories\ReportBaseRepository,
-    repositories\StructureBaseRepository,
+    repositories\ConstantRepository,
+    repositories\ReportRepository,
+    repositories\StructureRepository,
     services\StructureService,
     search\StructureSearch
 };
@@ -67,7 +67,7 @@ final class StructureController extends BaseController
                             'structure.view.all.delete'
                         ],
                         'roleParams' => function($rule) {
-                            $recordInformation = StructureBaseRepository::get(
+                            $recordInformation = StructureRepository::get(
                                 id: $this->request->get('id'),
                                 active: false
                             );
@@ -93,7 +93,7 @@ final class StructureController extends BaseController
                             'structure.edit.all'
                         ],
                         'roleParams' => function($rule) {
-                            $recordInformation = StructureBaseRepository::get($this->request->get('id'));
+                            $recordInformation = StructureRepository::get($this->request->get('id'));
 
                             return [
                                 'created_uid' => $recordInformation?->created_uid,
@@ -102,7 +102,7 @@ final class StructureController extends BaseController
                             ];
                         },
                         'matchCallback' => function($rule, $action) {
-                            $recordInformation = StructureBaseRepository::get($this->request->get('id'));
+                            $recordInformation = StructureRepository::get($this->request->get('id'));
                             return ($recordInformation && $recordInformation->record_status);
                         }
                     ],
@@ -115,7 +115,7 @@ final class StructureController extends BaseController
                             'structure.delete.all'
                         ],
                         'roleParams' => function($rule) {
-                            $recordInformation = StructureBaseRepository::get($this->request->get('id'));
+                            $recordInformation = StructureRepository::get($this->request->get('id'));
 
                             return [
                                 'created_uid' => $recordInformation?->created_uid,
@@ -124,7 +124,7 @@ final class StructureController extends BaseController
                             ];
                         },
                         'matchCallback' => function($rule, $action) {
-                            $recordInformation = StructureBaseRepository::get($this->request->get('id'));
+                            $recordInformation = StructureRepository::get($this->request->get('id'));
                             return ($recordInformation && $recordInformation->record_status);
                         }
                     ],
@@ -137,7 +137,7 @@ final class StructureController extends BaseController
                             'structure.enable.all'
                         ],
                         'roleParams' => function($rule) {
-                            $recordInformation = StructureBaseRepository::get(
+                            $recordInformation = StructureRepository::get(
                                 id: $this->request->get('id'),
                                 active: false
                             );
@@ -183,7 +183,7 @@ final class StructureController extends BaseController
             ],
             'view' => [
                 'class' => ViewAction::class,
-                'repository' => StructureBaseRepository::class,
+                'repository' => StructureRepository::class,
                 'requestID' => $this->request->get('id'),
                 'model' => StructureModel::class,
                 'exceptionMessage' => 'Запрашиваемая структура передачи отчета не найдена, или недоступна'
@@ -192,7 +192,7 @@ final class StructureController extends BaseController
                 'class' => CreateEditAction::class,
                 'actionType' => 'edit',
                 'entityScenario' => BaseAR::SCENARIO_UPDATE,
-                'repository' => StructureBaseRepository::class,
+                'repository' => StructureRepository::class,
                 'requestID' => $this->request->get('id'),
                 'model' => StructureModel::class,
                 'service' => $this->service,
@@ -204,7 +204,7 @@ final class StructureController extends BaseController
             ],
             'delete' => [
                 'class' => DeleteAction::class,
-                'repository' => StructureBaseRepository::class,
+                'repository' => StructureRepository::class,
                 'requestID' => $this->request->get('id'),
                 'service' => $this->service,
                 'errorMessage' => 'При удалении структуры возникли проблемы. Пожалуйста, обратитесь к администратору',
@@ -213,7 +213,7 @@ final class StructureController extends BaseController
             ],
             'enable' => [
                 'class' => EnableAction::class,
-                'repository' => StructureBaseRepository::class,
+                'repository' => StructureRepository::class,
                 'requestID' => $this->request->get('id'),
                 'service' => $this->service,
                 'exceptionMessage' => 'Запрашиваемая структура передачи отчета не найдена, или недоступна'
@@ -234,7 +234,7 @@ final class StructureController extends BaseController
     {
         $this->response->format = Response::FORMAT_JSON;
 
-        $reportInformation = ReportBaseRepository::get($report_id);
+        $reportInformation = ReportRepository::get($report_id);
         $groupsAllow = RbacHelper::getAllowGroupsArray('constantRule.list.all');
         $groupsCanSent = GroupRepository::getAllBy(
             condition: ['id' => array_keys($groupsAllow), 'accept_send' => 1],
@@ -248,7 +248,7 @@ final class StructureController extends BaseController
             false => $groupsCanSent
         };
 
-        $contentConstants = ConstantBaseRepository::getAllow(
+        $contentConstants = ConstantRepository::getAllow(
             reports: [$report_id => $report_id],
             groups: $groupsAllow
         );

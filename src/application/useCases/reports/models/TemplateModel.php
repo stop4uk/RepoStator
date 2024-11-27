@@ -13,9 +13,9 @@ use app\helpers\{
 };
 use app\useCases\reports\{
     entities\ReportFormTemplateEntity,
-    repositories\ConstantBaseRepository,
-    repositories\ConstantruleBaseRepository,
-    repositories\ReportBaseRepository,
+    repositories\ConstantRepository,
+    repositories\ConstantruleRepository,
+    repositories\ReportRepository,
     helpers\TemplateHelper
 };
 use app\useCases\users\{
@@ -82,15 +82,15 @@ final class TemplateModel extends BaseModel
             condition: ['id' => array_keys($this->groups), 'accept_send' => 1],
             asArray: true
         );
-        $this->reports = ReportBaseRepository::getAllow(
+        $this->reports = ReportRepository::getAllow(
             groups: $this->groups
         );
 
-        $constants = ConstantBaseRepository::getAllow(
+        $constants = ConstantRepository::getAllow(
             reports: $this->reports,
             groups: $this->groups
         );
-        $constantsRule = ConstantruleBaseRepository::getAllow(
+        $constantsRule = ConstantruleRepository::getAllow(
             reports: $this->reports,
             groups: $this->groups
         );

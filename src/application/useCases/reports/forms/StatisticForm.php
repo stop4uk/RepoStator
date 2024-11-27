@@ -5,7 +5,7 @@ namespace app\useCases\reports\forms;
 use Yii;
 use yii\base\Model;
 
-use app\useCases\reports\repositories\ReportBaseRepository;
+use app\useCases\reports\repositories\ReportRepository;
 use app\useCases\users\helpers\RbacHelper;
 
 /**
@@ -29,7 +29,7 @@ final class StatisticForm extends Model
     public function __construct($config = [])
     {
         $groups = RbacHelper::getAllowGroupsArray('report.list.main');
-        $this->reports = ReportBaseRepository::getAllow(
+        $this->reports = ReportRepository::getAllow(
             groups: $groups
         );
 
