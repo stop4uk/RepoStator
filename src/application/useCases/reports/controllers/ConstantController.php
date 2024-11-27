@@ -141,7 +141,6 @@ final class ConstantController extends BaseController
             ],
         ];
     }
-
     public function __construct(
         $id,
         $module,
