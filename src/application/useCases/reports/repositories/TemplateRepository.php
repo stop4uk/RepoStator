@@ -3,10 +3,7 @@
 namespace app\useCases\reports\repositories;
 
 use Yii;
-use yii\db\{
-    ActiveQuery,
-    Expression
-};
+use yii\db\ActiveQuery;
 use yii\helpers\ArrayHelper;
 
 use app\components\{
@@ -14,18 +11,17 @@ use app\components\{
     base\BaseAR,
     base\BaseARInterface
 };
-use app\helpers\CommonHelper;
-use app\entities\report\ReportStructureEntity;
+use app\useCases\reports\entities\ReportFormTemplateEntity;
 
 /**
  * @author Stop4uk <stop4uk@yandex.ru>
  * @package app\repositories\report
  */
-final class StructureBaseRepository implements BaseRepositoryInterface
+final class TemplateRepository implements BaseRepositoryInterface
 {
     public static function get(int $id, array $relations = [], bool $active = true): ?BaseARInterface
     {
-        $query = ReportStructureEntity::find()->where(['id' => $id]);
+        $query = ReportFormTemplateEntity::find()->where(['id' => $id]);
         if ( $relations ) {
             $query->with($relations);
         }
@@ -39,7 +35,7 @@ final class StructureBaseRepository implements BaseRepositoryInterface
 
     public static function getBy(array $condition, array $relations = [], bool $active = true): ?BaseARInterface
     {
-        $query = ReportStructureEntity::find()->where($condition);
+        $query = ReportFormTemplateEntity::find()->where($condition);
         if ( $relations ) {
             $query->with($relations);
         }
@@ -53,7 +49,7 @@ final class StructureBaseRepository implements BaseRepositoryInterface
 
     public static function getAll(array $relations = [], bool $asArray = false, bool $active = true): ActiveQuery|array
     {
-        $query = ReportStructureEntity::find();
+        $query = ReportFormTemplateEntity::find();
         if ( $relations ) {
             $query->with($relations);
         }
@@ -71,7 +67,7 @@ final class StructureBaseRepository implements BaseRepositoryInterface
 
     public static function getAllBy(array $condition, array $relations = [], bool $asArray = false, bool $active = true): ActiveQuery|array
     {
-        $query = ReportStructureEntity::find()->where($condition);
+        $query = ReportFormTemplateEntity::find()->where($condition);
         if ( $relations ) {
             $query->with($relations);
         }
@@ -91,7 +87,7 @@ final class StructureBaseRepository implements BaseRepositoryInterface
         array $reports,
         array $groups,
         bool $active = true,
-        bool $asQuery = false,
+        bool $asQuery = false
     ): ActiveQuery|array {
         $condition = [
             'or',
@@ -99,12 +95,6 @@ final class StructureBaseRepository implements BaseRepositoryInterface
                 'and',
                 ['in', 'created_gid', array_keys($groups)],
                 ['in', 'report_id', array_keys($reports)],
-                [
-                    'or',
-                    ['is', 'groups_only', new Expression('null')],
-                    ['=', 'groups_only', new Expression("''")],
-                    ['REGEXP', 'groups_only', '\b(' . implode('|', array_keys($groups)) . ')\b']
-                ]
             ]
         ];
 
@@ -113,16 +103,10 @@ final class StructureBaseRepository implements BaseRepositoryInterface
                 'and',
                 ['in', 'created_gid', $groupsParent],
                 ['in', 'report_id', array_keys($reports)],
-                [
-                    'or',
-                        ['is', 'groups_only', new Expression('null')],
-                        ['=', 'groups_only', new Expression("''")],
-                        ['REGEXP', 'groups_only', '\b(' . implode('|', array_keys($groups)) . ')\b']
-                ]
             ];
         }
 
-        $query = ReportStructureEntity::find()
+        $query = ReportFormTemplateEntity::find()
             ->where($condition);
 
         if ( $active ) {
@@ -134,26 +118,5 @@ final class StructureBaseRepository implements BaseRepositoryInterface
         }
 
         return ArrayHelper::map($query->all(), 'id', 'name');
-    }
-
-    public static function getByReportAndGroup(int $report, int $group): ?BaseARInterface
-    {
-        $structures = self::getAllBy(['report_id' => $report])->all();
-
-        if ( $structures ) {
-            foreach ($structures as $struct) {
-                if ( $struct->groups_only && in_array($group, CommonHelper::explodeField($struct->groups_only)) ) {
-                    return $struct;
-                }
-            }
-
-            foreach ($structures as $struct) {
-                if ( !$struct->groups_only ) {
-                    return $struct;
-                }
-            }
-        }
-
-        return null;
     }
 }

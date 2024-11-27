@@ -15,7 +15,7 @@ use app\useCases\reports\entities\ReportDataEntity;
  * @author Stop4uk <stop4uk@yandex.ru>
  * @package app\repositories\report
  */
-final class DataBaseRepository implements BaseRepositoryInterface
+final class DataRepository implements BaseRepositoryInterface
 {
     public static function get(int $id, array $relations = [], bool $active = true): ?BaseARInterface
     {

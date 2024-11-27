@@ -14,19 +14,20 @@ use app\components\{
     base\BaseAR,
     base\BaseARInterface
 };
-use app\useCases\reports\entities\ReportConstantRuleEntity;
+use app\useCases\reports\entities\ReportConstantEntity;
+
 /**
  * @author Stop4uk <stop4uk@yandex.ru>
  * @package app\repositories\report
  */
-final class ConstantruleBaseRepository implements BaseRepositoryInterface
+final class ConstantRepository implements BaseRepositoryInterface
 {
     public static function get(
         int $id,
         array $relations = [],
         bool $active = true
     ): ?BaseARInterface {
-        $query = ReportConstantRuleEntity::find()->where(['id' => $id]);
+        $query = ReportConstantEntity::find()->where(['id' => $id]);
         if ( $relations ) {
             $query->with($relations);
         }
@@ -43,7 +44,7 @@ final class ConstantruleBaseRepository implements BaseRepositoryInterface
         array $relations = [],
         bool $active = true
     ): ?BaseARInterface {
-        $query = ReportConstantRuleEntity::find()->where($condition);
+        $query = ReportConstantEntity::find()->where($condition);
         if ( $relations ) {
             $query->with($relations);
         }
@@ -60,7 +61,7 @@ final class ConstantruleBaseRepository implements BaseRepositoryInterface
         bool $asArray = false,
         bool $active = true
     ): ActiveQuery|array {
-        $query = ReportConstantRuleEntity::find();
+        $query = ReportConstantEntity::find();
         if ( $relations ) {
             $query->with($relations);
         }
@@ -82,7 +83,7 @@ final class ConstantruleBaseRepository implements BaseRepositoryInterface
         bool $asArray = false,
         bool $active = true
     ): ActiveQuery|array {
-        $query = ReportConstantRuleEntity::find()->where($condition);
+        $query = ReportConstantEntity::find()->where($condition);
         if ( $relations ) {
             $query->with($relations);
         }
@@ -101,6 +102,7 @@ final class ConstantruleBaseRepository implements BaseRepositoryInterface
     public static function getAllow(
         array $reports,
         array $groups,
+        bool $fullInformation = false,
         bool $active = true,
         bool $asQuery = false,
     ): ActiveQuery|array {
@@ -109,12 +111,11 @@ final class ConstantruleBaseRepository implements BaseRepositoryInterface
             [
                 'and',
                 ['in', 'created_gid', array_keys($groups)],
-                ['in', 'report_id', array_keys($reports)],
                 [
                     'or',
-                    ['is', 'groups_only', new Expression('null')],
-                    ['=', 'groups_only', new Expression("''")],
-                    ['REGEXP', 'groups_only', '\b(' . implode('|', array_keys($groups)) . ')\b']
+                    ['is', 'reports_only', new Expression('null')],
+                    ['=', 'reports_only', new Expression("''")],
+                    ['REGEXP', 'reports_only', '\b(' . implode('|', array_keys($reports)) . ')\b']
                 ]
             ]
         ];
@@ -123,17 +124,17 @@ final class ConstantruleBaseRepository implements BaseRepositoryInterface
             $condition[] = [
                 'and',
                 ['in', 'created_gid', $groupsParent],
-                ['in', 'report_id', array_keys($reports)],
                 [
                     'or',
-                    ['is', 'groups_only', new Expression('null')],
-                    ['=', 'groups_only', new Expression("''")],
-                    ['REGEXP', 'groups_only', '\b(' . implode('|', array_keys($groups)) . ')\b']
+                    ['is', 'reports_only', new Expression('null')],
+                    ['=', 'reports_only', new Expression("''")],
+                    ['REGEXP', 'reports_only', '\b(' . implode('|', array_keys($reports)) . ')\b']
                 ]
             ];
         }
 
-        $query = ReportConstantRuleEntity::find()
+
+        $query = ReportConstantEntity::find()
             ->where($condition);
 
         if ( $active ) {
@@ -143,7 +144,26 @@ final class ConstantruleBaseRepository implements BaseRepositoryInterface
         if ( $asQuery ) {
             return $query;
         }
+        
+        if ( $fullInformation ) {
+            return self::formFull($query->all());
+        }
 
         return ArrayHelper::map($query->all(), 'record', 'name');
+    }
+
+    private static function formFull($results): array
+    {
+        if ( $results ) {
+            foreach ($results as $constant) {
+                $returnArray[$constant->record] = [
+                    'name' => $constant->name,
+                    'fullName' => $constant->name_full,
+                    'union_rules' => $constant->union_rules,
+                ];
+            }
+        }
+
+        return $returnArray ?? [];
     }
 }
