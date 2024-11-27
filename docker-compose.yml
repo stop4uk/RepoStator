@@ -29,13 +29,12 @@ services:
       - repostator
     volumes:
       - ./docker/config/mysql-custom.cnf:/etc/mysql/conf.d/custom.cnf
-      - ./docker/runtime/db/mysql:/var/lib/mysql
-      - ./docker/runtime/logs/mysql:/var/log/mysql
+      - ./docker/runtime/db:/var/lib/mysql
+      - ./docker/runtime/logs/mysql:/var/log
     environment:
       MYSQL_DATABASE: ${DB_NAME}
-      MYSQL_ROOT_USER: ${DB_USER}
       MYSQL_ROOT_PASSWORD: ${DB_PASS}
-      MYSQL_ROOT_HOST: "%"
+      MYSQL_ALLOW_EMPTY_PASSWORD: 'yes'
   web: &application-template
     image: "${PROJECT_NAME}-web:latest"
     container_name: ${PROJECT_NAME}-web
@@ -61,10 +60,10 @@ services:
     extra_hosts:
       - "host.docker.internal:host-gateway"
     working_dir: /var/www/html
-    env_file:
-      - .env
     environment:
       PHP_IDE_CONFIG: "serverName=RepostatorServer"
+    env_file:
+      - .env
   supervisor:
     <<: *application-template
     container_name: ${PROJECT_NAME}-supervisor
