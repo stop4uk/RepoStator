@@ -13,7 +13,7 @@ use yii\symfonymailer\Mailer;
 use app\components\{
     bootstrap\CommonBootstrap,
     events\handlers\CommonEventHandler,
-    settins\Settings
+    settings\Settings
 };
 
 return [
@@ -21,12 +21,12 @@ return [
     'name' => getenv('YII_APP_NAME'),
     'sourceLanguage' => getenv('YII_APP_SOURCE_LANG'),
     'basePath' => dirname(__DIR__) . '/../',
-    'runtimePath' => dirname(__DIR__) . '/../../runtime',
+    'runtimePath' => dirname(__DIR__) . '/../runtime',
     'aliases' => [
         '@bower' => '@vendor/bower-asset',
         '@npm'   => '@vendor/npm-asset',
-        '@root' => dirname(__DIR__) . '/../../',
-        '@app' => dirname(__DIR__) . '/../',
+        '@root' => dirname(__DIR__) . '/../',
+        '@app' => dirname(__DIR__) . '/',
         '@runtime' => '@root/runtime',
         '@resources' => '@root/resources',
         '@downloads' => '@runtime/files',

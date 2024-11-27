@@ -13,7 +13,6 @@ final class OfflineController extends Controller
 {
     public function beforeAction($action): bool
     {
-        $this->layout = 'clear';
         if ( !Yii::$app->settings->get('system', 'app_maintenance') ) {
             $this->goHome();
         }

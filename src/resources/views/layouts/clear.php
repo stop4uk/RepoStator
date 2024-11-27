@@ -1,13 +1,13 @@
 <?php
 
+use yii\bootstrap5\Html;
+use app\components\assets\ClearAsset;
+use app\widgets\AlertToast;
+
 /**
  * @var \yii\web\View $this
  * @var string $content
  */
-
-use yii\bootstrap5\Html;
-use app\widgets\AlertToast;
-use app\assets\ClearAsset;
 
 ClearAsset::register($this);
 

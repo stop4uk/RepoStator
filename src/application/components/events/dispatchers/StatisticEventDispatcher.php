@@ -2,9 +2,10 @@
 
 namespace app\components\events\dispatchers;
 
+use Yii;
+
 use app\components\events\objects\StatisticEvent;
 use app\jobs\SendEmailJob;
-use Yii;
 
 /**
  * @author Stop4uk <stop4uk@yandex.ru>

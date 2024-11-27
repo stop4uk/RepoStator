@@ -2,12 +2,23 @@
 
 namespace app\components\events\handlers;
 
-use app\components\events\dispatchers\{UserEventDispatcher};
-use app\components\events\dispatchers\AuthEventDispatcher;
-use app\components\events\dispatchers\ProfileEventDispatcher;
-use app\services\{AuthBaseService, ProfileService, UserService};
 use Yii;
-use yii\base\{Application, BootstrapInterface, Event};
+use yii\base\{
+    Application,
+    BootstrapInterface,
+    Event
+};
+
+use app\components\events\dispatchers\{
+    UserEventDispatcher,
+    AuthEventDispatcher,
+    ProfileEventDispatcher
+};
+use app\useCases\users\services\{
+    AuthBaseService,
+    ProfileService,
+    UserService
+};
 
 /**
  * @author Stop4uk <stop4uk@yandex.ru>

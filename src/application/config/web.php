@@ -23,7 +23,6 @@ $params = array_merge(
 );
 
 $config = [
-    'defaultRoute' => 'dashboard',
     'aliases' => [
         '@web' => '@root/public',
         '@assets' => '@root/public/assets',
@@ -44,9 +43,6 @@ $config = [
         ],
         'authManager' => [
             'class' => RbacDbmanager::class,
-        ],
-        'errorHandler' => [
-            'errorAction' => 'error/fault',
         ],
         'view' => [
             'theme' => [
@@ -80,7 +76,6 @@ $config = [
                 'sameSite' => Cookie::SAME_SITE_STRICT,
             ],
         ],
-        'urlManager' => require __DIR__ . '/web_routes.php'
     ],
     'params' => $params,
 ];
@@ -106,4 +101,8 @@ if ((bool)getenv('YII_DEBUG')) {
     $config['bootstrap'][] = 'debug';
 }
 
-return ArrayHelper::merge($config, require __DIR__ . '/common.php');
+return ArrayHelper::merge(
+    require __DIR__ . '/common.php',
+    require __DIR__ . '/web_routes.php',
+    $config
+);

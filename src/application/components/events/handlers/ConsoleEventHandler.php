@@ -2,11 +2,20 @@
 
 namespace app\components\events\handlers;
 
+use yii\base\{
+    BootstrapInterface,
+    Event
+};
+use yii\queue\{
+    ExecEvent,
+    Queue
+};
+
 use app\components\events\dispatchers\StatisticEventDispatcher;
-use app\entities\report\ReportFormJobEntity;
-use app\jobs\FormTemplateJob;
-use yii\base\{BootstrapInterface, Event};
-use yii\queue\{ExecEvent, Queue};
+use app\useCases\reports\{
+    entities\ReportFormJobEntity,
+    jobs\FormTemplateJob
+};
 
 /**
  * @author Stop4uk <stop4uk@yandex.ru>

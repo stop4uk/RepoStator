@@ -24,13 +24,16 @@ $config = [
             'class' => MigrateController::class,
         ]
     ],
-    'components' => [
-        'urlManager' => [
-            'enablePrettyUrl' => true,
-            'hostInfo' => '/'
-        ]
-    ],
+//    'components' => [
+//        'urlManager' => [
+//            'enablePrettyUrl' => true,
+//            'hostInfo' => '/'
+//        ]
+//    ],
     'params' => $params
 ];
 
-return ArrayHelper::merge($config, require __DIR__ . '/common.php');
+return ArrayHelper::merge(
+    require __DIR__ . '/common.php',
+    $config
+);

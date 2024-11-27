@@ -2,10 +2,10 @@
 
 namespace app\components\events\objects;
 
-use app\entities\user\UserEntity;
 use yii\base\Event;
 use yii\web\Request;
 
+use app\useCases\users\entities\user\UserEntity;
 /**
  * @author Stop4uk <stop4uk@yandex.ru>
  * @package app\events\objects

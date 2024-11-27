@@ -2,9 +2,13 @@
 
 namespace app\components\base;
 
-use app\helpers\CommonHelper;
 use Yii;
-use yii\base\{Component, Exception};
+use yii\base\{
+    Component,
+    Exception
+};
+
+use app\helpers\CommonHelper;
 
 /**
  * @author Stop4uk <stop4uk@yandex.ru>

@@ -2,10 +2,14 @@
 
 namespace app\components\events\dispatchers;
 
-use app\components\events\objects\AuthEvent;
-use app\entities\user\{UserRightEntity, UserSessionEntity};
-use app\jobs\SendEmailJob;
 use Yii;
+
+use app\components\events\objects\AuthEvent;
+use app\useCases\users\entities\user\{
+    UserRightEntity,
+    UserSessionEntity
+};
+use app\jobs\SendEmailJob;
 
 /**
  * @author Stop4uk <stop4uk@yandex.ru>

@@ -4,7 +4,11 @@ namespace app\components\base;
 
 use Yii;
 use yii\base\Exception;
-use yii\web\{BadRequestHttpException, Controller, Response};
+use yii\web\{
+    BadRequestHttpException,
+    Controller,
+    Response
+};
 
 /**
  * @author Stop4uk <stop4uk@yandex.ru>
