@@ -1,12 +1,12 @@
 <?php
 
+use yii\helpers\Url;
+use yii\bootstrap5\Html;
+
 /**
- * @var \app\models\user\UserModel $model
+ * @var \app\useCases\users\models\user\UserModel $model
  * @var \yii\web\View $this
  */
-
-use yii\bootstrap5\Html;
-use yii\helpers\Url;
 
 $this->title = Yii::t('views', 'Просмотр пользователя');
 

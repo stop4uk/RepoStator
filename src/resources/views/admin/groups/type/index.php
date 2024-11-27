@@ -9,7 +9,7 @@ use app\widgets\GridView;
 use app\helpers\CommonHelper;
 
 /**
- * @var \app\search\group\GroupTypeSearch $searchModel
+ * @var \app\useCases\admin\search\group\GroupTypeSearch $searchModel
  * @var \yii\data\ActiveDataProvider $dataProvider
  */
 

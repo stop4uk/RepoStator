@@ -8,7 +8,7 @@ use yii\bootstrap5\Html;
 use app\widgets\GridView;
 
 /**
- * @var \app\search\LogSearch $searchModel
+ * @var \app\useCases\admin\search\LogSearch $searchModel
  * @var \yii\data\ActiveDataProvider $dataProvider
  */
 

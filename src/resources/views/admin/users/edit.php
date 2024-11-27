@@ -1,10 +1,11 @@
 <?php
 
-/**
- * @var \app\models\user\UserModel $model
- */
 
 use yii\helpers\Url;
+
+/**
+ * @var \app\useCases\users\models\user\UserModel $model
+ */
 
 $this->title = Yii::t('views', 'Редактирование пользователя');
 

@@ -5,10 +5,10 @@ use yii\widgets\Pjax;
 use yii\bootstrap5\Html;
 
 use app\widgets\GridView;
-use app\helpers\report\JobHelper;
+use app\useCases\reports\helpers\JobHelper;
 
 /**
- * @var \app\search\report\JobSearch $searchModel
+ * @var \app\useCases\reports\search\JobSearch $searchModel
  * @var \yii\data\ActiveDataProvider $dataProvider
  */
 

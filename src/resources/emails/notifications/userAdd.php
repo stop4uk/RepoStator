@@ -1,13 +1,12 @@
 <?php
 
+use yii\bootstrap5\Html;
+use yii\helpers\Url;
+
 /**
  * @var array $data
  */
 
-use yii\bootstrap5\Html;
-use yii\helpers\Url;
-
-use app\helpers\user\UserHelper;
 
 ?>
 

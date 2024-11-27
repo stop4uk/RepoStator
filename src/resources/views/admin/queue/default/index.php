@@ -6,7 +6,7 @@ use yii\bootstrap5\Html;
 use app\widgets\GridView;
 
 /**
- * @var \app\search\QueueSearch $searchModel
+ * @var \app\useCases\admin\search\QueueSearch $searchModel
  * @var \yii\data\ActiveDataProvider $dataProvider
  */
 
