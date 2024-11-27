@@ -18,7 +18,7 @@ use app\useCases\reports\{
  * @author Stop4uk <stop4uk@yandex.ru>
  * @package app\processors
  */
-class ToFileByJobBaseProcessor implements BaseProcessorInterface
+class ToFileByJobProcessor implements BaseProcessorInterface
 {
     private $form;
     private $template;

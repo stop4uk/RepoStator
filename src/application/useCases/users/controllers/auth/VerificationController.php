@@ -11,7 +11,7 @@ use yii\web\Response;
 use app\components\base\BaseController;
 use app\useCases\users\{
     forms\auth\VerificationForm,
-    services\AuthBaseService
+    services\AuthService
 };
 
 /**
@@ -21,10 +21,10 @@ use app\useCases\users\{
 final class VerificationController extends BaseController
 {
     public function __construct(
-                                         $id,
-                                         $module,
-        private readonly AuthBaseService $service,
-                                         $config = []
+        $id,
+        $module,
+        private readonly AuthService $service,
+        $config = []
     ) {
         parent::__construct($id, $module, $config);
     }
@@ -43,13 +43,6 @@ final class VerificationController extends BaseController
                 ],
             ],
         ];
-    }
-
-    public function beforeAction($action): bool
-    {
-        $this->layout = 'clear';
-
-        return parent::beforeAction($action);
     }
 
     public function actionIndex(): array|string|Response

@@ -6,7 +6,7 @@ use yii\base\BaseObject;
 use yii\queue\JobInterface;
 
 use app\useCases\reports\{
-    components\processors\ToFileBaseProcessor,
+    components\processors\ToFileProcessor,
     entities\ReportFormTemplateEntity,
     forms\StatisticForm
 };
@@ -23,7 +23,7 @@ final class FormTemplateJob extends BaseObject implements JobInterface
 
     public function execute($queue)
     {
-        $processor = new ToFileBaseProcessor($this->form, $this->template);
+        $processor = new ToFileProcessor($this->form, $this->template);
         $processor->setJobID($this->jobID);
         $processor->run();
     }

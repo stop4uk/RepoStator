@@ -36,6 +36,15 @@ use app\useCases\users\controllers\{
 return [
     'defaultRoute' => 'dashboard',
     'controllerMap' => [
+        'error' => [
+            'class' => ErrorController::class,
+            'layout' => 'clear'
+        ],
+        'offline' => [
+            'class' => OfflineController::class,
+            'layout' => 'clear',
+        ],
+        'dashboard' => DashboardController::class,
         'admin\groups' => DefaultAdminGroupController::class,
         'admin\groups\type' => TypeController::class,
         'admin\queue' => DefaultAdminQueueController::class,
@@ -51,15 +60,20 @@ return [
         'reports\template' => TemplateReportController::class,
         'send' => SendController::class,
         'statistic' => StatisticController::class,
-        'error' => [
-            'class' => ErrorController::class,
+        'auth\default' => [
+            'class' => DefaultAuthController::class,
             'layout' => 'clear'
         ],
-        'offline' => [
-            'class' => OfflineController::class,
-            'layout' => 'clear',
+        'auth\recovery' => [
+            'class' => RecoveryController::class,
+            'layout' => 'clear'
         ],
-        'dashboard' => DashboardController::class
+        'auth\verification' => [
+            'class' => VerificationController::class,
+            'layout' => 'clear'
+        ],
+        'profile' => ProfileController::class
+
     ],
     'components' => [
         'errorHandler' => [

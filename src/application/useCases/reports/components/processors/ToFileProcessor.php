@@ -29,7 +29,7 @@ use app\useCases\reports\{
  * @author Stop4uk <stop4uk@yandex.ru>
  * @package app\processors
  */
-class ToFileBaseProcessor extends BaseProcessor implements BaseProcessorInterface
+class ToFileProcessor extends BaseProcessor implements BaseProcessorInterface
 {
     /**
      * @var IReader|Spreadsheet Документ

@@ -12,7 +12,7 @@ use app\components\base\BaseController;
 use app\useCases\users\{
     forms\auth\LoginForm,
     forms\auth\RegisterForm,
-    services\AuthBaseService
+    services\AuthService
 };
 
 /**
@@ -22,10 +22,10 @@ use app\useCases\users\{
 final class DefaultController extends BaseController
 {
     public function __construct(
-                                         $id,
-                                         $module,
-        private readonly AuthBaseService $service,
-                                         $config = []
+        $id,
+        $module,
+        private readonly AuthService $service,
+        $config = []
     ) {
         parent::__construct($id, $module, $config);
     }
@@ -49,13 +49,6 @@ final class DefaultController extends BaseController
                 ],
             ],
         ];
-    }
-
-    public function beforeAction($action): bool
-    {
-        $this->layout = 'clear';
-
-        return parent::beforeAction($action);
     }
 
     public function actionLogin(): array|string|Response

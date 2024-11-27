@@ -7,9 +7,9 @@ use yii\data\ActiveDataProvider;
 
 use app\helpers\HtmlPurifier;
 use app\useCases\reports\{
-    repositories\ConstantBaseRepository,
-    repositories\ConstantruleBaseRepository,
-    repositories\ReportBaseRepository,
+    repositories\ConstantRepository,
+    repositories\ConstantruleRepository,
+    repositories\ReportRepository,
     helpers\ConstantRuleHelper,
     traits\CleanDataProviderByRoleTrait
 };
@@ -53,11 +53,11 @@ final class ConstantruleSearch extends Model
             'constantRule.view.delete.all'
         ]);
         $this->groups = RbacHelper::getAllowGroupsArray('constantRule.list.all');
-        $this->reports = ReportBaseRepository::getAllow(
+        $this->reports = ReportRepository::getAllow(
             groups: $this->groups,
             active: $this->onlyActive
         );
-        $this->constants = ConstantBaseRepository::getAllow(
+        $this->constants = ConstantRepository::getAllow(
             reports: $this->reports,
             groups: $this->groups,
             active: $this->onlyActive
@@ -87,7 +87,7 @@ final class ConstantruleSearch extends Model
 
     public function search($params): ActiveDataProvider
     {
-        $query = ConstantruleBaseRepository::getAllow(
+        $query = ConstantruleRepository::getAllow(
             reports: $this->reports,
             groups: $this->groups,
             active: $this->onlyActive,

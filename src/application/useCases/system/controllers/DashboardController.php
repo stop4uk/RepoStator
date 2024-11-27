@@ -7,7 +7,7 @@ use yii\filters\AccessControl;
 use app\components\base\BaseController;
 use app\useCases\users\helpers\RbacHelper;
 use app\useCases\reports\{
-    repositories\ReportBaseRepository,
+    repositories\ReportRepository,
     search\JobSearch,
     search\SendSearch
 };
@@ -36,7 +36,7 @@ final class DashboardController extends BaseController
     public function actionIndex()
     {
         $groups = RbacHelper::getAllowGroupsArray('report.list.all');
-        $reports = ReportBaseRepository::getAllow($groups);
+        $reports = ReportRepository::getAllow($groups);
         $needSentData = (new SendSearch())->search([]);
         $queueTemplates = (new JobSearch(['onlyMain' => true]))->search([]);
 

@@ -22,7 +22,7 @@ use app\useCases\reports\{
     models\DataModel,
     forms\ControlCheckFullForm,
     forms\ControlCreateForForm,
-    repositories\DataBaseRepository,
+    repositories\DataRepository,
     services\ControlService,
     helpers\DataHelper,
     search\DataSearch,
@@ -59,7 +59,7 @@ final class ControlController extends BaseController
                             'data.view.delete.all',
                         ],
                         'roleParams' => function($rule) {
-                            $recordInformation = DataBaseRepository::get(
+                            $recordInformation = DataRepository::get(
                                 id: $this->request->get('id'),
                                 active: false
                             );
@@ -80,7 +80,7 @@ final class ControlController extends BaseController
                             'data.edit.all'
                         ],
                         'roleParams' => function($rule) {
-                            $recordInformation = DataBaseRepository::get($this->request->get('id'));
+                            $recordInformation = DataRepository::get($this->request->get('id'));
 
                             return [
                                 'created_uid' => $recordInformation->created_uid,
@@ -108,7 +108,7 @@ final class ControlController extends BaseController
                             'data.delete.all'
                         ],
                         'roleParams' => function($rule) {
-                            $recordInformation = DataBaseRepository::get($this->request->get('id'));
+                            $recordInformation = DataRepository::get($this->request->get('id'));
 
                             return [
                                 'name' => 'delete',
@@ -127,7 +127,7 @@ final class ControlController extends BaseController
                             'data.enable.all'
                         ],
                         'roleParams' => function($rule) {
-                            $recordInformation = DataBaseRepository::get(
+                            $recordInformation = DataRepository::get(
                                 id: $this->request->get('id'),
                                 active: false
                             );
@@ -162,14 +162,14 @@ final class ControlController extends BaseController
             ],
             'view' => [
                 'class' => ViewAction::class,
-                'repository' => DataBaseRepository::class,
+                'repository' => DataRepository::class,
                 'requestID' => $this->request->get('id'),
                 'model' => DataModel::class,
                 'exceptionMessage' => 'Запрашиваемые сведения отчета не найдены, или недоступны'
             ],
             'delete' => [
                 'class' => DeleteAction::class,
-                'repository' => DataBaseRepository::class,
+                'repository' => DataRepository::class,
                 'requestID' => $this->request->get('id'),
                 'service' => $this->service,
                 'errorMessage' => 'При удалении переданных сведений возникли ошибки. Пожалуйста, обратитесь к администратору',
@@ -178,7 +178,7 @@ final class ControlController extends BaseController
             ],
             'enable' => [
                 'class' => EnableAction::class,
-                'repository' => DataBaseRepository::class,
+                'repository' => DataRepository::class,
                 'requestID' => $this->request->get('id'),
                 'service' => $this->service,
                 'exceptionMessage' => 'Запрашиваемые сведения отчета не найдены, или недоступны',
@@ -294,7 +294,7 @@ final class ControlController extends BaseController
 
     private function findEntity(int $id): ReportDataEntity
     {
-        $query = DataBaseRepository::get($id, ['report', 'group', 'structure', 'changes', 'createdUser']);
+        $query = DataRepository::get($id, ['report', 'group', 'structure', 'changes', 'createdUser']);
 
         if ( $query !== null) {
             return $query;
