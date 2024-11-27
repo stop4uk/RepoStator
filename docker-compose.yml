@@ -37,6 +37,7 @@ services:
       MYSQL_ROOT_PASSWORD: ${DB_PASS}
       MYSQL_ROOT_HOST: "%"
   web: &application-template
+    image: "${PROJECT_NAME}-web:latest"
     container_name: ${PROJECT_NAME}-web
     restart: always
     build:
