@@ -25,7 +25,7 @@ return [
     'aliases' => [
         '@bower' => '@vendor/bower-asset',
         '@npm'   => '@vendor/npm-asset',
-        '@root' => dirname(__DIR__) . '/../',
+        '@root' => dirname(__DIR__, 2),
         '@app' => dirname(__DIR__) . '/',
         '@runtime' => '@root/runtime',
         '@resources' => '@root/resources',
@@ -83,7 +83,7 @@ return [
         'db' => [
             'class' => Connection::class,
             'dsn' => 'mysql:host=' . env('DB_HOST') . ';port=' . env('DB_PORT') . ';dbname=' . env('DB_NAME'),
-            'username' => env('DB_USER'),
+            'username' => 'root',
             'password' => env('DB_PASS'),
             'charset' => 'utf8',
             'enableSchemaCache' => (bool)env('YII_DEBUG'),
