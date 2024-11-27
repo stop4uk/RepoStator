@@ -15,7 +15,7 @@ use app\components\events\dispatchers\{
     ProfileEventDispatcher
 };
 use app\useCases\users\services\{
-    AuthBaseService,
+    AuthService,
     ProfileService,
     UserService
 };
@@ -28,11 +28,11 @@ final class WebEventHandler implements BootstrapInterface
 {
     public function bootstrap($app): void
     {
-        Event::on(AuthBaseService::class, AuthBaseService::EVENT_AFTER_LOGIN, [AuthEventDispatcher::class, 'login']);
-        Event::on(AuthBaseService::class, AuthBaseService::EVENT_BEFORE_LOGOUT, [AuthEventDispatcher::class, 'logout']);
-        Event::on(AuthBaseService::class, AuthBaseService::EVENT_AFTER_REGISTER, [AuthEventDispatcher::class, 'register']);
-        Event::on(AuthBaseService::class, AuthBaseService::EVENT_AFTER_RECOVERY_GET, [AuthEventDispatcher::class, 'recovery']);
-        Event::on(AuthBaseService::class, AuthBaseService::EVENT_AFTER_VERIFICATION_GET, [AuthEventDispatcher::class, 'verification']);
+        Event::on(AuthService::class, AuthService::EVENT_AFTER_LOGIN, [AuthEventDispatcher::class, 'login']);
+        Event::on(AuthService::class, AuthService::EVENT_BEFORE_LOGOUT, [AuthEventDispatcher::class, 'logout']);
+        Event::on(AuthService::class, AuthService::EVENT_AFTER_REGISTER, [AuthEventDispatcher::class, 'register']);
+        Event::on(AuthService::class, AuthService::EVENT_AFTER_RECOVERY_GET, [AuthEventDispatcher::class, 'recovery']);
+        Event::on(AuthService::class, AuthService::EVENT_AFTER_VERIFICATION_GET, [AuthEventDispatcher::class, 'verification']);
 
         Event::on(UserService::class, UserService::EVENT_AFTER_ADD, [UserEventDispatcher::class, 'add']);
         Event::on(UserService::class, UserService::EVENT_AFTER_CHANGE, [UserEventDispatcher::class, 'change']);
