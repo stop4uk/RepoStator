@@ -96,7 +96,10 @@ return [
                 false => 'cache'
             },
         ],
-        'log' =>  require __DIR__ . '/common_logs.php',
+        'log' =>  require __DIR__ . '/' . match((bool)env('YII_DEBUG')) {
+            true => 'common_logs_file.php',
+            false => 'common_logs_db.php'
+        },
         'settings' => [
             'class' => Settings::class,
             'preLoad' => [
