@@ -1,17 +1,17 @@
 <?php
 
-/**
- * @var \yii\web\View $this
- * @var string $content
- */
-
 use yii\helpers\Json;
 use yii\bootstrap5\{
     Html,
     Breadcrumbs
 };
-use app\assets\MainAsset;
+use app\components\assets\MainAsset;
 use app\widgets\AlertToast;
+
+/**
+ * @var \yii\web\View $this
+ * @var string $content
+ */
 
 MainAsset::register($this);
 
