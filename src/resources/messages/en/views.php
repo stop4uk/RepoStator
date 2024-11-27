@@ -109,7 +109,7 @@ return [
     'Настройки системы' => 'System Settings',
     'Выйти' => 'Exit',
     'Обслуживание' => 'Maintenance',
-    'В настоящее время система находится в режиме обслуживания. Вход разрешен только пользователям с ролью "Администратор". Пожалуйста, попробйте зайти немного позднее' => 'The system is currently in maintenance mode. Only users with the "Administrator" role are allowed to log in. Please try to come back a little later',
+    'В настоящее время система находится в режиме обслуживания. Вход разрешен только пользователям с ролью "Администратор". Пожалуйста, попробуйте зайти немного позднее' => 'The system is currently in maintenance mode. Only users with the "Administrator" role are allowed to log in. Please try to come back a little later',
     'Профиль' => 'Profile',
     'Последний сеанс' => 'Last session',
     'Последние 20 авторизаций' => 'Last 20 authorizations',
