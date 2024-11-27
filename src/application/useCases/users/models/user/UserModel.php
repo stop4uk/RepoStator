@@ -12,7 +12,7 @@ use app\components\base\BaseModel;
 use app\helpers\HtmlPurifier;
 use app\useCases\users\{
     entities\user\UserEntity,
-    RbacHelper,
+    helpers\RbacHelper,
     helpers\user\UserHelper
 };
 
