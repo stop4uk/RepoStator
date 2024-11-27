@@ -82,21 +82,21 @@ return [
         ],
         'db' => [
             'class' => Connection::class,
-            'dsn' => 'mysql:host=' . env('DB_HOST') . ';port=' . env('DB_PORT') . ';dbname=' . env('DB_NAME'),
+            'dsn' => 'mysql:host=' . getenv('DB_HOST') . ';port=' . getenv('DB_PORT') . ';dbname=' . getenv('DB_NAME'),
             'username' => 'root',
-            'password' => env('DB_PASS'),
+            'password' => getenv('DB_PASS'),
             'charset' => 'utf8',
-            'enableSchemaCache' => (bool)env('YII_DEBUG'),
-            'schemaCacheDuration' => match((bool)env('YII_DEBUG')) {
+            'enableSchemaCache' => (bool)getenv('YII_DEBUG'),
+            'schemaCacheDuration' => match((bool)getenv('YII_DEBUG')) {
                 true => 0,
                 false => 3600
             },
-            'schemaCache' => match((bool)env('YII_DEBUG')) {
+            'schemaCache' => match((bool)getenv('YII_DEBUG')) {
                 true => null,
                 false => 'cache'
             },
         ],
-        'log' =>  require __DIR__ . '/' . match((bool)env('YII_DEBUG')) {
+        'log' =>  require __DIR__ . '/' . match((bool)getenv('YII_DEBUG')) {
             true => 'common_logs_file.php',
             false => 'common_logs_db.php'
         },
