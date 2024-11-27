@@ -41,5 +41,14 @@ exec: ## Run command inside docker container
 exec-bash:
 	@HOST_UID=$(HOST_UID) HOST_GID=$(HOST_GID) WEB_PORT_HTTP=$(WEB_PORT_HTTP) WEB_PORT_HTTPS=$(WEB_PORT_HTTPS) DB_PORT=${DB_PORT} INNODB_USE_NATIVE_AIO=$(INNODB_USE_NATIVE_AIO) docker compose $(PR_NAME) exec $(OPTION_T) $(PHP_USER) web bash -c "$(cmd)"
 
+first-run: ## Installs composer dependencies && run migrate
+	@make exec-bash cmd="COMPOSER_MEMORY_LIMIT=-1 composer install --optimize-autoloader && php yii migrate"
+
 composer-install: ## Installs composer dependencies
 	@make exec-bash cmd="COMPOSER_MEMORY_LIMIT=-1 composer install --optimize-autoloader"
+
+composer-update: ## Update composer dependencies
+	@make exec-bash cmd="composer update"
+
+migrate: ## Migrate
+	@make exec-bash cmd="php yii migrate"
