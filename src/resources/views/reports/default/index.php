@@ -45,7 +45,7 @@ $this->title = Yii::t('views', 'Список отчетов');
                     [
                         'attribute' => 'name',
                         'headerOptions' => [
-                            'width' => '30%'
+                            'width' => '60%'
                         ],
                         'format' => 'raw',
                         'value' => function($data) {
@@ -102,13 +102,13 @@ $this->title = Yii::t('views', 'Список отчетов');
                                     }
                                 }
 
-                                $resultString .= Html::tag('span', $leftPeriod, ['class' => 'badge bg-primary']) . '&nbsp;';
+                                $resultString .= Html::tag('span', $leftPeriod, ['class' => 'badge bg-primary']);
 
                                 if ( $data->block_minutes ) {
                                     $resultString .= Html::tag(
                                         'span',
                                         Yii::t('views', 'Закрывается за {n, plural, =1{1 минуту} one{# минуту} few{# минуты} many{# минут} other{# минут}}', ['n' => $data->block_minutes]),
-                                    ['class' => 'badge bg-danger']);
+                                    ['class' => 'me-1 mb-1 d-inline badge bg-danger']);
                                 }
 
                                 return $resultString;
@@ -144,13 +144,6 @@ $this->title = Yii::t('views', 'Список отчетов');
 
                             return $resultString;
                         }
-                    ],
-                    [
-                        'attribute' => 'created_at',
-                        'headerOptions' => [
-                            'width' => '20%'
-                        ],
-                        'format' => ['date', Yii::$app->settings->get('system', 'app_language_dateTime')],
                     ],
                     [
                         'class' => ActionColumn::class,

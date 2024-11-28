@@ -49,7 +49,7 @@ $this->title = Yii::t('views', 'Список структур');
                     [
                         'attribute' => 'name',
                         'headerOptions' => [
-                            'width' => '30%'
+                            'width' => '60%'
                         ],
                         'format' => 'raw',
                         'value' => function($data) {
@@ -111,13 +111,6 @@ $this->title = Yii::t('views', 'Список структур');
 
                             return $resultString;
                         }
-                    ],
-                    [
-                        'attribute' => 'created_at',
-                        'headerOptions' => [
-                            'width' => '20%'
-                        ],
-                        'format' => ['date', Yii::$app->settings->get('system', 'app_language_dateTime')],
                     ],
                     [
                         'class' => ActionColumn::class,

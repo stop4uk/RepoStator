@@ -16,6 +16,19 @@ $this->params['breadcrumbs'] = [
 ];
 
 ?>
+    <div class="card">
+        <div class="card-body">
+            <?php
+                $createdAt = Yii::$app->getFormatter()->asDatetime($model->getEntity()->created_at);
+                echo Html::tag('span', "{$model->getAttributeLabel('created_at')}: {$createdAt}");
+
+                if ($model->getEntity()->updated_at) {
+                    $updatedAt = Yii::$app->getFormatter()->asDatetime($model->getEntity()->updated_at);
+                    echo Html::tag('span', "{$model->getAttributeLabel('updated_at')}: {$updatedAt}", ['class' => 'd-block']);
+                }
+            ?>
+        </div>
+    </div>
 
     <div class="card">
         <div class="card-body">
