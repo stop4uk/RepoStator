@@ -116,7 +116,6 @@ final class ReportModel extends BaseModel
                 'message' => Yii::t('models_error', 'Блок передачи отчета не может превышать перерыв между отчетами')
             ],
             ['null_day', 'integer'],
-            ['null_day', 'required', 'when' => fn($model) => $model->left_period, 'whenClient' => 'function(attribute, value) { return ($("#reportmodel-left_period").val().length != 0); }'],
             ['null_day', 'default', 'value' => 0],
 
             [['name', 'description'], 'filter', 'filter' => fn($value) => HtmlPurifier::process($value)],
