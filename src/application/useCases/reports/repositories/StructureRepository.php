@@ -103,7 +103,7 @@ final class StructureRepository implements BaseRepositoryInterface
                     'or',
                     ['is', 'groups_only', new Expression('null')],
                     ['=', 'groups_only', new Expression("''")],
-                    ['REGEXP', 'groups_only', '\b(' . implode('|', array_keys($groups)) . ')\b']
+                    ['REGEXP', 'groups_only', '(' . implode('|', array_keys($groups)) . ')']
                 ]
             ]
         ];
@@ -117,7 +117,7 @@ final class StructureRepository implements BaseRepositoryInterface
                     'or',
                         ['is', 'groups_only', new Expression('null')],
                         ['=', 'groups_only', new Expression("''")],
-                        ['REGEXP', 'groups_only', '\b(' . implode('|', array_keys($groups)) . ')\b']
+                        ['REGEXP', 'groups_only', '(' . implode('|', array_keys($groups)) . ')']
                 ]
             ];
         }

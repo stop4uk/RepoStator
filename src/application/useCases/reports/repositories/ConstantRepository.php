@@ -115,7 +115,7 @@ final class ConstantRepository implements BaseRepositoryInterface
                     'or',
                     ['is', 'reports_only', new Expression('null')],
                     ['=', 'reports_only', new Expression("''")],
-                    ['REGEXP', 'reports_only', '\b(' . implode('|', array_keys($reports)) . ')\b']
+                    ['REGEXP', 'reports_only', '(' . implode('|', array_keys($reports)) . ')']
                 ]
             ]
         ];
@@ -128,7 +128,7 @@ final class ConstantRepository implements BaseRepositoryInterface
                     'or',
                     ['is', 'reports_only', new Expression('null')],
                     ['=', 'reports_only', new Expression("''")],
-                    ['REGEXP', 'reports_only', '\b(' . implode('|', array_keys($reports)) . ')\b']
+                    ['REGEXP', 'reports_only', '(' . implode('|', array_keys($reports)) . ')']
                 ]
             ];
         }
