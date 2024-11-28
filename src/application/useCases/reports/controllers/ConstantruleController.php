@@ -24,8 +24,8 @@ use app\useCases\reports\{
     repositories\ConstantRepository,
     repositories\ConstantruleRepository,
     repositories\ReportRepository,
-    services\report\ConstantruleService,
-    search\report\ConstantruleSearch
+    services\ConstantruleService,
+    search\ConstantruleSearch
 };
 use app\useCases\users\{
     helpers\RbacHelper,

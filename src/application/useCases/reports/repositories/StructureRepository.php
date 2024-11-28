@@ -15,7 +15,7 @@ use app\components\{
     base\BaseARInterface
 };
 use app\helpers\CommonHelper;
-use app\entities\report\ReportStructureEntity;
+use app\useCases\reports\entities\ReportStructureEntity;
 
 /**
  * @author Stop4uk <stop4uk@yandex.ru>

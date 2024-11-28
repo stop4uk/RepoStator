@@ -15,7 +15,7 @@ use yii2tech\ar\softdelete\SoftDeleteBehavior;
 use app\components\base\BaseAR;
 use app\helpers\CommonHelper;
 use app\useCases\reports\{
-    models\StructureModel
+    models\StructureModel,
     helpers\StructureHelper,
 };
 

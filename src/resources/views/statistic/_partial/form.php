@@ -11,7 +11,7 @@ use yii\bootstrap5\{
 use kartik\select2\Select2;
 use kartik\daterange\DateRangePicker;
 
-use app\entities\report\ReportFormTemplateEntity;
+use app\useCases\reports\entities\ReportFormTemplateEntity;
 use app\helpers\CommonHelper;
 
 /**

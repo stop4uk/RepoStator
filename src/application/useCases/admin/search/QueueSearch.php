@@ -4,7 +4,7 @@ namespace app\useCases\admin\search;
 
 use yii\data\ActiveDataProvider;
 
-use app\useCasees\system\entities\QueueEntity;
+use app\useCases\system\entities\QueueEntity;
 
 /**
  * @author Stop4uk <stop4uk@yandex.ru>
