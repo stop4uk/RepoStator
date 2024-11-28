@@ -1,9 +1,8 @@
 <?php
-namespace app\widgets\repeater;
-
-use yii\web\AssetBundle;
+namespace app\useCases\reports\widgets\repeater;
 
 use app\assets\CommonAsset;
+use yii\web\AssetBundle;
 
 class RepeaterAsset extends AssetBundle
 {

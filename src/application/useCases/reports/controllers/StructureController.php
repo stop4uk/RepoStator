@@ -2,39 +2,22 @@
 
 namespace app\useCases\reports\controllers;
 
-use yii\web\Response;
-use yii\filters\AccessControl;
-use yii\helpers\Url;
-
-use app\actions\{
-    CreateEditAction,
-    DeleteAction,
-    EnableAction,
-    IndexAction,
-    ViewAction
-};
-use app\components\{
-    base\BaseController,
-    base\BaseAR
-};
+use app\actions\{CreateEditAction, DeleteAction, EnableAction, IndexAction, ViewAction};
+use app\components\{base\BaseAR, base\BaseController};
 use app\helpers\CommonHelper;
-use app\useCases\reports\{
-    entities\ReportStructureEntity,
+use app\useCases\reports\{entities\ReportStructureEntity,
     models\StructureModel,
     repositories\ConstantRepository,
     repositories\ReportRepository,
     repositories\StructureRepository,
+    search\StructureSearch,
     services\StructureService,
-    search\StructureSearch
-};
-use app\useCases\users\{
-    repositories\group\GroupRepository,
-    helpers\RbacHelper
-};
-use app\widgets\Repeater\actions\{
-    AddAction,
-    DeleteAction as RepeaterDeleteAction
-};
+    widgets\repeater\actions\AddAction};
+use app\useCases\reports\widgets\repeater\actions\{DeleteAction as RepeaterDeleteAction};
+use app\useCases\users\{helpers\RbacHelper, repositories\group\GroupRepository};
+use yii\filters\AccessControl;
+use yii\helpers\Url;
+use yii\web\Response;
 
 /**
  * @author Stop4uk <stop4uk@yandex.ru>

@@ -1,13 +1,15 @@
 <?php
 
-use yii\bootstrap5\Modal;
-use yii\bootstrap5\ActiveForm;
-use yii\bootstrap5\Html;
+use yii\bootstrap5\{
+    Modal,
+    Html,
+    ActiveForm
+};
 
 /**
- * @var \app\models\user\ProfileModel $model
- * @var \app\forms\user\UserEmailChangeForm $userEmailChangeForm
- * @var \app\forms\user\UserPasswordChangeForm $userPasswordChangeForm
+ * @var \app\useCases\users\models\user\ProfileModel $model
+ * @var \app\useCases\users\forms\user\UserEmailChangeForm $userEmailChangeForm
+ * @var \app\useCases\users\forms\user\UserPasswordChangeForm $userPasswordChangeForm
  */
 
 $userCanChangeEmail = Yii::$app->settings->get('auth', 'profile_enableChangeEmail');

@@ -6,7 +6,7 @@ use yii\widgets\ListView;
 use app\widgets\Pager;
 
 /**
- * @var \app\search\report\SendSearch $searchModel
+ * @var \app\useCases\reports\search\SendSearch $searchModel
  * @var \yii\data\ActiveDataProvider $dataProvider
  */
 

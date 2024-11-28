@@ -1,6 +1,6 @@
 <?php
 
-namespace app\widgets\Repeater\actions;
+namespace app\useCases\reports\widgets\repeater\actions;
 
 use Yii;
 use yii\base\Action;

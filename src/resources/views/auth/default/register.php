@@ -1,10 +1,12 @@
 <?php
 
-use yii\bootstrap5\ActiveForm;
-use yii\bootstrap5\Html;
+use yii\bootstrap5\{
+    ActiveForm,
+    Html
+};
 
 /**
- * @var \app\forms\auth\SignupForm $model
+ * @var \app\useCases\users\forms\auth\RegisterForm $model
  */
 
 ?>

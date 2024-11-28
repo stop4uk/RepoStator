@@ -1,14 +1,13 @@
 <?php
 
-namespace app\widgets\structform;
+namespace app\useCases\reports\widgets\structform;
 
+use app\entities\report\ReportDataEntity;
+use app\helpers\RbacHelper;
+use app\repositories\report\ConstantRepository;
 use Yii;
 use yii\base\Widget;
 use yii\web\NotFoundHttpException;
-
-use app\entities\report\ReportDataEntity;
-use app\repositories\report\ConstantRepository;
-use app\helpers\RbacHelper;
 
 /**
  * @property ReportDataEntity $model

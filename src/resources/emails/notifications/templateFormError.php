@@ -4,8 +4,6 @@
  * @var array $data
  */
 
-use yii\bootstrap5\Html;
-
 ?>
 
 <table class="s-4 w-full" role="presentation" style="width: 100%;">

@@ -3,7 +3,7 @@
 use yii\helpers\Url;
 
 /**
- * @var \app\models\report\ReportModel $model
+ * @var \app\useCases\reports\models\ReportModel $model
  */
 
 $this->title = Yii::t('views', 'Редактирование отчета');

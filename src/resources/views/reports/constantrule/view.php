@@ -4,7 +4,7 @@ use yii\helpers\Url;
 use yii\bootstrap5\Html;
 
 /**
- * @var \app\models\report\ConstantRuleModel $model
+ * @var \app\useCases\reports\models\ConstantRuleModel $model
  * @var \yii\web\View $this
  */
 

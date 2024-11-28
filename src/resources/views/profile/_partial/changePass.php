@@ -1,11 +1,13 @@
 <?php
 
 use yii\helpers\Url;
-use yii\bootstrap5\Html;
-use yii\bootstrap5\ActiveForm;
+use yii\bootstrap5\{
+    Html,
+    ActiveForm
+};
 
 /**
- * @var \app\forms\user\UserPasswordChangeForm $userPasswordChangeForm
+ * @var \app\useCases\users\forms\user\UserPasswordChangeForm $userPasswordChangeForm
  */
 
 $form = ActiveForm::begin([

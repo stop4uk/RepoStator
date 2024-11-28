@@ -1,11 +1,11 @@
 <?php
 
+use yii\helpers\Html;
+
 /**
  * @var \yii\web\View $this
  * @var string $content
  */
-
-use yii\helpers\Html;
 
 ?>
 <?php $this->beginPage() ?>

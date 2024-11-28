@@ -1,17 +1,21 @@
 <?php
 
-use yii\helpers\Url;
-use yii\helpers\Json;
-use yii\bootstrap5\Html;
-use yii\bootstrap5\ActiveForm;
+use yii\helpers\{
+    Json,
+    Url
+};
+use yii\bootstrap5\{
+    ActiveForm,
+    Html
+};
 use kartik\select2\Select2;
 
 use app\helpers\CommonHelper;
-use app\widgets\repeater\Repeater;
+use app\useCases\reports\widgets\repeater\Repeater;
 
 /**
  * @var \yii\web\View $this
- * @var \app\models\report\StructureModel $model
+ * @var \app\useCases\reports\models\StructureModel $model
  */
 
 $form = ActiveForm::begin([

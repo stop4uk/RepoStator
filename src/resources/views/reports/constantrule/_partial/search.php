@@ -1,14 +1,16 @@
 <?php
 
 use yii\helpers\Url;
-use yii\bootstrap5\Html;
-use yii\bootstrap5\ActiveForm;
+use yii\bootstrap5\{
+    Html,
+    ActiveForm
+};
 use kartik\select2\Select2;
 
 use app\helpers\CommonHelper;
 
 /**
- * @var \app\search\report\ConstantruleSearch $searchModel
+ * @var \app\useCases\reports\search\ConstantruleSearch $searchModel
  */
 
 $resource = Url::to(['/reports/constantrule']);
