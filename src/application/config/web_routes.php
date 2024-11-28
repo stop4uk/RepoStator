@@ -89,10 +89,6 @@ return [
             'class' => StructureController::class,
             'viewPath' => '@resources/views/reports/structure'
         ],
-        'reports_control' => [
-            'class' => ControlController::class,
-            'viewPath' => '@resources/views/reports/control'
-        ],
         'reports_template' => [
             'class' => TemplateReportController::class,
             'viewPath' => '@resources/views/reports/template'
@@ -100,6 +96,10 @@ return [
         'send' => [
             'class' => SendController::class,
             'viewPath' => '@resources/views/reports/send'
+        ],
+        'control' => [
+            'class' => ControlController::class,
+            'viewPath' => '@resources/views/reports/control'
         ],
         'statistic' => StatisticController::class,
         'auth_default' => [
@@ -149,12 +149,8 @@ return [
                 'reports/constantrule/<action:\w+>' => 'reports_constantrule/<action>',
                 'reports/structure'                 => 'reports_structure',
                 'reports/structure/<action:\w+>'    => 'reports_structure/<action>',
-                'reports/control'                   => 'reports_control',
-                'reports/control/<action:\w+>'      => 'reports_control/<action>',
                 'reports/template'                  => 'reports_template',
                 'reports/template/<action:\w+>'     => 'reports_template/<action>',
-                'reports/send'                      => 'reports_send',
-                'reports/send/<action:\w+>'         => 'reports_send/<action>',
 
                 #Админка
                 'admin/groups'                      => 'admin_groups',

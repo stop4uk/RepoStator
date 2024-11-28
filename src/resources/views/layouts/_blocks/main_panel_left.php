@@ -17,12 +17,12 @@ $menuArray = [
 
     [
         'label' => Html::tag('i', '', ['class' => 'bi bi-database-fill']) . Yii::t('views', 'Передать отчет'),
-        'url' => Url::to(['/reports/send']),
+        'url' => Url::to(['/send']),
         'visible' => Yii::$app->getUser()->can('data.send')
     ],
     [
         'label' => Html::tag('i', '', ['class' => 'bi bi-ui-checks']) . Yii::t('views', 'Контроль передачи'),
-        'url' => Url::to(['/reports/control']),
+        'url' => Url::to(['/control']),
         'visible' => Yii::$app->getUser()->can('data.list')
     ],
     [
