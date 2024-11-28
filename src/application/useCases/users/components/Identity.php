@@ -2,6 +2,7 @@
 
 namespace app\useCases\users\components;
 
+use Yii;
 use yii\web\IdentityInterface;
 
 use app\useCases\users\{
@@ -86,13 +87,21 @@ final class Identity implements IdentityInterface
 
     private function getGroups(): void
     {
-        $mainID = $this->user->group->group_id ?? null;
+        $this->group = $this->user->group->group_id ?? null;
 
-        if ($mainID) {
+        if ($this->group) {
             $allGroups = GroupRepository::getAll([], true);
-            $nestedRecord = GroupNestedEntity::find()->where(['group_id' => $mainID])->limit(1)->one();
+            if (Yii::$app->getUser()->can('admin')) {
+                foreach (array_keys($allGroups) as $groupID) {
+                    $this->groups[$groupID] = $groupID;
+                }
 
-            $groups = [$mainID => $allGroups[$mainID]];
+                return;
+            }
+
+            $nestedRecord = GroupNestedEntity::find()->where(['group_id' => $this->group])->limit(1)->one();
+
+            $groups = [$this->group => $allGroups[$this->group]];
             $groupsParent = [];
 
             $children = $nestedRecord->children(100)->all();
@@ -114,7 +123,6 @@ final class Identity implements IdentityInterface
             ksort($groupsParent);
         }
 
-        $this->group = $mainID;
         $this->groups = $groups ?? [];
         $this->groupsParent = $groupsParent ?? [];
     }
