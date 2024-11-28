@@ -21,16 +21,16 @@ $form = ActiveForm::begin([
 ]); ?>
 
     <div class="row">
-        <div class="col-12 col-xl-6">
+        <div class="col-12 col-xxl-6">
             <?= $form->field($model, 'name'); ?>
         </div>
-        <div class="col-12 col-md-6 col-xl-3">
+        <div class="col-12 col-md-6 col-xxl-3">
             <?= $form->field($model, 'left_period')->textInput([
                 'type' => 'number',
                 'min' => 1,
             ])->hint(Yii::t('models', 'Перерыв между передачей отчета в минутах'), ['class' => 'form-text text-muted text-justify']); ?>
         </div>
-        <div class="col-12 col-md-6 col-xl-3">
+        <div class="col-12 col-md-6 col-xxl-3">
             <?= $form->field($model, 'block_minutes')
                 ->input('number', ['min' => 1])
                 ->hint(Yii::t('models', 'Время до окончания периода, в которое будет заблокирована передача отчета'), ['class' => 'form-text text-muted text-justify']);
