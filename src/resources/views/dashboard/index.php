@@ -15,60 +15,50 @@ use app\useCases\reports\helpers\JobHelper;
  * @var array $sentData
  */
 
-$this->title = Yii::t('views', 'Общие показатели');
 Pjax::begin(['id' => 'dashBoard', 'enablePushState' => false, 'clientOptions' => ['method' => 'POST']]);
 
 ?>
-    <div class="row">
-        <div class="col-12">
-            <div class="card">
-                <div class="card-header">
-                    <?= Yii::t('views', 'Напоминания'); ?>
-                </div>
-                <div class="card-body">
-                    <?php
-                        if ( !$needSentData || !Yii::$app->getUser()->can('data.send') ) {
-                            echo Html::tag(
-                                name: 'h4',
-                                content: Yii::t('views', 'Все отчеты на текущий момент переданы'),
-                                options: ['class' => 'text-muted text-center']
-                            );
-                        } else {
-                            echo Html::beginTag('div', ['class' => 'row']);
-                            foreach ($needSentData->getModels() as $index => $model) {
-                                $timePeriodMessage = Yii::t(
-                                    'views',
-                                    $model->timePeriod ? 'Период с {start} по {end}' : 'Без ограничений передачи', [
-                                        'start' => isset($model->timePeriod->start) ? date('d.m.Y H:i', $model->timePeriod->start) : null,
-                                        'end' => isset($model->timePeriod->end) ? date('d.m.Y H:i', $model->timePeriod->end) : null
-                                    ]
-                                );
 
-                                if ( $model->timePeriod ) {
-                                    echo Html::beginTag('div', ['class' => 'col-12']);
-                                    echo Html::tag(
-                                        name: 'p',
-                                        content: Yii::t('views', 'Одна из доступных Вам групп не передала ' .
-                                            '<strong>{name}</strong> в установленный период. <br /><span class="small">{period}</span>',
-                                            [
-                                                'name' => $model->name,
-                                                'period' => $timePeriodMessage
-                                            ]
-                                        ),
-                                        options: ['class' => 'border border-danger rounded p-2']
-                                    );
-                                    echo Html::endTag('div');
-                                }
-                            }
-                            echo Html::endTag('div');
-                        }
-                    ?>
-                </div>
-            </div>
+<?php if (Yii::$app->getUser()->can('data.send') && $needSentData->getTotalCount()): ?>
+    <div class="card">
+        <div class="card-header">
+            <?= Yii::t('views', 'Напоминания'); ?>
+        </div>
+        <div class="card-body">
+            <?php
+                echo Html::beginTag('div', ['class' => 'row']);
+                foreach ($needSentData->getModels() as $index => $model) {
+                    $timePeriodMessage = Yii::t(
+                        'views',
+                        $model->timePeriod ? 'Период с {start} по {end}' : 'Без ограничений передачи', [
+                            'start' => isset($model->timePeriod->start) ? date('d.m.Y H:i', $model->timePeriod->start) : null,
+                            'end' => isset($model->timePeriod->end) ? date('d.m.Y H:i', $model->timePeriod->end) : null
+                        ]
+                    );
+
+                    if ( $model->timePeriod ) {
+                        echo Html::beginTag('div', ['class' => 'col-12']);
+                        echo Html::tag(
+                            name: 'p',
+                            content: Yii::t('views', 'Одна из доступных Вам групп не передала ' .
+                                '<strong>{name}</strong> в установленный период. <br /><span class="small">{period}</span>',
+                                [
+                                    'name' => $model->name,
+                                    'period' => $timePeriodMessage
+                                ]
+                            ),
+                            options: ['class' => 'border border-danger rounded p-2']
+                        );
+                        echo Html::endTag('div');
+                    }
+                }
+                echo Html::endTag('div');
+            ?>
         </div>
     </div>
+<?php endif; ?>
 
-<?php if ( Yii::$app->getUser()->can('statistic') ): ?>
+<?php if (Yii::$app->getUser()->can('statistic')): ?>
     <div class="row">
         <div class="col-12">
             <div class="card">
