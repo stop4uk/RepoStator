@@ -89,7 +89,7 @@ return [
     'Вы еще не передавали сведения за какой-либо отчет' => 'You have not yet submitted information for any report',
     'Отчет <strong>{name}</strong>: {count} сведений' => 'Report <strong>{name}</strong>: {count} details',
     'Очередь формирования отчетов' => 'Report generation queue',
-    'Завершенных или активных задач на фомирование отчетов нет' => 'There are no completed or active report generation tasks',
+    'Завершенных или активных задач на формирование отчетов нет' => 'There are no completed or active report generation tasks',
     'Скачать' => 'Download',
     'Период с {start} по {end}' => 'The period from {start} to {end}',
     'Без ограничений передачи' => 'No transfer restrictions',
