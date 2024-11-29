@@ -40,7 +40,7 @@ $this->title = Yii::t('views', 'Список правил');
         <div class="card-body">
             <?= GridView::widget([
                 'dataProvider' => $dataProvider,
-                'emptyText' => Yii::t('views', 'Отчеты отсутствуют'),
+                'emptyText' => Yii::t('views', 'Правила сложения отсутствуют'),
                 'tableOptions' => ['class' => 'table'],
                 'columns' => [
                     [

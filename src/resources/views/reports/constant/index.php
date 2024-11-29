@@ -39,7 +39,7 @@ $this->title = Yii::t('views', 'Список констант');
         <div class="card-body">
             <?=  GridView::widget([
                 'dataProvider' => $dataProvider,
-                'emptyText' => Yii::t('views', 'Отчеты отсутствуют'),
+                'emptyText' => Yii::t('views', 'Константы для просмотра отсутствуют'),
                 'tableOptions' => ['class' => 'table'],
                 'columns' => [
                     [

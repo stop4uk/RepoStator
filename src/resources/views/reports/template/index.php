@@ -40,7 +40,7 @@ $this->title = Yii::t('views', 'Список шаблонов');
         <div class="card-body">
             <?= GridView::widget([
                 'dataProvider' => $dataProvider,
-                'emptyText' => Yii::t('views', 'Отчеты отсутствуют'),
+                'emptyText' => Yii::t('views', 'Шаблоны отсутствуют'),
                 'tableOptions' => ['class' => 'table'],
                 'columns' => [
                     [
