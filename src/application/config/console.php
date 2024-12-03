@@ -34,6 +34,6 @@ $config = [
 ];
 
 return ArrayHelper::merge(
-    require __DIR__ . '/common.php',
+    require 'common.php',
     $config
 );

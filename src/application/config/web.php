@@ -102,7 +102,7 @@ if ((bool)getenv('YII_DEBUG')) {
 }
 
 return ArrayHelper::merge(
-    require __DIR__ . '/common.php',
-    require __DIR__ . '/web_routes.php',
+    require 'common.php',
+    require 'web_routes.php',
     $config
 );

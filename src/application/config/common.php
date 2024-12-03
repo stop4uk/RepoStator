@@ -10,10 +10,13 @@ use yii\queue\{
 };
 use yii\symfonymailer\Mailer;
 
+use creocoder\flysystem\LocalFilesystem;
+
 use app\components\{
     bootstrap\CommonBootstrap,
     events\handlers\CommonEventHandler,
-    settings\Settings
+    settings\Settings,
+    attachfiles\AttachFileHelper
 };
 
 return [
@@ -40,6 +43,10 @@ return [
         CommonEventHandler::class,
     ],
     'components' => [
+        AttachFileHelper::STORAGE_LOCAL => [
+            'class' => LocalFilesystem::class,
+            'path' => '@uploads'
+        ],
         'i18n' => [
             'translations' => [
                 '*' => [
