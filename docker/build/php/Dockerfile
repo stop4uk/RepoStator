@@ -1,4 +1,4 @@
-FROM php:8.1-fpm AS base
+FROM php:8.2-fpm AS base
 
 ENV APP_HOME /var/www/html
 ENV USERNAME=www-data
