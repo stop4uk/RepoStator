@@ -10,6 +10,7 @@ use yii\bootstrap5\{
 };
 use kartik\select2\Select2;
 
+use app\components\attachedFiles\widgets\attachfile\AttachFileWidget;
 use app\helpers\CommonHelper;
 use app\useCases\reports\{
     entities\ReportFormTemplateEntity,
@@ -21,6 +22,7 @@ use app\useCases\reports\{
  * @var \app\useCases\reports\models\TemplateModel $model
  */
 
+$attachedTemplate = $model->getEntity()->getOneFile();
 $dataForTables = ['columns' => [], 'rows' => []];
 if ( !$model->getIsNewEntity() && $model->form_type == ReportFormTemplateEntity::REPORT_TYPE_DYNAMIC ) {
     $constants = $model->mergeConstantAndRules;
@@ -177,35 +179,32 @@ $form = ActiveForm::begin([
     </div>
     <div class="row mb-3 <?= ( $model->getIsNewEntity() || $model->form_type != ReportFormTemplateEntity::REPORT_TYPE_TEMPLATE) ? 'd-none' : ''; ?>" id="staticTemplate">
         <hr />
-        <div class="col-12 <?= $model->table_template ? 'd-none' : '' ?>" id="fieldInputFileBlock">
-            <?= $form->field($model, 'uploadedFile')->fileInput()->hint("Вы можете загрузить шаблон файла для " .
-                "формирования таблицы в том виде, в котором Вам необходимо. Следует учитывать, что в данный шаблон, подставятся " .
-                "исключительно данные констант и математических правил. Для того, чтобы в нужное место, подставилась нужные данные, " .
-                "в соответствующей ячейке шаблона указать название записи в БД для константы или математического правила и, в " .
-                "двойных фигурных скобках. Например, <strong>{{nar_5_43}}</strong> или <strong>{{vseg_ao}}</strong>. Кроме того, Вы " .
-                "можете использовать указатель периода расчета: M, D, Y через разделительный символ #. При этом, период расчета для " .
-                " указателей дат, будет ограничен выбранным периодом для всего отчета<br />Если Вы, хотите указать " .
-                "в шаблоне период дат, за который производится расчет, укажите в <strong>ОТДЕЛЬНОЙ</strong> ячейке идентификатор " .
-                "<strong>#period#</strong><br /><br /><span class='text-dark'>ПРИМЕР. При расчете за период с 01.10.2021 по 20.02.2022 " .
-                "года, константы и математические правила будут заменены на: <ul class='mb-0'><li><strong>{{nar_5_43}}</strong> сумма " .
-                "данных за весь период без ограничений.</li><li><strong>{{nar_5_43#D}}</strong> сумма данных за КРАЙНИЕ СУТКИ периода " .
-                "расчета 20.02.2022</li><li><strong>{{nar_5_43#M}}</strong> сумма данных за МЕСЯЦ крайнего числа периода расчета - за фераль " .
-                "2022 года</li><li><strong>{{nar_5_43#Y}}</strong> сумма данных за ГОД крайнего числа периода расчета - за 2022 год</li></ul>" .
-                "При этом, следует учитывать, что, если, у математического правила указано ограничение на конктерные группы, то данный фильтр " .
-                "также применится</span>", ['class' => 'form-text text-justify']); ?>
-            <?= $form->field($model, 'oldTemplate')->hiddenInput()->label(false); ?>
-        </div>
+        <?php
+            echo AttachFileWidget::widget([
+                'model' => $model->getEntity(),
+                'workMode' => AttachFileWidget::MODE_ONE,
+                'uploadButtonTitle' => 'Прикрепить шаблон отчета',
+                'uploadButtonOptions' => 'w-100'
+            ]);
 
-        <div class="col-6 <?= (!$model->table_template || !$model->getEntity()->record_status) ? 'd-none' : '' ?>" id="buttonDownloadTemplateBlock">
-            <div class="d-grid gap-2">
-                <?= Html::a(Yii::t('views', 'Скачать текущий шаблон'), ['download', 'path' => base64_encode($model->table_template ?? '')], ['class' => 'btn btn-success']); ?>
-            </div>
-        </div>
-        <div class="col-6 <?= (!$model->table_template || !$model->getEntity()->record_status) ? 'd-none' : '' ?>" id="buttonChangeTemplateBlock">
-            <div class="d-grid gap-2">
-                <?= Html::button(Yii::t('views', 'Заменить шаблон'), ['class' => 'btn btn-dark', 'type' => 'button', 'onclick' => 'changeTemplate()']); ?>
-            </div>
-        </div>
+            if (!$attachedTemplate) {
+                echo Html::tag('span', Yii::t('views', "Вы можете загрузить шаблон файла для " .
+                    "формирования таблицы в том виде, в котором Вам необходимо. Следует учитывать, что в данный шаблон, подставятся " .
+                    "исключительно данные констант и математических правил. Для того, чтобы в нужное место, подставилась нужные данные, " .
+                    "в соответствующей ячейке шаблона указать название записи в БД для константы или математического правила и, в " .
+                    "двойных фигурных скобках. Например, <strong>{{nar_5_43}}</strong> или <strong>{{vseg_ao}}</strong>. Кроме того, Вы " .
+                    "можете использовать указатель периода расчета: M, D, Y через разделительный символ #. При этом, период расчета для " .
+                    "указателей дат, будет ограничен выбранным периодом для всего отчета<br />Если Вы, хотите указать " .
+                    "в шаблоне период дат, за который производится расчет, укажите в <strong>ОТДЕЛЬНОЙ</strong> ячейке идентификатор " .
+                    "<strong>#period#</strong><br /><br /><span class='text-dark'>ПРИМЕР. При расчете за период с 01.10.2021 по 20.02.2022 " .
+                    "года, константы и математические правила будут заменены на: <ul class='mb-0'><li><strong>{{nar_5_43}}</strong> сумма " .
+                    "данных за весь период без ограничений.</li><li><strong>{{nar_5_43#D}}</strong> сумма данных за КРАЙНИЕ СУТКИ периода " .
+                    "расчета 20.02.2022</li><li><strong>{{nar_5_43#M}}</strong> сумма данных за МЕСЯЦ крайнего числа периода расчета - за фераль " .
+                    "2022 года</li><li><strong>{{nar_5_43#Y}}</strong> сумма данных за ГОД крайнего числа периода расчета - за 2022 год</li></ul>" .
+                    "При этом, следует учитывать, что, если, у математического правила указано ограничение на конктерные группы, то данный фильтр " .
+                    "также применится</span>"), ['class' => 'small text-muted mt-2 text-justify']);
+            }
+        ?>
     </div>
 
     <div class="row mt-4">
@@ -227,7 +226,6 @@ $fieldIds = Json::encode([
     'tableRows' => Html::getInputId($model, 'table_rows'),
     'tableColumns' => Html::getInputId($model, 'table_columns'),
     'tableType' => Html::getInputId($model, 'table_type'),
-    'oldTemplate' => Html::getInputId($model, 'oldTemplate'),
     'saveMaxFiles' => Html::getInputId($model, 'limit_maxfiles'),
     'saveMaxTime' => Html::getInputId($model, 'limit_maxsavetime'),
 ]);
@@ -236,7 +234,6 @@ $valuesFromEntity = Json::encode([
     'needGetData' => ReportFormTemplateEntity::REPORT_TYPE_DYNAMIC,
     'tableDatetimePeriod' => ReportFormTemplateEntity::REPORT_DATETIME_PERIOD,
     'tableTypeConstant' => ReportFormTemplateEntity::REPORT_TABLE_TYPE_CONST,
-    'oldTemplate' => $model->table_template
 ]);
 
 $this->registerJs(<<< JS
@@ -323,13 +320,6 @@ $this->registerJs(<<< JS
         }); 
         
         $("#" + fieldIds["tableRows"] + ", #" + fieldIds["tableColumns"]).trigger("change");
-    }
-    
-    function changeTemplate()
-    {
-        $("#fieldInputFileBlock").removeClass("d-none");
-        $("#buttonDownloadTemplateBlock, #buttonChangeTemplateBlock").addClass("d-none");
-        $("#" + fieldIds["oldTemplate"]).val(valuesFromEntity["oldTemplate"]);
     }
     
     function changeFieldsWhenDatetimeSelect(element)
