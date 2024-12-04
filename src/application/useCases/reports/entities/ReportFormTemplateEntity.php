@@ -14,7 +14,11 @@ use yii\db\{
 };
 use yii2tech\ar\softdelete\SoftDeleteBehavior;
 
-use app\components\base\BaseAR;
+use app\components\{
+    base\BaseAR,
+    attachedFiles\AttachFileBehavior,
+    attachedFiles\AttachFileHelper
+};
 use app\helpers\CommonHelper;
 use app\useCases\reports\{
     models\TemplateModel,
@@ -98,6 +102,21 @@ final class ReportFormTemplateEntity extends BaseAR
                 'softDeleteAttributeValues' => [
                     'record_status' => self::RSTATUS_DELETED
                 ],
+            ],
+            [
+                'class' => AttachFileBehavior::class,
+                'storageID' => AttachFileHelper::STORAGE_LOCAL,
+                'modelName' => 'ReportFormTemplateEntity',
+                'modelKey' => 'id',
+                'attachRules' => [
+                    'photoProfile' => [
+                        'name' => 'Шаблон отчета',
+                        'maxFiles' => 1,
+                        'rules' => [
+                            ['file', 'extensions' => ['xls', 'ods']],
+                        ]
+                    ],
+                ]
             ]
         ];
     }
