@@ -5,7 +5,7 @@ use yii\widgets\{
     Pjax,
     ListView
 };
-use yii\bootstrap\Html;
+use yii\bootstrap5\Html;
 
 use app\components\attachedFiles\{
     AttachFileUploadForm,
@@ -37,7 +37,7 @@ $uploadModel = new AttachFileUploadForm([
              e.preventDefault();
              var deleteUrl = $(this).attr('delete-url');
              var pjaxContainer = $(this).attr('pjax-container');
-             var result = confirm($deleteConfigMessage);                                
+             var result = confirm("$deleteConfigMessage");                                
              if(result) {
                  $.ajax({
                      url: deleteUrl,

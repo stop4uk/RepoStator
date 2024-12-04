@@ -61,7 +61,7 @@ final class AttachFileWidget extends Widget
             'uploadButtonTitle' => $this->uploadButtonTitle,
             'canDeleted' => $this->canDeleted,
             'showFileAsImage' => $this->showFileAsImage,
-            'filesGridColumns' => $this->fileGridColumns,
+            'filesGridColumns' => $this->filesGridColumns,
             'dataProvider' => $this->model->getAttachedFiles(),
             'canAttached' => $this->model->getCanFilesToAttach(),
         ]);

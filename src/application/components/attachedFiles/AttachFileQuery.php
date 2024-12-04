@@ -14,9 +14,9 @@ final class AttachFileQuery extends ActiveQuery
         return $this->andWhere(['modelName' => $modelName]);
     }
 
-    public function byKey(string $modelKey): self
+    public function byKey(?string $modelKey): self
     {
-        return $this->andWhere(['modelKey' => $modelKey]);
+        return $modelKey? $this->andWhere(['modelKey' => $modelKey]) : $this;
     }
 
     public function byHash(string|null $hash = null): self

@@ -2,8 +2,14 @@
 
 namespace app\components\attachedFiles\widgets\fileupload;
 
-use yii\bootstrap\Html;
-use dosamigos\fileupload\FileUpload as BaseFileUploadWidget;
+use yii\helpers\Json;
+use yii\bootstrap5\Html;
+use dosamigos\fileupload\{
+    FileUpload as BaseFileUploadWidget,
+    FileUploadPlusAsset
+};
+
+use app\components\attachedFiles\widgets\fileupload\assets\FileUploadAsset;
 
 final class FileUploadWidget extends BaseFileUploadWidget
 {
@@ -46,5 +52,27 @@ final class FileUploadWidget extends BaseFileUploadWidget
             : $input;
 
         $this->registerClientScript();
+    }
+
+    public function registerClientScript()
+    {
+        $view = $this->getView();
+
+        if($this->plus) {
+            FileUploadPlusAsset::register($view);
+        } else {
+            FileUploadAsset::register($view);
+        }
+
+        $options = Json::encode($this->clientOptions);
+        $id = $this->options['id'];
+
+        $js[] = ";jQuery('#$id').fileupload($options);";
+        if (!empty($this->clientEvents)) {
+            foreach ($this->clientEvents as $event => $handler) {
+                $js[] = "jQuery('#$id').on('$event', $handler);";
+            }
+        }
+        $view->registerJs(implode("\n", $js));
     }
 }

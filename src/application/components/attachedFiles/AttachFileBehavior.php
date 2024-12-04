@@ -238,7 +238,7 @@ final class AttachFileBehavior extends Behavior
         return $this->attachRules;
     }
 
-    public function getOnePhotoFile(): string|null
+    public function getOneFile(bool $asImage = false): string|null
     {
         $files = $this->getFilesInDB();
         if (!$files) {
@@ -248,8 +248,13 @@ final class AttachFileBehavior extends Behavior
         /** @var AttachFileEntity $model */
         $model = $files[0];
         $filePath = $model->file_path . DIRECTORY_SEPARATOR . implode('.', [$model->file_hash, $model->file_extension]);
-        $photo = base64_encode(AttachFileHelper::readFromStorage($model->storage, $filePath));
-        return "data:image/{$model->file_extension};base64,$photo";
+
+        if ($asImage) {
+            $photo = base64_encode(AttachFileHelper::readFromStorage($model->storage, $filePath));
+            return "data:image/{$model->file_extension};base64,$photo";
+        }
+
+        return $filePath;
     }
 
     private function getFilesInDB(string|null $type = null)
