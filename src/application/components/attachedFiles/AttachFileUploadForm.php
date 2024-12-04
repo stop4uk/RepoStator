@@ -7,6 +7,8 @@ use yii\base\Model;
 
 final class AttachFileUploadForm extends Model
 {
+    const SCENARIO_TEMPUPLOAD = 'tempUpload';
+
     public $modelClass;
     public $modelKey;
     public $modelType;
@@ -18,7 +20,8 @@ final class AttachFileUploadForm extends Model
     {
         $workModel = $this->getWorkModel();
         $rules = [
-            [['modelClass', 'modelKey', 'modelType'], 'required'],
+            ['modelType', 'required'],
+            [['modelClass', 'modelKey'], 'requied', 'except' => self::SCENARIO_TEMPUPLOAD],
             [['modelClass', 'modelKey', 'modelType'], 'string'],
         ];
 

@@ -14,8 +14,22 @@ trait AttachFileActionsTrait
 
         $model = AttachFileUploadForm::createFromParams($params);
         $model->uploadFile = UploadedFile::getInstance($model, 'uploadFile');
+        if (!$model->modelKey) {
+            $model->scenario == $model::SCENARIO_TEMPUPLOAD;
+        }
 
         if ($model->validate()) {
+            if (!$model->modelKey) {
+                Yii::$app->getCache()->set('reportTempUpload_' . Yii::$app->getUser()->getId(), [
+                    'inputFile' => $model->uploadFile->tempName,
+                    'type' => $model->modelType,
+                    'name' => $model->uploadFile->name,
+                    'extension' => pathinfo($model->uploadFile->name)['extension']
+                ]);
+
+                return Json::encode(['status' => 'success']);
+            }
+
             $saveFile = $model->getWorkModel()->attachFile(
                 inputFile: $model->uploadFile->tempName,
                 type: $model->modelType,
@@ -40,6 +54,10 @@ trait AttachFileActionsTrait
     public function actionDetachfile(string $params): void
     {
         $paramsArray = unserialize(base64_decode($params));
+        if (!$paramsArray['modelKey']) {
+            return;
+        }
+
         $object = Yii::createObject($paramsArray['modelClass']);
 
         $model = $object->find()->where([$object->modelKey => $paramsArray['modelKey']])->limit(1)->one();
@@ -49,8 +67,16 @@ trait AttachFileActionsTrait
     public function actionGetfile(string $params)
     {
         $paramsArray = unserialize(base64_decode($params));
+        if (!$paramsArray['modelKey']) {
+            return;
+        }
+
         $object = Yii::createObject($paramsArray['modelClass']);
-        $model = $object->find()->where([$object->modelKey => $paramsArray['modelKey']])->limit(1)->one();
+        $model = $object
+            ->find()
+            ->where([$object->modelKey => $paramsArray['modelKey']])
+            ->limit(1)
+            ->one();
 
         $fileData = $model->getAttachFile($paramsArray['hash']);
         if ( $fileData ) {
