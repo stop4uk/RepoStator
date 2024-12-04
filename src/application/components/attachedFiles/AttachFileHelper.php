@@ -4,6 +4,7 @@ namespace app\components\attachedFiles;
 
 use Yii;
 use yii\base\Exception;
+use yii\helpers\ArrayHelper;
 
 final class AttachFileHelper
 {
@@ -13,20 +14,30 @@ final class AttachFileHelper
     const FSTATUS_ARCHIVE = 0;
     const FSTATUS_ACTIVE = 1;
     const FSTATUS_UPDATED = 2;
-    const FSTATUSES = [
-        self::FSTATUS_ARCHIVE => 'Архивный',
-        self::FSTATUS_ACTIVE => 'Текущий',
-        self::FSTATUS_UPDATED => 'Был обновлен',
-    ];
 
-    public array $storages = [];
-
-    public function init()
-    {
-        $this->storages = [
+    public static function getStorageName(
+        bool $asList = false,
+        ?string $storageID = null
+    ): string|array|null {
+        $items = [
             self::STORAGE_LOCAL => Yii::t('system', 'Локальное хранилище'),
             self::STORAGE_S3CLOUD => Yii::t('system', 'Хранилище S3')
         ];
+
+        return $asList ? $items : ArrayHelper::getValue($items, $storageID);
+    }
+
+    public static function getFileStatus(
+        bool $asList = false,
+        ?string $status = null
+    ): ?string {
+        $items = [
+            self::FSTATUS_ARCHIVE => Yii::t('system', 'Архивный'),
+            self::FSTATUS_ACTIVE => Yii::t('system', 'Текущий'),
+            self::FSTATUS_UPDATED => Yii::t('system', 'Был обновлен'),
+        ];
+
+        return $asList ? $items : ArrayHelper::getValue($items, $status);
     }
 
     public static function saveToStorage(
@@ -64,7 +75,7 @@ final class AttachFileHelper
         return $contents ?: null;
     }
 
-    public static function removeFromStorageByPath(
+    public static function removeFromStorage(
         string $storageID,
         string $path
     ): bool {
@@ -77,67 +88,5 @@ final class AttachFileHelper
         } catch (Exception $e) {
             return false;
         }
-    }
-
-    public static function moveToNewPath(
-        string $storageID,
-        string $filePath,
-        string $toPath,
-        string $fileName,
-    ): bool
-    {
-        $storage = Yii::$app->get($storageID);
-        $storage->createDir($toPath);
-        $writeFile = $storage->writeStream($toPath . DIRECTORY_SEPARATOR . $fileName, fopen($storage->read($filePath), 'r+'));
-
-        if ($writeFile){
-            $storage->delete($filePath);
-            return true;
-        }
-
-        return false;
-    }
-
-    public static function moveToAnotherStorage(
-        string $fromStorageID,
-        string $filePath,
-        string $toStorageID,
-        string $toPath,
-        string $fileName
-    ): bool
-    {
-        $storage = Yii::$app->get($fromStorageID);
-        $newStorage = Yii::$app->get($toStorageID);
-        $newStorage->createDir($toPath);
-        $writeFile = $newStorage->writeStream($toPath . DIRECTORY_SEPARATOR . $fileName, fopen($storage->read($filePath), 'r+'));
-
-        if ($writeFile) {
-            $storage->delete($filePath);
-            return true;
-        }
-
-        return false;
-    }
-
-    public static function moveToAnotherStorageByHash(
-        string $hash,
-        string $toStorageID,
-        string $toPath,
-    ): bool {
-        $model = AttachFileModel::find()->hash($hash)->one();
-        if ($model) {
-            $fileName = implode('.', [$model->file_hash, $model->file_extension]);
-            $filePath = $model->file_path . DIRECTORY_SEPARATOR . $fileName;
-
-            return self::moveToAnotherStorage(
-                fromStorageID: $model->storage,
-                filePath: $filePath,
-                toStorageID: $toStorageID,
-                toPath: $toPath,
-                fileName: $fileName
-            );
-        }
-
-        return false;
     }
 }

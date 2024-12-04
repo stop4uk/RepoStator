@@ -1,14 +1,20 @@
 <?php
 
-namespace common\attachfiles\widgets\fileupload;
+namespace app\components\attachedFiles\widgets\fileupload;
 
 use yii\bootstrap\Html;
 use dosamigos\fileupload\FileUpload as BaseFileUploadWidget;
 
 final class FileUploadWidget extends BaseFileUploadWidget
 {
-    public string|null $buttonName = null;
-    public string|null $buttonOptions = null;
+    /**
+     * @var string|null
+     */
+    public $buttonName;
+    /**
+     * @var string|null
+     */
+    public $buttonOptions;
 
     public function run()
     {

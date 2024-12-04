@@ -1,11 +1,13 @@
 <?php
 
-use yii\widgets\Pjax;
-use yii\widgets\ListView;
 use yii\helpers\Url;
+use yii\widgets\{
+    Pjax,
+    ListView
+};
 use yii\bootstrap\Html;
 
-use common\attachfiles\{
+use app\components\attachedFiles\{
     AttachFileUploadForm,
     widgets\fileupload\FileUploadWidget
 };
@@ -14,6 +16,7 @@ use common\attachfiles\{
  * @var array $canAttached Возможность загрузить фото
  * @var bool $canDeleted Возможность удаления файлов
  * @var string $uploadButtonTitle Текст кнопки загрузки файла
+ * @var bool $showFileAsImage Отображать файл в виде фотографии
  * @var \yii\db\BaseActiveRecord $parentModel Модель, к которой привязыается виджет
  * @var \yii\data\ArrayDataProvider $dataProvider Данные по уже загруженным и, находящимся в статусе ACTIVE файлам
  */
@@ -27,12 +30,14 @@ $uploadModel = new AttachFileUploadForm([
 
 <?php
     Pjax::begin(['id' => 'attachedFileList']);
+
+    $deleteConfigMessage = Yii::t('system', 'Вы действительно хотите удалить файл?');
     $this->registerJs(<<<JS
          $('.pjax-delete-link').on('click', function(e) {
              e.preventDefault();
              var deleteUrl = $(this).attr('delete-url');
              var pjaxContainer = $(this).attr('pjax-container');
-             var result = confirm('Вы действительно хотите удалить фотографию?');                                
+             var result = confirm($deleteConfigMessage);                                
              if(result) {
                  $.ajax({
                      url: deleteUrl,
@@ -74,7 +79,7 @@ JS);
                                 if (response.status == "success") {
                                     $.pjax.reload({container:"#attachedFileList"});
                                 } else {
-                                    let string = "В процессе загрузки файлов возникли ошибки:\r\n\r\n";
+                                    let string = "' . Yii::t('system', 'В процессе загрузки файлов возникли ошибки') . ':\r\n\r\n";
                                     $.each(response.errors, function(index, value){
                                         string = string + value + "\r\n";
                                     });
@@ -83,7 +88,7 @@ JS);
                                 }
                             }',
                             'fileuploadfail' => 'function(e, data) {
-                                alert("В процессе загрузки файла произошла ошибка. Пожалуйста, обратитесь к администратору");
+                                alert("' . Yii::t('system', 'В процессе загрузки файла произошла ошибка. Пожалуйста, обратитесь к администратору') . '");
                             }',
                         ],
                     ]);
@@ -92,10 +97,11 @@ JS);
                 echo ListView::widget([
                     'dataProvider' => $dataProvider,
                     'layout' => '{items}',
-                    'itemView' => 'onePhoto_item',
+                    'itemView' => 'one_item',
                     'options' => ['class' => 'row'],
                     'itemOptions' => ['class' => 'col-12 text-center'],
                     'viewParams' => [
+                        'showFileAsImage' => $showFileAsImage,
                         'canDeleted' => $canDeleted,
                         'modelClass' => $parentModel::class,
                         'modelKey' => (string)$parentModel->{$parentModel->modelKey},

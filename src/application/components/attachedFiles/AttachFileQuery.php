@@ -1,6 +1,6 @@
 <?php
 
-namespace app\components\attachfiles;
+namespace app\components\attachedFiles;
 
 use yii\db\{
     ActiveQuery,

@@ -1,6 +1,6 @@
 <?php
 
-namespace app\components\attachfiles;
+namespace app\components\attachedFiles;
 
 use ReflectionClass;
 
@@ -12,6 +12,14 @@ use yii\base\{
 use yii\data\ArrayDataProvider;
 use yii\helpers\FileHelper;
 
+/**
+ * @var array $params
+ * name - Название категории (типа загружаемого файла). string
+ * tags - Теги для БД. string
+ * rules - Yii2 rules для валидации. При загрузке файла применяются. array
+ * maxFiles - Количество файлов в БД. Если, указано, то при загрузке, будет считаться количество активных файлов
+ * с типом name и статусом: Активен. integer
+ */
 final class AttachFileBehavior extends Behavior
 {
     public $storageID;
@@ -66,7 +74,7 @@ final class AttachFileBehavior extends Behavior
         $fileName = implode('.', [$fileData['nameSave'], $fileData['extension']]);
         $saveFile = AttachFileHelper::saveToStorage($this->storageID, $inputFile, $pathToSave, $fileName);
 
-        $lastAttachedFile = AttachFileModel::find()->lastVersion($this->modelName, $key, $type)->one();
+        $lastAttachedFile = AttachFileEntity::find()->lastVersion($this->modelName, $key, $type)->one();
         $file_version = $lastAttachedFile ? ($lastAttachedFile->file_version+1) : 1;
 
         if ($saveFile) {
@@ -74,7 +82,7 @@ final class AttachFileBehavior extends Behavior
                 unlink($inputFile);
             } catch (\Exception $e) {};
 
-            $model = new AttachFileModel([
+            $model = new AttachFileEntity([
                 'storage' => $this->storageID,
                 'name' => $fileData['nameOrig'],
                 'modelName' => $this->modelName,
@@ -108,7 +116,7 @@ final class AttachFileBehavior extends Behavior
         string|array|null $tags = null,
         string|null $tagsCondition = null
     ): bool {
-        $attachedFiles = AttachFileModel::find()
+        $attachedFiles = AttachFileEntity::find()
             ->byModel($this->modelName)
             ->byHash($hash)
             ->byType($type)
@@ -142,7 +150,7 @@ final class AttachFileBehavior extends Behavior
 
     public function getAttachFile(string $hash): array|null
     {
-        $file = AttachFileModel::find()
+        $file = AttachFileEntity::find()
             ->byModel($this->modelName)
             ->byHash($hash)
             ->one();
@@ -237,7 +245,7 @@ final class AttachFileBehavior extends Behavior
             return null;
         }
 
-        /** @var AttachFileModel $model */
+        /** @var AttachFileEntity $model */
         $model = $files[0];
         $filePath = $model->file_path . DIRECTORY_SEPARATOR . implode('.', [$model->file_hash, $model->file_extension]);
         $photo = base64_encode(AttachFileHelper::readFromStorage($model->storage, $filePath));
@@ -247,7 +255,7 @@ final class AttachFileBehavior extends Behavior
     private function getFilesInDB(string|null $type = null)
     {
         if ( $this->filesInDB === null ) {
-            $this->filesInDB = AttachFileModel::find()
+            $this->filesInDB = AttachFileEntity::find()
                 ->byModel($this->modelName)
                 ->byKey($this->owner->{$this->modelKey})
                 ->byStatus(AttachFileHelper::FSTATUS_ACTIVE)

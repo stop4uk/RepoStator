@@ -1,6 +1,6 @@
 <?php
 
-namespace app\components\attachfiles;
+namespace app\components\attachedFiles;
 
 use Yii;
 use yii\web\UploadedFile;
@@ -46,7 +46,7 @@ trait AttachFileActionsTrait
         $model->detachFiles($paramsArray['hash']);
     }
 
-    public function actionGetattachfile(string $params)
+    public function actionGetfile(string $params)
     {
         $paramsArray = unserialize(base64_decode($params));
         $object = Yii::createObject($paramsArray['modelClass']);

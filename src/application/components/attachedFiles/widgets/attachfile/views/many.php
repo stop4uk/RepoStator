@@ -2,15 +2,15 @@
 
 use yii\widgets\Pjax;
 use yii\grid\{
-    GridView,
     SerialColumn,
     ActionColumn
 };
 use yii\helpers\Url;
 use yii\bootstrap\Html;
 
-use common\helpers\PagerHelper;
-use common\attachfiles\{
+use app\widgets\GridView;
+use app\components\attachedFiles\{
+    AttachFileHelper,
     AttachFileUploadForm,
     widgets\fileupload\FileUploadWidget
 };
@@ -20,6 +20,7 @@ use common\attachfiles\{
  * @var string $uploadButtonTitle Текст на кнопке выбора доков для загрузки
  * @var array $canAttached Список типов доков, которые можно загрузить
  * @var bool $canDeleted Возможность удаления файлов
+ * @var array $filesGridColuns Список колонок для отображения
  * @var \yii\db\BaseActiveRecord $parentModel Модель, к которой привязыается виджет
  * @var \yii\data\ArrayDataProvider $dataProvider Данные по уже загруженным и, находящимся в статусе ACTIVE файлам
  */
@@ -32,13 +33,15 @@ $uploadModel = new AttachFileUploadForm([
 ?>
 
 <?php
-Pjax::begin(['id' => 'attachedFileList']);
-$this->registerJs(<<<JS
+    Pjax::begin(['id' => 'attachedFileList']);
+
+    $deleteConfigMessage = Yii::t('system', 'Вы действительно хотите удалить текущий файл?');
+    $this->registerJs(<<<JS
          $('.pjax-delete-link').on('click', function(e) {
              e.preventDefault();
              var deleteUrl = $(this).attr('delete-url');
              var pjaxContainer = $(this).attr('pjax-container');
-             var result = confirm('Вы действительно хотите удалить текущий документ?');                                
+             var result = confirm($deleteConfigMessage);                                
              if(result) {
                  $.ajax({
                      url: deleteUrl,
@@ -84,7 +87,7 @@ JS);
                                             if (response.status == "success") {
                                                 $.pjax.reload({container:"#attachedFileList"});
                                             } else {
-                                                let string = "В процессе загрузки файлов возникли ошибки:\r\n\r\n";
+                                                let string = "' . Yii::t('system', 'В процессе загрузки файлов возникли ошибки') . ':\r\n\r\n";
                                                 $.each(response.errors, function(index, value){
                                                     string = string + value + "\r\n";
                                                 });
@@ -93,7 +96,7 @@ JS);
                                             }
                                         }',
                                         'fileuploadfail' => 'function(e, data) {
-                                            alert("В процессе загрузки файла произошла ошибка. Пожалуйста, обратитесь к администратору");
+                                            alert("' . Yii::t('system', 'В процессе загрузки файла произошла ошибка. Пожалуйста, обратитесь к администратору') . '");
                                         }',
                                     ],
                                 ]);
@@ -112,26 +115,52 @@ JS);
                 'tableOptions' => ['class' => 'table m-0 table-hover'],
                 'columns' => [
                     ['class' => SerialColumn::class],
+                    'id' => [
+                        'visible' => isset($filesGridColuns['id']),
+                    ],
+                    'storage' => [
+                        'visible' => isset($filesGridColuns['storage']),
+                        'value' => fn($model) => AttachFileHelper::getStorageName(storageID: $model->storage)
+                    ],
                     'name' => [
-                        'attribute' => 'name',
-                        'label' => 'Название',
+                        'visible' => isset($filesGridColuns['name']),
                         'format' => 'html',
                         'value' => function($model) {
                             return $model->name . Html::tag('span', '#'.Yii::$app->formatter->asShortSize($model['file_size']), ['class' => 'text-muted small ml-1']);
                         }
                     ],
+                    'modelName' => [
+                        'visible' => isset($filesGridColuns['modelName']),
+                    ],
+                    'modelKey' => [
+                        'visible' => isset($filesGridColuns['modelKey']),
+                    ],
                     'file_type' => [
                         'attribute' => 'file_type',
-                        'label' => 'Тип',
                         'value' => function($model) use($parentModel) {
                             return $parentModel->getAttachedFileTypeName($model->file_type);
                         }
                     ],
+                    'file_hash' => [
+                        'visible' => isset($filesGridColuns['file_hash']),
+                    ],
+                    'file_path' => [
+                        'visible' => isset($filesGridColuns['file_path']),
+                    ],
+                    'file_size' => [
+                        'visible' => isset($filesGridColuns['file_size']),
+                    ],
+                    'file_extension' => [
+                        'visible' => isset($filesGridColuns['file_extension']),
+                    ],
+                    'file_mime' => [
+                        'visible' => isset($filesGridColuns['file_mime']),
+                    ],
                     'file_tags' => [
+                        'visible' => isset($filesGridColuns['file_tags']),
                         'attribute' => 'file_tags',
-                        'label' => 'Теги',
                         'format' => 'html',
-                         'value' => function($model) {
+                        'value' => function($model) {
                             if ($model->file_tags) {
                                 if (is_array($model->file_tags)) {
                                     $tags = '';
@@ -143,14 +172,23 @@ JS);
                                 }
 
                                 return Html::tag('span', $model->file_tags, ['class' => 'badge border p-1']);
-
                             }
-                         }
+                        }
+                    ],
+                    'file_status' => [
+                        'visible' => isset($filesGridColuns['file_status']),
+                        'value' => fn($model) => AttachFileHelper::getFileStatus(status: $model->file_status)
+                    ],
+                    'file_version' => [
+                        'visible' => isset($filesGridColuns['file_version']),
                     ],
                     [
                         'attribute' => 'created_at',
-                        'label' => 'Загружен',
                         'value' => fn($model) => Yii::$app->getFormatter()->asDatetime($model->created_at)
+                    ],
+                    [
+                        'attribute' => 'updated_at',
+                        'value' => fn($model) => Yii::$app->getFormatter()->asDatetime($model->updated_at)
                     ],
                     [
                         'class' => ActionColumn::class,
@@ -165,7 +203,7 @@ JS);
                                 ];
 
                                 return Html::a(
-                                    '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-download icon wh-15"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg>',
+                                    Html::tag('i', '', ['class' => 'bi bi-download']),
                                     ['getattachfile', 'params' => base64_encode(serialize($actionParams))],
                                     [
                                         'class' => 'btn btn-link text-success p-0',
@@ -187,7 +225,7 @@ JS);
 
                                 return Html::tag(
                                     'span',
-                                    '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-trash icon wh-15"><polyline points="3 6 5 6 21 6"></polyline><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path></svg>',
+                                    Html::tag('i', '', ['class' => 'bi bi-trash']),
                                     [
                                         'class' => 'btn btn-link text-success p-0 pjax-delete-link',
                                         'title' => 'Удалить',
@@ -202,4 +240,5 @@ JS);
             ]); ?>
         </div>
     </div>
-<?php Pjax::end(); ?>
+<?php
+    Pjax::end();

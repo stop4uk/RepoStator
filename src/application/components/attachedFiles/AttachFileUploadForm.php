@@ -1,6 +1,6 @@
 <?php
 
-namespace app\components\attachfiles;
+namespace app\components\attachedFiles;
 
 use Yii;
 use yii\base\Model;

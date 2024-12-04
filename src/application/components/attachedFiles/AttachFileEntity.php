@@ -1,6 +1,6 @@
 <?php
 
-namespace app\components\attachfiles;
+namespace app\components\attachedFiles;
 
 use Yii;
 use yii\behaviors\{
@@ -14,8 +14,6 @@ use yii\db\{
 };
 
 /**
- * This is the model class for table "attach_file".
- *
  * @property int $id
  * @property string $storage
  * @property string $name Название файла
@@ -30,12 +28,11 @@ use yii\db\{
  * @property array|null $file_tags Теги файла
  * @property integer $file_version
  * @property integer $file_status
- * @property integer|null $customer_id
  * @property int $created_at Дата и время добавления
  * @property int|null $created_uid
  * @property int|null $updated_at Дата и время обновления
  */
-final class AttachFileModel extends ActiveRecord
+final class AttachFileEntity extends ActiveRecord
 {
     public function behaviors(): array
     {
@@ -66,14 +63,15 @@ final class AttachFileModel extends ActiveRecord
             ['file_status', 'default', 'value' => AttachFileHelper::FSTATUS_ACTIVE],
 
             [['storage', 'name', 'file_path'], 'string', 'max' => 255],
+            ['storage', 'in', 'range' => array_keys(AttachFileHelper::getStorageName(asList: true))],
             ['modelName', 'string', 'max' => 100],
             ['modelKey', 'string', 'max' => 36],
             ['file_hash', 'string', 'max' => 32],
             ['file_extension', 'string', 'max' => 4],
             ['file_mime', 'string', 'max' => 30],
-            ['file_status', 'in', 'range' => array_keys(AttachFileHelper::FSTATUSES)],
+            ['file_status', 'in', 'range' => array_keys(AttachFileHelper::getFileStatus(asList: true))],
             ['file_type', 'string', 'max' => 24],
-            [['file_size', 'file_version', 'customer_id', 'created_at', 'created_uid', 'updated_at'], 'integer'],
+            [['file_size', 'file_version', 'created_at', 'created_uid', 'updated_at'], 'integer'],
             ['file_tags', 'safe'],
 
             [['storage', 'name', 'modelName', 'modelKey', 'file_hash', 'file_size', 'file_extension', 'file_mime', 'file_version', 'file_status'], 'required']
@@ -84,22 +82,21 @@ final class AttachFileModel extends ActiveRecord
     {
         return [
             'id' => '#',
-            'storage' => '',
-            'name' => 'Название',
-            'modelName' => 'Модель',
-            'modelKey' => 'Ключ модели',
-            'file_type' => 'Тип',
-            'file_hash' => 'Хэш',
-            'file_size' => 'Размер',
-            'file_extension' => 'Расширение',
-            'file_mime' => 'MIME тип',
-            'file_tags' => 'Теги',
-            'file_version' => 'Версия',
-            'file_status' => 'Статус',
-            'customer_id' => 'Организация',
-            'created_at' => 'Загружен',
-            'created_uid' => 'Пользователь',
-            'updated_at' => 'Дата и время обновления',
+            'storage' => Yii::t('entities', 'Хранилище'),
+            'name' => Yii::t('entities', 'Название'),
+            'modelName' => Yii::t('entities', 'Модель'),
+            'modelKey' => Yii::t('entities', 'Ключ модели'),
+            'file_type' => Yii::t('entities', 'Тип'),
+            'file_hash' => Yii::t('entities', 'Хэш'),
+            'file_size' => Yii::t('entities', 'Размер'),
+            'file_extension' => Yii::t('entities', 'Расширение'),
+            'file_mime' => Yii::t('entities', 'MIME тип'),
+            'file_tags' => Yii::t('entities', 'Теги'),
+            'file_version' => Yii::t('entities', 'Версия'),
+            'file_status' => Yii::t('entities', 'Статус'),
+            'created_at' => Yii::t('entities', 'Загружен'),
+            'created_uid' => Yii::t('entities', 'Загрузил'),
+            'updated_at' => Yii::t('entities', 'Обновлен'),
         ];
     }
 
@@ -110,6 +107,6 @@ final class AttachFileModel extends ActiveRecord
 
     public static function tableName(): string
     {
-        return '{{%attachfile}}';
+        return '{{%attachedFiles}}';
     }
 }

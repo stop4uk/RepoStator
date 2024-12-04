@@ -3,18 +3,22 @@
 use yii\helpers\Url;
 use yii\bootstrap\Html;
 
-use common\attachfiles\AttachFileHelper;
+use app\components\attachedFiles\AttachFileHelper;
 
 /**
- * @var \common\attachfiles\AttachFileModel $model
+ * @var app\components\attachedFiles\AttachFileEntity $model
  * @var bool $canDeleted
+ * @var bool $showFileAsImage
  * @var string $modelClass
  * @var string|int $modelKey
  */
 
-$filePath = $model->file_path . DIRECTORY_SEPARATOR . implode('.', [$model->file_hash, $model->file_extension]);
-$photo = base64_encode(AttachFileHelper::readFromStorage($model->storage, $filePath));
-echo Html::img("data:image/{$model->file_extension};base64,$photo", ['class' => 'w-auto rounded']);
+
+if ($showFileAsImage) {
+    $filePath = $model->file_path . DIRECTORY_SEPARATOR . implode('.', [$model->file_hash, $model->file_extension]);
+    $photo = base64_encode(AttachFileHelper::readFromStorage($model->storage, $filePath));
+    echo Html::img("data:image/{$model->file_extension};base64,$photo", ['class' => 'w-auto rounded']);
+}
 
 if ($canDeleted) {
     $actionParams = [
@@ -25,7 +29,7 @@ if ($canDeleted) {
 
     echo Html::tag(
         'span',
-        'Удалить фотографию',
+        Yii::t('system', 'Удалить файл'),
         [
             'class' => 'btn btn-danger w-75 mt-4 pjax-delete-link',
             'delete-url' => Url::to(['detachfile', 'params' => base64_encode(serialize($actionParams))]),

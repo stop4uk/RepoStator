@@ -1,38 +1,69 @@
 <?php
 
-namespace common\attachfiles\widgets\attachfile;
+namespace app\components\attachedFiles\widgets\attachfile;
 
-use yii\base\{
-    Model,
-    Widget
-};
+use yii\base\Widget;
 use yii\db\ActiveRecordInterface;
 
 final class AttachFileWidget extends Widget
 {
-    const WORKMODE_DOCS = 'docs';
-    const WORKMODE_ONEPHOTO = 'onePhoto';
+    const MODE_MANY = 'files';
+    const MODE_ONE = 'oneFile';
 
-    public string $blockTitle = 'Документы к заказу';
-    public string $uploadButtonTitle = 'Прикрепить документы';
-    public bool $canDeleted = true;
-    public ActiveRecordInterface|Model|null $model;
-    public $workMode = self::WORKMODE_DOCS;
+    /**
+     * @var string
+     */
+    public $blockTitle;
+    /**
+     * @var string
+     */
+    public $uploadButtonTitle;
+    /**
+     * @var bool
+     */
+    public $canDeleted = true;
+    /**
+     * @var ActiveRecordInterface
+     */
+    public $model;
+    /**
+     * @var string
+     */
+    public $workMode = self::MODE_MANY;
 
-    public function run()
+    /**
+     * @var bool
+     */
+    public $showFileAsImage = true;
+
+    /**
+     * @var array
+     * Список колонок для отображения в Grid, который соответствует полям AttachFileEntity
+     *
+     */
+    public $filesGridColumns = [
+        'name',
+        'file_extension',
+        'file_tags',
+        'created_at'
+    ];
+
+    public function run(): void
     {
         $viewTemplate = match($this->workMode) {
-            self::WORKMODE_DOCS => 'index',
-            self::WORKMODE_ONEPHOTO => 'onePhoto'
+            self::MODE_MANY => 'many',
+            self::MODE_ONE => 'one'
         };
 
         echo $this->render($viewTemplate, [
             'parentModel' => $this->model,
             'blockTitle' => $this->blockTitle,
             'uploadButtonTitle' => $this->uploadButtonTitle,
+            'canDeleted' => $this->canDeleted,
+            'showFileAsImage' => $this->showFileAsImage,
+            'filesGridColumns' => $this->fileGridColumns,
             'dataProvider' => $this->model->getAttachedFiles(),
             'canAttached' => $this->model->getCanFilesToAttach(),
-            'canDeleted' => $this->canDeleted
         ]);
     }
 }
