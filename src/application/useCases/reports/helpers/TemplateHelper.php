@@ -29,7 +29,6 @@ final class TemplateHelper
             'table_type' => Yii::t('entites', 'Тип колонок'),
             'table_rows' => Yii::t('entities', 'Список строк'),
             'table_columns' => Yii::t('entities', 'Список колонок'),
-            'table_template' => Yii::t('entities', 'Файл-шаблон'),
             'limit_maxfiles' => Yii::t('entities', 'Макс. файлов для отчета'),
             'limit_maxsavetime' => Yii::t('entities', 'Макс. время хранения (сек)'),
             'created_at' => Yii::t('entities', 'Создан'),

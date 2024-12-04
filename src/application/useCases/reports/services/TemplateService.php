@@ -57,25 +57,4 @@ final class TemplateService extends BaseService
         $transaction->rollBack();
         throw new Exception(Yii::t('exceptions', 'При удалении шаблона отчета возникли ошибки. Пожалуйста, обратитесь к администратору'));
     }
-
-    private function beforeSetAttributes(BaseModelInterface $model): BaseModelInterface
-    {
-        if (
-            $model->oldTemplate
-            && $model->uploadedFile
-        ) {
-            if ( !CommonHelper::deleteFileAttempt($model->oldTemplate) ) {
-                return false;
-            }
-        }
-
-        if (
-            $model->uploadedFile &&
-            $saveFile = CommonHelper::saveFileAttempt($model, 'uploadedFile', '@templates')
-        ) {
-            $model->table_template = $saveFile;
-        }
-
-        return $model;
-    }
 }

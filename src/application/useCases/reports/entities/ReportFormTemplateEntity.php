@@ -32,7 +32,6 @@ use app\useCases\reports\{
  * @property int|null $table_type
  * @property string|null $table_rows
  * @property string|null $table_columns
- * @property string|null $table_template
  * @property int $limit_maxfiles
  * @property int $limit_maxsavetime
  * @property int $created_at
@@ -109,12 +108,12 @@ final class ReportFormTemplateEntity extends BaseAR
             self::SCENARIO_CHANGE_RECORD_STATUS => ['record_status'],
             self::SCENARIO_INSERT => [
                 'report_id', 'name', 'use_appg', 'use_grouptype', 'form_datetime', 'form_type',
-                'form_usejobs', 'table_type', 'table_rows', 'table_columns', 'table_template', 'limit_maxfiles',
+                'form_usejobs', 'table_type', 'table_rows', 'table_columns', 'limit_maxfiles',
                 'limit_maxsavetime'
             ],
             self::SCENARIO_UPDATE => [
                 'name', 'use_appg', 'use_grouptype', 'form_datetime', 'form_usejobs', 'table_type', 'table_rows',
-                'table_columns', 'table_template', 'limit_maxfiles', 'limit_maxsavetime'
+                'table_columns', 'limit_maxfiles', 'limit_maxsavetime'
             ]
         ];
     }

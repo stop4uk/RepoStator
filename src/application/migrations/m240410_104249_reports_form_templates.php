@@ -30,7 +30,6 @@ class m240410_104249_reports_form_templates extends Migration
                 'table_type'=> $this->tinyInteger(1)->null()->defaultValue(0),
                 'table_rows'=> $this->text()->null()->defaultValue(null),
                 'table_columns'=> $this->text()->null()->defaultValue(null),
-                'table_template'=> $this->string(255)->null()->defaultValue(null),
                 'limit_maxfiles'=> $this->integer(4)->null()->defaultValue(100),
                 'limit_maxsavetime'=> $this->integer(11)->null()->defaultValue(864000),
                 'created_at'=> $this->integer(11)->notNull(),

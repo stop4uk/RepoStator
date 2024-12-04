@@ -34,12 +34,10 @@ use app\useCases\users\{
  * @property int|null $table_type
  * @property string|null $table_rows
  * @property string|null $table_columns
- * @property string|null $table_template
  * @property int $limit_maxfiles
  * @property int $limit_maxsavetime
  *
  * @property UploadedFile $uploadedFile
- * @property-read string|null $oldTemplate
  *
  * @property-read array $groups
  * @property-read array $groupsType
@@ -62,12 +60,10 @@ final class TemplateModel extends BaseModel
     public $table_type;
     public $table_rows;
     public $table_columns;
-    public $table_template;
     public int $limit_maxfiles = 100;
     public int $limit_maxsavetime = 864000;
 
     public $uploadedFile;
-    public $oldTemplate;
 
     public readonly array $groups;
     public readonly array $reports;
@@ -96,7 +92,6 @@ final class TemplateModel extends BaseModel
         );
 
         $this->mergeConstantAndRules = ArrayHelper::merge($constants, $constantsRule);
-        $this->oldTemplate = null;
 
         parent::__construct($entity, $config);
     }
@@ -178,7 +173,6 @@ final class TemplateModel extends BaseModel
             ],
             [['table_columns', 'table_rows'], 'checkDynamicValues'],
 
-            [['table_template', 'oldTemplate'], 'string', 'max' => 255],
             [
                 'uploadedFile',
                 'file',
