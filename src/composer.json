@@ -25,7 +25,8 @@
         "mihaildev/yii2-ckeditor": "*",
         "phpoffice/phpspreadsheet": "^2.0",
         "yiithings/yii2-dotenv": "^1.1",
-        "creocoder/yii2-flysystem": "^1.2"
+        "creocoder/yii2-flysystem": "^1.2",
+        "2amigos/yii2-file-upload-widget": "dev-master"
     },
     "require-dev": {
         "yiisoft/yii2-debug": "~2.1.0",
@@ -51,6 +52,10 @@
         {
             "type": "composer",
             "url": "https://asset-packagist.org"
+        },
+        {
+            "type": "vcs",
+            "url": "https://github.com/lightinen/yii2-file-upload-widget.git"
         }
     ]
 }
