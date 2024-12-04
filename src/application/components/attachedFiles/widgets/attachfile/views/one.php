@@ -79,7 +79,7 @@ JS);
                                 if (response.status == "success") {
                                     $.pjax.reload({container:"#attachedFileList"});
                                 } else {
-                                    let string = "' . Yii::t('system', 'В процессе загрузки файлов возникли ошибки') . ':\r\n\r\n";
+                                    let string = "' . Yii::t('system', 'В процессе загрузки файла возникли ошибки') . ':\r\n\r\n";
                                     $.each(response.errors, function(index, value){
                                         string = string + value + "\r\n";
                                     });
@@ -88,7 +88,7 @@ JS);
                                 }
                             }',
                             'fileuploadfail' => 'function(e, data) {
-                                alert("' . Yii::t('system', 'В процессе загрузки файла произошла ошибка. Пожалуйста, обратитесь к администратору') . '");
+                                alert("' . Yii::t('system', 'В процессе загрузки файла возникли ошибки') . '");
                             }',
                         ],
                     ]);

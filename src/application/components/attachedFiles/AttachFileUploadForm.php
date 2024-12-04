@@ -21,7 +21,7 @@ final class AttachFileUploadForm extends Model
         $workModel = $this->getWorkModel();
         $rules = [
             ['modelType', 'required'],
-            [['modelClass', 'modelKey'], 'requied', 'except' => self::SCENARIO_TEMPUPLOAD],
+            [['modelClass', 'modelKey'], 'required', 'except' => self::SCENARIO_TEMPUPLOAD],
             [['modelClass', 'modelKey', 'modelType'], 'string'],
         ];
 
@@ -56,7 +56,14 @@ final class AttachFileUploadForm extends Model
     {
         if ($this->workModel === null) {
             $object = Yii::createObject($this->modelClass);
-            $this->workModel = $object->find()->where([$object->modelKey => $this->modelKey])->limit(1)->one();
+            $this->workModel = match((bool)$this->modelKey) {
+                true => $object
+                    ->find()
+                    ->where([$object->modelKey => $this->modelKey])
+                    ->limit(1)
+                    ->one(),
+                false => $object
+            };
         }
 
         return $this->workModel;

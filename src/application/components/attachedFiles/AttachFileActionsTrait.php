@@ -15,7 +15,7 @@ trait AttachFileActionsTrait
         $model = AttachFileUploadForm::createFromParams($params);
         $model->uploadFile = UploadedFile::getInstance($model, 'uploadFile');
         if (!$model->modelKey) {
-            $model->scenario == $model::SCENARIO_TEMPUPLOAD;
+            $model->scenario = $model::SCENARIO_TEMPUPLOAD;
         }
 
         if ($model->validate()) {
