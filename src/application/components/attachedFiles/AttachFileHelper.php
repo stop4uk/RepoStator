@@ -1,6 +1,6 @@
 <?php
 
-namespace app\components\attachfiles;
+namespace app\components\attachedFiles;
 
 use Yii;
 use yii\base\Exception;
@@ -8,11 +8,7 @@ use yii\base\Exception;
 final class AttachFileHelper
 {
     const STORAGE_LOCAL = 'LStorage';
-    const STORAGE_YCLOUD = 'YCLoud';
-    const STORAGES = [
-        self::STORAGE_LOCAL => 'Локальное хранилище',
-        self::STORAGE_YCLOUD => 'Яндекс S3'
-    ];
+    const STORAGE_S3CLOUD = 'S3Cloud';
 
     const FSTATUS_ARCHIVE = 0;
     const FSTATUS_ACTIVE = 1;
@@ -22,6 +18,16 @@ final class AttachFileHelper
         self::FSTATUS_ACTIVE => 'Текущий',
         self::FSTATUS_UPDATED => 'Был обновлен',
     ];
+
+    public array $storages = [];
+
+    public function init()
+    {
+        $this->storages = [
+            self::STORAGE_LOCAL => Yii::t('system', 'Локальное хранилище'),
+            self::STORAGE_S3CLOUD => Yii::t('system', 'Хранилище S3')
+        ];
+    }
 
     public static function saveToStorage(
         string $storageID,

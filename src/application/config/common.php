@@ -16,7 +16,7 @@ use app\components\{
     bootstrap\CommonBootstrap,
     events\handlers\CommonEventHandler,
     settings\Settings,
-    attachfiles\AttachFileHelper
+    attachedFiles\AttachFileHelper
 };
 
 return [
