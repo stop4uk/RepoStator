@@ -32,6 +32,11 @@
         "yiisoft/yii2-gii": "~2.2.0",
         "insolita/yii2-migration-generator": "^3.2"
     },
+    "autoload": {
+        "psr-4": {
+            "app\\": "application"
+        }
+    },
     "config": {
         "process-timeout": 1800,
         "fxp-asset": {
