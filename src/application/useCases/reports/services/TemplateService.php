@@ -6,11 +6,11 @@ use Yii;
 use yii\base\Exception;
 
 use app\components\{
-    base\BaseModelInterface,
     base\BaseARInterface,
-    base\BaseService
+    base\BaseService,
 };
 use app\helpers\CommonHelper;
+use app\useCases\reports\models\TemplateModel;
 
 /**
  * @author Stop4uk <stop4uk@yandex.ru>
@@ -18,21 +18,41 @@ use app\helpers\CommonHelper;
  */
 final class TemplateService extends BaseService
 {
+    /**
+     * @param $model TemplateModel
+     * @param $categoryForLog
+     * @param $errorMessage
+     * @return BaseARInterface
+     * @throws Exception
+     * @throws \yii\db\Exception
+     */
     public function save($model, $categoryForLog = null, $errorMessage = null): BaseARInterface
     {
+        $isNewRecord = $model->getIsNewEntity();
+        $loadTemplateData = Yii::$app->getCache()->get('reportTempUpload_' . Yii::$app->getUser()->getId());
+
         $model = $this->beforeSetAttributes($model);
         $model->getEntity()->recordAction($model);
 
         $transaction = Yii::$app->db->beginTransaction();
-
         if (
             $saveEntity = CommonHelper::saveAttempt(
                 entity: $model->getEntity(),
                 category: 'Reports.Template'
             )
         ) {
-            $transaction->commit();
-            return $saveEntity;
+            $saveTempalte = true;
+            if ($isNewRecord && $loadTemplateData) {
+                if (!$model->getEntity()->attachFile($loadTemplateData)) {
+                    $saveTempalte = false;
+                }
+            }
+
+            if($saveTempalte) {
+                Yii::$app->getCache()->delete('reportTempUpload_' . Yii::$app->getUser()->getId());
+                $transaction->commit();
+                return $saveEntity;
+            }
         }
 
         $transaction->rollBack();

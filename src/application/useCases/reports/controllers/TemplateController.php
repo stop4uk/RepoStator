@@ -2,6 +2,7 @@
 
 namespace app\useCases\reports\controllers;
 
+use Yii;
 use yii\web\Response;
 use yii\filters\AccessControl;
 use yii\helpers\{
@@ -18,7 +19,8 @@ use app\actions\{
 };
 use app\components\{
     base\BaseController,
-    base\BaseAR
+    base\BaseAR,
+    attachedFiles\AttachFileActionsTrait
 };
 use app\useCases\reports\{
     entities\ReportFormTemplateEntity,
@@ -37,6 +39,8 @@ use app\useCases\users\helpers\RbacHelper;
  */
 final class TemplateController extends BaseController
 {
+    use AttachFileActionsTrait;
+
     public function behaviors(): array
     {
         return [
@@ -75,7 +79,7 @@ final class TemplateController extends BaseController
                         },
                     ],
                     [
-                        'actions' => ['create', 'getselectdata'],
+                        'actions' => ['create', 'getselectdata', 'attachfile', 'detachfile', 'getfile'],
                         'allow' => true,
                         'roles' => ['template.create'],
                     ],
@@ -156,6 +160,18 @@ final class TemplateController extends BaseController
         $config = []
     ) {
         parent::__construct($id, $module, $config);
+    }
+
+    public function beforeAction($action): bool
+    {
+        if (
+            $action->id == 'create'
+            && $this->request->isGet
+        ) {
+            Yii::$app->getCache()->delete('reportTempUpload_' . Yii::$app->getUser()->getId());
+        }
+
+        return parent::beforeAction($action);
     }
 
     public function actions(): array
