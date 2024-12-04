@@ -18,6 +18,7 @@ use app\components\attachedFiles\{
 /**
  * @var string $blockTitle Общий заголовок для блока
  * @var string $uploadButtonTitle Текст на кнопке выбора доков для загрузки
+ * @var string $uploadButtonOptions Классы для кнопки загрузки
  * @var array $canAttached Список типов доков, которые можно загрузить
  * @var bool $canDeleted Возможность удаления файлов
  * @var array $filesGridColuns Список колонок для отображения

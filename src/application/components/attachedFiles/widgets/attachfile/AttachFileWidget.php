@@ -19,6 +19,10 @@ final class AttachFileWidget extends Widget
      */
     public $uploadButtonTitle;
     /**
+     * @var string|null
+     */
+    public $uploadButtonOptions;
+    /**
      * @var bool
      */
     public $canDeleted = true;
@@ -59,6 +63,7 @@ final class AttachFileWidget extends Widget
             'parentModel' => $this->model,
             'blockTitle' => $this->blockTitle,
             'uploadButtonTitle' => $this->uploadButtonTitle,
+            'uploadButtonOptions' => $this->uploadButtonOptions,
             'canDeleted' => $this->canDeleted,
             'showFileAsImage' => $this->showFileAsImage,
             'filesGridColumns' => $this->filesGridColumns,

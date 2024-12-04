@@ -5,7 +5,6 @@ use yii\widgets\{
     Pjax,
     ListView
 };
-use yii\bootstrap5\Html;
 
 use app\components\attachedFiles\{
     AttachFileUploadForm,
@@ -16,6 +15,7 @@ use app\components\attachedFiles\{
  * @var array $canAttached Возможность загрузить фото
  * @var bool $canDeleted Возможность удаления файлов
  * @var string $uploadButtonTitle Текст кнопки загрузки файла
+ * @var string $uploadButtonOptions Классы для кнопки загрузки
  * @var bool $showFileAsImage Отображать файл в виде фотографии
  * @var \yii\db\BaseActiveRecord $parentModel Модель, к которой привязыается виджет
  * @var \yii\data\ArrayDataProvider $dataProvider Данные по уже загруженным и, находящимся в статусе ACTIVE файлам
@@ -66,7 +66,7 @@ JS);
                         'attribute' => 'uploadFile',
                         'url' => Url::to(['attachfile', 'params' => base64_encode(serialize($actionParams))]),
                         'buttonName' => $uploadButtonTitle,
-                        'buttonOptions' => 'btn btn-dark',
+                        'buttonOptions' => 'btn btn-dark ' . $uploadButtonOptions,
                         'options' => [
                             'id' => 'fileUpWidget',
                         ],
