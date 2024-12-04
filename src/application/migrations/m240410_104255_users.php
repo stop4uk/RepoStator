@@ -25,7 +25,7 @@ class m240410_104255_users extends Migration
                 'lastname'=> $this->string(28)->notNull()->defaultValue(''),
                 'firstname'=> $this->string(24)->notNull()->defaultValue(''),
                 'middlename'=> $this->string(24)->null()->defaultValue(null),
-                'phone'=> $this->string(10)->notNull()->defaultValue(''),
+                'phone'=> $this->string(10)->null()->defaultValue(null),
                 'account_status'=> $this->tinyInteger(1)->notNull()->defaultValue(0),
                 'account_key'=> $this->string(32)->notNull()->defaultValue(''),
                 'account_cpass_required'=> $this->tinyInteger(1)->notNull()->defaultValue(0),

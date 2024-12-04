@@ -20,7 +20,7 @@ class m240410_104237_groups extends Migration
             '{{%groups}}',
             [
                 'id'=> $this->primaryKey(11),
-                'code'=> $this->string(6)->null()->defaultValue(null),
+                'code'=> $this->string(10)->null()->defaultValue(null),
                 'name'=> $this->string(64)->notNull()->defaultValue(''),
                 'name_full'=> $this->string(255)->null()->defaultValue(null),
                 'description'=> $this->text()->null()->defaultValue(null),
