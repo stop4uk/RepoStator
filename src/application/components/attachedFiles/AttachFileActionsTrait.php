@@ -11,6 +11,9 @@ trait AttachFileActionsTrait
     public function actionAttachfile(string $params): string
     {
         $result = [];
+        $temporaryPath = Yii::getAlias('@runtime') . DIRECTORY_SEPARATOR . env("YII_UPLOADS_PATH_TEMPPATH");
+        $temporaryName = Yii::$app->getSecurity()->generateRandomString(6);
+
 
         $model = AttachFileUploadForm::createFromParams($params);
         $model->uploadFile = UploadedFile::getInstance($model, 'uploadFile');
@@ -20,28 +23,26 @@ trait AttachFileActionsTrait
 
         if ($model->validate()) {
             if (!$model->modelKey) {
-                $path = Yii::getAlias('@runtime') . DIRECTORY_SEPARATOR . env("YII_UPLOADS_PATH_TEMPPATH");
-                $name = Yii::$app->getSecurity()->generateRandomString(6);
-                $extension = pathinfo($model->uploadFile->name)['extension'];
+                $fileExtension = pathinfo($model->uploadFile->name)['extension'];
+                $fileName = implode('.', [$temporaryName, $fileExtension]);
+                $filePath = $temporaryPath . DIRECTORY_SEPARATOR . $fileName;
 
-                $fullName = implode('.', [$name, $extension]);
-                $fullPath = $path . DIRECTORY_SEPARATOR . $fullName;
-
-                if (!is_dir($path)) {mkdir($path);}
-                $saveFile = $model->uploadFile->saveAs($fullPath);
+                if (!is_dir($temporaryPath)) {mkdir($temporaryPath);}
+                $saveFile = $model->uploadFile->saveAs($filePath);
                 if ($saveFile) {
                     Yii::$app->getCache()->set('reportTempUpload_' . Yii::$app->getUser()->getId(), [
-                        'path' => $path,
-                        'fullPath' => $fullPath,
-                        'name' => $fullName,
-                        'extension' => $extension
+                        'path' => $temporaryPath,
+                        'fullPath' => $filePath,
+                        'name' => $fileName,
+                        'extension' => $fileExtension
                     ]);
                 }
 
                 return Json::encode([
                     'status' => $saveFile
                         ? 'success'
-                        : 'error'
+                        : 'error',
+                    'isTemporary' => true,
                 ]);
             }
 
@@ -53,7 +54,10 @@ trait AttachFileActionsTrait
             );
 
             if ($saveFile) {
-                $result = ['status' => 'success'];
+                $result = [
+                    'status' => 'success',
+                    'isTemporary' => false,
+                ];
             }
 
         } else {
