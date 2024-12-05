@@ -7,6 +7,7 @@ use yii\web\Response;
 use yii\filters\AccessControl;
 use yii\helpers\{
     ArrayHelper,
+    FileHelper,
     Url
 };
 
@@ -167,8 +168,19 @@ final class TemplateController extends BaseController
         if (
             $action->id == 'create'
             && $this->request->isGet
+            && !$this->request->isPjax
         ) {
-            Yii::$app->getCache()->delete('reportTempUpload_' . Yii::$app->getUser()->getId());
+            $cacheFile = Yii::$app->getCache()->get('reportTempUpload_' . Yii::$app->getUser()->getId());
+            if (
+                $cacheFile
+                && isset($cacheFile['fullPath'])
+            ) {
+                if (is_file($cacheFile['fullPath'])) {
+                    FileHelper::unlink($cacheFile['fullPath']);
+                }
+
+                Yii::$app->getCache()->delete('reportTempUpload_' . Yii::$app->getUser()->getId());
+            }
         }
 
         return parent::beforeAction($action);
