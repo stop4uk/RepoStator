@@ -30,7 +30,7 @@ final class AttachFileHelper
     public static function getFileStatus(
         bool $asList = false,
         ?string $status = null
-    ): ?string {
+    ): string|array|null {
         $items = [
             self::FSTATUS_ARCHIVE => Yii::t('system', 'Архивный'),
             self::FSTATUS_ACTIVE => Yii::t('system', 'Текущий'),

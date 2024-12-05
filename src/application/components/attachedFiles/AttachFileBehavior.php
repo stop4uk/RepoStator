@@ -96,7 +96,6 @@ final class AttachFileBehavior extends Behavior
                 'file_tags' => $this->attachRules[$type]['tags'] ?? null,
                 'file_version' => $file_version,
                 'file_status' => AttachFileHelper::FSTATUS_ACTIVE,
-                'customer_id' => Yii::$app->getUser()->getIdentity()->organization_id ?: null
             ]);
 
             if ($model->save()) {
@@ -104,7 +103,7 @@ final class AttachFileBehavior extends Behavior
             }
 
             //Если, запись в БД не получилась, удаляем записанный файл
-            AttachFileHelper::removeFromStorageByPath($this->storageID, $pathToSave . DIRECTORY_SEPARATOR . $fileName);
+            AttachFileHelper::removeFromStorage($this->storageID, $pathToSave . DIRECTORY_SEPARATOR . $fileName);
         }
 
         return false;
@@ -142,7 +141,7 @@ final class AttachFileBehavior extends Behavior
         }
 
         foreach ($filesToDeleteFromStorage as $file) {
-            AttachFileHelper::removeFromStorageByPath($file['storageID'], $file['pathToFile']);
+            AttachFileHelper::removeFromStorage($file['storageID'], $file['pathToFile']);
         }
 
         return $completeDelete;
