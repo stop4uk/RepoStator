@@ -4,11 +4,8 @@ namespace app\components\base;
 
 use Yii;
 use yii\base\Exception;
-use yii\web\{
-    BadRequestHttpException,
-    Controller,
-    Response
-};
+use yii\web\Controller;
+use yii\helpers\FileHelper;
 
 /**
  * @author Stop4uk <stop4uk@yandex.ru>
@@ -16,17 +13,26 @@ use yii\web\{
  */
 class BaseController extends Controller
 {
-    public function actionDownload(string $path): Response
+    public function beforeAction($action): bool
     {
-        $path = Yii::getAlias(base64_decode($path));
+        if (
+            $this->request->isGet
+            && !$this->request->isPjax
+        ) {
+            $cacheFile = Yii::$app->getCache()->get('reportTempUpload_' . Yii::$app->getUser()->getId());
+            if (
+                $cacheFile
+                && isset($cacheFile['fullPath'])
+            ) {
+                if (is_file($cacheFile['fullPath'])) {
+                    FileHelper::unlink($cacheFile['fullPath']);
+                }
 
-        if (file_exists($path)) {
-            return $this->response->sendFile($path, basename($path), [
-                'inline' => false
-            ]);
+                Yii::$app->getCache()->delete('reportTempUpload_' . Yii::$app->getUser()->getId());
+            }
         }
 
-        throw new BadRequestHttpException(Yii::t('exceptions', 'Запрашиваемый файл не найден'));
+        return parent::beforeAction($action);
     }
 
     public function catchException(
