@@ -109,11 +109,11 @@ final class ReportFormTemplateEntity extends BaseAR
                 'modelName' => 'ReportFormTemplateEntity',
                 'modelKey' => 'id',
                 'attachRules' => [
-                    'photoProfile' => [
+                    'templateReport' => [
                         'name' => 'Шаблон отчета',
                         'maxFiles' => 1,
                         'rules' => [
-                            ['file', 'extensions' => ['xls', 'ods']],
+                            ['file', 'extensions' => ['xls', 'ods', 'txt']],
                         ]
                     ],
                 ]
