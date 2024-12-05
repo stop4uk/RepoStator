@@ -31,9 +31,7 @@ final class TemplateService extends BaseService
         $isNewRecord = $model->getIsNewEntity();
         $loadTemplateData = Yii::$app->getCache()->get('reportTempUpload_' . Yii::$app->getUser()->getId());
 
-        $model = $this->beforeSetAttributes($model);
         $model->getEntity()->recordAction($model);
-
         $transaction = Yii::$app->db->beginTransaction();
         if (
             $saveEntity = CommonHelper::saveAttempt(
@@ -41,16 +39,22 @@ final class TemplateService extends BaseService
                 category: 'Reports.Template'
             )
         ) {
-            $saveTempalte = true;
+            $saveTemplate = true;
             if ($isNewRecord && $loadTemplateData) {
-                if (!$model->getEntity()->attachFile($loadTemplateData)) {
-                    $saveTempalte = false;
+                if (!$model->getEntity()->attachFile(
+                    inputFile: $loadTemplateData['fullPath'],
+                    type: array_key_first($model->getEntity()->attachRules),
+                    name: $loadTemplateData['name'],
+                    extension: $loadTemplateData['extension']
+                )) {
+                    $saveTemplate = false;
                 }
             }
 
-            if($saveTempalte) {
+            if($saveTemplate) {
                 Yii::$app->getCache()->delete('reportTempUpload_' . Yii::$app->getUser()->getId());
                 $transaction->commit();
+
                 return $saveEntity;
             }
         }
