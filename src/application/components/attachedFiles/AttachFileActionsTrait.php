@@ -20,14 +20,29 @@ trait AttachFileActionsTrait
 
         if ($model->validate()) {
             if (!$model->modelKey) {
-                Yii::$app->getCache()->set('reportTempUpload_' . Yii::$app->getUser()->getId(), [
-                    'inputFile' => $model->uploadFile->tempName,
-                    'type' => $model->modelType,
-                    'name' => $model->uploadFile->name,
-                    'extension' => pathinfo($model->uploadFile->name)['extension']
-                ]);
+                $path = Yii::getAlias('@runtime') . DIRECTORY_SEPARATOR . env("YII_UPLOADS_PATH_TEMPPATH");
+                $name = Yii::$app->getSecurity()->generateRandomString(6);
+                $extension = pathinfo($model->uploadFile->name)['extension'];
 
-                return Json::encode(['status' => 'success']);
+                $fullName = implode('.', [$name, $extension]);
+                $fullPath = $path . DIRECTORY_SEPARATOR . $fullName;
+
+                if (!is_dir($path)) {mkdir($path);}
+                $saveFile = $model->uploadFile->saveAs($fullPath);
+                if ($saveFile) {
+                    Yii::$app->getCache()->set('reportTempUpload_' . Yii::$app->getUser()->getId(), [
+                        'path' => $path,
+                        'fullPath' => $fullPath,
+                        'name' => $fullName,
+                        'extension' => $extension
+                    ]);
+                }
+
+                return Json::encode([
+                    'status' => $saveFile
+                        ? 'success'
+                        : 'error'
+                ]);
             }
 
             $saveFile = $model->getWorkModel()->attachFile(
