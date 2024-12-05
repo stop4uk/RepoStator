@@ -2,12 +2,10 @@
 
 namespace app\useCases\reports\controllers;
 
-use Yii;
 use yii\web\Response;
 use yii\filters\AccessControl;
 use yii\helpers\{
     ArrayHelper,
-    FileHelper,
     Url
 };
 
@@ -161,29 +159,6 @@ final class TemplateController extends BaseController
         $config = []
     ) {
         parent::__construct($id, $module, $config);
-    }
-
-    public function beforeAction($action): bool
-    {
-        if (
-            $action->id == 'create'
-            && $this->request->isGet
-            && !$this->request->isPjax
-        ) {
-            $cacheFile = Yii::$app->getCache()->get('reportTempUpload_' . Yii::$app->getUser()->getId());
-            if (
-                $cacheFile
-                && isset($cacheFile['fullPath'])
-            ) {
-                if (is_file($cacheFile['fullPath'])) {
-                    FileHelper::unlink($cacheFile['fullPath']);
-                }
-
-                Yii::$app->getCache()->delete('reportTempUpload_' . Yii::$app->getUser()->getId());
-            }
-        }
-
-        return parent::beforeAction($action);
     }
 
     public function actions(): array
