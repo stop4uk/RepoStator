@@ -2,9 +2,10 @@
 
 namespace app\useCases\reports\widgets\repeater;
 
-use app\components\base\BaseModel;
 use yii\base\Widget;
 use yii\helpers\Json;
+
+use app\components\base\BaseModel;
 
 class Repeater extends Widget
 {
