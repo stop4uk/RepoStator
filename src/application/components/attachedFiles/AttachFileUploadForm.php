@@ -13,6 +13,7 @@ final class AttachFileUploadForm extends Model
     public $modelKey;
     public $modelType;
     public $uploadFile;
+    public $isNewRecord = false;
 
     private $workModel = null;
 

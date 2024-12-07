@@ -17,12 +17,12 @@ trait AttachFileActionsTrait
 
         $model = AttachFileUploadForm::createFromParams($params);
         $model->uploadFile = UploadedFile::getInstance($model, 'uploadFile');
-        if (!$model->modelKey) {
+        if ($model->isNewRecord) {
             $model->scenario = $model::SCENARIO_TEMPUPLOAD;
         }
 
         if ($model->validate()) {
-            if (!$model->modelKey) {
+            if ($model->isNewRecord) {
                 $fileExtension = pathinfo($model->uploadFile->name)['extension'];
                 $fileName = implode('.', [$temporaryName, $fileExtension]);
                 $filePath = $temporaryPath . DIRECTORY_SEPARATOR . $fileName;
@@ -42,7 +42,7 @@ trait AttachFileActionsTrait
                     'status' => $saveFile
                         ? 'success'
                         : 'error',
-                    'isTemporary' => true,
+                    'isNewRecord' => $model->isNewRecord,
                 ]);
             }
 
@@ -56,7 +56,7 @@ trait AttachFileActionsTrait
             if ($saveFile) {
                 $result = [
                     'status' => 'success',
-                    'isTemporary' => false,
+                    'isNewRecord' => $model->isNewRecord,
                 ];
             }
 

@@ -17,7 +17,8 @@ use app\components\attachedFiles\{
  * @var string $uploadButtonTitle Текст кнопки загрузки файла
  * @var string $uploadButtonOptions Классы для кнопки загрузки
  * @var bool $showFileAsImage Отображать файл в виде фотографии
- * @var \yii\db\BaseActiveRecord $parentModel Модель, к которой привязыается виджет
+ * @var bool $isNewRecord когда загрузка осуществляется до сохранения привязанной записи в БД
+ * @var \yii\db\BaseActiveRecord $parentModel Модель, к которой привязывается виджет
  * @var \yii\data\ArrayDataProvider $dataProvider Данные по уже загруженным и, находящимся в статусе ACTIVE файлам
  */
 
@@ -58,7 +59,8 @@ JS);
                     $actionParams = [
                         'modelClass' => $parentModel::class,
                         'modelKey' => (string)$parentModel->{$parentModel->modelKey},
-                        'modelType'  => $type
+                        'modelType'  => $type,
+                        'isNewRecord' => $isNewRecord
                     ];
 
                     echo FileUploadWidget::widget([

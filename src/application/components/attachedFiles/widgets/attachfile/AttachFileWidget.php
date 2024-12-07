@@ -39,6 +39,10 @@ final class AttachFileWidget extends Widget
      * @var bool
      */
     public $showFileAsImage = true;
+    /**
+     * @var bool
+     */
+    public $isNewRecord = false;
 
     /**
      * @var array
@@ -67,6 +71,7 @@ final class AttachFileWidget extends Widget
             'canDeleted' => $this->canDeleted,
             'showFileAsImage' => $this->showFileAsImage,
             'filesGridColumns' => $this->filesGridColumns,
+            'isNewRecord' => $this->isNewRecord,
             'dataProvider' => $this->model->getAttachedFiles(),
             'canAttached' => $this->model->getCanFilesToAttach(),
         ]);
