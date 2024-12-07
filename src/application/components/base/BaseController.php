@@ -19,16 +19,18 @@ class BaseController extends Controller
             $this->request->isGet
             && !$this->request->isPjax
         ) {
-            $cacheFile = Yii::$app->getCache()->get('reportTempUpload_' . Yii::$app->getUser()->getId());
-            if (
-                $cacheFile
-                && isset($cacheFile['fullPath'])
-            ) {
-                if (is_file($cacheFile['fullPath'])) {
-                    FileHelper::unlink($cacheFile['fullPath']);
+            $cache = Yii::$app->getCache();
+            $cacheKey = env('YII_UPLOADS_PATH_TEMPPATH') . Yii::$app->getUser()->getId();
+            $cacheFiles = $cache->get($cacheKey);
+
+            if ($cacheFiles) {
+                foreach ($cacheFiles as $file) {
+                    if (is_file($file['fullPath'])) {
+                        FileHelper::unlink($file['fullPath']);
+                    }
                 }
 
-                Yii::$app->getCache()->delete('reportTempUpload_' . Yii::$app->getUser()->getId());
+                $cache->delete($cacheKey);
             }
         }
 

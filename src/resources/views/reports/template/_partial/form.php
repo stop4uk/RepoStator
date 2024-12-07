@@ -179,16 +179,17 @@ $form = ActiveForm::begin([
     </div>
     <div class="row mb-3 <?= ( $model->getIsNewEntity() || $model->form_type != ReportFormTemplateEntity::REPORT_TYPE_TEMPLATE) ? 'd-none' : ''; ?>" id="staticTemplate">
         <hr />
-        <?php
-            echo AttachFileWidget::widget([
-                'model' => $model->getEntity(),
-                'workMode' => AttachFileWidget::MODE_ONE,
-                'uploadButtonTitle' => 'Прикрепить шаблон отчета',
-                'uploadButtonOptions' => 'w-100'
-            ]);
+        <?= AttachFileWidget::widget([
+            'model' => $model->getEntity(),
+            'workMode' => AttachFileWidget::MODE_ONE,
+            'isNewRecord' => $model->getIsNewEntity(),
+            'uploadButtonTitle' => 'Прикрепить шаблон отчета',
+            'uploadButtonOptions' => 'w-100'
+        ]); ?>
 
-            if (!$attachedTemplate) {
-                echo Html::tag('span', Yii::t('views', "Вы можете загрузить шаблон файла для " .
+        <?php if (!$attachedTemplate): ?>
+            <div class="uploadInformationBlock">
+                <?= Html::tag('span', Yii::t('views', "Вы можете загрузить шаблон файла для " .
                     "формирования таблицы в том виде, в котором Вам необходимо. Следует учитывать, что в данный шаблон, подставятся " .
                     "исключительно данные констант и математических правил. Для того, чтобы в нужное место, подставилась нужные данные, " .
                     "в соответствующей ячейке шаблона указать название записи в БД для константы или математического правила и, в " .
@@ -202,9 +203,10 @@ $form = ActiveForm::begin([
                     "расчета 20.02.2022</li><li><strong>{{nar_5_43#M}}</strong> сумма данных за МЕСЯЦ крайнего числа периода расчета - за фераль " .
                     "2022 года</li><li><strong>{{nar_5_43#Y}}</strong> сумма данных за ГОД крайнего числа периода расчета - за 2022 год</li></ul>" .
                     "При этом, следует учитывать, что, если, у математического правила указано ограничение на конктерные группы, то данный фильтр " .
-                    "также применится</span>"), ['class' => 'small text-muted mt-2 text-justify']);
-            }
-        ?>
+                    "также применится</span>"), ['class' => 'small text-muted mt-2 text-justify']
+                ); ?>
+            </div>
+        <?php endif; ?>
     </div>
 
     <div class="row mt-4">

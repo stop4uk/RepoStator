@@ -29,30 +29,31 @@ final class TemplateService extends BaseService
     public function save($model, $categoryForLog = null, $errorMessage = null): BaseARInterface
     {
         $isNewRecord = $model->getIsNewEntity();
-        $loadTemplateData = Yii::$app->getCache()->get('reportTempUpload_' . Yii::$app->getUser()->getId());
+        $cache = Yii::$app->getCache();
+        $cacheKey = env('YII_UPLOADS_PATH_TEMPPATH') . Yii::$app->getUser()->getId();
+        $cacheFiles = $cache->get($cacheKey);
 
         $model->getEntity()->recordAction($model);
         $transaction = Yii::$app->db->beginTransaction();
-        if (
-            $saveEntity = CommonHelper::saveAttempt(
-                entity: $model->getEntity(),
-                category: 'Reports.Template'
-            )
-        ) {
+        if ($saveEntity = CommonHelper::saveAttempt($model->getEntity(), 'Reports.Template')) {
             $saveTemplate = true;
-            if ($isNewRecord && $loadTemplateData) {
-                if (!$model->getEntity()->attachFile(
-                    inputFile: $loadTemplateData['fullPath'],
-                    type: array_key_first($model->getEntity()->attachRules),
-                    name: $loadTemplateData['name'],
-                    extension: $loadTemplateData['extension']
-                )) {
-                    $saveTemplate = false;
+
+            if ($isNewRecord && $cacheFiles) {
+                foreach ($cacheFiles as $file) {
+                    if (!$model->getEntity()->attachFile(
+                        inputFile: $file['fullPath'],
+                        type: array_key_first($model->getEntity()->attachRules),
+                        name: $file['name'],
+                        extension: $file['extension']
+                    )) {
+                        $saveTemplate = false;
+                        break;
+                    }
                 }
             }
 
             if($saveTemplate) {
-                Yii::$app->getCache()->delete('reportTempUpload_' . Yii::$app->getUser()->getId());
+                $cache->delete($cacheKey);
                 $transaction->commit();
 
                 return $saveEntity;
