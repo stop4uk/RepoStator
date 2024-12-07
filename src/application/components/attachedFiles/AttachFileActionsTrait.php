@@ -3,6 +3,7 @@
 namespace app\components\attachedFiles;
 
 use Yii;
+use yii\helpers\ArrayHelper;
 use yii\web\UploadedFile;
 use yii\helpers\Json;
 
@@ -14,7 +15,6 @@ trait AttachFileActionsTrait
         $temporaryPath = Yii::getAlias('@runtime') . DIRECTORY_SEPARATOR . env("YII_UPLOADS_PATH_TEMPPATH");
         $temporaryName = Yii::$app->getSecurity()->generateRandomString(6);
 
-
         $model = AttachFileUploadForm::createFromParams($params);
         $model->uploadFile = UploadedFile::getInstance($model, 'uploadFile');
         if ($model->isNewRecord) {
@@ -23,23 +23,31 @@ trait AttachFileActionsTrait
 
         if ($model->validate()) {
             if ($model->isNewRecord) {
+                $cache = Yii::$app->getCache();
+                $cacheKey = env('YII_UPLOADS_PATH_TEMPPATH') . Yii::$app->getUser()->getId();
+
                 $fileExtension = pathinfo($model->uploadFile->name)['extension'];
                 $fileName = implode('.', [$temporaryName, $fileExtension]);
                 $filePath = $temporaryPath . DIRECTORY_SEPARATOR . $fileName;
 
                 if (!is_dir($temporaryPath)) {mkdir($temporaryPath);}
-                $saveFile = $model->uploadFile->saveAs($filePath);
-                if ($saveFile) {
-                    Yii::$app->getCache()->set('reportTempUpload_' . Yii::$app->getUser()->getId(), [
+                $file = $model->uploadFile->saveAs($filePath);
+                if ($file) {
+                    $arrayFileToSave = [
                         'path' => $temporaryPath,
                         'fullPath' => $filePath,
                         'name' => $fileName,
                         'extension' => $fileExtension
-                    ]);
+                    ];
+
+                    $cache->set($cacheKey, match($cache->get($cacheKey) === false) {
+                        true => $arrayFileToSave,
+                        false => ArrayHelper::merge($arrayFileToSave, $cache->get($cacheKey))
+                    }, 3600);
                 }
 
                 return Json::encode([
-                    'status' => $saveFile
+                    'status' => $file
                         ? 'success'
                         : 'error',
                     'isNewRecord' => $model->isNewRecord,
