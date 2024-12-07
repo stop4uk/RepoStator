@@ -35,14 +35,18 @@ class Menu extends BaseMenu
         } else {
             $route = $itemUrl;
         }
-
         $activeByController = false;
         $controllerID = Yii::$app->controller->id;
+        $controllerIDConvert = str_replace('_', '/', $controllerID);
         $routeWithoutSlash = substr($route, 1);
-        if ( $routeWithoutSlash == $controllerID || $routeWithoutSlash.'/default' == $controllerID ) {
+        if ( 
+            $routeWithoutSlash == $controllerID
+            || $routeWithoutSlash == $controllerIDConvert
+            || $routeWithoutSlash.'/default' == $controllerID
+            || $routeWithoutSlash.'/default' == $controllerIDConvert
+        ) {
             $activeByController = true;
         }
-
 
         $isActive = ($route === $requestUrl || (Yii::$app->homeUrl . $route) === '/' . $requestUrl || $activeByController);
         return $isActive;
