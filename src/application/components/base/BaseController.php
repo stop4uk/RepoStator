@@ -20,12 +20,12 @@ class BaseController extends Controller
             && !$this->request->isPjax
         ) {
             $cache = Yii::$app->getCache();
-            $cacheKey = env('YII_UPLOADS_PATH_TEMPPATH') . Yii::$app->getUser()->getId();
+            $cacheKey = env('YII_UPLOADS_TEMPORARY_KEY') . Yii::$app->getUser()->getId();
             $cacheFiles = $cache->get($cacheKey);
 
             if ($cacheFiles) {
                 foreach ($cacheFiles as $file) {
-                    if (is_file($file['fullPath'])) {
+                    if (isset($file['fullPath']) && is_file($file['fullPath'])) {
                         FileHelper::unlink($file['fullPath']);
                     }
                 }

@@ -12,7 +12,7 @@ trait AttachFileActionsTrait
     public function actionAttachfile(string $params): string
     {
         $result = [];
-        $temporaryPath = Yii::getAlias('@runtime') . DIRECTORY_SEPARATOR . env("YII_UPLOADS_PATH_TEMPPATH");
+        $temporaryPath = Yii::getAlias('@runtime') . DIRECTORY_SEPARATOR . env("YII_UPLOADS_TEMPORARY_PATH");
         $temporaryName = Yii::$app->getSecurity()->generateRandomString(6);
 
         $model = AttachFileUploadForm::createFromParams($params);
@@ -24,7 +24,7 @@ trait AttachFileActionsTrait
         if ($model->validate()) {
             if ($model->isNewRecord) {
                 $cache = Yii::$app->getCache();
-                $cacheKey = env('YII_UPLOADS_PATH_TEMPPATH') . Yii::$app->getUser()->getId();
+                $cacheKey = env('YII_UPLOADS_TEMPORARY_KEY') . Yii::$app->getUser()->getId();
 
                 $fileExtension = pathinfo($model->uploadFile->name)['extension'];
                 $fileName = implode('.', [$temporaryName, $fileExtension]);
