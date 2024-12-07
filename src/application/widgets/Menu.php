@@ -39,7 +39,7 @@ class Menu extends BaseMenu
         $controllerID = Yii::$app->controller->id;
         $controllerIDConvert = str_replace('_', '/', $controllerID);
         $routeWithoutSlash = substr($route, 1);
-        if ( 
+        if (
             $routeWithoutSlash == $controllerID
             || $routeWithoutSlash == $controllerIDConvert
             || $routeWithoutSlash.'/default' == $controllerID
