@@ -209,13 +209,16 @@ final class AttachFileBehavior extends Behavior
 
     public function getCanFilesToAttach(): array
     {
-        $files = $this->getFilesInDB();
-        $countsByType = [];
+        $files = $this->getFilesInDB()
+            ?: Yii::$app->getCache()->get(env("YII_UPLOADS_TEMPORARY_KEY") . Yii::$app->getUser()->getId());
 
         if ( $files ) {
+            $countsByType = [];
             $result = [];
             foreach ($files as $file) {
-                $countsByType[$file->file_type] = isset($countsByType[$file->file_type]) ? $countsByType[$file->file_type]+1 : 1;
+                $countsByType[$file['file_type']] = isset($countsByType[$file['file_type']])
+                    ? $countsByType[$file['file_type']]+1
+                    : 1;
             }
 
             foreach($this->attachRules as $file_type => $file_params){

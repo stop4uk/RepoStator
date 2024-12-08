@@ -1,6 +1,7 @@
 <?php
 
 use yii\helpers\Url;
+use yii\data\ArrayDataProvider;
 use yii\widgets\{
     Pjax,
     ListView
@@ -96,10 +97,27 @@ JS);
                     ]);
                 }
             } else {
+                $templateItem = match($dataProvider->getTotalCount() >=1 ) {
+                    true => 'one_item',
+                    false => 'one_item_cache'
+                };
+
+                if (
+                    $dataProvider->getTotalCount() == 0
+                    && $cachedFiles = Yii::$app->getCache()->get(env('YII_UPLOADS_TEMPORARY_KEY') . Yii::$app->getUser()->getId())
+                ) {
+                    $dataProvider = new ArrayDataProvider([
+                        'allModels' => $cachedFiles,
+                        'pagination' => [
+                            'pageSize' => 5,
+                        ],
+                    ]);
+                }
+
                 echo ListView::widget([
                     'dataProvider' => $dataProvider,
                     'layout' => '{items}',
-                    'itemView' => 'one_item',
+                    'itemView' => $templateItem,
                     'options' => ['class' => 'row'],
                     'itemOptions' => ['class' => 'col-12 text-center'],
                     'viewParams' => [

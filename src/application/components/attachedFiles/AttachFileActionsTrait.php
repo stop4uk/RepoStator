@@ -25,6 +25,7 @@ trait AttachFileActionsTrait
             if ($model->isNewRecord) {
                 $cache = Yii::$app->getCache();
                 $cacheKey = env('YII_UPLOADS_TEMPORARY_KEY') . Yii::$app->getUser()->getId();
+                $cachedFiles = $cache->get($cacheKey) ?: [];
 
                 $fileExtension = pathinfo($model->uploadFile->name)['extension'];
                 $fileName = implode('.', [$temporaryName, $fileExtension]);
@@ -33,17 +34,16 @@ trait AttachFileActionsTrait
                 if (!is_dir($temporaryPath)) {mkdir($temporaryPath);}
                 $file = $model->uploadFile->saveAs($filePath);
                 if ($file) {
-                    $arrayFileToSave = [
+                    $cachedFiles[] = [
                         'path' => $temporaryPath,
                         'fullPath' => $filePath,
                         'name' => $fileName,
-                        'extension' => $fileExtension
+                        'extension' => $fileExtension,
+                        'file_type' => $model->modelType
+                            ?: array_key_first($model->getWorkModel()->attachRules)
                     ];
 
-                    $cache->set($cacheKey, match($cache->get($cacheKey) === false) {
-                        true => $arrayFileToSave,
-                        false => ArrayHelper::merge($arrayFileToSave, $cache->get($cacheKey))
-                    }, 3600);
+                    $cache->set($cacheKey, $cachedFiles, 3600);
                 }
 
                 return Json::encode([
