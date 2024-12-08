@@ -11,6 +11,7 @@ use app\components\attachedFiles\AttachFileHelper;
  * @var bool $showFileAsImage
  * @var string $modelClass
  * @var string|int $modelKey
+ * @var bool $fromCache Если, файлы взяты из кеша и еще не прикреплены к БД
  */
 
 
@@ -24,7 +25,7 @@ if ($canDeleted) {
     $actionParams = [
         'modelClass' => $modelClass,
         'modelKey' => $modelKey,
-        'hash' => $model->file_hash
+        'hash' => $model->file_hash ?? $model->name
     ];
 
     echo Html::tag(

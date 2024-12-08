@@ -3,9 +3,12 @@
 namespace app\components\attachedFiles;
 
 use Yii;
-use yii\helpers\ArrayHelper;
+use yii\base\Exception;
 use yii\web\UploadedFile;
-use yii\helpers\Json;
+use yii\helpers\{
+    FileHelper,
+    Json
+};
 
 trait AttachFileActionsTrait
 {
@@ -82,6 +85,14 @@ trait AttachFileActionsTrait
     {
         $paramsArray = unserialize(base64_decode($params));
         if (!$paramsArray['modelKey']) {
+            $temporaryPath = Yii::getAlias('@runtime') . DIRECTORY_SEPARATOR . env("YII_UPLOADS_TEMPORARY_PATH");
+            $filePath = $temporaryPath . DIRECTORY_SEPARATOR . $params['hash'];
+            if (is_file($filePath)) {
+                try{
+                    FileHelper::unlink($filePath);
+                } catch (Exception $e) {}
+            }
+
             return;
         }
 
