@@ -7,6 +7,8 @@ use yii\widgets\{
     ListView
 };
 
+use yii\bootstrap5\Html;
+
 use app\components\attachedFiles\{
     AttachFileUploadForm,
     widgets\fileupload\FileUploadWidget
@@ -19,6 +21,7 @@ use app\components\attachedFiles\{
  * @var string $uploadButtonOptions Классы для кнопки загрузки
  * @var bool $showFileAsImage Отображать файл в виде фотографии
  * @var bool $isNewRecord когда загрузка осуществляется до сохранения привязанной записи в БД
+ * @var string $uploadButtonHintText Текст описание для кнопки загрузки
  * @var \yii\db\BaseActiveRecord $parentModel Модель, к которой привязывается виджет
  * @var \yii\data\ArrayDataProvider $dataProvider Данные по уже загруженным и, находящимся в статусе ACTIVE файлам
  */
@@ -53,7 +56,7 @@ JS);
 ?>
 
 <div class="row">
-    <div class="12">
+    <div class="col-12">
         <?php
             if ($canAttached){
                 foreach ($canAttached as $type => $params) {
@@ -96,11 +99,12 @@ JS);
                         ],
                     ]);
                 }
+
+                if ($uploadButtonHintText) {
+                    echo Html::tag('span', $uploadButtonHintText, ['class' => 'small text-muted mt-2 text-justify']);
+                }
             } else {
-                $templateItem = match($dataProvider->getTotalCount() >=1 ) {
-                    true => 'one_item',
-                    false => 'one_item_cache'
-                };
+                $fromCache = ($dataProvider->getTotalCount() >= 1);
 
                 if (
                     $dataProvider->getTotalCount() == 0
@@ -117,14 +121,15 @@ JS);
                 echo ListView::widget([
                     'dataProvider' => $dataProvider,
                     'layout' => '{items}',
-                    'itemView' => $templateItem,
+                    'itemView' => 'one_item',
                     'options' => ['class' => 'row'],
                     'itemOptions' => ['class' => 'col-12 text-center'],
                     'viewParams' => [
                         'showFileAsImage' => $showFileAsImage,
                         'canDeleted' => $canDeleted,
-                        'modelClass' => $parentModel::class,
-                        'modelKey' => (string)$parentModel->{$parentModel->modelKey},
+                        'modelClass' => $parentModel::class ?? null,
+                        'modelKey' => (string)$parentModel->{$parentModel->modelKey} ?? null,
+                        'fromCache' => $fromCache
                     ]
                 ]);
             }

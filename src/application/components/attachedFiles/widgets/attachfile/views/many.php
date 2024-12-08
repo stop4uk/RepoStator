@@ -22,6 +22,7 @@ use app\components\attachedFiles\{
  * @var array $canAttached Список типов доков, которые можно загрузить
  * @var bool $canDeleted Возможность удаления файлов
  * @var array $filesGridColuns Список колонок для отображения
+ * @var string $uploadButtonHintText Текст описание для кнопки загрузки
  * @var \yii\db\BaseActiveRecord $parentModel Модель, к которой привязыается виджет
  * @var \yii\data\ArrayDataProvider $dataProvider Данные по уже загруженным и, находящимся в статусе ACTIVE файлам
  */
@@ -104,6 +105,10 @@ JS);
                             } ?>
                         </div>
                     </div>
+
+                    <?php if ($uploadButtonHintText) {
+                        echo Html::tag('span', $uploadButtonHintText, ['class' => 'small text-muted mt-2 text-justify']);
+                    } ?>
                 <?php endif; ?>
 
                 <h5 class="card-title"><?= $blockTitle ?></h5>
