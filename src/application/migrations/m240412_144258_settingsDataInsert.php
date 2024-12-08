@@ -19,7 +19,7 @@ class m240412_144258_settingsDataInsert extends Migration
                 [
                     'category' => 'auth',
                     'key' => 'login_duration',
-                    'value' => '86400',
+                    'value' => '2592000',
                     'description' => 'Время "жизни" сессии в секундах',
                     'required' => 0,
                     'sort' => 5,

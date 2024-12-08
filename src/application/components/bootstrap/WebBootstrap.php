@@ -12,5 +12,6 @@ final class WebBootstrap implements BootstrapInterface
 {
     public function bootstrap($app)
     {
+        $app->session->timeout = $app->settings->get('auth', 'login_duration');
     }
 }
