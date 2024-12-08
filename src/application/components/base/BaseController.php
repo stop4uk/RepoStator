@@ -25,11 +25,13 @@ class BaseController extends Controller
 
             if ($cacheFiles) {
                 foreach ($cacheFiles as $file) {
-                    if (isset($file['fullPath']) && is_file($file['fullPath'])) {
+                    if (
+                        isset($file['fullPath'])
+                        && is_file($file['fullPath'])
+                    ) {
                         FileHelper::unlink($file['fullPath']);
                     }
                 }
-
                 $cache->delete($cacheKey);
             }
         }
