@@ -46,7 +46,7 @@ trait AttachFileActionsTrait
                             ?: array_key_first($model->getWorkModel()->attachRules)
                     ];
 
-                    $cache->set($cacheKey, $cachedFiles, 3600);
+                    $cache->set($cacheKey, $cachedFiles);
                 }
 
                 return Json::encode([
@@ -87,10 +87,24 @@ trait AttachFileActionsTrait
         if (!$paramsArray['modelKey']) {
             $temporaryPath = Yii::getAlias('@runtime') . DIRECTORY_SEPARATOR . env("YII_UPLOADS_TEMPORARY_PATH");
             $filePath = $temporaryPath . DIRECTORY_SEPARATOR . $params['hash'];
-            if (is_file($filePath)) {
-                try{
-                    FileHelper::unlink($filePath);
-                } catch (Exception $e) {}
+
+            $cache = Yii::$app->getCache();
+            $cacheKey = env('YII_UPLOADS_TEMPORARY_KEY') . Yii::$app->getUser()->getId();
+            $cachedFiles = $cache->get($cacheKey);
+
+            if ($cachedFiles) {
+                foreach($cachedFiles as $key => $file) {
+                    if ($file['name'] == $params['hash']) {
+                        unset($cachedFiles[$key]);
+                        if (is_file($filePath)) {
+                            try{
+                                FileHelper::unlink($filePath);
+                            } catch (Exception $e) {}
+                        }
+                    }
+                }
+
+                $cache->set($cacheKey, $cachedFiles);
             }
 
             return;
