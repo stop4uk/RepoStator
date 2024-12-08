@@ -42,7 +42,8 @@ final class TemplateService extends BaseService
                 foreach ($cacheFiles as $file) {
                     if (!$model->getEntity()->attachFile(
                         inputFile: $file['fullPath'],
-                        type: array_key_first($model->getEntity()->attachRules),
+                        type: $file['file_type']
+                            ?: array_key_first($model->getEntity()->attachRules),
                         name: $file['name'],
                         extension: $file['extension']
                     )) {
