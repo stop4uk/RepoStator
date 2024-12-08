@@ -67,7 +67,7 @@ $config = [
             'cookieValidationKey' => env('YII_COOKIE_VALIDATION_KEY'),
         ],
         'session' => [
-            'timeout' => 24 * 30 * 3600,
+            'timeout' => env('YII_DURATION_SESSION'),
             'name' => env('PROJECT_NAME') . '_session',
             'useCookies'   => true,
             'cookieParams' => [

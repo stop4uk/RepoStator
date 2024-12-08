@@ -66,6 +66,7 @@ return [
         ],
         'cache' => [
             'class' => FileCache::class,
+            'defaultDuration' => env('YII_DURATION_CACHE')
         ],
         'queue' => [
             'class' => Queue::class,
