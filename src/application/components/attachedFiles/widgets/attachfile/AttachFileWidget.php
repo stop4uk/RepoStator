@@ -42,7 +42,7 @@ final class AttachFileWidget extends Widget
     /**
      * @var bool
      */
-    public $showFileAsImage = true;
+    public $showFileAsImage = false;
     /**
      * @var bool
      */

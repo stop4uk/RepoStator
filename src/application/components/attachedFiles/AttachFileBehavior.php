@@ -215,6 +215,7 @@ final class AttachFileBehavior extends Behavior
         if ( $files ) {
             $countsByType = [];
             $result = [];
+
             foreach ($files as $file) {
                 $countsByType[$file['file_type']] = isset($countsByType[$file['file_type']])
                     ? $countsByType[$file['file_type']]+1

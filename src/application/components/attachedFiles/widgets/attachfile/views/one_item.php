@@ -16,16 +16,18 @@ use app\components\attachedFiles\AttachFileHelper;
 
 
 if ($showFileAsImage) {
-    $filePath = $model->file_path . DIRECTORY_SEPARATOR . implode('.', [$model->file_hash, $model->file_extension]);
+    $filePath = $model['fullPath']
+        ?? $model->file_path . DIRECTORY_SEPARATOR . implode('.', [$model->file_hash, $model->file_extension]);
+
     $photo = base64_encode(AttachFileHelper::readFromStorage($model->storage, $filePath));
     echo Html::img("data:image/{$model->file_extension};base64,$photo", ['class' => 'w-auto rounded']);
 }
 
-if ($canDeleted) {
+if ($canDeleted || $fromCache) {
     $actionParams = [
         'modelClass' => $modelClass,
         'modelKey' => $modelKey,
-        'hash' => $model->file_hash ?? $model->name
+        'hash' => $model->file_hash ?? $model['name']
     ];
 
     echo Html::tag(
