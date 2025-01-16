@@ -9,6 +9,10 @@ use HTMLPurifier_Config;
 use Yii;
 use yii\helpers\HtmlPurifier as BasePurifier;
 
+/**
+ * @author Stop4uk <stop4uk@yandex.ru>
+ * @package app\helpers
+ */
 final class HtmlPurifier extends BasePurifier
 {
     public static function process($content, $config = null): string

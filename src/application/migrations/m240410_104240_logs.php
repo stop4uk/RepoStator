@@ -1,18 +1,17 @@
 <?php
 
-use yii\db\Schema;
 use yii\db\Migration;
 
 class m240410_104240_logs extends Migration
 {
 
-    public function init()
+    public function init(): void
     {
         $this->db = 'db';
         parent::init();
     }
 
-    public function safeUp()
+    public function safeUp(): void
     {
         $tableOptions = 'ENGINE=InnoDB';
 

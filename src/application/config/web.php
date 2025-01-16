@@ -1,20 +1,20 @@
 <?php
 
-use yii\web\Cookie;
+use yii\web\{
+    Cookie,
+    UrlNormalizer
+};
 use yii\queue\debug\Panel;
 use yii\{
     debug\Module as DebugModule,
     gii\Module as GiiModule
 };
 use yii\helpers\ArrayHelper;
+use kartik\select2\Select2Asset;
 
 use app\components\{
     bootstrap\WebBootstrap,
-    events\handlers\WebEventHandler,
-};
-use app\useCases\users\{
-    components\rbac\RbacDbmanager,
-    components\Identity
+    events\WebEventHandler
 };
 
 $params = array_merge(
@@ -28,22 +28,12 @@ $config = [
         '@assets' => '@root/public/assets',
     ],
     'viewPath' => '@resources/views',
+    'defaultRoute' => 'site',
     'bootstrap' => [
         WebBootstrap::class,
         WebEventHandler::class,
     ],
     'components' => [
-        'user' => [
-            'identityClass' => Identity::class,
-            'enableAutoLogin' => true,
-            'loginUrl' => ['login'],
-            'identityCookie' => [
-                'name' => '_identity-' . env('PROJECT_NAME'),
-            ],
-        ],
-        'authManager' => [
-            'class' => RbacDbmanager::class,
-        ],
         'view' => [
             'theme' => [
                 'basePath' => '@resources'
@@ -55,7 +45,7 @@ $config = [
             'forceCopy' => true,
             'basePath' => '@assets',
             'bundles' => [
-                'kartik\select2\Select2Asset' => [
+                Select2Asset::class => [
                     'sourcePath' => '@resources',
                     'css' => ['assets/components/select2/css/select2.css'],
                     'js' => ['assets/components/select2/js/select2.full.js'],
@@ -76,7 +66,30 @@ $config = [
                 'sameSite' => Cookie::SAME_SITE_STRICT,
             ],
         ],
+        'errorHandler' => [
+            'errorAction' => 'error/fault',
+        ],
+        'urlManager' => [
+            'enablePrettyUrl' => true,
+            'showScriptName' => false,
+            'normalizer' => [
+                'class' => UrlNormalizer::class,
+                'normalizeTrailingSlash' => true,
+                'collapseSlashes' => true,
+            ],
+        ],
     ],
+    'on beforeAction' => function ($event) {
+        $controllerID = $event->action->controller->id;
+        $maintenanceMode = (bool)Yii::$app->settings->get('system', 'app_maintenance');
+
+        if (
+            $maintenanceMode
+            && $controllerID != 'offline'
+        ) {
+            return Yii::$app->getResponse()->redirect(["/offline"]);
+        }
+    },
     'params' => $params,
 ];
 
@@ -103,6 +116,5 @@ if ((bool)getenv('YII_DEBUG')) {
 
 return ArrayHelper::merge(
     require 'common.php',
-    require 'web_routes.php',
     $config
 );

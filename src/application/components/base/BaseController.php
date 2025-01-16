@@ -15,27 +15,27 @@ class BaseController extends Controller
 {
     public function beforeAction($action): bool
     {
-        if (
-            $this->request->isGet
-            && !$this->request->isPjax
-        ) {
-            $cache = Yii::$app->getCache();
-            $cacheKey = env('YII_UPLOADS_TEMPORARY_KEY') . Yii::$app->getUser()->getId();
-            $cacheFiles = $cache->get($cacheKey);
-
-            if ($cacheFiles) {
-                foreach ($cacheFiles as $file) {
-                    if (
-                        isset($file['fullPath'])
-                        && is_file($file['fullPath'])
-                    ) {
-                        FileHelper::unlink($file['fullPath']);
-                    }
-                }
-                $cache->delete($cacheKey);
-            }
-        }
-
+//        if (
+//            $this->request->isGet
+//            && !$this->request->isPjax
+//        ) {
+//            $session = Yii::$app->getSession();
+//            $sessionKey = env('YII_UPLOADS_TEMPORARY_KEY');
+//            $sessionFiles = $session->get($sessionKey);
+//
+//            if ($sessionFiles) {
+//                foreach ($sessionFiles as $file) {
+//                    if (
+//                        isset($file['fullPath'])
+//                        && is_file($file['fullPath'])
+//                    ) {
+//                        FileHelper::unlink($file['fullPath']);
+//                    }
+//                }
+//                $session->remove($sessionKey);
+//            }
+//        }
+//
         return parent::beforeAction($action);
     }
 
