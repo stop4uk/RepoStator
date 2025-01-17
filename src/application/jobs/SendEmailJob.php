@@ -2,9 +2,10 @@
 
 namespace app\jobs;
 
-use Yii;
 use yii\base\BaseObject;
 use yii\queue\JobInterface;
+
+use app\helpers\EmailHelper;
 
 /**
  * @author Stop4uk <stop4uk@yandex.ru>
@@ -17,14 +18,8 @@ final class SendEmailJob extends BaseObject implements JobInterface
     public string $subject;
     public array $data;
 
-    public function execute($queue)
+    public function execute($queue): void
     {
-        try {
-            Yii::$app->mailer->compose(['html' => $this->template], ['data' => $this->data])
-                ->setFrom([Yii::$app->settings->get('system', 'sender_email') => Yii::$app->settings->get('system', 'sender_name')])
-                ->setTo($this->email)
-                ->setSubject($this->subject)
-                ->send();
-        } catch (\Exception $e) { Yii::warning($e->getMessage(), 'Queue'); }
+        EmailHelper::sendByNative($this->template, $this->email, $this->subject, $this->data);
     }
 }
