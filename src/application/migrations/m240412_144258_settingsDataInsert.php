@@ -5,13 +5,13 @@ use yii\db\Migration;
 class m240412_144258_settingsDataInsert extends Migration
 {
 
-    public function init(): void
+    public function init()
     {
         $this->db = 'db';
         parent::init();
     }
 
-    public function safeUp(): void
+    public function safeUp()
     {
         $this->batchInsert('{{%settings}}',
             ["category", "key", "value", "description", "required", "sort"],

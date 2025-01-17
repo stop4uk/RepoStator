@@ -29,11 +29,8 @@ final class CommonHelper
         self::VAR_YES
     ];
 
-    public static function saveAttempt(
-        BaseAR $entity,
-        string $category,
-        bool $validate = true
-    ): BaseAR|bool {
+    public static function saveAttempt(BaseAR $entity, string $category, bool $validate = true): BaseAR|bool
+    {
         try {
             $entity->save($validate);
             return $entity;
@@ -44,12 +41,8 @@ final class CommonHelper
         return false;
     }
 
-    public static function saveFileAttempt(
-        BaseModel $model,
-        string $field,
-        string $alias,
-        ?int $userId = null
-    ): ?string {
+    public static function saveFileAttempt(BaseModel $model, string $field, string $alias, ?int $userId = null ): ?string
+    {
         $path = Yii::getAlias($alias);
         $pathToDB = $alias;
         if ( $userId ) {

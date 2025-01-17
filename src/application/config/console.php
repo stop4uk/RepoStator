@@ -5,7 +5,7 @@ use yii\helpers\ArrayHelper;
 
 use app\components\{
     bootstrap\ConsoleBootstrap,
-    events\ConsoleEventHandler
+    events\handlers\ConsoleEventHandler
 };
 
 $params = array_merge(
@@ -16,7 +16,7 @@ $params = array_merge(
 $config = [
     'bootstrap' => [
         ConsoleBootstrap::class,
-        ConsoleEventHandler::class
+        ConsoleEventHandler::class,
     ],
     'controllerNamespace' => 'app\commands',
     'controllerMap' => [

@@ -1,7 +1,7 @@
 <?php
 
-use yii\db\Connection;
 use yii\caching\FileCache;
+use yii\db\Connection;
 use yii\i18n\PhpMessageSource;
 use yii\mutex\MysqlMutex;
 use yii\queue\{
@@ -10,9 +10,13 @@ use yii\queue\{
 };
 use yii\symfonymailer\Mailer;
 
+use creocoder\flysystem\LocalFilesystem;
+
 use app\components\{
     bootstrap\CommonBootstrap,
-    settings\Settings
+    events\handlers\CommonEventHandler,
+    settings\Settings,
+    attachedFiles\AttachFileHelper
 };
 
 return [
@@ -36,8 +40,13 @@ return [
         'log',
         'queue',
         CommonBootstrap::class,
+        CommonEventHandler::class,
     ],
     'components' => [
+        AttachFileHelper::STORAGE_LOCAL => [
+            'class' => LocalFilesystem::class,
+            'path' => '@uploads'
+        ],
         'i18n' => [
             'translations' => [
                 '*' => [

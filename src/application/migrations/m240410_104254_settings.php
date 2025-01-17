@@ -1,21 +1,23 @@
 <?php
 
+use yii\db\Schema;
 use yii\db\Migration;
 
 class m240410_104254_settings extends Migration
 {
-    public function init(): void
+
+    public function init()
     {
         $this->db = 'db';
         parent::init();
     }
 
-    public function safeUp(): void
+    public function safeUp()
     {
         $tableOptions = 'ENGINE=InnoDB';
 
         $this->createTable(
-            '{{%settings_system}}',
+            '{{%settings}}',
             [
                 'category'=> $this->string(24)->notNull(),
                 'key'=> $this->string(48)->notNull(),
