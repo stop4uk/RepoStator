@@ -2,31 +2,31 @@
 
 namespace app\modules\users;
 
-use app\modules\users\entities\UserEntity;
 use Yii;
 use yii\base\{
     Event,
     Module
 };
-use yii\web\Application;
+use yii\web\{
+    Application,
+    User
+};
+use yii\log\{
+    DbTarget,
+    FileTarget
+};
 
+use app\components\base\BaseModule;
 use app\modules\users\components\{
     Identity,
     RbacDbmanager
 };
-use yii\web\User;
 
-final class UserModule extends Module
+final class UserModule extends Module implements BaseModule
 {
     public static function run(): void
     {
         $configPath = dirname(__FILE__, 1) . DIRECTORY_SEPARATOR . 'config' . DIRECTORY_SEPARATOR;
-        $eventsFilePath = $configPath . 'events.php';
-        $routesFilePath = $configPath . 'routes.php';
-        $logsFilePath = $configPath . match((bool)env('YII_DEBUG')) {
-            true => 'logs_file.php',
-            false => 'logs_db.php'
-        };
 
         if (Yii::$app instanceof Application) {
             Yii::$app->setComponents([
@@ -43,23 +43,24 @@ final class UserModule extends Module
             ]);
         }
 
-        if (file_exists($routesFilePath)) {
-            $routes = require_once $routesFilePath;
-            Yii::$app->getUrlManager()->addRules($routes);
+        $routes = require_once $configPath . 'routes.php';
+        Yii::$app->getUrlManager()->addRules($routes);
+
+        $events = require_once $configPath . 'events.php';
+        foreach ($events as $event) {
+            Event::on($event['class'], $event['event'], $event['callable']);
         }
 
-        if (file_exists($logsFilePath)) {
-            $logs = require_once $logsFilePath;
-            foreach ($logs as $log) {
-                Yii::$app->getLog()->targets[] = $log;
-            }
-        }
+        $logs = require_once $configPath . match((bool)env('YII_DEBUG')) {
+            true => 'logs_file.php',
+            false => 'logs_db.php'
+        };
 
-        if (file_exists($eventsFilePath)) {
-            $events = require_once $eventsFilePath;
-            foreach ($events as $event) {
-                Event::on($event['class'], $event['event'], $event['callable']);
-            }
+        foreach ($logs as $log) {
+            Yii::$app->getLog()->targets[] = match((bool)env('YII_DEBUG')){
+                true => new FileTarget($log),
+                false => new DbTarget($log)
+            };
         }
     }
 }
