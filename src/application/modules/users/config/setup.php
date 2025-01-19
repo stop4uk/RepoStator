@@ -1,5 +1,7 @@
 <?php
 
+use app\modules\users\UserModule;
+
 return [
-    'class' => \app\modules\users\UserModule::class
+    'class' => UserModule::class
 ];
