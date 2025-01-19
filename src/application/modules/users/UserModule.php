@@ -12,13 +12,12 @@ use yii\web\{
     User
 };
 
-use app\components\base\BaseModule;
 use app\modules\users\components\{
     Identity,
     RbacDbmanager
 };
 
-final class UserModule extends Module implements BaseModule
+final class UserModule extends Module
 {
     public static function run(): void
     {

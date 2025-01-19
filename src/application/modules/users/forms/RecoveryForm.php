@@ -100,7 +100,7 @@ final class RecoveryForm extends Model
         }
     }
 
-    public function afterValidate()
+    public function afterValidate(): void
     {
         if ( $this->scenario == self::SCENARIO_PROCESS && !$this->hasErrors() ) {
             $this->password = UserHelper::generatePassword($this->password);

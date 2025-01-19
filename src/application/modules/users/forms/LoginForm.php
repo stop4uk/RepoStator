@@ -67,7 +67,7 @@ final class LoginForm extends Model
         }
     }
 
-    public function validateAccount($attribute)
+    public function validateAccount($attribute): void
     {
        if ( !$this->hasErrors() ) {
            $user = $this->getUser();
