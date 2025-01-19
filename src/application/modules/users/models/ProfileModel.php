@@ -18,7 +18,6 @@ use app\modules\users\{
  * @property int|null $phone
  *
  * @author Stop4uk <stop4uk@yandex.ru>
- * @package app\models\user
  */
 final class ProfileModel extends BaseModel
 {

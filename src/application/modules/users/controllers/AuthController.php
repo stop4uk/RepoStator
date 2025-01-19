@@ -9,18 +9,19 @@ use yii\web\Response;
 use yii\bootstrap5\ActiveForm;
 
 use app\components\base\BaseController;
-use app\models\users\{
-    forms\auth\LoginForm,
-    forms\auth\RegisterForm,
+use app\modules\users\{
+    forms\LoginForm,
+    forms\RegisterForm,
     services\AuthService
 };
 
 /**
  * @author Stop4uk <stop4uk@yandex.ru>
- * @package app\controllers\auth
  */
 final class AuthController extends BaseController
 {
+    public $layout = '@resources/views/layouts/clear';
+
     public function __construct(
         $id,
         $module,

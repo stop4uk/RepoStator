@@ -16,7 +16,6 @@ use app\modules\users\{
  * @property strin|null $description
  *
  * @author Stop4uk <stop4uk@yandex.ru>
- * @package app\models\group
  */
 final class GroupTypeModel extends BaseModel
 {
