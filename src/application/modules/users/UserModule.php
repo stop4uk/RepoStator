@@ -11,10 +11,6 @@ use yii\web\{
     Application,
     User
 };
-use yii\log\{
-    DbTarget,
-    FileTarget
-};
 
 use app\components\base\BaseModule;
 use app\modules\users\components\{
@@ -51,16 +47,9 @@ final class UserModule extends Module implements BaseModule
             Event::on($event['class'], $event['event'], $event['callable']);
         }
 
-        $logs = require_once $configPath . match((bool)env('YII_DEBUG')) {
-            true => 'logs_file.php',
-            false => 'logs_db.php'
-        };
-
+        $logs = require_once $configPath . 'logs.php';
         foreach ($logs as $log) {
-            Yii::$app->getLog()->targets[] = match((bool)env('YII_DEBUG')){
-                true => new FileTarget($log),
-                false => new DbTarget($log)
-            };
+            Yii::$app->getLog()->targets[] = $log;
         }
     }
 }
