@@ -22,7 +22,7 @@ final class ConsoleBootstrap implements BootstrapInterface
          * чтобы все прошло без ошибок
          */
         try {
-            $app->urlManager->scriptUrl = $app->settings->get('system', 'app_hostname', 'http://localhost');
+            $app->getUrlManager()->scriptUrl = $app->settings->get('system', 'app_hostname', 'http://localhost');
         } catch(\Throwable $throwable){}
     }
 }
