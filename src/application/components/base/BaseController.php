@@ -19,12 +19,13 @@ class BaseController extends Controller
             $this->request->isGet
             && !$this->request->isPjax
         ) {
-            $cache = Yii::$app->getCache();
-            $cacheKey = env('YII_UPLOADS_TEMPORARY_KEY') . Yii::$app->getUser()->getId();
-            $cacheFiles = $cache->get($cacheKey);
+            $session = Yii::$app->getSession();
+            $userID = isset(Yii::$app->getComponents()['user']['identityClass']) ? Yii::$app->getUser()->getId() : 1;
+            $sessionKey = env('YII_UPLOADS_TEMPORARY_KEY') . $userID;
+            $sessionFiles = $session->get($sessionKey);
 
-            if ($cacheFiles) {
-                foreach ($cacheFiles as $file) {
+            if ($sessionFiles) {
+                foreach ($sessionFiles as $file) {
                     if (
                         isset($file['fullPath'])
                         && is_file($file['fullPath'])
@@ -32,7 +33,7 @@ class BaseController extends Controller
                         FileHelper::unlink($file['fullPath']);
                     }
                 }
-                $cache->delete($cacheKey);
+                $session->remove($sessionKey);
             }
         }
 
