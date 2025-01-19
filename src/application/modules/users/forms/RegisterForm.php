@@ -63,7 +63,7 @@ final class RegisterForm extends Model
         return AuthHelper::labels();
     }
 
-    public function afterValidate()
+    public function afterValidate(): void
     {
         if ( !$this->hasErrors() ) {
             $this->password = UserHelper::generatePassword($this->password);
