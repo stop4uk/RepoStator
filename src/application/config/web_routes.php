@@ -102,23 +102,6 @@ return [
             'viewPath' => '@resources/views/reports/control'
         ],
         'statistic' => StatisticController::class,
-        'auth_default' => [
-            'class' => DefaultAuthController::class,
-            'layout' => 'clear',
-            'viewPath' => '@resources/views/auth/default'
-        ],
-        'auth_recovery' => [
-            'class' => RecoveryController::class,
-            'layout' => 'clear',
-            'viewPath' => '@resources/views/auth/recovery'
-        ],
-        'auth_verification' => [
-            'class' => VerificationController::class,
-            'layout' => 'clear',
-            'viewPath' => '@resources/views/auth/verification'
-        ],
-        'profile' => ProfileController::class
-
     ],
     'components' => [
         'errorHandler' => [
@@ -136,12 +119,12 @@ return [
                 'download' => 'dashboard/download',
 
                 #Авторизация, регистрация, восстановление и подтверждение учетных записей
-                '<action:(login|logout|register)>'  => 'auth_default/<action>',
-                'recovery'                          => 'auth_recovery',
-                'recovery/<action>'                 => 'auth_recovery/<action>',
-                'verification'                      => 'auth_verification',
-                'verification/<action>'             => 'auth_verification/<action>',
-
+                '<action:(login|logout|register)>'  => 'users/auth/<action>',
+                'recovery'                          => 'users/recovery',
+                'recovery/<action>'                 => 'users/recovery/<action>',
+                'verification'                      => 'users/verification',
+                'verification/<action>'             => 'users/verification/<action>',
+                'profile'                           => 'users/profile',
                 #Отчеты
                 'reports/constant'                  => 'reports_constant',
                 'reports/constant/<action:\w+>'     => 'reports_constant/<action>',
