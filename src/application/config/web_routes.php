@@ -1,49 +1,25 @@
 <?php
 
-use yii\web\UrlNormalizer;
-
-use app\useCases\admin\controllers\{
-    groups\DefaultController as DefaultAdminGroupController,
+use app\useCases\admin\controllers\{groups\DefaultController as DefaultAdminGroupController,
     groups\TypeController,
+    LogsController,
     queue\DefaultController as DefaultAdminQueueController,
     queue\TemplateController as TemplateAdminQueueController,
-    LogsController,
     SettingsController,
-    UsersController
-};
-use app\useCases\reports\controllers\{
-    ConstantController,
+    UsersController};
+use app\useCases\reports\controllers\{ConstantController,
     ConstantruleController,
     ControlController,
     DefaultController as DefaultReportController,
     SendController,
     StatisticController,
     StructureController,
-    TemplateController as TemplateReportController
-};
-use app\useCases\system\controllers\{
-    DashboardController,
-    ErrorController,
-    OfflineController
-};
-use app\useCases\users\controllers\{
-    auth\DefaultController as DefaultAuthController,
-    auth\RecoveryController,
-    auth\VerificationController,
-    ProfileController
-};
+    TemplateController as TemplateReportController};
+use app\useCases\system\controllers\{DashboardController};
+use yii\web\UrlNormalizer;
 
 return [
-    'defaultRoute' => 'dashboard',
     'controllerMap' => [
-        'error' => [
-            'class' => ErrorController::class,
-            'layout' => 'clear'
-        ],
-        'offline' => [
-            'class' => OfflineController::class,
-            'layout' => 'clear',
-        ],
         'dashboard' => DashboardController::class,
         'admin_groups' => [
             'class' => DefaultAdminGroupController::class,
@@ -118,13 +94,6 @@ return [
             'rules' => [
                 'download' => 'dashboard/download',
 
-                #Авторизация, регистрация, восстановление и подтверждение учетных записей
-                '<action:(login|logout|register)>'  => 'users/auth/<action>',
-                'recovery'                          => 'users/recovery',
-                'recovery/<action>'                 => 'users/recovery/<action>',
-                'verification'                      => 'users/verification',
-                'verification/<action>'             => 'users/verification/<action>',
-                'profile'                           => 'users/profile',
                 #Отчеты
                 'reports/constant'                  => 'reports_constant',
                 'reports/constant/<action:\w+>'     => 'reports_constant/<action>',

@@ -18,7 +18,6 @@ use app\components\{
     settings\Settings,
     attachedFiles\AttachFileHelper
 };
-use app\modules\users\UserModule;
 
 return [
     'id' => getenv('PROJECT_NAME'),
@@ -42,12 +41,6 @@ return [
         'queue',
         CommonBootstrap::class,
         CommonEventHandler::class,
-    ],
-    'modules' => [
-        'users' => [
-            'class' => UserModule::class,
-            'viewPath' => '@resources/views/users'
-        ]
     ],
     'components' => [
         AttachFileHelper::STORAGE_LOCAL => [

@@ -12,10 +12,6 @@ use app\components\{
     bootstrap\WebBootstrap,
     events\handlers\WebEventHandler,
 };
-use app\useCases\users\{
-    components\rbac\RbacDbmanager,
-    components\Identity
-};
 
 $params = array_merge(
     require __DIR__ . '/_params_common.php',
@@ -33,17 +29,6 @@ $config = [
         WebEventHandler::class,
     ],
     'components' => [
-        'user' => [
-            'identityClass' => Identity::class,
-            'enableAutoLogin' => true,
-            'loginUrl' => ['login'],
-            'identityCookie' => [
-                'name' => '_identity-' . env('PROJECT_NAME'),
-            ],
-        ],
-        'authManager' => [
-            'class' => RbacDbmanager::class,
-        ],
         'view' => [
             'theme' => [
                 'basePath' => '@resources'
