@@ -1,6 +1,6 @@
 <?php
 
-namespace app\modules\users\services;
+namespace stop4uk\users\services;
 
 use Yii;
 use yii\base\Exception;
@@ -12,7 +12,7 @@ use app\components\base\{
     BaseService,
 };
 use app\helpers\CommonHelper;
-use app\modules\users\entities\GroupNestedEntity;
+use stop4uk\users\entities\GroupNestedEntity;
 
 /**
  * @author Stop4uk <stop4uk@yandex.ru>

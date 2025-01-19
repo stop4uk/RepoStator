@@ -1,11 +1,11 @@
 <?php
 
-namespace app\modules\users\events\dispatchers;
+namespace stop4uk\users\events\dispatchers;
 
 use yii\base\Event;
 use yii\web\Request;
 
-use app\modules\users\entities\UserEntity;
+use stop4uk\users\entities\UserEntity;
 
 /**
  * @author Stop4uk <stop4uk@yandex.ru>

@@ -1,6 +1,5 @@
 <?php
 
-use yii\db\Schema;
 use yii\db\Migration;
 
 class m240410_104539_groups_nestedDataInsert extends Migration

@@ -1,13 +1,13 @@
 <?php
 
-namespace app\modules\users\forms;
+namespace stop4uk\users\forms;
 
 use Yii;
 use yii\base\Model;
 
 use app\components\base\BaseAR;
 use app\helpers\HtmlPurifier;
-use app\modules\users\{
+use stop4uk\users\{
     entities\UserEmailchangeEntity,
     entities\UserEntity,
     helpers\UserHelper

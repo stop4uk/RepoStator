@@ -1,6 +1,6 @@
 <?php
 
-namespace app\modules\users\services;
+namespace stop4uk\users\services;
 
 use Yii;
 use yii\base\Exception;
@@ -10,7 +10,7 @@ use app\components\{
     events\objects\ProfileEvent
 };
 use app\helpers\CommonHelper;
-use app\modules\users\{
+use stop4uk\users\{
     entities\UserEmailchangeEntity,
     entities\UserEntity,
     repositories\UserRepository,

@@ -1,6 +1,6 @@
 <?php
 
-namespace app\modules\users\controllers;
+namespace stop4uk\users\controllers;
 
 use Yii;
 use yii\base\Exception;
@@ -9,7 +9,7 @@ use yii\web\Response;
 use yii\bootstrap5\ActiveForm;
 
 use app\components\base\BaseController;
-use app\modules\users\{
+use stop4uk\users\{
     forms\LoginForm,
     forms\RegisterForm,
     services\AuthService
@@ -21,14 +21,13 @@ use app\modules\users\{
  */
 final class AuthController extends BaseController
 {
-    public $layout = '@resources/views/layouts/clear';
-
     public function __construct(
         $id,
         $module,
         private readonly AuthService $service,
         $config = []
     ) {
+        $this->layout = Yii::$app->getModule('users')->layoutClean;
         parent::__construct($id, $module, $config);
     }
 

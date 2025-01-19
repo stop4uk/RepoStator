@@ -1,7 +1,9 @@
 <?php
 
-use app\modules\users\UserModule;
+use stop4uk\users\Module;
 
 return [
-    'class' => UserModule::class
+    'class' => Module::class,
+    'layout' => '@resources/views/layouts/main',
+    'layoutClean' => '@resources/views/layouts/clean',
 ];

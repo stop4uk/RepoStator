@@ -1,6 +1,6 @@
 <?php
 
-namespace app\modules\users\components;
+namespace stop4uk\users\components;
 
 use Yii;
 use yii\base\{

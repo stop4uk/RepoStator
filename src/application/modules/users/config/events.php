@@ -1,6 +1,6 @@
 <?php
 
-use app\modules\users\{
+use stop4uk\users\{
     events\dispatchers\AuthEventDispatcher,
     events\dispatchers\ProfileEventDispatcher,
     events\dispatchers\UserEventDispatcher,

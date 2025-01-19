@@ -1,6 +1,6 @@
 <?php
 
-namespace app\modules\users\controllers;
+namespace stop4uk\users\controllers;
 
 use Yii;
 use yii\base\Exception;

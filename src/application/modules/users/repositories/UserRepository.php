@@ -1,6 +1,6 @@
 <?php
 
-namespace app\modules\users\repositories;
+namespace stop4uk\users\repositories;
 
 use yii\db\ActiveQuery;
 use yii\helpers\ArrayHelper;
@@ -10,7 +10,7 @@ use app\components\base\{
     BaseARInterface,
     BaseRepositoryInterface
 };
-use app\modules\users\{
+use stop4uk\users\{
     entities\UserEntity,
     entities\UserGroupEntity
 };

@@ -1,24 +1,26 @@
 <?php
 
-namespace app\modules\users;
+namespace stop4uk\users;
 
 use Yii;
-use yii\base\{
-    Event,
-    Module
-};
+use yii\base\Event;
 use yii\web\{
     Application,
     User
 };
 
-use app\modules\users\components\{
+use stop4uk\users\components\{
     Identity,
     RbacDbmanager
 };
 
-final class UserModule extends Module
+final class Module extends \yii\base\Module
 {
+    public $layout;
+    public $layoutClean;
+    public int|null $leftMenuSort = null;
+    public int|null $topMenuSort = 1;
+
     public static function run(): void
     {
         $configPath = dirname(__FILE__, 1) . DIRECTORY_SEPARATOR . 'config' . DIRECTORY_SEPARATOR;

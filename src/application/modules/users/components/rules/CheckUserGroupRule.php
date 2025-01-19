@@ -1,6 +1,6 @@
 <?php
 
-namespace app\modules\users\components\rules;
+namespace stop4uk\users\components\rules;
 
 use Yii;
 use yii\rbac\Rule;

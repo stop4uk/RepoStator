@@ -1,6 +1,6 @@
 <?php
 
-namespace app\modules\users\controllers;
+namespace stop4uk\users\controllers;
 
 use Yii;
 use yii\base\Exception;
@@ -9,7 +9,7 @@ use yii\web\Response;
 use yii\bootstrap5\ActiveForm;
 
 use app\components\base\BaseController;
-use app\modules\users\{
+use stop4uk\users\{
     forms\auth\RecoveryForm,
     services\AuthService
 };

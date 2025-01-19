@@ -1,19 +1,17 @@
 <?php
 
-namespace app\modules\users\services;
+namespace stop4uk\users\services;
 
 use Yii;
 use yii\base\Exception;
 
-use app\components\{
-    base\BaseARInterface,
-    base\BaseModelInterface,
-    base\BaseAR,
-    base\BaseService,
-    events\objects\UserEvent
-};
-use app\helpers\CommonHelper;
-use app\modules\users\{
+use stop4uk\users\{
+    components\base\BaseARInterface,
+    components\base\BaseModelInterface,
+    components\base\BaseAR,
+    components\base\BaseService,
+    components\base\BaseHelper,
+    events\dispatchers\UserEvent,
     entities\UserGroupEntity,
     entities\UserRightEntity,
     models\UserModel,
@@ -44,7 +42,7 @@ final class UserService extends BaseService
         }
 
         $transaction = $model->getEntity()::getDb()->beginTransaction();
-        if ( CommonHelper::saveAttempt($model->getEntity(), 'Users.Profile') ) {
+        if ( BaseHelper::saveAttempt($model->getEntity(), 'Users.Profile') ) {
             if ($this->afterSave($model)) {
                 $transaction->commit();
 
@@ -104,7 +102,7 @@ final class UserService extends BaseService
         $entity->account_status = $entity::STATUS_ACTIVE;
 
         $transaction = $entity::getDb()->beginTransaction();
-        if ( CommonHelper::saveAttempt($entity, 'Users') ) {
+        if ( BaseHelper::saveAttempt($entity, 'Users') ) {
             $transaction->commit();
             return true;
         }

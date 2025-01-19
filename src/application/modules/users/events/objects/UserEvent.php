@@ -1,6 +1,6 @@
 <?php
 
-namespace app\modules\users\events\dispatchers;
+namespace stop4uk\users\events\dispatchers;
 
 use yii\base\Event;
 

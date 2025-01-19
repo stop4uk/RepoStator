@@ -1,11 +1,11 @@
 <?php
 
-namespace app\modules\users\forms;
+namespace stop4uk\users\forms;
 
 use Yii;
 use yii\base\Model;
 
-use app\modules\users\helpers\UserHelper;
+use stop4uk\users\helpers\UserHelper;
 
 /**
  * @property string $password

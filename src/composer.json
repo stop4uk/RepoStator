@@ -35,7 +35,8 @@
     },
     "autoload": {
         "psr-4": {
-            "app\\": "application"
+            "app\\": "application",
+            "stop4uk\\users\\": "application\\modules\\users"
         }
     },
     "config": {
