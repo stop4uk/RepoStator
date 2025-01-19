@@ -7,5 +7,5 @@ return [
     'recovery/<action>'                 => 'users/recovery/<action>',
     'verification'                      => 'users/verification',
     'verification/<action>'             => 'users/verification/<action>',
-    'profile'                           => 'users/profile'
+    'profile'                           => 'users/profile',
 ];
