@@ -34,15 +34,15 @@ final class CommonBootstrap implements BootstrapInterface
             return;
         }
 
-//        foreach($modules as $module) {
-//            $configPath = $path . DIRECTORY_SEPARATOR . $module . DIRECTORY_SEPARATOR . 'config' . DIRECTORY_SEPARATOR . 'setup.php';
-//            if (file_exists($configPath)) {
-//                $settings = require_once $configPath;
-//                $app->setModule($module, $settings);
-//                if($app->getModule($module)->hasMethod('run')) {
-//                    $settings['class']::run();
-//                }
-//            }
-//        }
+        foreach($modules as $module) {
+            $configPath = $path . DIRECTORY_SEPARATOR . $module . DIRECTORY_SEPARATOR . 'config' . DIRECTORY_SEPARATOR . 'setup.php';
+            if (file_exists($configPath)) {
+                $settings = require_once $configPath;
+                $app->setModule($module, $settings);
+                if($app->getModule($module)->hasMethod('run')) {
+                    $settings['class']::run();
+                }
+            }
+        }
     }
 }
