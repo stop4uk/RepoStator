@@ -6,13 +6,13 @@ use yii\widgets\Pjax;
 use yii\grid\ActionColumn;
 
 use app\widgets\GridView;
-use app\useCases\reports\helpers\JobHelper;
+use app\modules\reports\helpers\JobHelper;
 
 /**
  * @var \yii\web\View $this
- * @var \app\useCases\reports\search\StatisticSearch $searchModel
+ * @var \app\modules\reports\search\StatisticSearch $searchModel
  * @var \yii\data\ActiveDataProvider $dataProvider
- * @var \app\useCases\reports\forms\StatisticForm $form
+ * @var \app\modules\reports\forms\StatisticForm $form
  */
 
 $this->title = Yii::t('views', 'Статистика');

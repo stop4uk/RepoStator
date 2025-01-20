@@ -8,7 +8,7 @@ use kartik\select2\Select2;
 use mihaildev\ckeditor\CKEditor;
 
 /**
- * @var \app\useCases\reports\models\ConstantModel $model
+ * @var \app\modules\reports\models\ConstantModel $model
  */
 
 $form = ActiveForm::begin([

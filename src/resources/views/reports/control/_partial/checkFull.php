@@ -7,11 +7,11 @@ use yii\bootstrap5\{
 };
 use kartik\select2\Select2;
 
-use app\useCases\reports\forms\ControlCheckFullForm;
+use app\modules\reports\forms\ControlCheckFullForm;
 
 /**
  * @var \yii\web\View $this
- * @var \app\useCases\reports\forms\ControlCheckFullForm $model
+ * @var \app\modules\reports\forms\ControlCheckFullForm $model
  * @var array $groups
  * @var array $reports
  */

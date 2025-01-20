@@ -12,14 +12,14 @@ use kartik\select2\Select2;
 
 use app\components\attachedFiles\widgets\attachfile\AttachFileWidget;
 use app\helpers\CommonHelper;
-use app\useCases\reports\{
+use app\modules\reports\{
     entities\ReportFormTemplateEntity,
     helpers\TemplateHelper,
 };
 
 /**
  * @var \yii\web\View $this
- * @var \app\useCases\reports\models\TemplateModel $model
+ * @var \app\modules\reports\models\TemplateModel $model
  */
 
 $attachedTemplate = $model->getEntity()->getOneFile();

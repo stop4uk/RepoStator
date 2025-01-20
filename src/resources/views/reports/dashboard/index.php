@@ -6,7 +6,7 @@ use yii\grid\ActionColumn;
 use yii\bootstrap5\Html;
 
 use app\widgets\GridView;
-use app\useCases\reports\helpers\JobHelper;
+use app\modules\reports\helpers\JobHelper;
 
 /**
  * @var \yii\data\ActiveDataProvider $queueTemplates

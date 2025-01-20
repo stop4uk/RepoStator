@@ -7,7 +7,7 @@ use yii\bootstrap5\{
 };
 
 /**
- * @var \app\useCases\users\forms\user\UserPasswordChangeForm $userPasswordChangeForm
+ * @var \app\modules\users\forms\user\UserPasswordChangeForm $userPasswordChangeForm
  */
 
 $form = ActiveForm::begin([

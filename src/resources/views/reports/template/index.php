@@ -7,11 +7,11 @@ use yii\bootstrap5\Html;
 
 use app\widgets\GridView;
 use app\helpers\CommonHelper;
-use app\useCases\reports\entities\ReportFormTemplateEntity;
-use app\useCases\users\helpers\RbacHelper;
+use app\modules\reports\entities\ReportFormTemplateEntity;
+use app\modules\users\helpers\RbacHelper;
 
 /**
- * @var \app\useCases\reports\search\TemplateSearch $searchModel
+ * @var \app\modules\reports\search\TemplateSearch $searchModel
  * @var \yii\data\ActiveDataProvider $dataProvider
  */
 

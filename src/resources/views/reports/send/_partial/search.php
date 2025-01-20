@@ -7,7 +7,7 @@ use yii\bootstrap5\{
 };
 
 /**
- * @var \app\useCases\reports\search\SendSearch $searchModel
+ * @var \app\modules\reports\search\SendSearch $searchModel
  */
 
 $resource = Url::to(['/reports/work']);

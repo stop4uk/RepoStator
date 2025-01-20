@@ -8,10 +8,10 @@ use yii\bootstrap5\{
 use kartik\select2\Select2;
 
 use app\helpers\CommonHelper;
-use app\useCases\reports\helpers\TemplateHelper;
+use app\modules\reports\helpers\TemplateHelper;
 
 /**
- * @var \app\useCases\reports\search\TemplateSearch $searchModel
+ * @var \app\modules\reports\search\TemplateSearch $searchModel
  */
 
 $resource = Url::to(['/reports/template']);

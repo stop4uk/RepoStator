@@ -7,11 +7,11 @@ use yii\bootstrap5\{
 };
 use kartik\select2\Select2;
 
-use app\useCases\reports\forms\ControlCreateForForm;
+use app\modules\reports\forms\ControlCreateForForm;
 
 /**
  * @var \yii\web\View $this
- * @var \app\useCases\reports\forms\ControlCreateForForm $model
+ * @var \app\modules\reports\forms\ControlCreateForForm $model
  * @var array $reports
  */
 

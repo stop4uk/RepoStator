@@ -13,7 +13,7 @@ use mihaildev\ckeditor\CKEditor;
 
 /**
  * @var \yii\web\View $this
- * @var \app\useCases\reports\models\ConstantRuleModel $model
+ * @var \app\modules\reports\models\ConstantRuleModel $model
  */
 
 $form = ActiveForm::begin([

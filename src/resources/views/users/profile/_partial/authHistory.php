@@ -6,7 +6,7 @@ use yii\widgets\Pjax;
 use app\widgets\GridView;
 
 /**
- * @var \app\useCases\users\entities\user\UserSessionEntity[] $data
+ * @var \app\modules\users\entities\user\UserSessionEntity[] $data
  */
 
 $dataProvider = new ArrayDataProvider([

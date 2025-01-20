@@ -4,7 +4,7 @@ use yii\helpers\Url;
 use yii\bootstrap5\Html;
 
 /**
- * @var \app\useCases\reports\models\TemplateModel $model
+ * @var \app\modules\reports\models\TemplateModel $model
  * @var \yii\web\View $this
  */
 

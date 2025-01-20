@@ -10,7 +10,7 @@ use kartik\select2\Select2;
 use app\helpers\CommonHelper;
 
 /**
- * @var \app\useCases\reports\search\ConstantSearch $searchModel
+ * @var \app\modules\reports\search\ConstantSearch $searchModel
  */
 
 $resource = Url::to(['/reports/constant']);

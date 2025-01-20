@@ -15,9 +15,9 @@ use app\widgets\GridView;
 
 /**
  * @var \yii\web\View $this
- * @var \app\useCases\users\models\user\ProfileModel $model
- * @var \app\useCases\users\forms\user\UserEmailChangeForm $userEmailChangeForm
- * @var \app\useCases\users\forms\user\UserPasswordChangeForm $userPasswordChangeForm
+ * @var \app\modules\users\models\user\ProfileModel $model
+ * @var \app\modules\users\forms\user\UserEmailChangeForm $userEmailChangeForm
+ * @var \app\modules\users\forms\user\UserPasswordChangeForm $userPasswordChangeForm
  * @var array $emailchangesDataProvider
  */
 

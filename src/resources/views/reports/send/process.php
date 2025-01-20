@@ -3,10 +3,10 @@
 use yii\bootstrap5\Html;
 use yii\helpers\Url;
 
-use app\useCases\reports\widgets\structform\StructFormWidget;
+use app\modules\reports\widgets\structform\StructFormWidget;
 
 /**
- * @var \app\useCases\reports\models\DataModel $model
+ * @var \app\modules\reports\models\DataModel $model
  */
 
 $this->params['breadcrumbs'] = [

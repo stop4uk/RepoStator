@@ -6,7 +6,7 @@ use yii\bootstrap5\{
 };
 
 /**
- * @var \app\useCases\users\forms\auth\LoginForm $model
+ * @var \app\modules\users\forms\auth\LoginForm $model
  */
 
 ?>

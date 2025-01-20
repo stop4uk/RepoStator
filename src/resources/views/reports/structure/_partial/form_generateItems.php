@@ -5,7 +5,7 @@ use kartik\select2\Select2;
 
 /**
  * @var \yii\web\View $this
- * @var \app\useCases\reports\models\StructureModel $model
+ * @var \app\modules\reports\models\StructureModel $model
  * @var int|string|null $additionalField
  */
 

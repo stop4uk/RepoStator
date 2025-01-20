@@ -11,7 +11,7 @@ use kartik\daterange\DateRangePicker;
 use app\helpers\CommonHelper;
 
 /**
- * @var \app\useCases\reports\search\ConstantSearch $searchModel
+ * @var \app\modules\reports\search\ConstantSearch $searchModel
  */
 
 $resource = Url::to(['/reports/control']);

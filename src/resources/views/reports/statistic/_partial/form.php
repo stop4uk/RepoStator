@@ -11,12 +11,12 @@ use yii\bootstrap5\{
 use kartik\select2\Select2;
 use kartik\daterange\DateRangePicker;
 
-use app\useCases\reports\entities\ReportFormTemplateEntity;
+use app\modules\reports\entities\ReportFormTemplateEntity;
 use app\helpers\CommonHelper;
 
 /**
  * @var \yii\web\View $this
- * @var \app\useCases\reports\forms\StatisticForm $model
+ * @var \app\modules\reports\forms\StatisticForm $model
  */
 
 $templateListField = Html::getInputId($model, 'template');

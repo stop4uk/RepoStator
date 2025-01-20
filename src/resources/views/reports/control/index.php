@@ -12,7 +12,7 @@ use app\widgets\GridView;
 use app\helpers\CommonHelper;
 
 /**
- * @var \app\useCases\reports\search\ConstantSearch $searchModel
+ * @var \app\modules\reports\search\ConstantSearch $searchModel
  * @var \yii\data\ActiveDataProvider $dataProvider
  * @var array $reportsList
  */

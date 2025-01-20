@@ -7,7 +7,7 @@ use yii\bootstrap5\{
 };
 
 /**
- * @var \app\useCases\users\forms\user\UserEmailChangeForm $userEmailChangeForm
+ * @var \app\modules\users\forms\user\UserEmailChangeForm $userEmailChangeForm
  */
 
 $form = ActiveForm::begin([

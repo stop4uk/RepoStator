@@ -3,7 +3,7 @@
 use yii\helpers\Url;
 
 /**
- * @var \app\useCases\reports\models\TemplateModel $model
+ * @var \app\modules\reports\models\TemplateModel $model
  */
 
 $this->title = Yii::t('views', 'Новый шаблон');

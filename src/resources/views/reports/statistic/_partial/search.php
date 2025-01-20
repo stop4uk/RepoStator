@@ -8,10 +8,10 @@ use yii\bootstrap5\{
 use kartik\select2\Select2;
 
 use app\helpers\CommonHelper;
-use app\useCases\reports\helpers\JobHelper;
+use app\modules\reports\helpers\JobHelper;
 
 /**
- * @var \app\useCases\reports\search\StatisticSearch $searchModel
+ * @var \app\modules\reports\search\StatisticSearch $searchModel
  */
 
 $resource = Url::to(['/statistic']);

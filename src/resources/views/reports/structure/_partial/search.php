@@ -10,7 +10,7 @@ use kartik\select2\Select2;
 use app\helpers\CommonHelper;
 
 /**
- * @var \app\useCases\reports\search\StructureSearch $searchModel
+ * @var \app\modules\reports\search\StructureSearch $searchModel
  */
 
 $resource = Url::to(['/reports/structure']);
