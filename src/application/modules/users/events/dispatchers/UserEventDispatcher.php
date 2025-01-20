@@ -4,7 +4,7 @@ namespace app\modules\users\events\dispatchers;
 
 use Yii;
 
-use app\helpers\EmailHelper;
+use app\jobs\SendEmailJob;
 use app\modules\users\{
     events\objects\UserEvent,
     helpers\UserHelper
@@ -18,11 +18,11 @@ final class UserEventDispatcher
 {
     public static function add(UserEvent $event): void
     {
-        EmailHelper::send(
-            template: 'notifications/userAdd',
-            toEmail: $event->user['email'],
-            subject: Yii::t('emails', 'Вы были добавлены'),
-            data: [
+        Yii::$app->queue->push(new SendEmailJob([
+            'template' => 'notifications/userAdd',
+            'email' => $event->user['email'],
+            'subject' => Yii::t('emails', 'Вы были добавлены'),
+            'data' => [
                 'name' => UserHelper::getShortName([
                     'lastname' => $event->user['lastname'],
                     'firstname' => $event->user['firstname'],
@@ -30,7 +30,7 @@ final class UserEventDispatcher
                 ]),
                 'password' => $event->user['password']
             ]
-        );
+        ]));
     }
 
     public static function change(UserEvent $event): void
@@ -57,24 +57,24 @@ final class UserEventDispatcher
         if ( $changeArray ) {
             $changeArray['name'] = $event->userEntity['sName'];
 
-            EmailHelper::send(
-                template: 'notifications/userChange',
-                toEmail: $event->userEntity['email'],
-                subject: Yii::t('emails', 'Ваша учетная запись изменена'),
-                data: $changeArray
-            );
+            Yii::$app->queue->push(new SendEmailJob([
+                'template' => 'notifications/userChange',
+                'email' => $event->userEntity['email'],
+                'subject' => Yii::t('emails', 'Ваша учетная запись изменена'),
+                'data' => $changeArray
+            ]));
         }
     }
 
     public static function delete(UserEvent $event): void
     {
-        EmailHelper::send(
-            template: 'notifications/userDelete',
-            toEmail: $event->userEntity->email,
-            subject: Yii::t('emails', 'Ваша учетная запись удалена'),
-            data: [
+        Yii::$app->queue->push(new SendEmailJob([
+            'template' => 'notifications/userDelete',
+            'email' => $event->userEntity->email,
+            'subject' => Yii::t('emails', 'Ваша учетная запись удалена'),
+            'data' => [
                 'name' => $event->userEntity->shortName,
             ]
-        );
+        ]));
     }
 }

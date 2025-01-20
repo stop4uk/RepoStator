@@ -4,7 +4,7 @@ namespace app\modules\users\events\dispatchers;
 
 use Yii;
 
-use app\helpers\EmailHelper;
+use app\jobs\SendEmailJob;
 use app\modules\users\{
     events\objects\AuthEvent,
     entities\UserRightEntity,
@@ -23,16 +23,16 @@ final class AuthEventDispatcher
         $session->save();
 
         if ( Yii::$app->get('settings')->get('auth', 'login_sendEmailAfter') ) {
-            EmailHelper::send(
-                template: 'auth/signin',
-                toEmail: $event->user->email,
-                subject: Yii::t('emails', 'Вы только что авторизовались'),
-                data: [
+            Yii::$app->queue->push(new SendEmailJob([
+                'template' => 'auth/signin',
+                'email' => $event->user->email,
+                'subject' => Yii::t('emails', 'Вы только что авторизовались'),
+                'data' => [
                     'name' => $event->user->shortName,
                     'ip' => $event->request->getUserIP(),
                     'client' => $event->request->getUserAgent(),
                 ]
-            );
+            ]));
         }
     }
 
@@ -55,12 +55,13 @@ final class AuthEventDispatcher
             ];
         }
 
-        EmailHelper::send(
-            template: $emailParams['template'],
-            toEmail: $event->user->email,
-            subject: $emailParams['subject'],
-            data: $userArray
-        );
+
+        Yii::$app->queue->push(new SendEmailJob([
+            'template' => $emailParams['template'],
+            'subject' => $emailParams['subject'],
+            'email' => $event->user->email,
+            'data' => $userArray
+        ]));
 
         $rightModel = new UserRightEntity();
         $rightModel->item_name = 'role_dataMain';
@@ -72,36 +73,36 @@ final class AuthEventDispatcher
 
     public static function recovery(AuthEvent $event): void
     {
-        EmailHelper::send(
-            template: 'auth/recovery',
-            toEmail: $event->user->email,
-            subject: Yii::t('emails', 'Восстановление доступа к системе'),
-            data: [
+        Yii::$app->queue->push(new SendEmailJob([
+            'template' => 'auth/recovery',
+            'email' => $event->user->email,
+            'subject' => Yii::t('emails', 'Восстановление доступа к системе'),
+            'data' => [
                 'name' => $event->user->shortName,
                 'account_key' => $event->user->account_key,
                 'ip' => $event->request->getUserIP(),
             ]
-        );
+        ]));
     }
 
     public static function verification(AuthEvent $event): void
     {
-        EmailHelper::send(
-            template: 'auth/verifyEmail',
-            toEmail: $event->user->email,
-            subject: Yii::t('emails', 'Повторное подтверждение Email адреса'),
-            data: [
+        Yii::$app->queue->push(new SendEmailJob([
+            'template' => 'auth/verifyEmail',
+            'email' => $event->user->email,
+            'subject' => Yii::t('emails', 'Повторное подтверждение Email адреса'),
+            'data' => [
                 'name' => $event->user->shortName,
                 'account_key' => $event->user->account_key
             ]
-        );
+        ]));
     }
 
     public static function logout(AuthEvent $event): void
     {
         $keys = ['_allowedUserAll', '_allowedUserDeleteAll', '_allowedUserDeleteGroup', '_allowedUserGroup'];
         foreach ($keys as $key) {
-            Yii::$app->getSession()->remove($event->user->id . $key);
+            Yii::$app->getCache()->delete($event->user->id . $key);
         }
     }
 }
