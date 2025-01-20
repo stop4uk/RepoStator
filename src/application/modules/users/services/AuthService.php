@@ -1,6 +1,6 @@
 <?php
 
-namespace stop4uk\users\services;
+namespace app\modules\users\services;
 
 use Yii;
 use yii\base\{
@@ -16,9 +16,9 @@ use app\components\{
     base\BaseAR,
 };
 use app\helpers\CommonHelper;
-use stop4uk\users\events\dispatchers\AuthEvent;
-use stop4uk\users\{
+use app\modules\users\{
     components\Identity,
+    events\objects\AuthEvent,
     entities\UserEmailchangeEntity,
     entities\UserEntity,
     repositories\UserRepository,

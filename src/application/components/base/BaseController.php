@@ -20,8 +20,7 @@ class BaseController extends Controller
             && !$this->request->isPjax
         ) {
             $session = Yii::$app->getSession();
-            $userID = isset(Yii::$app->getComponents()['user']['identityClass']) ? Yii::$app->getUser()->getId() : 1;
-            $sessionKey = env('YII_UPLOADS_TEMPORARY_KEY') . $userID;
+            $sessionKey = env('YII_UPLOADS_TEMPORARY_KEY') . Yii::$app->getUser()->getId();
             $sessionFiles = $session->get($sessionKey);
 
             if ($sessionFiles) {

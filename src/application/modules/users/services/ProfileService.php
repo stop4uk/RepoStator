@@ -1,16 +1,14 @@
 <?php
 
-namespace stop4uk\users\services;
+namespace app\modules\users\services;
 
 use Yii;
 use yii\base\Exception;
 
-use app\components\{
-    base\BaseService,
-    events\objects\ProfileEvent
-};
+use app\components\base\BaseService;
 use app\helpers\CommonHelper;
-use stop4uk\users\{
+use app\modules\users\{
+    events\objects\ProfileEvent,
     entities\UserEmailchangeEntity,
     entities\UserEntity,
     repositories\UserRepository,

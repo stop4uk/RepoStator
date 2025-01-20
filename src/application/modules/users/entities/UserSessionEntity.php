@@ -1,6 +1,6 @@
 <?php
 
-namespace stop4uk\users\entities;
+namespace app\modules\users\entities;
 
 use Yii;
 use yii\behaviors\{
@@ -10,7 +10,7 @@ use yii\behaviors\{
 
 use app\components\base\BaseAR;
 use app\helpers\HtmlPurifier;
-use stop4uk\users\UserSessionHelper;
+use app\modules\users\UserSessionHelper;
 
 /**
  * @property int $user_id

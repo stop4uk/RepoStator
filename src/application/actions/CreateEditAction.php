@@ -2,11 +2,19 @@
 
 namespace app\actions;
 
-use app\components\base\BaseAR;
 use Yii;
-use yii\base\{Action, Exception};
+use yii\base\{
+    Action,
+    Exception
+};
+use yii\web\{
+    NotFoundHttpException,
+    Response,
+    UploadedFile
+};
 use yii\bootstrap5\ActiveForm;
-use yii\web\{NotFoundHttpException, Response, UploadedFile};
+
+use app\components\base\BaseAR;
 
 /**
  * @author Stop4uk <stop4uk@yandex.ru>

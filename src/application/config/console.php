@@ -5,7 +5,7 @@ use yii\helpers\ArrayHelper;
 
 use app\components\{
     bootstrap\ConsoleBootstrap,
-    events\handlers\ConsoleEventHandler
+    events\ConsoleEventHandler
 };
 
 $params = array_merge(

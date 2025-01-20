@@ -1,13 +1,13 @@
 <?php
 
-namespace stop4uk\users\forms;
+namespace app\modules\users\forms;
 
 use Yii;
 use yii\base\Model;
 use yii\bootstrap5\Html;
 
 use app\helpers\HtmlPurifier;
-use stop4uk\users\{
+use app\modules\users\{
     entities\UserEntity,
     repositories\UserRepository,
     helpers\AuthHelper

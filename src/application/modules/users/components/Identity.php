@@ -1,11 +1,11 @@
 <?php
 
-namespace stop4uk\users\components;
+namespace app\modules\users\components;
 
 use Yii;
 use yii\web\IdentityInterface;
 
-use stop4uk\users\{
+use app\modules\users\{
     entities\UserEntity,
     entities\GroupNestedEntity,
     repositories\GroupRepository,

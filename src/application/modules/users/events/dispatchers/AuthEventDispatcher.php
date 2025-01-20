@@ -1,14 +1,14 @@
 <?php
 
-namespace stop4uk\users\events\dispatchers;
+namespace app\modules\users\events\dispatchers;
 
 use Yii;
 
 use app\helpers\EmailHelper;
-use stop4uk\users\events\objects\AuthEvent;
-use stop4uk\users\entities\user\{
-    UserRightEntity,
-    UserSessionEntity
+use app\modules\users\{
+    events\objects\AuthEvent,
+    entities\UserRightEntity,
+    entities\UserSessionEntity,
 };
 
 /**

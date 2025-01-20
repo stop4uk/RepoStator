@@ -1,6 +1,6 @@
 <?php
 
-namespace stop4uk\users\entities;
+namespace app\modules\users\entities;
 
 use yii\db\ActiveQuery;
 use creocoder\nestedsets\NestedSetsBehavior;

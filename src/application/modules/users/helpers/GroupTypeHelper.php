@@ -1,6 +1,6 @@
 <?php
 
-namespace stop4uk\users\helpers;
+namespace app\modules\users\helpers;
 
 use Yii;
 

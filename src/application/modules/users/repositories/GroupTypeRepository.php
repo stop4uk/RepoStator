@@ -1,6 +1,6 @@
 <?php
 
-namespace stop4uk\users\repositories;
+namespace app\modules\users\repositories;
 
 use yii\db\ActiveQuery;
 use yii\helpers\ArrayHelper;
@@ -10,7 +10,7 @@ use app\components\base\{
     BaseARInterface,
     BaseRepositoryInterface
 };
-use stop4uk\users\entities\GroupTypeEntity;
+use app\modules\users\entities\GroupTypeEntity;
 
 /**
  * @author Stop4uk <stop4uk@yandex.ru>

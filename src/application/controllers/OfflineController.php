@@ -10,6 +10,8 @@ use yii\web\Controller;
  */
 final class OfflineController extends Controller
 {
+    public $layout = 'clean';
+
     public function beforeAction($action): bool
     {
         if ( !Yii::$app->settings->get('system', 'app_maintenance') ) {

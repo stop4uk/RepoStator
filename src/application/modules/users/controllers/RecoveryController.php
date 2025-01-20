@@ -1,6 +1,6 @@
 <?php
 
-namespace stop4uk\users\controllers;
+namespace app\modules\users\controllers;
 
 use Yii;
 use yii\base\Exception;
@@ -9,7 +9,7 @@ use yii\web\Response;
 use yii\bootstrap5\ActiveForm;
 
 use app\components\base\BaseController;
-use stop4uk\users\{
+use app\modules\users\{
     forms\auth\RecoveryForm,
     services\AuthService
 };
@@ -26,6 +26,7 @@ final class RecoveryController extends BaseController
         private readonly AuthService $service,
         $config = []
     ) {
+        $this->layout = Yii::$app->getModule('users')->layoutClean;
         parent::__construct($id, $module, $config);
     }
 

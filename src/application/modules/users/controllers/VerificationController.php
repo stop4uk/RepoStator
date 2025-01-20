@@ -1,6 +1,6 @@
 <?php
 
-namespace stop4uk\users\controllers;
+namespace app\modules\users\controllers;
 
 use Yii;
 use yii\base\Exception;
@@ -8,10 +8,10 @@ use yii\bootstrap5\ActiveForm;
 use yii\filters\AccessControl;
 use yii\web\Response;
 
-use app\modules\base\BaseController;
-use app\useCases\users\{
-    forms\auth\VerificationForm,
-    services\AuthService
+use app\components\base\BaseController;
+use app\modules\users\{
+    services\AuthService,
+    forms\VerificationForm
 };
 
 /**
@@ -26,6 +26,7 @@ final class VerificationController extends BaseController
         private readonly AuthService $service,
         $config = []
     ) {
+        $this->layout = Yii::$app->getModule('users')->layoutClean;
         parent::__construct($id, $module, $config);
     }
 

@@ -1,6 +1,6 @@
 <?php
 
-namespace stop4uk\users\models;
+namespace app\modules\users\models;
 
 use Yii;
 use yii\helpers\{
@@ -10,7 +10,7 @@ use yii\helpers\{
 
 use app\components\base\BaseModel;
 use app\helpers\HtmlPurifier;
-use stop4uk\users\{
+use app\modules\users\{
     entities\UserEntity,
     helpers\RbacHelper,
     helpers\UserHelper

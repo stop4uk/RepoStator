@@ -1,6 +1,6 @@
 <?php
 
-namespace stop4uk\users\entities;
+namespace app\modules\users\entities;
 
 use yii\db\ActiveQuery;
 use yii\behaviors\{
@@ -10,7 +10,7 @@ use yii\behaviors\{
 use yii2tech\ar\softdelete\SoftDeleteBehavior;
 
 use app\components\base\BaseAR;
-use stop4uk\users\helpers\UserGroupHelper;
+use app\modules\users\helpers\UserGroupHelper;
 
 /**
  * @property int $user_id

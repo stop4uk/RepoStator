@@ -9,15 +9,15 @@ use yii\queue\{
     LogBehavior
 };
 use yii\symfonymailer\Mailer;
-
 use creocoder\flysystem\LocalFilesystem;
 
 use app\components\{
+    attachedFiles\AttachFileHelper,
     bootstrap\CommonBootstrap,
-    events\handlers\CommonEventHandler,
-    settings\Settings,
-    attachedFiles\AttachFileHelper
+    events\CommonEventHandler,
+    settings\Settings
 };
+
 
 return [
     'id' => getenv('PROJECT_NAME'),

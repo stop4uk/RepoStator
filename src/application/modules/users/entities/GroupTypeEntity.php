@@ -1,6 +1,6 @@
 <?php
 
-namespace stop4uk\users\entities;
+namespace app\modules\users\entities;
 
 use yii\behaviors\{
     BlameableBehavior,
@@ -10,11 +10,10 @@ use yii\helpers\Json;
 use yii2tech\ar\softdelete\SoftDeleteBehavior;
 
 use app\components\base\BaseAR;
-use app\useCases\users\{
-    models\group\GroupTypeModel,
-    helpers\group\GroupTypeHelper
+use app\modules\users\{
+    models\GroupTypeModel,
+    helpers\GroupTypeHelper
 };
-
 
 /**
  * @property string $name

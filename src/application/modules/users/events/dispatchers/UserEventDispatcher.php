@@ -1,12 +1,14 @@
 <?php
 
-namespace stop4uk\users\events\dispatchers;
+namespace app\modules\users\events\dispatchers;
 
 use Yii;
 
 use app\helpers\EmailHelper;
-use stop4uk\users\events\objects\UserEvent;
-use stop4uk\users\helpers\UserHelper;
+use app\modules\users\{
+    events\objects\UserEvent,
+    helpers\UserHelper
+};
 
 /**
  * @author Stop4uk <stop4uk@yandex.ru>

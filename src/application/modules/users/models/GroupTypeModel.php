@@ -1,12 +1,12 @@
 <?php
 
-namespace stop4uk\users\models;
+namespace app\modules\users\models;
 
 use Yii;
 use yii\helpers\Json;
 
 use app\components\base\BaseModel;
-use stop4uk\users\{
+use app\modules\users\{
     entities\GroupTypeEntity,
     helpers\GroupTypeHelper
 };

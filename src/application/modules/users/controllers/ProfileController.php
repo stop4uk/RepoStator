@@ -1,6 +1,6 @@
 <?php
 
-namespace stop4uk\users\controllers;
+namespace app\modules\users\controllers;
 
 use Yii;
 use yii\base\Exception;
@@ -13,13 +13,13 @@ use yii\data\ArrayDataProvider;
 use yii\bootstrap5\ActiveForm;
 
 use app\components\base\BaseController;
-use stop4uk\users\{
-    entities\user\UserEntity,
-    forms\user\UserEmailChangeForm,
-    forms\user\UserPasswordChangeForm,
-    models\user\ProfileModel,
-    repositories\user\UserRepository,
-    services\ProfileService
+use app\modules\users\{
+    entities\UserEntity,
+    models\ProfileModel,
+    repositories\UserRepository,
+    services\ProfileService,
+    forms\UserEmailChangeForm,
+    forms\UserPasswordChangeForm,
 };
 
 /**

@@ -1,17 +1,18 @@
 <?php
 
-namespace stop4uk\users\services;
+namespace app\modules\users\services;
 
 use Yii;
 use yii\base\Exception;
 
-use stop4uk\users\{
-    components\base\BaseARInterface,
-    components\base\BaseModelInterface,
-    components\base\BaseAR,
-    components\base\BaseService,
-    components\base\BaseHelper,
-    events\dispatchers\UserEvent,
+use app\components\base\{
+    BaseARInterface,
+    BaseModelInterface,
+    BaseAR,
+    BaseService,
+};
+use app\modules\users\{
+    events\objects\UserEvent,
     entities\UserGroupEntity,
     entities\UserRightEntity,
     models\UserModel,

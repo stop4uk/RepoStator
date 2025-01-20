@@ -1,6 +1,6 @@
 <?php
 
-namespace stop4uk\users\entities;
+namespace app\modules\users\entities;
 
 use Yii;
 use yii\behaviors\{
@@ -14,7 +14,7 @@ use app\components\base\{
     BaseModel,
     BaseAR
 };
-use stop4uk\users\helpers\UserHelper;
+use app\modules\users\helpers\UserHelper;
 
 /**
  * @property string $email

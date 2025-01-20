@@ -1,12 +1,12 @@
 <?php
 
-namespace stop4uk\users\services;
+namespace app\modules\users\services;
 
 use app\components\base\{
     BaseARInterface,
     BaseService
 };
-use stop4uk\users\entities\GroupEntity;
+use app\modules\users\entities\GroupEntity;
 
 /**
  * @author Stop4uk <stop4uk@yandex.ru>

@@ -1,10 +1,10 @@
 <?php
 
-namespace stop4uk\users\models;
+namespace app\modules\users\models;
 
 use app\components\base\BaseModel;
-use app\helpers\HtmlPurifier;;
-use stop4uk\users\{
+use app\helpers\HtmlPurifier;
+use app\modules\users\{
     entities\UserEntity,
     helpers\UserHelper
 };

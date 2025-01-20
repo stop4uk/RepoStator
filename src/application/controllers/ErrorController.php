@@ -2,6 +2,7 @@
 
 namespace app\controllers;
 
+use Yii;
 use yii\web\Controller;
 
 /**
@@ -10,9 +11,10 @@ use yii\web\Controller;
  */
 final class ErrorController extends Controller
 {
+    public $layout = 'clean';
     public function actionFault(): string|bool
     {
-        $exception = Yii::$app->errorHandler->exception;
+        $exception = Yii::$app->getErrorHandler()->exception;
 
         if ( $exception !== null ) {
             $statusCode = $exception->statusCode ?? 999;

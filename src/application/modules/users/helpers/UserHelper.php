@@ -1,13 +1,13 @@
 <?php
 
-namespace stop4uk\users\helpers;
+namespace app\modules\users\helpers;
 
 use Yii;
 use yii\helpers\ArrayHelper;
 use yii\bootstrap5\Html;
 
 use app\traits\GetLabelTrait;
-use stop4uk\users\entities\UserEntity;
+use app\modules\users\entities\UserEntity;
 
 /**
  * @author Stop4uk <stop4uk@yandex.ru>

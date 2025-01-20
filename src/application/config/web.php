@@ -1,16 +1,25 @@
 <?php
 
-use yii\web\Cookie;
+use yii\web\{
+    Cookie,
+    UrlNormalizer
+};
+use yii\helpers\ArrayHelper;
 use yii\queue\debug\Panel;
 use yii\{
     debug\Module as DebugModule,
     gii\Module as GiiModule
 };
-use yii\helpers\ArrayHelper;
 
 use app\components\{
     bootstrap\WebBootstrap,
-    events\handlers\WebEventHandler,
+    events\WebEventHandler
+};
+use app\modules\reports\Module as ReportModule;
+use app\modules\users\{
+    components\Identity,
+    components\RbacDbmanager,
+    Module as UsersModule
 };
 
 $params = array_merge(
@@ -19,6 +28,7 @@ $params = array_merge(
 );
 
 $config = [
+    'defaultRoute' => 'reports/dashboard',
     'aliases' => [
         '@web' => '@root/public',
         '@assets' => '@root/public/assets',
@@ -28,7 +38,21 @@ $config = [
         WebBootstrap::class,
         WebEventHandler::class,
     ],
+    'modules' => [
+        'users' => [
+            'class' => UsersModule::class,
+            'viewPath' => '@resources/views/users',
+            'layoutClean' => '@resources/views/layouts/clean'
+        ],
+        'reports' => [
+            'class' => ReportModule::class,
+            'viewPath' => '@resources/views/reports',
+        ],
+    ],
     'components' => [
+        'errorHandler' => [
+            'errorAction' => 'error/fault',
+        ],
         'view' => [
             'theme' => [
                 'basePath' => '@resources'
@@ -47,6 +71,15 @@ $config = [
                 ],
             ],
         ],
+        'user' => [
+            'identityClass' => Identity::class,
+            'enableAutoLogin' => true,
+            'loginUrl' => ['login'],
+            'identityCookie' => [
+                'name' => '_identity-' . env('PROJECT_NAME', 'simple'),
+            ],
+        ],
+        'authManager' => RbacDbmanager::class,
         'request' => [
             'csrfParam' => '_csrf-' . env('PROJECT_NAME'),
             'cookieValidationKey' => env('YII_COOKIE_VALIDATION_KEY'),
@@ -61,6 +94,60 @@ $config = [
                 'sameSite' => Cookie::SAME_SITE_STRICT,
             ],
         ],
+        'urlManager' => [
+            'enablePrettyUrl' => true,
+            'showScriptName' => false,
+            'normalizer' => [
+                'class' => UrlNormalizer::class,
+                'normalizeTrailingSlash' => true,
+                'collapseSlashes' => true,
+            ],
+            'rules' => [
+                '<action:(login|logout|register)>'  => 'users/auth/<action>',
+                'recovery'                          => 'users/recovery',
+                'recovery/<action>'                 => 'users/recovery/<action>',
+                'verification'                      => 'users/verification',
+                'verification/<action>'             => 'users/verification/<action>',
+                'profile'                           => 'users/profile',
+
+                #Отчеты
+                'dashboard'                         => 'reports/dashboard',
+                'reports'                           => 'reports/default',
+                'reports/<action:\w+>'              => 'reports/default/<action>',
+
+//                '<module:\w+>/<controller:\w+>/<action:\w+>/<id:\d+>' => '<module>/<controller>/<action>',
+//                '<module:\w+>/<controller:\w+>/<action:\w+>/' => '<module>/<controller>/<action>',
+//                '<module:\w+>/<controller:\w+>/<page:\d+>' => '<module>/<controller>/index',
+
+//                'reports/send'                      => 'reports/send',
+//                'reports/send/<action:\w+>'         => 'reports/send/<action>',
+//                'reports/control'                   => 'reports/control',
+//                'reports/control/<action:\w+>'      => 'reports/control/<action>',
+//                'reports/statistic'                 => 'reports/statistic',
+//                'reports/statistic/<action:\w+>'    => 'reports/statistic/<action>',
+//                'reports/constant'                  => 'reports/constant',
+//                'reports/constant/<action:\w+>'     => 'reports/constant/<action>',
+//                'reports/constantrule'              => 'reports/constantrule',
+//                'reports/constantrule/<action:\w+>' => 'reports/constantrule/<action>',
+//                'reports/structure'                 => 'reports/structure',
+//                'reports/structure/<action:\w+>'    => 'reports/structure/<action>',
+//                'reports/template'                  => 'reports/template',
+//                'reports/template/<action:\w+>'     => 'reports/template/<action>',
+
+//                #Админка
+//                'admin/groups'                                                              => 'admin_groups',
+//                'admin/groups/<action:(create|view|edit|delete|enable|nodeMove)>'           => 'admin_groups/<action>',
+//                'admin/groups/type'                 => 'admin_groups_type',
+//                'admin/groups/type/<action:\w+>'    => 'admin_groups_type/<action>',
+//                'admin/queue'                       => 'admin_queue',
+//                'admin/queue/template'              => 'admin_queue_template',
+//                'admin/logs'                        => 'admin_logs',
+//                'admin/logs/<action:\w+>'           => 'admin_logs/<action>',
+//                'admin/settings'                    => 'admin_settings',
+//                'admin/users'                       => 'admin_users',
+//                'admin/users/<action:\w+>'          => 'admin_users/<action>',
+            ],
+        ]
     ],
     'params' => $params,
 ];
@@ -88,6 +175,5 @@ if ((bool)getenv('YII_DEBUG')) {
 
 return ArrayHelper::merge(
     require 'common.php',
-    require 'web_routes.php',
     $config
 );

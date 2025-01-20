@@ -2,10 +2,17 @@
 
 namespace app\actions;
 
-use app\components\base\BaseAR;
 use Yii;
-use yii\base\{Action, Exception};
-use yii\web\{NotFoundHttpException, Response};
+use yii\base\{
+    Action,
+    Exception
+};
+use yii\web\{
+    NotFoundHttpException,
+    Response
+};
+
+use app\components\base\BaseAR;
 
 /**
  * @author Stop4uk <stop4uk@yandex.ru>

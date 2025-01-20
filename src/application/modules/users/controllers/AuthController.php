@@ -1,6 +1,6 @@
 <?php
 
-namespace stop4uk\users\controllers;
+namespace app\modules\users\controllers;
 
 use Yii;
 use yii\base\Exception;
@@ -9,10 +9,10 @@ use yii\web\Response;
 use yii\bootstrap5\ActiveForm;
 
 use app\components\base\BaseController;
-use stop4uk\users\{
+use app\modules\users\{
+    services\AuthService,
     forms\LoginForm,
     forms\RegisterForm,
-    services\AuthService
 };
 
 /**
