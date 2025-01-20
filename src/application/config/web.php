@@ -103,21 +103,26 @@ $config = [
                 'collapseSlashes' => true,
             ],
             'rules' => [
-                '<action:(login|logout|register)>'  => 'users/auth/<action>',
-                'recovery'                          => 'users/recovery',
-                'recovery/<action>'                 => 'users/recovery/<action>',
-                'verification'                      => 'users/verification',
-                'verification/<action>'             => 'users/verification/<action>',
-                'profile'                           => 'users/profile',
+                '<module:\w+>/<controller:\w+>'                     => '<module>/<controller>',
+                '<module:\w+>/<controller:\w+>/<action:\w+>/<id:\d+>' => '<module>/<controller>/<action>',
+                '<module:\w+>/<controller:\w+>/<action:\w+>/'       => '<module>/<controller>/<action>',
+                '<module:\w+>/<controller:\w+>/<page:\d+>'          => '<module>/<controller>/index',
+
+                '<action:(login|logout|register)>'                  => 'users/auth/<action>',
+                'recovery'                                          => 'users/recovery',
+                'recovery/<action>'                                 => 'users/recovery/<action>',
+                'verification'                                      => 'users/verification',
+                'verification/<action>'                             => 'users/verification/<action>',
+                'profile'                                           => 'users/profile',
 
                 #Отчеты
-                'dashboard'                         => 'reports/dashboard',
-                'reports'                           => 'reports/default',
-                'reports/<action:\w+>'              => 'reports/default/<action>',
+                'dashboard'                                         => 'reports/dashboard',
+                'reports'                                           => 'reports/default',
+                'reports/<action:\w+>'                              => 'reports/default/<action>',
+                '<controller:(send|control|statistic)>'             => 'reports/<controller>',
+                '<controller:(send|control|statistic)>/<action>'    => 'reports/<controller>/<action>',
 
-//                '<module:\w+>/<controller:\w+>/<action:\w+>/<id:\d+>' => '<module>/<controller>/<action>',
-//                '<module:\w+>/<controller:\w+>/<action:\w+>/' => '<module>/<controller>/<action>',
-//                '<module:\w+>/<controller:\w+>/<page:\d+>' => '<module>/<controller>/index',
+
 
 //                'reports/send'                      => 'reports/send',
 //                'reports/send/<action:\w+>'         => 'reports/send/<action>',
