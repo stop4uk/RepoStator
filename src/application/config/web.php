@@ -103,41 +103,27 @@ $config = [
                 'collapseSlashes' => true,
             ],
             'rules' => [
-                '<module:\w+>/<controller:\w+>'                     => '<module>/<controller>',
-                '<module:\w+>/<controller:\w+>/<action:\w+>/<id:\d+>' => '<module>/<controller>/<action>',
-                '<module:\w+>/<controller:\w+>/<action:\w+>/'       => '<module>/<controller>/<action>',
-                '<module:\w+>/<controller:\w+>/<page:\d+>'          => '<module>/<controller>/index',
+                '<controller:(dashboard|send|control|statistic)>'               => 'reports/<controller>',
+                '<controller:(dashboard|send|control|statistic)>/<action>'      => 'reports/<controller>/<action>',
 
-                '<action:(login|logout|register)>'                  => 'users/auth/<action>',
-                'recovery'                                          => 'users/recovery',
-                'recovery/<action>'                                 => 'users/recovery/<action>',
-                'verification'                                      => 'users/verification',
-                'verification/<action>'                             => 'users/verification/<action>',
-                'profile'                                           => 'users/profile',
+                '<module:\w+>'                                                  => '<module>/default',
+                '<module:\w+>/<action:(index|create|view|edit|delete|enable)>'  => '<module>/default/<action>',
 
-                #Отчеты
-                'dashboard'                                         => 'reports/dashboard',
-                'reports'                                           => 'reports/default',
-                'reports/<action:\w+>'                              => 'reports/default/<action>',
-                '<controller:(send|control|statistic)>'             => 'reports/<controller>',
-                '<controller:(send|control|statistic)>/<action>'    => 'reports/<controller>/<action>',
+                #Users module
+                '<action:(login|logout|register)>'  => 'users/auth/<action>',
+                'recovery'                          => 'users/recovery',
+                'recovery/<action>'                 => 'users/recovery/<action>',
+                'verification'                      => 'users/verification',
+                'verification/<action>'             => 'users/verification/<action>',
+                'profile'                           => 'users/profile',
 
+                #Reports module
+                'reports/<controller:(constant|constantrule|structure|template)>'               => 'reports/<controller>',
+                'reports/<controller:(constant|constantrule|structure|template)>/<action:\w+>'  => 'reports/<controller>/<action>',
 
 
-//                'reports/send'                      => 'reports/send',
-//                'reports/send/<action:\w+>'         => 'reports/send/<action>',
-//                'reports/control'                   => 'reports/control',
-//                'reports/control/<action:\w+>'      => 'reports/control/<action>',
-//                'reports/statistic'                 => 'reports/statistic',
-//                'reports/statistic/<action:\w+>'    => 'reports/statistic/<action>',
-//                'reports/constant'                  => 'reports/constant',
-//                'reports/constant/<action:\w+>'     => 'reports/constant/<action>',
-//                'reports/constantrule'              => 'reports/constantrule',
-//                'reports/constantrule/<action:\w+>' => 'reports/constantrule/<action>',
-//                'reports/structure'                 => 'reports/structure',
-//                'reports/structure/<action:\w+>'    => 'reports/structure/<action>',
-//                'reports/template'                  => 'reports/template',
-//                'reports/template/<action:\w+>'     => 'reports/template/<action>',
+
+
 
 //                #Админка
 //                'admin/groups'                                                              => 'admin_groups',
