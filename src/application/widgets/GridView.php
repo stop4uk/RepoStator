@@ -22,7 +22,7 @@ class GridView extends BaseGrid
     public $persistResize = true;
     public $tableOptions = ['class' => 'table'];
     public $options = ['class' => 'grid-view table-responsive'];
-    public $emptyTextOptions = ['class' => 'alert alert-danger text-center fw-bold mb-0'];
+    public $emptyTextOptions = ['class' => 'alert alert-success text-center mb-0'];
     public $headerContainer = ['class' => ''];
     public $formatter = [
         'class' => Formatter::class,
