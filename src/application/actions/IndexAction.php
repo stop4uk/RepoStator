@@ -2,6 +2,7 @@
 
 namespace app\actions;
 
+use Yii;
 use yii\base\Action;
 
 /**
@@ -15,8 +16,27 @@ final class IndexAction extends Action
 
     public function run(): string
     {
+        $session = Yii::$app->getSession();
+        $sessionKey = $this->controller->module->id . $this->controller->id . '_search';
         $searchModel = new $this->searchModel($this->constructParams);
-        $dataProvider = $searchModel->search($this->controller->request->post());
+        $searchFilters = $this->controller->request->post();
+
+        if ($this->controller->request->isGet) {
+            $session->remove($sessionKey);
+        }
+
+        if ($this->controller->request->isPost) {
+            if (
+                $this->controller->request->getQueryParam('page') !== null
+                && $session->has($sessionKey)
+            ) {
+                $searchFilters = $session->get($sessionKey);
+            } else {
+                $session->set($sessionKey, $this->controller->request->post());
+            }
+        }
+
+        $dataProvider = $searchModel->search($searchFilters);
 
         return $this->controller->render('index', compact('searchModel', 'dataProvider'));
     }
