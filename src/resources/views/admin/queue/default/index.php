@@ -1,12 +1,11 @@
 <?php
 
-use yii\widgets\Pjax;
-use yii\bootstrap5\Html;
-
 use app\widgets\GridView;
+use yii\bootstrap5\Html;
+use yii\widgets\Pjax;
 
 /**
- * @var \app\useCases\admin\search\QueueSearch $searchModel
+ * @var \app\modules\admin\search\QueueSearch $searchModel
  * @var \yii\data\ActiveDataProvider $dataProvider
  */
 

@@ -1,25 +1,25 @@
 <?php
 
-namespace app\useCases\admin\controllers\groups;
+namespace app\modules\admin\controllers\groups;
 
 use yii\filters\AccessControl;
 use yii\helpers\Url;
 
+use app\components\base\BaseController;
 use app\actions\{
+    IndexAction,
+    ViewAction,
     CreateEditAction,
     DeleteAction,
     EnableAction,
-    IndexAction,
-    ViewAction
 };
-use app\components\base\BaseController;
-use app\useCases\users\{
-    entities\group\GroupTypeEntity,
-    models\group\GroupTypeModel,
-    repositories\group\GroupTypeRepository,
-    services\group\GroupTypeService
+use app\modules\admin\search\GroupTypeSearch;
+use app\modules\users\{
+    entities\GroupTypeEntity,
+    models\GroupTypeModel,
+    repositories\GroupTypeRepository,
+    services\GroupTypeService
 };
-use app\useCases\admin\search\group\GroupTypeSearch;
 
 /**
  * @author Stop4uk <stop4uk@yandex.ru>

@@ -1,19 +1,15 @@
 <?php
 
+use app\helpers\CommonHelper;
+use app\useCases\users\helpers\{RbacHelper, user\UserHelper};
+use app\widgets\GridView;
+use yii\bootstrap5\Html;
+use yii\grid\ActionColumn;
 use yii\helpers\Url;
 use yii\widgets\Pjax;
-use yii\grid\ActionColumn;
-use yii\bootstrap5\Html;
-
-use app\widgets\GridView;
-use app\helpers\CommonHelper;
-use app\useCases\users\helpers\{
-    RbacHelper,
-    user\UserHelper
-};
 
 /**
- * @var \app\useCases\admin\search\UserSearch $searchModel
+ * @var \app\modules\admin\search\UserSearch $searchModel
  * @var \yii\data\ActiveDataProvider $dataProvider
  */
 

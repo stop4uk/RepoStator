@@ -1,18 +1,18 @@
 <?php
 
-namespace app\useCases\admin\controllers\queue;
+namespace app\modules\admin\controllers\queue;
 
 use yii\filters\AccessControl;
 
-use app\actions\IndexAction;
 use app\components\base\BaseController;
-use app\useCases\reports\search\JobSearch;
+use app\actions\IndexAction;
+use app\modules\admin\search\QueueSearch;
 
 /**
  * @author Stop4uk <stop4uk@yandex.ru>
  * @package app\controllers\admin\queue
  */
-final class TemplateController extends BaseController
+final class DefaultController extends BaseController
 {
     public function behaviors(): array
     {
@@ -23,7 +23,7 @@ final class TemplateController extends BaseController
                     [
                         'actions' => ['index'],
                         'allow' => true,
-                        'roles' => ['admin.queue.template.list'],
+                        'roles' => ['admin.queue.system'],
                     ],
                 ],
             ],
@@ -35,8 +35,7 @@ final class TemplateController extends BaseController
         return [
             'index' => [
                 'class' => IndexAction::class,
-                'searchModel' => JobSearch::class,
-                'constructParams' => ['onlyMain' => true]
+                'searchModel' => QueueSearch::class
             ]
         ];
     }

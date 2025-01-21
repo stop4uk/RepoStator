@@ -1,20 +1,20 @@
 <?php
 
-namespace app\useCases\admin\search;
+namespace app\modules\admin\search;
 
 use Yii;
 use yii\base\Model;
 use yii\data\ActiveDataProvider;
 
 use app\helpers\{
-    CommonHelper,
-    HtmlPurifier,
+    CommonHelper, HtmlPurifier
 };
-use app\useCases\users\{
-    entities\user\UserEntity,
+use app\modules\users\{
+    entities\UserEntity,
+    repositories\UserRepository,
     helpers\RbacHelper,
-    helpers\user\UserHelper,
-    repositories\user\UserRepository};
+    helpers\UserHelper,
+};
 
 /**
  * @author Stop4uk <stop4uk@yandex.ru>

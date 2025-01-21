@@ -1,6 +1,6 @@
 <?php
 
-namespace app\useCases\admin\controllers\groups;
+namespace app\modules\admin\controllers\groups;
 
 use yii\filters\AccessControl;
 use yii\helpers\{
@@ -9,22 +9,22 @@ use yii\helpers\{
 };
 use klisl\nestable\NodeMoveAction;
 
+use app\components\base\BaseController;
 use app\actions\{
+    IndexAction,
+    ViewAction,
     CreateEditAction,
     DeleteAction,
     EnableAction,
-    IndexAction,
-    ViewAction
 };
-use app\components\base\BaseController;
-use app\useCases\users\{
-    entities\group\GroupEntity,
-    entities\group\GroupNestedEntity,
-    models\group\GroupModel,
-    repositories\group\GroupRepository,
-    services\group\GroupService
+use app\modules\admin\search\GroupSearch;
+use app\modules\users\{
+    entities\GroupEntity,
+    entities\GroupNestedEntity,
+    models\GroupModel,
+    repositories\GroupRepository,
+    services\GroupService
 };
-use app\useCases\admin\search\group\GroupSearch;
 
 /**
  * @author Stop4uk <stop4uk@yandex.ru>

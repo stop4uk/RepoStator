@@ -1,16 +1,17 @@
 <?php
 
-namespace app\useCases\admin\search\group;
+namespace app\modules\admin\search;
 
 use yii\base\Model;
 use yii\data\ActiveDataProvider;
 
 use app\helpers\CommonHelper;
-use app\useCases\users\{
-    helpers\group\GroupHelper,
-    repositories\group\GroupRepository,
-    repositories\group\GroupTypeRepository
+use app\modules\users\{
+    helpers\GroupHelper,
+    repositories\GroupRepository,
+    repositories\GroupTypeRepository
 };
+
 
 /**
  * @property string $code

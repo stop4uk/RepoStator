@@ -1,29 +1,28 @@
 <?php
 
-namespace app\useCases\admin\controllers;
+namespace app\modules\admin\controllers;
 
-use yii\filters\AccessControl;
 use yii\helpers\Url;
+use yii\filters\AccessControl;
 
+use app\components\base\{
+    BaseAR,
+    BaseController
+};
 use app\actions\{
+    IndexAction,
+    ViewAction,
     CreateEditAction,
     DeleteAction,
     EnableAction,
-    IndexAction,
-    ViewAction
 };
-use app\components\base\{
-    BaseController,
-    BaseAR
-};
-use app\useCases\users\{
-    entities\user\UserEntity,
-    models\user\UserModel,
-    repositories\user\UserRepository,
+use app\modules\admin\search\UserSearch;
+use app\modules\users\{
+    entities\UserEntity,
+    models\UserModel,
+    repositories\UserRepository,
     services\UserService
 };
-
-use app\useCases\admin\search\UserSearch;
 
 /**
  * @author Stop4uk <stop4uk@yandex.ru>

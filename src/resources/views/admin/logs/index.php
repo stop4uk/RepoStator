@@ -1,14 +1,13 @@
 <?php
 
+use app\widgets\GridView;
+use yii\bootstrap5\Html;
+use yii\grid\ActionColumn;
 use yii\helpers\Url;
 use yii\widgets\Pjax;
-use yii\grid\ActionColumn;
-use yii\bootstrap5\Html;
-
-use app\widgets\GridView;
 
 /**
- * @var \app\useCases\admin\search\LogSearch $searchModel
+ * @var \app\modules\admin\search\LogSearch $searchModel
  * @var \yii\data\ActiveDataProvider $dataProvider
  */
 

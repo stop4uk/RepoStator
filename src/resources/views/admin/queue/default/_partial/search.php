@@ -1,16 +1,12 @@
 <?php
 
-use yii\helpers\Url;
-use yii\bootstrap5\{
-    Html,
-    ActiveForm
-};
-use kartik\daterange\DateRangePicker;
-
 use app\helpers\CommonHelper;
+use kartik\daterange\DateRangePicker;
+use yii\bootstrap5\{ActiveForm, Html};
+use yii\helpers\Url;
 
 /**
- * @var \app\useCases\admin\search\QueueSearch $searchModel
+ * @var \app\modules\admin\search\QueueSearch $searchModel
  */
 
 $resource = Url::to(['/admin/queue']);
