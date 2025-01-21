@@ -21,58 +21,56 @@ $this->title = Yii::t('views', 'Контроль за передачей');
 
 ?>
 
-<div class="d-flex justify-content-end mb-2">
-    <?php
-        if ( Yii::$app->getUser()->can('data.checkFull') ) {
-            Modal::begin([
-                'size' => Modal::SIZE_LARGE,
-                'title' => Yii::t('views', 'Выбор отчета для проверки'),
-                'toggleButton' => [
-                    'label' => Yii::t('views', 'Проверка полноты'),
-                    'class' => 'btn btn-primary pt-1 pb-1 me-2'
-                ],
-            ]);
-            echo $this->render('_partial/checkFull', [
-                'groups' => $searchModel->groups,
-                'reports' => $searchModel->reports
-            ]);
-            Modal::end();
-        }
+    <div class="d-flex justify-content-end mb-2">
+        <?php
+            if ( Yii::$app->getUser()->can('data.checkFull') ) {
+                Modal::begin([
+                    'size' => Modal::SIZE_LARGE,
+                    'title' => Yii::t('views', 'Выбор отчета для проверки'),
+                    'toggleButton' => [
+                        'label' => Yii::t('views', 'Проверка полноты'),
+                        'class' => 'btn btn-primary pt-1 pb-1 me-2'
+                    ],
+                ]);
+                echo $this->render('_partial/checkFull', [
+                    'groups' => $searchModel->groups,
+                    'reports' => $searchModel->reports
+                ]);
+                Modal::end();
+            }
 
-        if ( Yii::$app->getUser()->can('createfor') ) {
-            Modal::begin([
-                'size' => Modal::SIZE_LARGE,
-                'title' => Yii::t('views', 'Заполнение отчета за конкретный период'),
-                'toggleButton' => [
-                    'label' => Yii::t('views', 'Передача старых данных'),
-                    'class' => 'btn btn-dark pt-1 pb-1 me-2'
-                ],
-            ]);
-            echo $this->render('_partial/form_createdFor', [
-                'reports' => $searchModel->reports
-            ]);
-            Modal::end();
-        }
+            if ( Yii::$app->getUser()->can('createfor') ) {
+                Modal::begin([
+                    'size' => Modal::SIZE_LARGE,
+                    'title' => Yii::t('views', 'Заполнение отчета за конкретный период'),
+                    'toggleButton' => [
+                        'label' => Yii::t('views', 'Передача старых данных'),
+                        'class' => 'btn btn-dark pt-1 pb-1 me-2'
+                    ],
+                ]);
+                echo $this->render('_partial/form_createdFor', [
+                    'reports' => $searchModel->reports
+                ]);
+                Modal::end();
+            }
 
-        echo Html::tag('i', '', [
-            'id' => 'searchCardButton',
-            'class' => 'btn btn-danger bi bi-funnel',
-            'data-bs-toggle' => 'tooltip',
-            'data-bs-placement' => 'bottom',
-            'title' => Yii::t('views', 'Фильтры поиска'),
-        ]);
-    ?>
-</div>
+            echo Html::tag('i', '', [
+                'id' => 'searchCardButton',
+                'class' => 'btn btn-danger bi bi-funnel',
+                'data-bs-toggle' => 'tooltip',
+                'data-bs-placement' => 'bottom',
+                'title' => Yii::t('views', 'Фильтры поиска'),
+            ]);
+        ?>
+    </div>
 
-<?php Pjax::begin(['id' => 'reportDataList', 'enablePushState' => false, 'clientOptions' => ['method' => 'POST']]) ?>
-    <?= $this->render('_partial/search', ['searchModel' => $searchModel]); ?>
-    <div class="row">
-        <div class="col-12">
-            <div class="card">
-                <div class="card-body pt-0">
-                    <?= GridView::widget([
+    <div class="card">
+        <div class="card-body pt-0">
+            <?php
+                Pjax::begin(['id' => 'reportDataList', 'enablePushState' => true, 'clientOptions' => ['method' => 'POST']]);
+                    echo $this->render('_partial/search', ['searchModel' => $searchModel]);
+                    echo GridView::widget([
                         'dataProvider' => $dataProvider,
-                        'tableOptions' => ['class' => 'table'],
                         'emptyText' => Yii::t('views', 'Подходящие под контроль сведения отсутствуют, или не указаны фильтры отбора'),
                         'columns' => [
                             [
@@ -83,11 +81,11 @@ $this->title = Yii::t('views', 'Контроль за передачей');
                                 'format' => 'raw',
                                 'value' => function($data) {
                                     return Html::tag('i','', [
-                                        'class' => 'bi bi-circle-fill me-2 text-' . CommonHelper::getYesOrNoRecordColor($data->record_status),
-                                        'data-bs-toggle' => 'tooltip',
-                                        'data-bs-placement' => 'bottom',
-                                        'title' => Yii::t('views', 'Статус записи: {status}', ['status' =>  CommonHelper::getYesOrNoRecord($data->record_status)])
-                                    ]) . $data->report->name . Html::tag('span', '#' . Yii::$app->getFormatter()->asDatetime($data->report_datetime), ['class' => 'ms-1 text-muted small']);
+                                            'class' => 'bi bi-circle-fill me-2 text-' . CommonHelper::getYesOrNoRecordColor($data->record_status),
+                                            'data-bs-toggle' => 'tooltip',
+                                            'data-bs-placement' => 'bottom',
+                                            'title' => Yii::t('views', 'Статус записи: {status}', ['status' =>  CommonHelper::getYesOrNoRecord($data->record_status)])
+                                        ]) . $data->report->name . Html::tag('span', '#' . Yii::$app->getFormatter()->asDatetime($data->report_datetime), ['class' => 'ms-1 text-muted small']);
                                 }
                             ],
                             [
@@ -181,9 +179,8 @@ $this->title = Yii::t('views', 'Контроль за передачей');
                                 ],
                             ],
                         ],
-                    ]); ?>
-                </div>
-            </div>
+                    ]);
+                Pjax::end();
+            ?>
         </div>
     </div>
-<?php Pjax::end();

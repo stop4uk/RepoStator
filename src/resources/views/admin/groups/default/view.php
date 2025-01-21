@@ -1,10 +1,10 @@
 <?php
 
-use yii\bootstrap5\Html;
 use yii\helpers\Url;
+use yii\bootstrap5\Html;
 
 /**
- * @var \app\useCases\users\models\group\GroupModel $model
+ * @var \app\modules\users\models\GroupModel $model
  * @var \yii\web\View $this
  */
 

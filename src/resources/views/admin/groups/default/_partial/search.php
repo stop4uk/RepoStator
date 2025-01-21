@@ -1,8 +1,11 @@
 <?php
 
 use app\helpers\CommonHelper;
-use yii\bootstrap5\{ActiveForm, Html};
 use yii\helpers\Url;
+use yii\bootstrap5\{
+    ActiveForm,
+    Html
+};
 
 /**
  * @var \app\modules\admin\search\GroupSearch $searchModel

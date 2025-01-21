@@ -6,10 +6,10 @@ use yii\bootstrap5\{
 };
 use kartik\select2\Select2;
 
-use app\useCases\users\helpers\user\UserHelper;
+use app\modules\users\helpers\UserHelper;
 
 /**
- * @var \app\useCases\users\models\user\UserModel $model
+ * @var \app\modules\users\models\UserModel $model
  */
 
 $form = ActiveForm::begin([

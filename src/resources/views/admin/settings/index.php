@@ -33,8 +33,8 @@ $form = ActiveForm::begin([
                 <?php foreach ($items as $key => $inData): ?>
                     <div class="col-3">
                         <?php
-                        $keyName = $category . '__' . $key;
-                        echo $form->field($model, "key[$keyName]")->hint($inData['description'])->label(false);
+                            $keyName = $category . '__' . $key;
+                            echo $form->field($model, "key[$keyName]")->hint($inData['description'])->label(false);
                         ?>
                     </div>
                 <?php endforeach; ?>

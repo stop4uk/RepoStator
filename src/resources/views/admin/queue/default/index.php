@@ -1,8 +1,9 @@
 <?php
 
-use app\widgets\GridView;
-use yii\bootstrap5\Html;
 use yii\widgets\Pjax;
+use yii\bootstrap5\Html;
+
+use app\widgets\GridView;
 
 /**
  * @var \app\modules\admin\search\QueueSearch $searchModel
@@ -22,39 +23,39 @@ $this->title = Yii::t('views', 'Очередь задач');
         ]); ?>
     </div>
 
-<?php Pjax::begin(['id' => 'queueList', 'enablePushState' => false, 'clientOptions' => ['method' => 'POST']]); ?>
-    <?= $this->render('_partial/search', ['searchModel' => $searchModel]); ?>
     <div class="card">
         <div class="card-body pt-0">
-            <?= GridView::widget([
-                'dataProvider' => $dataProvider,
-                'tableOptions' => ['class' => 'table'],
-                'emptyText' => Yii::t('views', 'Все задачи выполнены. Очередь пуста'),
-                'columns' => [
-                    'id',
-                    [
-                        'attribute' => 'job',
-                        'contentOptions' => ['class' => 'small'],
-                        'value' => fn($data) => strlen(strip_tags($data->job)) > 35 ? mb_substr(strip_tags($data->job), 0, 35).' ...' : strip_tags($data->job)
-                    ],
-                    'channel',
-                    'delay',
-                    'attempt',
-                    [
-                        'attribute' => 'pushed_at',
-                        'format' => ['date', Yii::$app->settings->get('system', 'app_language_dateTime')],
-                    ],
-                    [
-                        'attribute' => 'done_at',
-                        'format' => ['date', Yii::$app->settings->get('system', 'app_language_dateTime')],
-                    ],
-                ],
-            ]); ?>
+            <?php
+                Pjax::begin(['id' => 'queueList', 'enablePushState' => true, 'clientOptions' => ['method' => 'POST']]);
+                    echo $this->render('_partial/search', ['searchModel' => $searchModel]);
+                    echo GridView::widget([
+                        'dataProvider' => $dataProvider,
+                        'emptyText' => Yii::t('views', 'Все задачи выполнены. Очередь пуста'),
+                        'columns' => [
+                            'id',
+                            [
+                                'attribute' => 'job',
+                                'contentOptions' => ['class' => 'small'],
+                                'value' => fn($data) => strlen(strip_tags($data->job)) > 35 ? mb_substr(strip_tags($data->job), 0, 35).' ...' : strip_tags($data->job)
+                            ],
+                            'channel',
+                            'delay',
+                            'attempt',
+                            [
+                                'attribute' => 'pushed_at',
+                                'format' => ['date', Yii::$app->settings->get('system', 'app_language_dateTime')],
+                            ],
+                            [
+                                'attribute' => 'done_at',
+                                'format' => ['date', Yii::$app->settings->get('system', 'app_language_dateTime')],
+                            ],
+                        ],
+                    ]);
+                Pjax::end();
+            ?>
         </div>
     </div>
 <?php
-    Pjax::end();
-
     $this->registerJs(<<<JS
         setInterval(function(){
             $.pjax.reload({container:'#queueList', method: "POST", async: true, push: false , data: $("#searchForm").serialize()});

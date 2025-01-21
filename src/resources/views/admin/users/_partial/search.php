@@ -8,7 +8,7 @@ use yii\bootstrap5\{
 use kartik\select2\Select2;
 
 use app\helpers\CommonHelper;
-use app\useCases\users\helpers\user\UserHelper;
+use app\modules\users\helpers\UserHelper;
 
 /**
  * @var \app\search\UserSearch $searchModel

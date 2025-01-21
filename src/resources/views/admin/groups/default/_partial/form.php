@@ -9,7 +9,7 @@ use mihaildev\ckeditor\CKEditor;
 use app\helpers\CommonHelper;
 
 /**
- * @var \app\useCases\users\models\group\GroupModel $model
+ * @var \app\modules\users\models\GroupModel $model
  */
 
 $form = ActiveForm::begin([

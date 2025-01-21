@@ -9,10 +9,10 @@ use kartik\daterange\DateRangePicker;
 use kartik\select2\Select2;
 
 use app\helpers\CommonHelper;
-use app\useCases\reports\helpers\JobHelper;
+use app\modules\reports\helpers\JobHelper;
 
 /**
- * @var \app\useCases\reports\search\JobSearch $searchModel
+ * @var \app\modules\reports\search\JobSearch $searchModel
  */
 
 $resource = Url::to(['/admin/queue/template']);

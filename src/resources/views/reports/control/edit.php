@@ -1,10 +1,10 @@
 <?php
 
+use yii\helpers\Url;
 use yii\bootstrap5\{
     Html,
     Modal
 };
-use yii\helpers\Url;
 
 use app\modules\reports\widgets\structform\StructFormWidget;
 

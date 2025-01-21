@@ -3,7 +3,7 @@
 use yii\helpers\Url;
 
 /**
- * @var \app\useCases\users\models\user\UserModel $model
+ * @var \app\modules\users\models\UserModel $model
  */
 
 $this->title = Yii::t('views', 'Новый пользователь');

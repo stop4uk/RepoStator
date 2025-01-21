@@ -7,7 +7,7 @@ use yii\bootstrap5\{
 use mihaildev\ckeditor\CKEditor;
 
 /**
- * @var \app\useCases\users\models\group\GroupTypeModel $model
+ * @var \app\modules\users\models\GroupTypeModel $model
  */
 
 $form = ActiveForm::begin([

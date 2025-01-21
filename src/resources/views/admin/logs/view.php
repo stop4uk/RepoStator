@@ -4,7 +4,7 @@ use yii\helpers\Url;
 use yii\bootstrap5\Html;
 
 /**
- * @var \app\useCases\system\entities\LogEntity $entity
+ * @var \app\entities\LogEntity $entity
  */
 
 $this->title = Yii::t('views', 'Сообщение лога');

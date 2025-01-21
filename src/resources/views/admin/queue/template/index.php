@@ -5,10 +5,10 @@ use yii\widgets\Pjax;
 use yii\bootstrap5\Html;
 
 use app\widgets\GridView;
-use app\useCases\reports\helpers\JobHelper;
+use app\modules\reports\helpers\JobHelper;
 
 /**
- * @var \app\useCases\reports\search\JobSearch $searchModel
+ * @var \app\modules\reports\search\JobSearch $searchModel
  * @var \yii\data\ActiveDataProvider $dataProvider
  */
 
@@ -31,7 +31,6 @@ $this->title = Yii::t('views', 'Очередь отчетов');
         <div class="card-body pt-0">
             <?= GridView::widget([
                 'dataProvider' => $dataProvider,
-                'tableOptions' => ['class' => 'table'],
                 'emptyText' => Yii::t('views', 'Выполненные или активные задачи на формирование отчетов отсутствуют'),
                 'columns' => [
                     [

@@ -4,7 +4,7 @@ use yii\helpers\Url;
 use yii\bootstrap5\Html;
 
 /**
- * @var \app\useCases\users\models\user\UserModel $model
+ * @var \app\modules\users\models\UserModel $model
  * @var \yii\web\View $this
  */
 
