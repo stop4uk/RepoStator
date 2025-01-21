@@ -17,7 +17,11 @@ use app\components\{
     events\CommonEventHandler,
     settings\Settings
 };
-
+use app\modules\{
+    users\Module as UsersModule,
+    reports\Module as ReportsModule,
+    admin\Module as AdminModule
+};
 
 return [
     'id' => getenv('PROJECT_NAME'),
@@ -41,6 +45,21 @@ return [
         'queue',
         CommonBootstrap::class,
         CommonEventHandler::class,
+    ],
+    'modules' => [
+        'users' => [
+            'class' => UsersModule::class,
+            'viewPath' => '@resources/views/users',
+            'layoutClean' => '@resources/views/layouts/clean'
+        ],
+        'reports' => [
+            'class' => ReportsModule::class,
+            'viewPath' => '@resources/views/reports',
+        ],
+        'admin' => [
+            'class' => AdminModule::class,
+            'viewPath' => '@resources/views/admin',
+        ],
     ],
     'components' => [
         AttachFileHelper::STORAGE_LOCAL => [

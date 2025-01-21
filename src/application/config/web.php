@@ -15,11 +15,10 @@ use app\components\{
     bootstrap\WebBootstrap,
     events\WebEventHandler
 };
-use app\modules\reports\Module as ReportModule;
+
 use app\modules\users\{
     components\Identity,
     components\RbacDbmanager,
-    Module as UsersModule
 };
 
 $params = array_merge(
@@ -37,17 +36,6 @@ $config = [
     'bootstrap' => [
         WebBootstrap::class,
         WebEventHandler::class,
-    ],
-    'modules' => [
-        'users' => [
-            'class' => UsersModule::class,
-            'viewPath' => '@resources/views/users',
-            'layoutClean' => '@resources/views/layouts/clean'
-        ],
-        'reports' => [
-            'class' => ReportModule::class,
-            'viewPath' => '@resources/views/reports',
-        ],
     ],
     'components' => [
         'errorHandler' => [
