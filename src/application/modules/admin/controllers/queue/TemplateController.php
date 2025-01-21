@@ -4,7 +4,7 @@ namespace app\modules\admin\controllers\queue;
 
 use app\actions\IndexAction;
 use app\components\base\BaseController;
-use app\useCases\reports\search\JobSearch;
+use app\modules\reports\search\JobSearch;
 use yii\filters\AccessControl;
 
 /**
