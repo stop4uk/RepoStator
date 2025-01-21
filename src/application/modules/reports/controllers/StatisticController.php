@@ -38,14 +38,34 @@ final class StatisticController extends BaseController
 
     public function actionIndex()
     {
+        $session = Yii::$app->getSession();
+        $sessionKey = 'Job_search';
+        $searchModel = new JobSearch(['onlyMain' => true]);
+        $searchFilters = $this->request->post();
         $form = new StatisticForm();
-        $searchModel = new JobSearch([
-            'onlyMain' => true
-        ]);
 
-        $dataProvider = $searchModel->search($this->request->post());
+        if ($this->request->isGet) {
+            $session->remove($sessionKey);
+        }
 
-        return $this->render('index', compact('form', 'searchModel', 'dataProvider'));
+        if ($this->request->isPost) {
+            if (
+                $this->request->getQueryParam('page') !== null
+                && $session->has($sessionKey)
+            ) {
+                $searchFilters = $session->get($sessionKey);
+            } else {
+                $session->set($sessionKey, $this->request->post());
+            }
+        }
+
+        $dataProvider = $searchModel->search($searchFilters);
+
+        return $this->render('index', compact(
+            'form',
+            'searchModel',
+            'dataProvider'
+        ));
     }
 
     public function actionForm()
