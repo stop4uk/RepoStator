@@ -2,6 +2,7 @@
 
 namespace app\modules\reports\controllers;
 
+use Yii;
 use yii\web\Response;
 use yii\filters\AccessControl;
 use yii\bootstrap5\ActiveForm;
