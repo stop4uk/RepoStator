@@ -20,26 +20,14 @@ class GridView extends BaseGrid
     public $responsive = true;
     public $responsiveWrap = false;
     public $persistResize = true;
-
-    public $options = [
-        'class' => 'grid-view table-responsive'
-    ];
-    public $emptyTextOptions = [
-        'class' => 'alert alert-danger text-center fw-bold mb-0'
-    ];
-
-    public $headerContainer = [
-        'class' => ''
-    ];
-
+    public $tableOptions = ['class' => 'table'];
+    public $options = ['class' => 'grid-view table-responsive'];
+    public $emptyTextOptions = ['class' => 'alert alert-danger text-center fw-bold mb-0'];
+    public $headerContainer = ['class' => ''];
     public $formatter = [
         'class' => Formatter::class,
         'nullDisplay' => ''
     ];
-
-    public $pager = [
-        'class' => Pager::class
-    ];
-
+    public $pager = ['class' => Pager::class];
     public $showPageSummary = false;
 }
