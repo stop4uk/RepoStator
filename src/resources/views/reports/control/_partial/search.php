@@ -14,7 +14,7 @@ use app\helpers\CommonHelper;
  * @var \app\modules\reports\search\ConstantSearch $searchModel
  */
 
-$resource = Url::to(['/reports/control']);
+$resource = Url::to(["/{$this->context->id}"]);
 $format = str_replace('php:', '', Yii::$app->settings->get('system', 'app_language_date'));
 
 ?>

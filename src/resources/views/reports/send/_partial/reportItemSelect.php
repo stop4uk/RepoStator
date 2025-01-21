@@ -21,8 +21,7 @@ $reportName = $model->name . Html::tag('span', ' #' . $timePeriodMessage, ['clas
     <div class="card-body">
         <h5 role="button" class="mb-0" id="linkInfoBlock_<?= $model->id; ?>" data-id="<?= $model->id; ?>"><i id="arrowInfoBlock_<?= $model->id; ?>" class="bi bi-arrow-down-circle" data-show="0"></i> <?= $reportName; ?></h5>
         <div class="row d-none" id="reportInfoBlock_<?= $model->id ?>">
-            <hr />
-            <h5 class="text-center text-muted"><?= Yii::t('views', 'Выберите группу, от имени которой необходимо передать отчет'); ?></h5>
+            <h5 class="mt-3 text-center text-muted"><?= Yii::t('views', 'Выберите группу, от имени которой необходимо передать отчет'); ?></h5>
             <?php foreach ($model->canAddedFor as $item): ?>
                 <div class="<?= (count($model->canAddedFor) == 1) ? 'col-12' : 'col-6 col-xl-4' ?> mb-2">
                     <?= Html::a($item['groupName'], ['process', 'report_id' => $model->id, 'group_id' => $item['groupId'], 'report_datetime' => $model->timePeriod->start ?? time()], ['class' => 'btn btn-outline-primary w-100', 'data-pjax' => 0]); ?>

@@ -10,7 +10,7 @@ use yii\bootstrap5\{
  * @var \app\modules\reports\search\SendSearch $searchModel
  */
 
-$resource = Url::to(['/reports/work']);
+$resource = Url::to(["/{$this->context->id}"]);
 
 ?>
 
@@ -35,8 +35,8 @@ $resource = Url::to(['/reports/work']);
                 </div>
                 <div class="col-6 col-md-2">
                     <?php
-                    echo Html::label('&nbsp;', '', ['class' => 'form-label d-none d-md-block']);
-                    echo Html::a(Yii::t('views', 'Очистить'), $resource, ['class' => 'btn btn-danger'])
+                        echo Html::label('&nbsp;', '', ['class' => 'form-label d-none d-md-block']);
+                        echo Html::a(Yii::t('views', 'Очистить'), $resource, ['class' => 'btn btn-danger w-100'])
                     ?>
                 </div>
             </div>

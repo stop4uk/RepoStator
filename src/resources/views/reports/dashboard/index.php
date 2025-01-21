@@ -40,14 +40,13 @@ Pjax::begin(['id' => 'dashBoard', 'enablePushState' => false, 'clientOptions' =>
                         echo Html::beginTag('div', ['class' => 'col-12']);
                         echo Html::tag(
                             name: 'p',
-                            content: Yii::t('views', 'Одна из доступных Вам групп не передала ' .
-                                '<strong>{name}</strong> в установленный период. <br /><span class="small">{period}</span>',
+                            content: Yii::t('views', 'Доступной группой не передан отчет "<strong>{name}</strong>" <span class="small">#{period}</span>',
                                 [
                                     'name' => $model->name,
                                     'period' => $timePeriodMessage
                                 ]
                             ),
-                            options: ['class' => 'border border-danger rounded p-2']
+                            options: ['class' => 'border border-danger rounded p-2 text-justify']
                         );
                         echo Html::endTag('div');
                     }
