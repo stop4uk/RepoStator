@@ -51,7 +51,7 @@ final class SendSearch extends Model
     public function rules(): array
     {
         return [
-            ['name', 'string', 'length' => [4,64]],
+            ['name', 'string', 'length' => [2,64]],
             ['name', 'filter', 'filter' => fn($value) => HtmlPurifier::process($value)],
         ];
     }
