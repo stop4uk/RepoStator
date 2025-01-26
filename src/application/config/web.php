@@ -109,22 +109,10 @@ $config = [
                 'reports/<controller:(constant|constantrule|structure|template)>'               => 'reports/<controller>',
                 'reports/<controller:(constant|constantrule|structure|template)>/<action:\w+>'  => 'reports/<controller>/<action>',
 
-
-
-
-
-//                #Админка
-//                'admin/groups'                                                              => 'admin_groups',
-//                'admin/groups/<action:(create|view|edit|delete|enable|nodeMove)>'           => 'admin_groups/<action>',
-//                'admin/groups/type'                 => 'admin_groups_type',
-//                'admin/groups/type/<action:\w+>'    => 'admin_groups_type/<action>',
-//                'admin/queue'                       => 'admin_queue',
-//                'admin/queue/template'              => 'admin_queue_template',
-//                'admin/logs'                        => 'admin_logs',
-//                'admin/logs/<action:\w+>'           => 'admin_logs/<action>',
-//                'admin/settings'                    => 'admin_settings',
-//                'admin/users'                       => 'admin_users',
-//                'admin/users/<action:\w+>'          => 'admin_users/<action>',
+                #Админка
+                'admin/groups'                                                      => 'admin/groups/default',
+                'admin/groups/<action:(create|view|edit|delete|enable|nodeMove)>'   => 'admin/groups/default/<action>',
+                'admin/queue'                                                       => 'admin/queue/default',
             ],
         ]
     ],
