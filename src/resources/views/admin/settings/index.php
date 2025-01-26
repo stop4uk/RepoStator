@@ -34,7 +34,7 @@ $form = ActiveForm::begin([
                     <div class="col-3">
                         <?php
                             $keyName = $category . '__' . $key;
-                            echo $form->field($model, "key[$keyName]")->hint($inData['description'])->label(false);
+                            echo $form->field($model, "key[$keyName]")->hint($inData['description'], ['class' => 'text-justify text-muted small'])->label(false);
                         ?>
                     </div>
                 <?php endforeach; ?>
