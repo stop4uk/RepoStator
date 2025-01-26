@@ -2,32 +2,24 @@
 
 use yii\db\Migration;
 
-class m240410_104521_users_rightsDataInsert extends Migration
+final class m240410_104521_users_rightsDataInsert extends Migration
 {
+    const TABLE = '{{%users_rights}}';
 
-    public function init()
+    public function safeUp(): void
     {
-        $this->db = 'db';
-        parent::init();
+        $this->batchInsert(self::TABLE, ["item_name", "user_id", "created_at", "created_uid"], [
+            [
+                'item_name' => 'admin',
+                'user_id' => 1,
+                'created_at' => 1708349986,
+                'created_uid' => 1,
+            ],
+        ]);
     }
 
-    public function safeUp()
+    public function safeDown(): void
     {
-        $this->batchInsert('{{%users_rights}}',
-                           ["item_name", "user_id", "created_at", "created_uid"],
-                            [
-    [
-        'item_name' => 'admin',
-        'user_id' => 1,
-        'created_at' => 1708349986,
-        'created_uid' => 1,
-    ],
-]
-        );
-    }
-
-    public function safeDown()
-    {
-        //$this->truncateTable('{{%users_rights}} CASCADE');
+        $this->truncateTable(self::TABLE . ' CASCADE');
     }
 }

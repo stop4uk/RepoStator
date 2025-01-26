@@ -22,6 +22,10 @@ $config = [
     'controllerMap' => [
         'migrate' => [
             'class' => MigrateController::class,
+            'migrationNamespaces' => [
+                'app\modules\users\migrations',
+                'app\modules\reports\migrations'
+            ],
         ]
     ],
     'components' => [

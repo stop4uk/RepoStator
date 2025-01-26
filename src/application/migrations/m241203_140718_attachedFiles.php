@@ -4,11 +4,11 @@ use yii\db\Migration;
 
 use app\components\attachedFiles\AttachFileHelper;
 
-class m241203_140718_attachedFiles extends Migration
+final class m241203_140718_attachedFiles extends Migration
 {
     const TABLE = '{{%attachedFiles}}';
 
-    public function safeUp()
+    public function safeUp(): void
     {
         $this->createTable(self::TABLE, [
             'id' => $this->primaryKey(),
@@ -31,7 +31,7 @@ class m241203_140718_attachedFiles extends Migration
         ]);
     }
 
-    public function safeDown()
+    public function safeDown(): void
     {
         $this->dropTable(self::TABLE);
     }

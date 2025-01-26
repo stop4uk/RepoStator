@@ -2,35 +2,27 @@
 
 use yii\db\Migration;
 
-class m240410_104252_rights_item_child extends Migration
+final class m240410_104252_rights_item_child extends Migration
 {
+    const TABLE = '{{%rights_item_child}}';
 
-    public function init()
-    {
-        $this->db = 'db';
-        parent::init();
-    }
-
-    public function safeUp()
+    public function safeUp(): void
     {
         $tableOptions = 'ENGINE=InnoDB';
 
-        $this->createTable(
-            '{{%rights_item_child}}',
-            [
-                'parent'=> $this->string(64)->notNull(),
-                'child'=> $this->string(64)->notNull(),
-            ],$tableOptions
-        );
-        $this->createIndex('child','{{%rights_item_child}}',['child'],false);
-        $this->addPrimaryKey('pk_on_rights_item_child','{{%rights_item_child}}',['parent','child']);
+        $this->createTable(self::TABLE, [
+            'parent'=> $this->string(64)->notNull(),
+            'child'=> $this->string(64)->notNull(),
+        ],$tableOptions);
 
+        $this->createIndex('child',self::TABLE,['child'],false);
+        $this->addPrimaryKey('pk_on_rights_item_child',self::TABLE,['parent','child']);
     }
 
-    public function safeDown()
+    public function safeDown(): void
     {
-    $this->dropPrimaryKey('pk_on_rights_item_child','{{%rights_item_child}}');
-        $this->dropIndex('child', '{{%rights_item_child}}');
-        $this->dropTable('{{%rights_item_child}}');
+        $this->dropPrimaryKey('pk_on_rights_item_child',self::TABLE);
+        $this->dropIndex('child', self::TABLE);
+        $this->dropTable(self::TABLE);
     }
 }

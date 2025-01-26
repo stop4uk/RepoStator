@@ -2,37 +2,30 @@
 
 use yii\db\Migration;
 
-class m240410_104258_users_rights extends Migration
+final class m240410_104258_users_rights extends Migration
 {
+    const TABLE = '{{%users_rights}}';
 
-    public function init()
-    {
-        $this->db = 'db';
-        parent::init();
-    }
-
-    public function safeUp()
+    public function safeUp():void
     {
         $tableOptions = 'ENGINE=InnoDB';
 
-        $this->createTable(
-            '{{%users_rights}}',
-            [
-                'item_name'=> $this->string(64)->notNull(),
-                'user_id'=> $this->integer(11)->notNull(),
-                'created_at'=> $this->integer(11)->notNull(),
-                'created_uid'=> $this->integer(11)->notNull(),
-            ],$tableOptions
-        );
-        $this->createIndex('IDX_user_id','{{%users_rights}}',['user_id'],false);
-        $this->addPrimaryKey('pk_on_users_rights','{{%users_rights}}',['item_name','user_id']);
+        $this->createTable(self::TABLE, [
+            'item_name'=> $this->string(64)->notNull(),
+            'user_id'=> $this->integer(11)->notNull(),
+            'created_at'=> $this->integer(11)->notNull(),
+            'created_uid'=> $this->integer(11)->notNull(),
+        ],$tableOptions);
+
+        $this->createIndex('IDX_user_id',self::TABLE,['user_id'],false);
+        $this->addPrimaryKey('pk_on_users_rights',self::TABLE,['item_name','user_id']);
 
     }
 
-    public function safeDown()
+    public function safeDown(): void
     {
-    $this->dropPrimaryKey('pk_on_users_rights','{{%users_rights}}');
-        $this->dropIndex('IDX_user_id', '{{%users_rights}}');
-        $this->dropTable('{{%users_rights}}');
+        $this->dropPrimaryKey('pk_on_users_rights',self::TABLE);
+        $this->dropIndex('IDX_user_id', self::TABLE);
+        $this->dropTable(self::TABLE);
     }
 }

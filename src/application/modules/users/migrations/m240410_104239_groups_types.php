@@ -2,41 +2,34 @@
 
 use yii\db\Migration;
 
-class m240410_104239_groups_types extends Migration
+final class m240410_104239_groups_types extends Migration
 {
+    const TABLE = '{{%groups_types}}';
 
-    public function init()
-    {
-        $this->db = 'db';
-        parent::init();
-    }
-
-    public function safeUp()
+    public function safeUp(): void
     {
         $tableOptions = 'ENGINE=InnoDB';
 
-        $this->createTable(
-            '{{%groups_types}}',
-            [
-                'id'=> $this->primaryKey(11),
-                'name'=> $this->string(64)->notNull()->defaultValue(''),
-                'description'=> $this->text()->null()->defaultValue(null),
-                'created_at'=> $this->integer(11)->notNull(),
-                'created_uid'=> $this->integer(11)->notNull(),
-                'updated_at'=> $this->integer(11)->null()->defaultValue(null),
-                'updated_uid'=> $this->integer(11)->null()->defaultValue(null),
-                'record_status'=> $this->tinyInteger(1)->notNull()->defaultValue(1),
-            ],$tableOptions
-        );
-        $this->createIndex('UQ_name','{{%groups_types}}',['name'],false);
-        $this->createIndex('IDX_record_status','{{%groups_types}}',['record_status'],false);
+        $this->createTable(self::TABLE, [
+            'id'=> $this->primaryKey(11),
+            'name'=> $this->string(64)->notNull()->defaultValue(''),
+            'description'=> $this->text()->null()->defaultValue(null),
+            'created_at'=> $this->integer(11)->notNull(),
+            'created_uid'=> $this->integer(11)->notNull(),
+            'updated_at'=> $this->integer(11)->null()->defaultValue(null),
+            'updated_uid'=> $this->integer(11)->null()->defaultValue(null),
+            'record_status'=> $this->tinyInteger(1)->notNull()->defaultValue(1),
+        ],$tableOptions);
+
+        $this->createIndex('UQ_name',self::TABLE,['name'],false);
+        $this->createIndex('IDX_record_status',self::TABLE,['record_status'],false);
 
     }
 
-    public function safeDown()
+    public function safeDown(): void
     {
-        $this->dropIndex('UQ_name', '{{%groups_types}}');
-        $this->dropIndex('IDX_record_status', '{{%groups_types}}');
-        $this->dropTable('{{%groups_types}}');
+        $this->dropIndex('UQ_name', self::TABLE);
+        $this->dropIndex('IDX_record_status', self::TABLE);
+        $this->dropTable(self::TABLE);
     }
 }
