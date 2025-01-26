@@ -9,8 +9,9 @@ use app\widgets\Menu;
  * @var \yii\web\View $this
  */
 
-$parseItemGroups = in_array($this->context->id, ['admin_groups', 'admin_groups_type']);
-$parseItemQueue = in_array($this->context->id, ['admin_queue', 'admin_queue_template']);
+
+$parseItemGroups = in_array($this->context->id, ['groups', 'groups/type']);
+$parseItemQueue = in_array($this->context->id, ['queue', 'queue/template']);
 $menuArray = [
     ['label' => Html::tag('i', '', ['class' => 'bi bi-house-fill']) . Yii::t('views', 'Главная'), 'url' => Url::to(['/']), ],
 
