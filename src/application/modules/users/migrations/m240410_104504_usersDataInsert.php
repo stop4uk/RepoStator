@@ -20,7 +20,7 @@ final class m240410_104504_usersDataInsert extends Migration
                 'account_status' => 1,
                 'account_key' => 'VMsE9XBb_vN9xTpxJK_jWLiZAWFDTMuL',
                 'account_cpass_required' => 0,
-                'created_at' => 1708349986,
+                'created_at' => time(),
                 'created_uid' => null,
                 'updated_at' => null,
                 'updated_uid' => null,

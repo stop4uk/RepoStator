@@ -13,7 +13,7 @@ final class m240410_104520_users_groupsDataInsert extends Migration
                 'id' => 1,
                 'user_id' => 1,
                 'group_id' => 1,
-                'created_at' => 1708349986,
+                'created_at' => time(),
                 'created_uid' => 1,
                 'updated_at' => null,
                 'updated_uid' => null,

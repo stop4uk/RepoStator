@@ -17,7 +17,7 @@ final class m240410_104529_groupsDataInsert extends Migration
                 'description' => null,
                 'accept_send' => 0,
                 'type_id' => null,
-                'created_at' => 1708349986,
+                'created_at' => time(),
                 'created_uid' => 1,
                 'updated_at' => null,
                 'updated_uid' => null,

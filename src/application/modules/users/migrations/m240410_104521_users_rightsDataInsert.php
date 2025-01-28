@@ -12,7 +12,7 @@ final class m240410_104521_users_rightsDataInsert extends Migration
             [
                 'item_name' => 'admin',
                 'user_id' => 1,
-                'created_at' => 1708349986,
+                'created_at' => time(),
                 'created_uid' => 1,
             ],
         ]);
