@@ -22,10 +22,12 @@ use app\components\attachedFiles\{
  * @var bool $showFileAsImage Отображать файл в виде фотографии
  * @var bool $isNewRecord когда загрузка осуществляется до сохранения привязанной записи в БД
  * @var string $uploadButtonHintText Текст описание для кнопки загрузки
+ * @var string $sessionKey Ключ параметра в пользовательской сессии со списком файлов
  * @var \yii\db\BaseActiveRecord $parentModel Модель, к которой привязывается виджет
  * @var \yii\data\ArrayDataProvider $dataProvider Данные по уже загруженным и, находящимся в статусе ACTIVE файлам
  */
 
+$fromSession = false;
 $uploadModel = new AttachFileUploadForm([
     'modelClass' => $parentModel::class,
     'modelKey' => $parentModel->{$parentModel->modelKey}
@@ -104,18 +106,17 @@ JS);
                     echo Html::tag('span', $uploadButtonHintText, ['class' => 'small text-muted mt-2 text-justify']);
                 }
             } else {
-                $fromCache = ($dataProvider->getTotalCount() >= 1);
-
                 if (
                     $dataProvider->getTotalCount() == 0
-                    && $cachedFiles = Yii::$app->getCache()->get(env('YII_UPLOADS_TEMPORARY_KEY') . Yii::$app->getUser()->getId())
+                    && $sessionFiles = Yii::$app->getSession()->get($sessionKey)
                 ) {
                     $dataProvider = new ArrayDataProvider([
-                        'allModels' => $cachedFiles,
+                        'allModels' => $sessionFiles,
                         'pagination' => [
                             'pageSize' => 5,
                         ],
                     ]);
+                    $fromCache = true;
                 }
 
                 echo ListView::widget([
@@ -129,7 +130,7 @@ JS);
                         'canDeleted' => $canDeleted,
                         'modelClass' => $parentModel::class ?? null,
                         'modelKey' => (string)$parentModel->{$parentModel->modelKey} ?? null,
-                        'fromCache' => $fromCache
+                        'fromSession' => $fromSession
                     ]
                 ]);
             }

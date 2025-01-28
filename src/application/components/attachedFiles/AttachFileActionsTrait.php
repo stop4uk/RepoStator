@@ -4,7 +4,10 @@ namespace app\components\attachedFiles;
 
 use Yii;
 use yii\base\Exception;
-use yii\web\UploadedFile;
+use yii\web\{
+    Response,
+    UploadedFile
+};
 use yii\helpers\{
     FileHelper,
     Json
@@ -12,10 +15,21 @@ use yii\helpers\{
 
 trait AttachFileActionsTrait
 {
+    private string $sessionKey;
+    private string $temporaryPath;
+
+    public function init(): void
+    {
+        $this->sessionKey = env('YII_UPLOADS_TEMPORARY_KEY', 'tmpUploadSession') . $this->getUserID();
+        $this->temporaryPath = Yii::getAlias('@runtime/' . env("YII_UPLOADS_TEMPORARY_PATH", 'tmpUpload'));
+
+        parent::init();
+    }
+
     public function actionAttachfile(string $params): string
     {
         $result = [];
-        $temporaryPath = Yii::getAlias('@runtime') . DIRECTORY_SEPARATOR . env("YII_UPLOADS_TEMPORARY_PATH");
+        $session = Yii::$app->getSession();
         $temporaryName = Yii::$app->getSecurity()->generateRandomString(6);
 
         $model = AttachFileUploadForm::createFromParams($params);
@@ -26,19 +40,19 @@ trait AttachFileActionsTrait
 
         if ($model->validate()) {
             if ($model->isNewRecord) {
-                $cache = Yii::$app->getCache();
-                $cacheKey = env('YII_UPLOADS_TEMPORARY_KEY') . Yii::$app->getUser()->getId();
-                $cachedFiles = $cache->get($cacheKey) ?: [];
-
+                $sessionFiles = $session->get($this->sessionKey) ?: [];
                 $fileExtension = pathinfo($model->uploadFile->name)['extension'];
                 $fileName = implode('.', [$temporaryName, $fileExtension]);
-                $filePath = $temporaryPath . DIRECTORY_SEPARATOR . $fileName;
+                $filePath = $this->temporaryPath . DIRECTORY_SEPARATOR . $fileName;
 
-                if (!is_dir($temporaryPath)) {mkdir($temporaryPath);}
+                if (!is_dir($this->temporaryPath)) {
+                    mkdir($this->temporaryPath);
+                }
+
                 $file = $model->uploadFile->saveAs($filePath);
                 if ($file) {
-                    $cachedFiles[] = [
-                        'path' => $temporaryPath,
+                    $sessionFiles[$fileName] = [
+                        'path' => $this->temporaryPath,
                         'fullPath' => $filePath,
                         'name' => $fileName,
                         'extension' => $fileExtension,
@@ -46,9 +60,10 @@ trait AttachFileActionsTrait
                             ?: array_key_first($model->getWorkModel()->attachRules)
                     ];
 
-                    $cache->set($cacheKey, $cachedFiles);
+                    $session->set($this->sessionKey, $sessionFiles);
                 }
 
+                var_dump($session->get($this->sessionKey));
                 return Json::encode([
                     'status' => $file
                         ? 'success'
@@ -84,18 +99,16 @@ trait AttachFileActionsTrait
     public function actionDetachfile(string $params): void
     {
         $paramsArray = unserialize(base64_decode($params));
+
         if (!$paramsArray['modelKey']) {
-            $temporaryPath = Yii::getAlias('@runtime') . DIRECTORY_SEPARATOR . env("YII_UPLOADS_TEMPORARY_PATH");
-            $filePath = $temporaryPath . DIRECTORY_SEPARATOR . $params['hash'];
+            $session = Yii::$app->getSession();
+            $filePath = $this->temporaryPath . DIRECTORY_SEPARATOR . $params['hash'];
+            $sessionFiles = $session->get($this->sessionKey);
 
-            $cache = Yii::$app->getCache();
-            $cacheKey = env('YII_UPLOADS_TEMPORARY_KEY') . Yii::$app->getUser()->getId();
-            $cachedFiles = $cache->get($cacheKey);
-
-            if ($cachedFiles) {
-                foreach($cachedFiles as $key => $file) {
+            if ($sessionFiles) {
+                foreach($sessionFiles as $key => $file) {
                     if ($file['name'] == $params['hash']) {
-                        unset($cachedFiles[$key]);
+                        unset($sessionFiles[$key]);
                         if (is_file($filePath)) {
                             try{
                                 FileHelper::unlink($filePath);
@@ -104,37 +117,59 @@ trait AttachFileActionsTrait
                     }
                 }
 
-                $cache->set($cacheKey, $cachedFiles);
+                $session->set($this->sessionKey, $sessionFiles);
             }
 
             return;
         }
 
         $object = Yii::createObject($paramsArray['modelClass']);
-
         $model = $object->find()->where([$object->modelKey => $paramsArray['modelKey']])->limit(1)->one();
         $model->detachFiles($paramsArray['hash']);
     }
 
-    public function actionGetfile(string $params)
+    public function actionGetfile(string $params): Response|array
     {
         $paramsArray = unserialize(base64_decode($params));
+        $fileData = [];
+
         if (!$paramsArray['modelKey']) {
-            return;
+            $session = Yii::$app->getSession();
+            $sessionFiles = $session->get($this->sessionKey);
+
+            if ($sessionFiles) {
+                $filePath = $this->temporaryPath . DIRECTORY_SEPARATOR . $params['hash'];
+                if (is_file($filePath)) {
+                    $fileData = [
+                        'content' => file_get_contents($filePath),
+                        'name' => implode('.', [$sessionFiles[$params['hash']]['name'], $sessionFiles[$params['hash']]['extension']])
+                    ];
+                }
+            }
+        } else {
+            $object = Yii::createObject($paramsArray['modelClass']);
+            $model = $object
+                ->find()
+                ->where([$object->modelKey => $paramsArray['modelKey']])
+                ->limit(1)
+                ->one();
+
+            $fileData = $model->getAttachFile($paramsArray['hash']);
         }
 
-        $object = Yii::createObject($paramsArray['modelClass']);
-        $model = $object
-            ->find()
-            ->where([$object->modelKey => $paramsArray['modelKey']])
-            ->limit(1)
-            ->one();
 
-        $fileData = $model->getAttachFile($paramsArray['hash']);
-        if ( $fileData ) {
-            return $this->response->sendContentAsFile($fileData['content'], $fileData['name'], [
-                'inline' => false
-            ]);
-        }
+
+        return $fileData
+            ? $this->response->sendContentAsFile($fileData['content'], $fileData['name'], ['inline' => false])
+            : [];
+    }
+
+    private function getUserID(): int
+    {
+        try {
+            return Yii::$app->getUser()->getId();
+        } catch(Exception $e) {}
+
+        return 0;
     }
 }

@@ -27,9 +27,19 @@ final class AttachFileBehavior extends Behavior
     public $modelKey;
     public $attachRules;
 
+    private int $userID;
+    private string $sessionKey;
     private $filesInDB = null;
 
-    public function attach($owner)
+    public function init(): void
+    {
+        $this->userID = $this->getUserID();
+        $this->sessionKey = env('YII_UPLOADS_TEMPORARY_KEY', 'tmpUploadSession') . $this->userID;
+
+        parent::init();
+    }
+
+    public function attach($owner): void
     {
         parent::attach($owner);
 
@@ -80,7 +90,7 @@ final class AttachFileBehavior extends Behavior
         if ($saveFile) {
             try {
                 unlink($inputFile);
-            } catch (\Exception $e) {};
+            } catch (Exception $e) {};
 
             $model = new AttachFileEntity([
                 'storage' => $this->storageID,
@@ -210,7 +220,7 @@ final class AttachFileBehavior extends Behavior
     public function getCanFilesToAttach(): array
     {
         $files = $this->getFilesInDB()
-            ?: Yii::$app->getCache()->get(env("YII_UPLOADS_TEMPORARY_KEY") . Yii::$app->getUser()->getId());
+            ?: Yii::$app->getSession()->get($this->sessionKey);
 
         if ( $files ) {
             $countsByType = [];
@@ -292,5 +302,14 @@ final class AttachFileBehavior extends Behavior
             'mime' =>$mime ?: FileHelper::getMimeType($path)
 
         ];
+    }
+
+    private function getUserID(): int
+    {
+        try {
+            return Yii::$app->getUser()->getId();
+        } catch(Exception $e) {}
+
+        return 0;
     }
 }
