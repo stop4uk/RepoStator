@@ -17,6 +17,10 @@ $this->params['breadcrumbs'] = [
 
 <div class="card">
     <div class="card-body">
-        <?= $this->render('_partial/form', compact('model')); ?>
+        <?= $this->render('_partial/form', [
+            'model' => $model,
+            'canDeleted' => true,
+            'view' => false
+        ]); ?>
     </div>
 </div>
