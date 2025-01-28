@@ -20,6 +20,8 @@ use app\modules\reports\{
 /**
  * @var \yii\web\View $this
  * @var \app\modules\reports\models\TemplateModel $model
+ * @var bool $canDeleted
+ * @var bool $view
  */
 
 $attachedTemplate = $model->getEntity()->getOneFile();
@@ -93,16 +95,16 @@ $form = ActiveForm::begin([
                 ->dropDownList(TemplateHelper::getTypes(), [
                     'prompt' => Yii::t('views', 'Выберите'),
                     'onchange' => 'getData($(this))',
-                    'readonly' => true,
-                    'disabled' => true
+                    'readonly' => !$model->report_id,
+                    'disabled' => !$model->report_id
                 ]); ?>
         </div>
         <div class="col-12 col-md-4">
             <?= $form->field($model, 'form_usejobs')
                 ->dropDownList(CommonHelper::getDefaultDropdown(), [
                     'prompt' => Yii::t('views', 'Выберите'),
-                    'readonly' => $model->getIsNewEntity(),
-                    'disabled' => $model->getIsNewEntity(),
+                    'readonly' => !$model->report_id,
+                    'disabled' => !$model->report_id,
                     'onchange' => 'openCloseFileBlock($(this))'
                 ]); ?>
         </div>
@@ -110,8 +112,8 @@ $form = ActiveForm::begin([
             <?= $form->field($model, 'form_datetime')
                 ->dropDownList(TemplateHelper::getDatetimeTypes(), [
                     'prompt' => Yii::t('views', 'Выберите'),
-                    'readonly' => $model->getIsNewEntity() || $model->form_type == ReportFormTemplateEntity::REPORT_TYPE_TEMPLATE,
-                    'disabled' => $model->getIsNewEntity() || $model->form_type == ReportFormTemplateEntity::REPORT_TYPE_TEMPLATE,
+                    'readonly' => !$model->report_id || $model->form_type == ReportFormTemplateEntity::REPORT_TYPE_TEMPLATE,
+                    'disabled' => !$model->report_id || $model->form_type == ReportFormTemplateEntity::REPORT_TYPE_TEMPLATE,
                     'onChange' => 'changeFieldsWhenDatetimeSelect($(this))'
             ]); ?>
         </div>
@@ -131,7 +133,7 @@ $form = ActiveForm::begin([
         </div>
     </div>
 
-    <div class="row <?= ( $model->getIsNewEntity() || $model->form_type != ReportFormTemplateEntity::REPORT_TYPE_DYNAMIC) ? 'd-none' : ''; ?>" id="dynamicTemplate">
+    <div class="row <?= ( !$model->report_id || $model->form_type != ReportFormTemplateEntity::REPORT_TYPE_DYNAMIC) ? 'd-none' : ''; ?>" id="dynamicTemplate">
         <hr />
         <div class="col-12 col-md-4 col-xl-3">
             <?= $form->field($model, 'table_type')
@@ -177,12 +179,13 @@ $form = ActiveForm::begin([
             ]); ?>
         </div>
     </div>
-    <div class="row mb-3 <?= ( $model->getIsNewEntity() || $model->form_type != ReportFormTemplateEntity::REPORT_TYPE_TEMPLATE) ? 'd-none' : ''; ?>" id="staticTemplate">
+    <div class="row mb-3 <?= ( !$model->report_id || $model->form_type != ReportFormTemplateEntity::REPORT_TYPE_TEMPLATE) ? 'd-none' : ''; ?>" id="staticTemplate">
         <hr />
         <?= AttachFileWidget::widget([
             'model' => $model->getEntity(),
             'workMode' => AttachFileWidget::MODE_ONE,
             'isNewRecord' => $model->getIsNewEntity(),
+            'canDeleted' => $canDeleted,
             'uploadButtonTitle' => 'Прикрепить шаблон отчета',
             'uploadButtonOptions' => 'w-100 mb-2',
             'uploadButtonHintText' => Yii::t('views', "Вы можете загрузить шаблон файла для " .
@@ -205,7 +208,9 @@ $form = ActiveForm::begin([
 
     <div class="row mt-4">
         <div class="col-12 mb-2 d-grid">
-            <?= Html::submitButton(Yii::t('views', $model->getIsNewEntity() ? 'Добавить' : 'Обновить'), ['class' => 'btn btn-primary']); ?>
+            <?php if (!$view) {
+                echo Html::submitButton(Yii::t('views', $model->getIsNewEntity() ? 'Добавить' : 'Обновить'), ['class' => 'btn btn-primary']);
+            } ?>
         </div>
     </div>
 <?php
