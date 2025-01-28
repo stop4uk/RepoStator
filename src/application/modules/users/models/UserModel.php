@@ -32,6 +32,7 @@ use app\modules\users\{
  * @property-read array $allowRights
  *
  * @author Stop4uk <stop4uk@yandex.ru>
+ * @package app\modules\users\models
  */
 final class UserModel extends BaseModel
 {

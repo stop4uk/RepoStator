@@ -17,7 +17,7 @@ use app\modules\users\{
 
 /**
  * @author Stop4uk <stop4uk@yandex.ru>
- * @package app\repositories\user
+ * @package app\modules\users\repositories
  */
 final class UserRepository implements BaseRepositoryInterface
 {

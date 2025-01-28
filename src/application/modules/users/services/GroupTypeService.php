@@ -10,7 +10,7 @@ use app\modules\users\entities\GroupEntity;
 
 /**
  * @author Stop4uk <stop4uk@yandex.ru>
- * @package app\services\group
+ * @package app\modules\users\services
  */
 final class GroupTypeService extends BaseService
 {

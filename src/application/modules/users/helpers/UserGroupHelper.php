@@ -8,7 +8,7 @@ use app\traits\GetLabelTrait;
 
 /**
  * @author Stop4uk <stop4uk@yandex.ru>
- * @package app\helpers\user
+ * @package app\modules\users\helpers
  */
 final class UserGroupHelper
 {

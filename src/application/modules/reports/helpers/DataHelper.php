@@ -9,7 +9,7 @@ use app\modules\reports\entities\ReportEntity;
 
 /**
  * @author Stop4uk <stop4uk@yandex.ru>
- * @package app\helpers\report
+ * @package app\modules\reports\helpers
  */
 final class DataHelper
 {

@@ -6,11 +6,11 @@ use yii\base\BootstrapInterface;
 
 /**
  * @author Stop4uk <stop4uk@yandex.ru>
- * @package app\bootstrap
+ * @package app\components\bootstrap
  */
 final class ConsoleBootstrap implements BootstrapInterface
 {
-    public function bootstrap($app)
+    public function bootstrap($app): void
     {
         $this->updateUrlManager($app);
     }

@@ -16,7 +16,7 @@ use app\modules\users\helpers\RbacHelper;
 
 /**
  * @author Stop4uk <stop4uk@yandex.ru>
- * @package app\search
+ * @package app\modules\reports\search
  */
 final class StatisticSearch extends Model
 {

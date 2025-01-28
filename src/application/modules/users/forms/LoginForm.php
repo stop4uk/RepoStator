@@ -20,7 +20,7 @@ use app\modules\users\{
  * @property  UserEntity|null $_user
  *
  * @author Stop4uk <stop4uk@yandex.ru>
- * @package app\forms\auth
+ * @package app\modules\users\forms
  */
 final class LoginForm extends Model
 {

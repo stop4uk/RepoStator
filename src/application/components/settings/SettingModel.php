@@ -8,7 +8,7 @@ use yii\db\Query;
 
 /**
  * @author Stop4uk <stop4uk@yandex.ru>
- * @package app\models
+ * @package app\components\settings
  */
 final class SettingModel extends Model
 {

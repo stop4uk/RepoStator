@@ -12,7 +12,6 @@ use app\modules\users\{
     repositories\GroupTypeRepository
 };
 
-
 /**
  * @property string $code
  * @property string $name
@@ -23,7 +22,7 @@ use app\modules\users\{
  * @property-read array $types
  *
  * @author Stop4uk <stop4uk@yandex.ru>
- * @package app\search\group
+ * @package app\modules\admin\search
  */
 final class GroupSearch extends Model
 {

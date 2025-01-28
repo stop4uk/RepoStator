@@ -24,7 +24,8 @@ use yii\rbac\{
 
 /**
  * @author Stop4uk <stop4uk@yandex.ru>
- * @package app\rbac
+ * @package app\modules\users\components
+ *
  * @see DbManager
  */
 final class RbacDbmanager extends DbManager

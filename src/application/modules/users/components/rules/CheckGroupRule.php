@@ -7,7 +7,7 @@ use yii\rbac\Rule;
 
 /**
  * @author Stop4uk <stop4uk@yandex.ru>
- * @package app\rbac\rules
+ * @package app\modules\users\components\rules
  */
 final class CheckGroupRule extends Rule
 {

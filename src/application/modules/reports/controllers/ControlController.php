@@ -4,10 +4,10 @@ namespace app\modules\reports\controllers;
 
 use Yii;
 use yii\base\Exception;
-use yii\bootstrap5\ActiveForm;
+use yii\web\Response;
 use yii\filters\AccessControl;
 use yii\helpers\Json;
-use yii\web\Response;
+use yii\bootstrap5\ActiveForm;
 
 use app\actions\{
     DeleteAction,
@@ -30,7 +30,7 @@ use app\modules\reports\{
 
 /**
  * @author Stop4uk <stop4uk@yandex.ru>
- * @package app\controllers\reports
+ * @package app\modules\reports\controllers
  */
 final class ControlController extends BaseController
 {

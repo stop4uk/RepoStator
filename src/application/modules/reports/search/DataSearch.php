@@ -35,7 +35,7 @@ use app\modules\users\{
  * @property-read array $usersAllow
  *
  * @author Stop4uk <stop4uk@yandex.ru>
- * @package app\search\report
+ * @package app\modules\reports\search
  */
 final class DataSearch extends Model
 {

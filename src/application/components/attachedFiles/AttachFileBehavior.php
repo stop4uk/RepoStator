@@ -16,12 +16,27 @@ use yii\helpers\{
 };
 
 /**
+ * ```php
+ *  $params = [
+ *       'name' => "simple",
+ *       'tags' => ['default', 'tag1'],
+ *       'rules' => [
+ *           ['file', 'extensions' => ['xls', 'xlsx', 'ods', 'txt']]
+ *       ],
+ *       'maxFiles' => 2
+ *  ]
+ *  ```
  * @var array $params
+ *
  * name - Название категории (типа загружаемого файла). string
  * tags - Теги для БД. string
  * rules - Yii2 rules для валидации. При загрузке файла применяются. array
  * maxFiles - Количество файлов в БД. Если, указано, то при загрузке, будет считаться количество активных файлов
  * с типом name и статусом: Активен. integer
+ *
+ *
+ * @author Stop4uk <stop4uk@yandex.ru>
+ * @package app\componetns\attachedFiles
  */
 final class AttachFileBehavior extends Behavior
 {

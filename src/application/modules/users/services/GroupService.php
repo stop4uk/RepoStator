@@ -16,7 +16,7 @@ use app\modules\users\entities\GroupNestedEntity;
 
 /**
  * @author Stop4uk <stop4uk@yandex.ru>
- * @package app\services\group
+ * @package app\modules\users\services
  */
 final class GroupService extends BaseService
 {

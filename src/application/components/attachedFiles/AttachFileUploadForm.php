@@ -4,7 +4,12 @@ namespace app\components\attachedFiles;
 
 use Yii;
 use yii\base\Model;
+use yii\db\ActiveRecordInterface;
 
+/**
+ * @author Stop4uk <stop4uk@yandex.ru>
+ * @package app\componetns\attachedFiles
+ */
 final class AttachFileUploadForm extends Model
 {
     const SCENARIO_TEMPUPLOAD = 'tempUpload';
@@ -13,9 +18,9 @@ final class AttachFileUploadForm extends Model
     public $modelKey;
     public $modelType;
     public $uploadFile;
-    public $isNewRecord = false;
+    public bool $isNewRecord = false;
 
-    private $workModel = null;
+    private ActiveRecordInterface|null $workModel = null;
 
     public function rules(): array
     {

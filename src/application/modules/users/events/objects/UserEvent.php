@@ -6,7 +6,7 @@ use yii\base\Event;
 
 /**
  * @author Stop4uk <stop4uk@yandex.ru>
- * @package app\events\objects
+ * @package app\modules\users\events\objects
  */
 final class UserEvent extends Event
 {

@@ -17,7 +17,7 @@ use app\components\{
 use app\modules\reports\entities\ReportEntity;
 /**
  * @author Stop4uk <stop4uk@yandex.ru>
- * @package app\repositories\report
+ * @package app\modules\reports\repositories
  */
 final class ReportRepository implements BaseRepositoryInterface
 {

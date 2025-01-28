@@ -13,7 +13,7 @@ use app\components\{
 
 /**
  * @author Stop4uk <stop4uk@yandex.ru>
- * @package app\controllers\admin
+ * @package app\modules\admin\controllers
  */
 final class SettingsController extends BaseController
 {

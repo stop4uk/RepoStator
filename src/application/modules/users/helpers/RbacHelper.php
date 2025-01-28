@@ -6,7 +6,7 @@ use Yii;
 
 /**
  * @author Stop4uk <stop4uk@yandex.ru>
- * @package app\helpers
+ * @package app\modules\users\helpers
  */
 class RbacHelper
 {

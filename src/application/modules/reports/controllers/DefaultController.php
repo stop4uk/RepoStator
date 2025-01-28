@@ -23,7 +23,7 @@ use app\modules\reports\{
 
 /**
  * @author Stop4uk <stop4uk@yandex.ru>
- * @package app\controllers\reports
+ * @package app\modules\reports\controllers
  */
 final class DefaultController extends BaseController
 {

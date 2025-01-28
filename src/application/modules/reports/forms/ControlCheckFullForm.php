@@ -19,12 +19,11 @@ use app\modules\users\helpers\RbacHelper;
 /**
  * @property int $report
  * @property string $period
- * 
  * @property array $reports
  * @private ReportEntity $reportData
  *
  * @author Stop4uk <stop4uk@yandex.ru>
- * @package app\forms\report
+ * @package app\modules\reports\forms
  */
 final class ControlCheckFullForm extends Model
 {

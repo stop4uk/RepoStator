@@ -32,7 +32,7 @@ use app\modules\reports\{
  * @property int|null $updated_uid
  *
  * @author Stop4uk <stop4uk@yandex.ru>
- * @package app\entities\report
+ * @package app\modules\reports\entities
  */
 final class ReportConstantRuleEntity extends BaseAR
 {

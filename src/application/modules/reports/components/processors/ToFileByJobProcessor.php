@@ -16,7 +16,7 @@ use app\modules\reports\{
 
 /**
  * @author Stop4uk <stop4uk@yandex.ru>
- * @package app\processors
+ * @package app\modules\reports\components\processors
  */
 class ToFileByJobProcessor implements BaseProcessorInterface
 {

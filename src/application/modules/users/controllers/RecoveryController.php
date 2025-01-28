@@ -16,7 +16,7 @@ use app\modules\users\{
 
 /**
  * @author Stop4uk <stop4uk@yandex.ru>
- * @package app\controllers\auth
+ * @package app\modules\users\controllers
  */
 final class RecoveryController extends BaseController
 {

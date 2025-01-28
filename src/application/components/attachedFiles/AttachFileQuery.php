@@ -7,6 +7,10 @@ use yii\db\{
     ActiveRecord
 };
 
+/**
+ * @author Stop4uk <stop4uk@yandex.ru>
+ * @package app\componetns\attachedFiles
+ */
 final class AttachFileQuery extends ActiveQuery
 {
     public function byModel(string $modelName): self

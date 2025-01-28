@@ -9,6 +9,10 @@ use HTMLPurifier_Config;
 use Yii;
 use yii\helpers\HtmlPurifier as BasePurifier;
 
+/**
+ * @author Stop4uk <stop4uk@yandex.ru>
+ * @package app\helpers
+ */
 final class HtmlPurifier extends BasePurifier
 {
     public static function process($content, $config = null): string
@@ -20,7 +24,7 @@ final class HtmlPurifier extends BasePurifier
         $purifier->config->set('Cache.SerializerPermissions', 0775);
         $purifier->config->set('HTML.Allowed', 'p,a[href|rel|target|title],img[src],span[style],strong,em,ul,ol,li,table[id|class],tr[id|class],td[id|class],thead,tbody,tfoot[id|class]');
 
-        static::configure($configInstance);
+        parent::configure($configInstance);
         if ($config instanceof Closure) {
             call_user_func($config, $configInstance);
         }

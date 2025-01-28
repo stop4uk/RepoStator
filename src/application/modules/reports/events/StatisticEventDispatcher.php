@@ -8,7 +8,7 @@ use app\jobs\SendEmailJob;
 
 /**
  * @author Stop4uk <stop4uk@yandex.ru>
- * @package app\events\dispatchers
+ * @package app\modules\reports\events
  */
 final class StatisticEventDispatcher
 {

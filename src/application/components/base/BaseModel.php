@@ -6,7 +6,7 @@ use yii\base\Model;
 
 /**
  * @author Stop4uk <stop4uk@yandex.ru>
- * @package app\base
+ * @package app\componetns\base
  */
 class BaseModel extends Model implements BaseModelInterface
 {

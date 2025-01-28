@@ -24,7 +24,7 @@ use app\modules\users\{
  * @property int|null $updated_uid
  *
  * @author Stop4uk <stop4uk@yandex.ru>
- * @package app\entities\group
+ * @package app\modules\users\entities
  */
 final class GroupTypeEntity extends BaseAR
 {

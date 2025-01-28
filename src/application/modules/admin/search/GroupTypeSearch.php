@@ -14,7 +14,7 @@ use app\modules\users\{
  * @property string $name
  *
  * @author Stop4uk <stop4uk@yandex.ru>
- * @package app\search\group
+ * @package app\modules\admin\search
  */
 final class GroupTypeSearch extends Model
 {

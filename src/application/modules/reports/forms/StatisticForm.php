@@ -16,7 +16,7 @@ use app\modules\users\helpers\RbacHelper;
  * @property-read array $reports
  *
  * @author Stop4uk <stop4uk@yandex.ru>
- * @package app\forms
+ * @package app\modules\reports\forms
  */
 final class StatisticForm extends Model
 {

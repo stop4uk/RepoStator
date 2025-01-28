@@ -18,7 +18,7 @@ use app\modules\reports\entities\ReportConstantEntity;
 
 /**
  * @author Stop4uk <stop4uk@yandex.ru>
- * @package app\repositories\report
+ * @package app\modules\reports\repositories
  */
 final class ConstantRepository implements BaseRepositoryInterface
 {

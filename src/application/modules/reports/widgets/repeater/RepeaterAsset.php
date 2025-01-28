@@ -5,6 +5,10 @@ use yii\web\AssetBundle;
 
 use app\components\assets\CommonAsset;
 
+/**
+ * @author Stop4uk <stop4uk@yandex.ru>
+ * @package app\modules\reports\widgets\repeater
+ */
 class RepeaterAsset extends AssetBundle
 {
     public $sourcePath = __DIR__;

@@ -9,6 +9,10 @@ use yii\base\{
 };
 use yii\db\ActiveRecordInterface;
 
+/**
+ * @author Stop4uk <stop4uk@yandex.ru>
+ * @package app\componetns\attachedFiles\widgets\attachfile
+ */
 final class AttachFileWidget extends Widget
 {
     const MODE_MANY = 'files';

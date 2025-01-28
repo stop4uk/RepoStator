@@ -6,6 +6,10 @@ use Yii;
 use yii\base\Exception;
 use yii\web\Controller;
 
+/**
+ * @author Stop4uk <stop4uk@yandex.ru>
+ * @package app\componetns\base
+ */
 class BaseController extends Controller
 {
     public function catchException(

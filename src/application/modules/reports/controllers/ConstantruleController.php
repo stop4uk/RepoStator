@@ -2,9 +2,9 @@
 
 namespace app\modules\reports\controllers;
 
+use yii\web\Response;
 use yii\filters\AccessControl;
 use yii\helpers\Url;
-use yii\web\Response;
 
 use app\actions\{
     CreateEditAction,
@@ -34,7 +34,7 @@ use app\modules\users\{
 
 /**
  * @author Stop4uk <stop4uk@yandex.ru>
- * @package app\controllers\reports
+ * @package app\modules\reports\controllers
  */
 final class ConstantruleController extends BaseController
 {

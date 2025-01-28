@@ -17,7 +17,7 @@ use app\components\base\BaseAR;
  * @property int $created_at
  *
  * @author Stop4uk <stop4uk@yandex.ru>
- * @package app\entities\user
+ * @package app\modules\users\entities
  */
 final class UserEmailchangeEntity extends BaseAR
 {

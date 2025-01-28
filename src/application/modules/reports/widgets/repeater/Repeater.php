@@ -7,6 +7,10 @@ use yii\helpers\Json;
 
 use app\components\base\BaseModel;
 
+/**
+ * @author Stop4uk <stop4uk@yandex.ru>
+ * @package app\modules\reports\widgets\repeater
+ */
 class Repeater extends Widget
 {
     /**

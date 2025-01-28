@@ -12,7 +12,7 @@ use app\helpers\CommonHelper;
 
 /**
  * @author Stop4uk <stop4uk@yandex.ru>
- * @package app\base
+ * @package app\componetns\base
  */
 class BaseService extends Component implements BaseServiceInterface
 {

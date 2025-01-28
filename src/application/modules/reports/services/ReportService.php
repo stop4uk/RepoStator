@@ -18,7 +18,7 @@ use app\modules\reports\entities\{
 
 /**
  * @author Stop4uk <stop4uk@yandex.ru>
- * @package app\services\report
+ * @package app\modules\reports\services
  */
 final class ReportService extends BaseService
 {

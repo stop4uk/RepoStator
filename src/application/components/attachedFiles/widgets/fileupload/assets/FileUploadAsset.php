@@ -8,7 +8,11 @@ use yii\web\{
 };
 use yii\bootstrap5\BootstrapAsset;
 
-class FileUploadAsset extends AssetBundle
+/**
+ * @author Stop4uk <stop4uk@yandex.ru>
+ * @package app\componetns\attachedFiles\widgets\fileupload\assets
+ */
+final class FileUploadAsset extends AssetBundle
 {
     public $sourcePath = '@bower/blueimp-file-upload';
     public $css = [

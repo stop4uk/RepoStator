@@ -23,6 +23,7 @@ use app\modules\users\{
  * @property-read array $types
  *
  * @author Stop4uk <stop4uk@yandex.ru>
+ * @package app\modules\users\models
  */
 final class GroupModel extends BaseModel
 {

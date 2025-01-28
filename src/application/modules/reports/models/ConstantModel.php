@@ -29,7 +29,7 @@ use app\modules\users\helpers\RbacHelper;
  * @property-read array $reports
  *
  * @author Stop4uk <stop4uk@yandex.ru>
- * @package app\models\report
+ * @package app\modules\reports\models
  */
 final class ConstantModel extends BaseModel
 {

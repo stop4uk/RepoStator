@@ -18,7 +18,7 @@ use app\modules\users\{
 
 /**
  * @author Stop4uk <stop4uk@yandex.ru>
- * @package app\search
+ * @package app\modules\admin\search
  */
 final class UserSearch extends Model
 {

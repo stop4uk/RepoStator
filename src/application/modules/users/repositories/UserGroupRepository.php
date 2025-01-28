@@ -12,7 +12,7 @@ use app\modules\users\entities\UserGroupEntity;
 
 /**
  * @author Stop4uk <stop4uk@yandex.ru>
- * @package app\repositories\user
+ * @package app\modules\users\repositories
  */
 final class UserGroupRepository implements BaseRepositoryInterface
 {

@@ -6,7 +6,7 @@ use yii\base\BootstrapInterface;
 
 /**
  * @author Stop4uk <stop4uk@yandex.ru>
- * @package app\events\handlers
+ * @package app\components\events
  */
 final class CommonEventHandler implements BootstrapInterface
 {

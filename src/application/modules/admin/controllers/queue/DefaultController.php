@@ -10,7 +10,7 @@ use app\modules\admin\search\QueueSearch;
 
 /**
  * @author Stop4uk <stop4uk@yandex.ru>
- * @package app\controllers\admin\queue
+ * @package app\modules\admin\controllers\queue
  */
 final class DefaultController extends BaseController
 {

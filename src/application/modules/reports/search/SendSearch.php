@@ -28,7 +28,7 @@ use app\modules\users\{
  * @private array $groupsCanSent
  *
  * @author Stop4uk <stop4uk@yandex.ru>
- * @package app\search\report
+ * @package app\modules\reports\search
  */
 final class SendSearch extends Model
 {

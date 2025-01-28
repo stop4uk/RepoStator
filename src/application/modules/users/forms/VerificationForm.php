@@ -16,7 +16,7 @@ use app\modules\users\{
  * @property string|null $email
  *
  * @author Stop4uk <stop4uk@yandex.ru>
- * @package app\forms\auth
+ * @package app\modules\users\forms
  */
 final class VerificationForm extends Model
 {

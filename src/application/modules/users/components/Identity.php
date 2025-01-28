@@ -21,7 +21,7 @@ use app\modules\users\{
  * @property-read bool $needChangePassword
  *
  * @author Stop4uk <stop4uk@yandex.ru>
- * @package app\bootstrap
+ * @package app\modules\users\components
  */
 final class Identity implements IdentityInterface
 {

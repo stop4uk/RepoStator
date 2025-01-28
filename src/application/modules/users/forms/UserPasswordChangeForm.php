@@ -12,7 +12,7 @@ use app\modules\users\helpers\UserHelper;
  * @property string $verifyPassword
  *
  * @author Stop4uk <stop4uk@yandex.ru>
- * @package app\forms\user
+ * @package app\modules\users\forms
  */
 final class UserPasswordChangeForm extends Model
 {

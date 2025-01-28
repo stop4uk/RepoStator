@@ -17,7 +17,7 @@ use app\modules\users\{
  * @property string $email
  *
  * @author Stop4uk <stop4uk@yandex.ru>
- * @package app\forms\user
+ * @package app\modules\users\forms
  */
 final class UserEmailChangeForm extends Model
 {

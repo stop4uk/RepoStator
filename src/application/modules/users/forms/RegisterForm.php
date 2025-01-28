@@ -22,7 +22,7 @@ use app\modules\users\{
  * @property int $account_status
  *
  * @author Stop4uk <stop4uk@yandex.ru>
- * @package app\forms\auth
+ * @package app\modules\users\forms
  */
 final class RegisterForm extends Model
 {

@@ -14,7 +14,7 @@ use yii\bootstrap5\{
 
 /**
  * @author Stop4uk <stop4uk@yandex.ru>
- * @package app\assets
+ * @package app\componetns\assets
  */
 final class CommonAsset extends AssetBundle
 {

@@ -9,7 +9,7 @@ use app\modules\reports\{
 
 /**
  * @author Stop4uk <stop4uk@yandex.ru>
- * @package app\interfaces
+ * @package app\modules\reports\components\base
  */
 interface BaseProcessorInterface
 {

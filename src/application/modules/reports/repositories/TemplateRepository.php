@@ -15,7 +15,7 @@ use app\modules\reports\entities\ReportFormTemplateEntity;
 
 /**
  * @author Stop4uk <stop4uk@yandex.ru>
- * @package app\repositories\report
+ * @package app\modules\reports\repositories
  */
 final class TemplateRepository implements BaseRepositoryInterface
 {

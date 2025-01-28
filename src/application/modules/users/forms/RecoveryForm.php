@@ -23,7 +23,7 @@ use app\modules\users\{
  * @private UserEntity|null $_user;
  *
  * @author Stop4uk <stop4uk@yandex.ru>
- * @package app\forms\auth
+ * @package app\modules\users\forms
  */
 final class RecoveryForm extends Model
 {

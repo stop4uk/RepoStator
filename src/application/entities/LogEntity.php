@@ -31,6 +31,6 @@ class LogEntity extends BaseAR
 
     public static function tableName(): string
     {
-        return '{{logs}}';
+        return '{{%logs}}';
     }
 }

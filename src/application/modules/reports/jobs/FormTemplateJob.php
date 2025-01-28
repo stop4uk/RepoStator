@@ -13,7 +13,7 @@ use app\modules\reports\{
 
 /**
  * @author Stop4uk <stop4uk@yandex.ru>
- * @package app\jobs
+ * @package app\modules\reports\jobs
  */
 final class FormTemplateJob extends BaseObject implements JobInterface
 {

@@ -26,7 +26,7 @@ use app\modules\users\{
  * @private ReportEntity $reportData
  *
  * @author Stop4uk <stop4uk@yandex.ru>
- * @package app\forms\report
+ * @package app\modules\reports\forms
  */
 final class ControlCreateForForm extends Model
 {

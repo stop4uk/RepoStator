@@ -38,6 +38,6 @@ class QueueEntity extends BaseAR
 
     public static function tableName(): string
     {
-        return '{{queue}}';
+        return '{{%queue}}';
     }
 }

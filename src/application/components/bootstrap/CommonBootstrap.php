@@ -6,7 +6,7 @@ use yii\base\BootstrapInterface;
 
 /**
  * @author Stop4uk <stop4uk@yandex.ru>
- * @package app\bootstrap
+ * @package app\components\bootstrap
  */
 final class CommonBootstrap implements BootstrapInterface
 {
@@ -19,8 +19,8 @@ final class CommonBootstrap implements BootstrapInterface
     {
         try {
             $app->language = $app->settings->get('system', 'app_language');
-            $app->formatter->dateFormat = $app->settings->get('system', 'app_language_date');
-            $app->formatter->datetimeFormat = $app->settings->get('system', 'app_language_dateTime');
+            $app->getFormatter()->dateFormat = $app->settings->get('system', 'app_language_date');
+            $app->getFormatter()->datetimeFormat = $app->settings->get('system', 'app_language_dateTime');
         } catch (\Throwable $throwable) {}
     }
 }

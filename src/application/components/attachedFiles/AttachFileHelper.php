@@ -6,6 +6,10 @@ use Yii;
 use yii\base\Exception;
 use yii\helpers\ArrayHelper;
 
+/**
+ * @author Stop4uk <stop4uk@yandex.ru>
+ * @package app\componetns\attachedFiles
+ */
 final class AttachFileHelper
 {
     const STORAGE_LOCAL = 'LStorage';

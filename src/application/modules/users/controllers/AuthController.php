@@ -17,7 +17,7 @@ use app\modules\users\{
 
 /**
  * @author Stop4uk <stop4uk@yandex.ru>
- * @package app\controllers
+ * @package app\modules\users\controllers
  */
 final class AuthController extends BaseController
 {

@@ -31,6 +31,9 @@ use yii\db\{
  * @property int $created_at Дата и время добавления
  * @property int|null $created_uid
  * @property int|null $updated_at Дата и время обновления
+ *
+ * @author Stop4uk <stop4uk@yandex.ru>
+ * @package app\componetns\attachedFiles
  */
 final class AttachFileEntity extends ActiveRecord
 {

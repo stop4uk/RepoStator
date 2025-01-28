@@ -28,17 +28,16 @@ use app\modules\users\{
  * @property array|null $groups_only
  * @property string $content
  * @property int|null $use_union_rules
- *
  * @property array $contentGroups
  * @property array $contentConstants
- *
  * @property array $groups
+ *
  * @property-read array $reports
  * @property-read array $constants
  * @private array $groupsCanSent
  *
  * @author Stop4uk <stop4uk@yandex.ru>
- * @package app\models\report
+ * @package app\modules\reports\models
  */
 final class StructureModel extends BaseModel
 {

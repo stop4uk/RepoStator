@@ -18,7 +18,7 @@ use app\modules\users\{
 
 /**
  * @author Stop4uk <stop4uk@yandex.ru>
- * @package app\services
+ * @package app\modules\users\services
  */
 final class ProfileService extends BaseService
 {

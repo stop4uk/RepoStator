@@ -23,7 +23,7 @@ use app\modules\users\entities\UserEntity;
  * @property int $created_uid
  *
  * @author Stop4uk <stop4uk@yandex.ru>
- * @package app\entities\report
+ * @package app\modules\reports\entities
  */
 final class ReportDataChangeEntity extends BaseAR
 {

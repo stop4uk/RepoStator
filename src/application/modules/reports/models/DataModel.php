@@ -33,7 +33,6 @@ use app\modules\users\{
  * @property int $group_id
  * @property int $struct_id
  * @property string $content
- *
  * @property ReportStructureEntity $structure
  * @property array $structureContent
  * @property bool $form_control
@@ -44,7 +43,7 @@ use app\modules\users\{
  * @property-read UserEntity $createdUser
  *
  * @author Stop4uk <stop4uk@yandex.ru>
- * @package app\models\report
+ * @package app\modules\reports\models
  */
 final class DataModel extends BaseModel
 {

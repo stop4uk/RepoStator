@@ -11,7 +11,7 @@ use app\modules\reports\entities\ReportFormJobEntity;
 
 /**
  * @author Stop4uk <stop4uk@yandex.ru>
- * @package app\helpers\report
+ * @package app\modules\reports\helpers
  */
 final class JobHelper
 {

@@ -8,7 +8,7 @@ use app\traits\GetLabelTrait;
 
 /**
  * @author Stop4uk <stop4uk@yandex.ru>
- * @package app\helpers\report
+ * @package app\modules\reports\helpers
  */
 final class ConstantRuleHelper
 {

@@ -21,7 +21,7 @@ use app\modules\users\helpers\UserGroupHelper;
  * @property int|null $updated_uid
  *
  * @author Stop4uk <stop4uk@yandex.ru>
- * @package app\entities\user
+ * @package app\modules\users\entities
  */
 final class UserGroupEntity extends BaseAR
 {

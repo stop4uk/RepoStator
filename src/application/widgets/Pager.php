@@ -8,6 +8,7 @@ use yii\bootstrap5\LinkPager;
 /**
  * @author Stop4uk <stop4uk@yandex.ru>
  * @package app\widgets
+ *
  * @see LinkPager
  */
 class Pager extends LinkPager

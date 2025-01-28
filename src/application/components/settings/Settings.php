@@ -11,7 +11,7 @@ use yii\helpers\Json;
 
 /**
  * @author Stop4uk <stop4uk@yandex.ru>
- * @package app\components
+ * @package app\components\settings
  */
 final class Settings extends Component
 {

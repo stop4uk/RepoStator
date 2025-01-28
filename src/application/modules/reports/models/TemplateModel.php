@@ -36,7 +36,6 @@ use app\modules\users\{
  * @property string|null $table_columns
  * @property int $limit_maxfiles
  * @property int $limit_maxsavetime
- *
  * @property UploadedFile $uploadedFile
  *
  * @property-read array $groups
@@ -46,7 +45,7 @@ use app\modules\users\{
  * @private array $groupsCanSent
  *
  * @author Stop4uk <stop4uk@yandex.ru>
- * @package app\models\report
+ * @package app\modules\reports\models
  */
 final class TemplateModel extends BaseModel
 {

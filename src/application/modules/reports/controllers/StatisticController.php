@@ -18,7 +18,7 @@ use app\modules\users\helpers\RbacHelper;
 
 /**
  * @author Stop4uk <stop4uk@yandex.ru>
- * @package app\controllers
+ * @package app\modules\reports\controllers
  */
 final class StatisticController extends BaseController
 {

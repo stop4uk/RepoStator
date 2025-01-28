@@ -23,7 +23,7 @@ use app\modules\users\{
 
 /**
  * @author Stop4uk <stop4uk@yandex.ru>
- * @package app\controllers\admin\groups
+ * @package app\modules\admin\controllers\groups
  */
 final class TypeController extends BaseController
 {

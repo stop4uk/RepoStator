@@ -9,11 +9,12 @@ use yii\helpers\{
     FileHelper
 };
 
-use app\entities\report\{
+use app\helpers\CommonHelper;
+use app\modules\reports\entities\{
     ReportFormTemplateEntity,
     ReportFormJobEntity
 };
-use app\helpers\CommonHelper;
+use yii\console\ExitCode;
 
 /**
  * @author Stop4uk <stop4uk@yandex.ru>
@@ -41,12 +42,12 @@ final class FileController extends Controller
         $jobsForDelete = ArrayHelper::map($queryJobs, 'file', 'id');
 
         if ( !is_dir(Yii::getAlias(Yii::$app->params['downloadFormFilesAlias'])) ) {
-            exit(0);
+            exit(ExitCode::OK);
         }
 
         $files = FileHelper::findFiles(Yii::getAlias(Yii::$app->params['downloadFormFilesAlias']));
         if ( !count($files) || !$templates || !$jobs ) {
-            exit(0);
+            exit(ExitCode::OK);
         }
 
         foreach ($templates as $templateID => $params) {
@@ -95,6 +96,6 @@ final class FileController extends Controller
             }
         }
 
-        exit(0);
+        exit(ExitCode::OK);
     }
 }

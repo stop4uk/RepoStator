@@ -19,7 +19,7 @@ use app\modules\reports\{
 
 /**
  * @author Stop4uk <stop4uk@yandex.ru>
- * @package app\events\handlers
+ * @package app\components\events
  */
 final class ConsoleEventHandler implements BootstrapInterface
 {

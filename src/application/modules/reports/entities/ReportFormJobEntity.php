@@ -30,7 +30,7 @@ use app\modules\users\entities\UserEntity;
  * @property int|null $updated_at
  *
  * @author Stop4uk <stop4uk@yandex.ru>
- * @package app\entities\report
+ * @package app\modules\reports\entities
  */
 class ReportFormJobEntity extends BaseAR
 {

@@ -6,14 +6,14 @@ use yii\base\BootstrapInterface;
 
 /**
  * @author Stop4uk <stop4uk@yandex.ru>
- * @package app\bootstrap
+ * @package app\components\bootstrap
  */
 final class WebBootstrap implements BootstrapInterface
 {
-    public function bootstrap($app)
+    public function bootstrap($app): void
     {
         try {
-            $app->session->timeout = $app->settings->get('auth', 'login_duration');
+            $app->getSession()->timeout = $app->settings->get('auth', 'login_duration');
         } catch (\Throwable $throwable) {}
     }
 }

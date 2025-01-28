@@ -16,7 +16,7 @@ use app\modules\admin\search\LogSearch;
 
 /**
  * @author Stop4uk <stop4uk@yandex.ru>
- * @package app\controllers\admin
+ * @package app\modules\admin\controllers
  */
 final class LogsController extends BaseController
 {

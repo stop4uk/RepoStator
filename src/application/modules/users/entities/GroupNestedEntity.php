@@ -14,7 +14,7 @@ use app\components\base\BaseAR;
  * @property int|null $depth
  *
  * @author Stop4uk <stop4uk@yandex.ru>
- * @package app\entities\group
+ * @package app\modules\users\entities
  */
 final class GroupNestedEntity extends BaseAR
 {

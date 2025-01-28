@@ -5,6 +5,10 @@ namespace app\widgets;
 use Yii;
 use yii\widgets\Menu as BaseMenu;
 
+/**
+ * @author Stop4uk <stop4uk@yandex.ru>
+ * @package app\widgets
+ */
 class Menu extends BaseMenu
 {
     protected function isItemActive($item): bool

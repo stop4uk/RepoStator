@@ -17,7 +17,7 @@ use app\modules\reports\models\TemplateModel;
 
 /**
  * @author Stop4uk <stop4uk@yandex.ru>
- * @package app\services\report
+ * @package app\modules\reports\services
  */
 final class TemplateService extends BaseService
 {

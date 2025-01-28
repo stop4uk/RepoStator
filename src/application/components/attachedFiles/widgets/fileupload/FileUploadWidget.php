@@ -11,6 +11,10 @@ use dosamigos\fileupload\{
 
 use app\components\attachedFiles\widgets\fileupload\assets\FileUploadAsset;
 
+/**
+ * @author Stop4uk <stop4uk@yandex.ru>
+ * @package app\componetns\attachedFiles\widgets\fileupload
+ */
 final class FileUploadWidget extends BaseFileUploadWidget
 {
     /**

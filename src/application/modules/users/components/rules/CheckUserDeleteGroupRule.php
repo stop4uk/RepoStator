@@ -5,11 +5,11 @@ namespace app\modules\users\components\rules;
 use Yii;
 use yii\rbac\Rule;
 
-use app\useCases\users\repositories\user\UserRepository;
+use app\modules\users\repositories\UserRepository;
 
 /**
  * @author Stop4uk <stop4uk@yandex.ru>
- * @package app\rbac\rules
+ * @package app\modules\users\components\rules
  */
 final class CheckUserDeleteGroupRule extends Rule
 {

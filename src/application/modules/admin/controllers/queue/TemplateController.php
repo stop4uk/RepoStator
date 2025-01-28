@@ -2,14 +2,15 @@
 
 namespace app\modules\admin\controllers\queue;
 
-use app\actions\IndexAction;
-use app\components\base\BaseController;
-use app\modules\reports\search\JobSearch;
 use yii\filters\AccessControl;
+
+use app\components\base\BaseController;
+use app\actions\IndexAction;
+use app\modules\reports\search\JobSearch;
 
 /**
  * @author Stop4uk <stop4uk@yandex.ru>
- * @package app\controllers\admin\queue
+ * @package app\modules\admin\controllers\queue
  */
 final class TemplateController extends BaseController
 {

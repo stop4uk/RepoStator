@@ -7,7 +7,7 @@ use yii\data\ActiveDataProvider;
 
 /**
  * @author Stop4uk <stop4uk@yandex.ru>
- * @package app\traits
+ * @package app\modules\reports\traits
  */
 trait CleanDataProviderByRoleTrait
 {
