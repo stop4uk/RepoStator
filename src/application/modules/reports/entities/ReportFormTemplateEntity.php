@@ -113,7 +113,7 @@ final class ReportFormTemplateEntity extends BaseAR
                         'name' => 'Шаблон отчета',
                         'maxFiles' => 1,
                         'rules' => [
-                            ['file', 'extensions' => ['xls', 'ods', 'txt']],
+                            ['file', 'extensions' => ['xls', 'xlsx', 'ods', 'txt']],
                         ]
                     ],
                 ]
