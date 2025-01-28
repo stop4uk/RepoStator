@@ -137,11 +137,11 @@ trait AttachFileActionsTrait
             $sessionFiles = $session->get($this->sessionKey);
 
             if ($sessionFiles) {
-                $filePath = $this->temporaryPath . DIRECTORY_SEPARATOR . $params['hash'];
+                $filePath = $this->temporaryPath . DIRECTORY_SEPARATOR . $paramsArray['hash'];
                 if (is_file($filePath)) {
                     $fileData = [
                         'content' => file_get_contents($filePath),
-                        'name' => implode('.', [$sessionFiles[$params['hash']]['name'], $sessionFiles[$params['hash']]['extension']])
+                        'name' => $paramsArray['hash']
                     ];
                 }
             }
