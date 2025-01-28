@@ -206,4 +206,13 @@ final class CommonHelper
             ],
         ];
     }
+
+    public static function getUserID(): int
+    {
+        try {
+            return Yii::$app->getUser()->getId();
+        } catch(Exception $e) {}
+
+        return 0;
+    }
 }
