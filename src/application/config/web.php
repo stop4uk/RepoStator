@@ -110,9 +110,9 @@ $config = [
                 'reports/<controller:(constant|constantrule|structure|template)>/<action:\w+>'  => 'reports/<controller>/<action>',
 
                 #Админка
-                'admin/groups'                                                      => 'admin/groups/default',
-                'admin/groups/<action:(create|view|edit|delete|enable|nodeMove)>'   => 'admin/groups/default/<action>',
-                'admin/queue'                                                       => 'admin/queue/default',
+                'admin/groups'                                                          => 'admin/groups/default',
+                'admin/groups/<action:(create|view|edit|delete|enable|map|nodeMove)>'   => 'admin/groups/default/<action>',
+                'admin/queue'                                                           => 'admin/queue/default',
             ],
         ]
     ],
