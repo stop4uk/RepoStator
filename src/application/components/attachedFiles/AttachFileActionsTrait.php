@@ -63,7 +63,6 @@ trait AttachFileActionsTrait
                     $session->set($this->sessionKey, $sessionFiles);
                 }
 
-                var_dump($session->get($this->sessionKey));
                 return Json::encode([
                     'status' => $file
                         ? 'success'
