@@ -78,7 +78,8 @@ final class AttachFileBehavior extends Behavior
         string|null $name = null,
         string|null $extension = null,
         string|null $mime = null,
-        string|int|null $size = null
+        string|int|null $size = null,
+        bool $unlinkFile = true
     ): bool {
         $fileData = $this->parseFileData($inputFile, $name, $extension, $mime, $size);
         $key = (string)$this->owner->{$this->modelKey};
@@ -108,9 +109,9 @@ final class AttachFileBehavior extends Behavior
             ]);
 
             if ($model->save()) {
-                try {
-                    unlink($inputFile);
-                } catch (ErrorException $e) {};
+                if ($unlinkFile) {
+                    try {unlink($inputFile);} catch (ErrorException $e) {};
+                }
 
                 return true;
             }

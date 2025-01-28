@@ -33,8 +33,11 @@ if ($showFileAsImage) {
 ?>
 
 <div class="row mt-2">
-    <div class="col-3">
-        <?= Html::a('Скачать', Url::to(['getfile', 'params' => $urlParams]), ['class' => 'btn btn-dark w-100']) ?>
+    <div class="<?= $canDeleted ? 'col-3': 'col-12' ?>">
+        <?= Html::a('Скачать', Url::to(['getfile', 'params' => $urlParams]), [
+            'class' => 'btn btn-dark w-100',
+            'data-pjax' => 0,
+        ]) ?>
     </div>
     <div class="col-9">
         <?php
