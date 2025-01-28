@@ -5,40 +5,9 @@ namespace app\components\base;
 use Yii;
 use yii\base\Exception;
 use yii\web\Controller;
-use yii\helpers\FileHelper;
 
-/**
- * @author Stop4uk <stop4uk@yandex.ru>
- * @package app\base
- */
 class BaseController extends Controller
 {
-    public function beforeAction($action): bool
-    {
-        if (
-            $this->request->isGet
-            && !$this->request->isPjax
-        ) {
-            $session = Yii::$app->getSession();
-            $sessionKey = env('YII_UPLOADS_TEMPORARY_KEY') . Yii::$app->getUser()->getId();
-            $sessionFiles = $session->get($sessionKey);
-
-            if ($sessionFiles) {
-                foreach ($sessionFiles as $file) {
-                    if (
-                        isset($file['fullPath'])
-                        && is_file($file['fullPath'])
-                    ) {
-                        FileHelper::unlink($file['fullPath']);
-                    }
-                }
-                $session->remove($sessionKey);
-            }
-        }
-
-        return parent::beforeAction($action);
-    }
-
     public function catchException(
         Exception $exception,
         bool $isPost = true
