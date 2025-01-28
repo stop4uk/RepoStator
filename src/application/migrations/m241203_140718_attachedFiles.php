@@ -21,7 +21,7 @@ final class m241203_140718_attachedFiles extends Migration
             'file_path' => $this->string(255)->notNull(),
             'file_size' => $this->bigInteger(20)->notNull(),
             'file_extension' => $this->string(4)->notNull(),
-            'file_mime' => $this->string(30)->notNull(),
+            'file_mime' => $this->string(255)->notNull(),
             'file_tags' => $this->json()->null()->defaultValue(null),
             'file_status' => $this->tinyInteger(1)->notNull()->defaultValue(AttachFileHelper::FSTATUS_ACTIVE),
             'file_version' => $this->integer(1)->notNull()->defaultValue(1),

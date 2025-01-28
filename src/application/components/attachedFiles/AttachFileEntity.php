@@ -68,7 +68,7 @@ final class AttachFileEntity extends ActiveRecord
             ['modelKey', 'string', 'max' => 36],
             ['file_hash', 'string', 'max' => 32],
             ['file_extension', 'string', 'max' => 4],
-            ['file_mime', 'string', 'max' => 30],
+            ['file_mime', 'string', 'max' => 255],
             ['file_status', 'in', 'range' => array_keys(AttachFileHelper::getFileStatus(asList: true))],
             ['file_type', 'string', 'max' => 24],
             [['file_size', 'file_version', 'created_at', 'created_uid', 'updated_at'], 'integer'],

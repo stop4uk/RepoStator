@@ -3,7 +3,7 @@
 namespace app\components\attachedFiles;
 
 use Yii;
-use yii\base\Exception;
+use yii\base\ErrorException;
 use yii\web\{
     Response,
     UploadedFile
@@ -101,20 +101,18 @@ trait AttachFileActionsTrait
 
         if (!$paramsArray['modelKey']) {
             $session = Yii::$app->getSession();
-            $filePath = $this->temporaryPath . DIRECTORY_SEPARATOR . $params['hash'];
+            $filePath = $this->temporaryPath . DIRECTORY_SEPARATOR . $paramsArray['hash'];
             $sessionFiles = $session->get($this->sessionKey);
 
+
             if ($sessionFiles) {
-                foreach($sessionFiles as $key => $file) {
-                    if ($file['name'] == $params['hash']) {
-                        unset($sessionFiles[$key]);
-                        if (is_file($filePath)) {
-                            try{
-                                FileHelper::unlink($filePath);
-                            } catch (Exception $e) {}
-                        }
-                    }
-                }
+                try{
+                    FileHelper::unlink($filePath);
+                } catch (ErrorException $e) {}
+
+                try {
+                    unset($sessionFiles[$paramsArray['hash']]);
+                } catch (ErrorException $e) {}
 
                 $session->set($this->sessionKey, $sessionFiles);
             }
@@ -123,7 +121,10 @@ trait AttachFileActionsTrait
         }
 
         $object = Yii::createObject($paramsArray['modelClass']);
-        $model = $object->find()->where([$object->modelKey => $paramsArray['modelKey']])->limit(1)->one();
+        $model = $object->find()
+            ->where([$object->modelKey => $paramsArray['modelKey']])
+            ->limit(1)
+            ->one();
         $model->detachFiles($paramsArray['hash']);
     }
 
@@ -167,7 +168,7 @@ trait AttachFileActionsTrait
     {
         try {
             return Yii::$app->getUser()->getId();
-        } catch(Exception $e) {}
+        } catch(ErrorException $e) {}
 
         return 0;
     }

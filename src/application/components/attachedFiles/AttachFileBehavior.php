@@ -7,10 +7,13 @@ use ReflectionClass;
 use Yii;
 use yii\base\{
     Behavior,
-    Exception
+    ErrorException,
 };
 use yii\data\ArrayDataProvider;
-use yii\helpers\FileHelper;
+use yii\helpers\{
+    FileHelper,
+    Json
+};
 
 /**
  * @var array $params
@@ -88,10 +91,6 @@ final class AttachFileBehavior extends Behavior
         $file_version = $lastAttachedFile ? ($lastAttachedFile->file_version+1) : 1;
 
         if ($saveFile) {
-            try {
-                unlink($inputFile);
-            } catch (Exception $e) {};
-
             $model = new AttachFileEntity([
                 'storage' => $this->storageID,
                 'name' => $fileData['nameOrig'],
@@ -109,10 +108,15 @@ final class AttachFileBehavior extends Behavior
             ]);
 
             if ($model->save()) {
+                try {
+                    unlink($inputFile);
+                } catch (ErrorException $e) {};
+
                 return true;
             }
 
-            //Если, запись в БД не получилась, удаляем записанный файл
+            //Если, запись в БД не получилась, удаляем записанный файл и пишем лог ошибок
+            Yii::error('SaveAttachedFileToBDError' . Json::encode($model->getErrors()));
             AttachFileHelper::removeFromStorage($this->storageID, $pathToSave . DIRECTORY_SEPARATOR . $fileName);
         }
 
