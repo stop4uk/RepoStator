@@ -3,7 +3,10 @@
 namespace app\modules\reports\services;
 
 use Yii;
-use yii\base\Exception;
+use yii\base\{
+    ErrorException,
+    Exception
+};
 
 use app\components\{
     base\BaseARInterface,
@@ -28,25 +31,28 @@ final class TemplateService extends BaseService
      */
     public function save($model, $categoryForLog = null, $errorMessage = null): BaseARInterface
     {
-        $isNewRecord = $model->getIsNewEntity();
-        $cache = Yii::$app->getCache();
-        $cacheKey = env('YII_UPLOADS_PATH_TEMPPATH') . Yii::$app->getUser()->getId();
-        $cacheFiles = $cache->get($cacheKey);
+        $isNewRecordWhenLoad = $model->getIsNewEntity();
+        $session = Yii::$app->getSession();
+        $sessionKey = env('YII_UPLOADS_TEMPORARY_KEY', 'tmpUpload') . CommonHelper::getUserID();
+        $sessionFiles = $session->get($sessionKey);
 
         $model->getEntity()->recordAction($model);
         $transaction = Yii::$app->db->beginTransaction();
         if ($saveEntity = CommonHelper::saveAttempt($model->getEntity(), 'Reports.Template')) {
             $saveTemplate = true;
 
-            if ($isNewRecord && $cacheFiles) {
-                foreach ($cacheFiles as $file) {
-                    if (!$model->getEntity()->attachFile(
+            if ($isNewRecordWhenLoad && $sessionFiles) {
+                foreach ($sessionFiles as $file) {
+                    $saveFile = $model->getEntity()->attachFile(
                         inputFile: $file['fullPath'],
                         type: $file['file_type']
                             ?: array_key_first($model->getEntity()->attachRules),
                         name: $file['name'],
-                        extension: $file['extension']
-                    )) {
+                        extension: $file['extension'],
+                        unlinkFile: false
+                    );
+
+                    if (!$saveFile) {
                         $saveTemplate = false;
                         break;
                     }
@@ -54,7 +60,11 @@ final class TemplateService extends BaseService
             }
 
             if($saveTemplate) {
-                $cache->delete($cacheKey);
+                foreach ($sessionFiles as $sessionFile) {
+                    try{unlink($sessionFile['fullPath']);} catch (ErrorException $e){}
+                }
+
+                $session->remove($sessionKey);
                 $transaction->commit();
 
                 return $saveEntity;
