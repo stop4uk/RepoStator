@@ -5,15 +5,9 @@ namespace app\widgets;
 use Yii;
 use yii\widgets\Menu as BaseMenu;
 
-/**
- * @author Stop4uk <stop4uk@yandex.ru>
- * @package app\widgets
- *
- * @see \yii\widgets\Menu
- */
 class Menu extends BaseMenu
 {
-    protected function isItemActive($item)
+    protected function isItemActive($item): bool
     {
         if (parent::isItemActive($item)) {
             return true;
@@ -40,17 +34,22 @@ class Menu extends BaseMenu
         $controllerID = Yii::$app->controller->id;
         $actionID = Yii::$app->controller->action->id;
         $routeWithoutSlash = substr($route, 1);
-
+        $routeWithoutSlashWithDefault = $routeWithoutSlash . '/default';
+        $routeWithAction = $route . '/' . $actionID;
 
         if (
             $routeWithoutSlash == $controllerID
-            || $routeWithoutSlash . '/default' == $controllerID
-            || $route . '/' . $actionID == Yii::$app->getRequest()->getUrl()
+            || $routeWithoutSlashWithDefault == $controllerID
+            || $routeWithAction == Yii::$app->getRequest()->getUrl()
+            || $routeWithAction == explode('?', Yii::$app->getRequest()->getUrl())[0]
         ) {
             $activeByController = true;
         }
 
-        $isActive = ($route === $requestUrl || (Yii::$app->homeUrl . $route) === '/' . $requestUrl || $activeByController);
-        return $isActive;
+        return (
+            $route === $requestUrl
+            || (Yii::$app->homeUrl . $route) === '/' . $requestUrl
+            || $activeByController
+        );
     }
 }
