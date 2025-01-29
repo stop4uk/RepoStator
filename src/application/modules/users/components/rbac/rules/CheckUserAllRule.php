@@ -1,15 +1,14 @@
 <?php
 
-namespace app\modules\users\components\rules;
+namespace app\modules\users\components\rbac\rules;
 
+use app\modules\users\repositories\UserRepository;
 use Yii;
 use yii\rbac\Rule;
 
-use app\modules\users\repositories\UserRepository;
-
 /**
  * @author Stop4uk <stop4uk@yandex.ru>
- * @package app\modules\users\components\rules
+ * @package app\modules\users\components\rbac\rules
  */
 final class CheckUserAllRule extends Rule
 {

@@ -1,27 +1,26 @@
 <?php
 
-namespace app\modules\users\components\rules;
+namespace app\modules\users\components\rbac\rules;
 
 use Yii;
 use yii\rbac\Rule;
 
 /**
  * @author Stop4uk <stop4uk@yandex.ru>
- * @package app\modules\users\components\rules
+ * @package app\modules\users\components\rbac\rules
  */
-final class CheckMainRule extends Rule
+final class CheckAllRule extends Rule
 {
-    public $name = 'checkMain';
+    public $name = 'checkAll';
 
     public function execute($user, $item, $params): bool
     {
         if (
             !isset($params['record_status'])
             || !isset($params['created_gid'])
-            || !isset($params['created_uid'])
             || !$params['record_status']
-            || !$params['created_uid']
-            || $params['created_uid'] != Yii::$app->getUser()->id
+            || !$params['created_gid']
+            || !array_key_exists($params['created_gid'],  Yii::$app->getUser()->getIdentity()->groups)
         ) {
             return false;
         }

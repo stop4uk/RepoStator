@@ -18,7 +18,7 @@ use app\components\{
 
 use app\modules\users\{
     components\Identity,
-    components\RbacDbmanager,
+    components\rbac\PhpDBRbacManager,
 };
 
 $params = array_merge(
@@ -67,7 +67,7 @@ $config = [
                 'name' => '_identity-' . env('PROJECT_NAME', 'simple'),
             ],
         ],
-        'authManager' => RbacDbmanager::class,
+        'authManager' => PhpDBRbacManager::class,
         'request' => [
             'csrfParam' => '_csrf-' . env('PROJECT_NAME'),
             'cookieValidationKey' => env('YII_COOKIE_VALIDATION_KEY'),

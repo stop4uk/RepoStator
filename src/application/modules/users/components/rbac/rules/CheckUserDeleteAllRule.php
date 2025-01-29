@@ -1,19 +1,18 @@
 <?php
 
-namespace app\modules\users\components\rules;
+namespace app\modules\users\components\rbac\rules;
 
+use app\modules\users\repositories\UserRepository;
 use Yii;
 use yii\rbac\Rule;
 
-use app\modules\users\repositories\UserRepository;
-
 /**
  * @author Stop4uk <stop4uk@yandex.ru>
- * @package app\modules\users\components\rules
+ * @package app\modules\users\components\rbac\rules
  */
-final class CheckUserDeleteGroupRule extends Rule
+final class CheckUserDeleteAllRule extends Rule
 {
-    public $name = 'checkUserDeleteGroup';
+    public $name = 'checkUserDeleteAll';
 
     public function execute($user, $item, $params): bool
     {
@@ -26,11 +25,11 @@ final class CheckUserDeleteGroupRule extends Rule
             return false;
         }
 
-        $cacheKeyAll = Yii::$app->getUser()->id . '_allowedUserDeleteGroup';
+        $cacheKeyAll = Yii::$app->getUser()->id . '_allowedUserDeleteAll';
         $users = Yii::$app->cache->getOrSet($cacheKeyAll, function(){
             return array_keys(UserRepository::getAllow(
-                groups: [Yii::$app->getUser()->getIdentity()->group => Yii::$app->getUser()->getIdentity()->group],
-                active: false,
+                groups: Yii::$app->getUser()->getIdentity()->group,
+                active: false
             ));
         }, 3600);
 
