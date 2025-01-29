@@ -65,8 +65,8 @@ $this->registerLinkTag(['rel' => 'icon', 'type' => 'image/x-icon', 'href' => Yii
             <?= $this->render('_blocks/main_panel_top'); ?>
             <main class="content">
                 <div class="container-fluid p-0">
-                    <div class="row">
-                        <div class="col-12 d-flex <?= isset($this->params['breadcrumbs']) ? 'justify-content-lg-between' : 'justify-content-center' ?>">
+                    <div class="row mb-3">
+                        <div class="col-12 d-flex <?= isset($this->params['breadcrumbs']) ? 'justify-content-lg-between' : 'justify-content-center justify-content-lg-between' ?>">
                             <?php if ($this->title): ?>
                                 <h3 class="d-table-cell"><strong><?= $this->title;?></strong></h3>
                             <?php endif; ?>
