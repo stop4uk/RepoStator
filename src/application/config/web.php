@@ -91,29 +91,25 @@ $config = [
                 'collapseSlashes' => true,
             ],
             'rules' => [
-                'profile'                                                       => 'users/profile',
-                '<controller:(dashboard|send|control|statistic)>'               => 'reports/<controller>',
-                '<controller:(dashboard|send|control|statistic)>/<action>'      => 'reports/<controller>/<action>',
+                'profile'                                                                       => 'users/profile',
+                '<action:(login|logout|register)>'                                              => 'users/auth/<action>',
+                '<controller:(dashboard|send|control|statistic)>'                               => 'reports/<controller>',
+                '<controller:(dashboard|send|control|statistic)>/<action>'                      => 'reports/<controller>/<action>',
 
-                '<module:\w+>'                                                  => '<module>/default',
-                '<module:\w+>/<action:(index|create|view|edit|delete|enable)>'  => '<module>/default/<action>',
+                '<module:\w+>'                                                                  => '<module>/default',
+                '<module:\w+>/<action:(index|create|view|edit|delete|enable)>'                  => '<module>/default/<action>',
 
-                #Users module
-                '<action:(login|logout|register)>'  => 'users/auth/<action>',
-                'recovery'                          => 'users/recovery',
-                'recovery/<action>'                 => 'users/recovery/<action>',
-                'verification'                      => 'users/verification',
-                'verification/<action>'             => 'users/verification/<action>',
+                'recovery'                                                                      => 'users/recovery',
+                'recovery/<action>'                                                             => 'users/recovery/<action>',
+                'verification'                                                                  => 'users/verification',
+                'verification/<action>'                                                         => 'users/verification/<action>',
 
-
-                #Reports module
                 'reports/<controller:(constant|constantrule|structure|template)>'               => 'reports/<controller>',
                 'reports/<controller:(constant|constantrule|structure|template)>/<action:\w+>'  => 'reports/<controller>/<action>',
 
-                #Админка
-                'admin/groups'                                                          => 'admin/groups/default',
-                'admin/groups/<action:(create|view|edit|delete|enable|map|nodeMove)>'   => 'admin/groups/default/<action>',
-                'admin/queue'                                                           => 'admin/queue/default',
+                'admin/groups'                                                                  => 'admin/groups/default',
+                'admin/groups/<action:(create|view|edit|delete|enable|map|nodeMove)>'           => 'admin/groups/default/<action>',
+                'admin/queue'                                                                   => 'admin/queue/default',
             ],
         ]
     ],
