@@ -11,6 +11,7 @@ use app\components\base\{
     BaseAR,
     BaseService,
 };
+use app\helpers\CommonHelper;
 use app\modules\users\{
     events\objects\UserEvent,
     entities\UserGroupEntity,
@@ -43,21 +44,21 @@ final class UserService extends BaseService
         }
 
         $transaction = $model->getEntity()::getDb()->beginTransaction();
-        if ( BaseHelper::saveAttempt($model->getEntity(), 'Users.Profile') ) {
+        if (CommonHelper::saveAttempt($model->getEntity(), 'Users.Profile')) {
             if ($this->afterSave($model)) {
                 $transaction->commit();
 
                 $oldAttribtues['sName'] = $model->getEntity()->shortName;
                 $oldAttribtues['account_key'] = $model->getEntity()->account_key;
 
-                if ( Yii::$app->settings->get('auth', 'users_notification_add') && $isNewEntity ) {
+                if (Yii::$app->settings->get('auth', 'users_notification_add') && $isNewEntity) {
                     $this->trigger(self::EVENT_AFTER_ADD, new UserEvent([
                         'user' => $model->attributes,
                         'userEntity' => $oldAttribtues
                     ]));
                 }
 
-                if ( Yii::$app->settings->get('auth', 'users_notification_change') && !$isNewEntity ) {
+                if (Yii::$app->settings->get('auth', 'users_notification_change') && !$isNewEntity) {
                     $this->trigger(self::EVENT_AFTER_CHANGE, new UserEvent([
                         'user' => $model->attributes,
                         'userEntity' => $oldAttribtues
@@ -81,10 +82,10 @@ final class UserService extends BaseService
         $entity->account_status = $entity::STATUS_BLOCKED;
         $entity->updated_at = time();
         $entity->updated_uid = Yii::$app->getUser()->id;
-        if ( $this->beforeDelete($entity) && $entity->softDelete() ) {
+        if ($this->beforeDelete($entity) && $entity->softDelete()) {
             $transaction->commit();
 
-            if ( Yii::$app->settings->get('auth', 'users_notification_delete') ) {
+            if (Yii::$app->settings->get('auth', 'users_notification_delete')) {
                 $this->trigger(self::EVENT_AFTER_DELETE, new UserEvent([
                     'userEntity' => $entity
                 ]));
@@ -103,7 +104,7 @@ final class UserService extends BaseService
         $entity->account_status = $entity::STATUS_ACTIVE;
 
         $transaction = $entity::getDb()->beginTransaction();
-        if ( BaseHelper::saveAttempt($entity, 'Users') ) {
+        if (CommonHelper::saveAttempt($entity, 'Users')) {
             $transaction->commit();
             return true;
         }
@@ -116,11 +117,11 @@ final class UserService extends BaseService
     {
         $relationGroup = UserGroupRepository::getBy(['user_id' => $entity->id]);
 
-        if ( $relationGroup ) {
+        if ($relationGroup) {
             $relationGroup->updated_at = time();
             $relationGroup->updated_uid = Yii::$app->getUser()->id;
 
-            if ( $relationGroup->softDelete() ) {
+            if ($relationGroup->softDelete()) {
                 UserRightEntity::deleteAll(['user_id' => $entity->id]);
                 return true;
             }
@@ -133,33 +134,33 @@ final class UserService extends BaseService
     {
         $state = true;
 
-        if ( $model->group ) {
-            if ( $model->hasGroup && $model->hasGroup != $model->group ) {
+        if ($model->group) {
+            if ($model->hasGroup && $model->hasGroup != $model->group) {
                 $model->getEntity()->group->updated_at = time();
                 $model->getEntity()->group->updated_uid = Yii::$app->getUser()->id;
                 $model->getEntity()->group->softDelete();
             }
 
-            if ( $model->group != $model->hasGroup ) {
+            if ($model->group != $model->hasGroup) {
                 $relationGroup = new UserGroupEntity();
                 $relationGroup->scenario = UserGroupEntity::SCENARIO_INSERT;
                 $relationGroup->user_id = $model->getEntity()->id;
                 $relationGroup->group_id = $model->group;
 
-                if ( !$relationGroup->save() ) {
+                if (!$relationGroup->save()) {
                     $state = false;
                     Yii::error($relationGroup->errors, 'Users.Groups');
                 }
             }
         } else {
-            if ( $model->hasGroup ) {
+            if ($model->hasGroup) {
                 $model->getEntity()->group->updated_at = time();
                 $model->getEntity()->group->updated_uid = Yii::$app->getUser()->id;
                 $model->getEntity()->group->softDelete();
             }
         }
 
-        if ( $state && $model->rights ) {
+        if ($state && $model->rights) {
             UserRightEntity::deleteAll(['user_id' => $model->getEntity()->id]);
 
             foreach($model->rights as $right) {
@@ -175,7 +176,7 @@ final class UserService extends BaseService
                 ->batchInsert(UserRightEntity::tableName(), array_keys($newListOfRights[0]), $newListOfRights)
                 ->execute();
 
-            if ( !$batchInsert ) {
+            if (!$batchInsert) {
                 $state = false;
             }
         }

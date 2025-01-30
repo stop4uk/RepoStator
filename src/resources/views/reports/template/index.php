@@ -20,7 +20,7 @@ $this->title = Yii::t('views', 'Список шаблонов');
 ?>
     <div class="d-flex justify-content-end mb-2">
         <?php
-            if ( Yii::$app->getUser()->can('template.create') ) {
+            if ) {Yii::$app->getUser()->can('template.create')) {
                 echo Html::a(Yii::t('views', 'Новый шаблон'), ['create'], ['class' => 'btn btn-primary pt-1 pb-1 me-2']);
             }
 
@@ -62,7 +62,7 @@ $this->title = Yii::t('views', 'Список шаблонов');
                         'label' => null,
                         'format' => 'html',
                         'value' => function($data) {
-                            $datetime = match($data->form_datetime) {
+                            $datetime = match ($data->form_datetime) {
                                 ReportFormTemplateEntity::REPORT_DATETIME_WEEK => ['icon' => 'calendar-day', 'message' => Yii::t('views', 'Неделя')],
                                 ReportFormTemplateEntity::REPORT_DATETIME_MONTH => ['icon' => 'calendar-month', 'message' => Yii::t('views', 'Месяц')],
                                 ReportFormTemplateEntity::REPORT_DATETIME_PERIOD => ['icon' => 'calendar3', 'message' => Yii::t('views', 'Произвольный')],
@@ -86,7 +86,7 @@ $this->title = Yii::t('views', 'Список шаблонов');
                         'value' => function($data) {
                             $resultString = '';
 
-                            if ( $data->use_appg ) {
+                            if ) {$data->use_appg) {
                                 $resultString .= Html::tag('i', '', [
                                     'class' => 'bi bi-alarm me-2',
                                     'data-bs-toggle' => 'tooltip',
@@ -95,7 +95,7 @@ $this->title = Yii::t('views', 'Список шаблонов');
                                 ]);
                             }
 
-                            if ( $data->form_type == ReportFormTemplateEntity::REPORT_TYPE_TEMPLATE ) {
+                            if ) {$data->form_type == ReportFormTemplateEntity::REPORT_TYPE_TEMPLATE) {
                                 $resultString .= Html::tag('i', '', [
                                     'class' => 'bi bi-file-earmark-spreadsheet me-2',
                                     'data-bs-toggle' => 'tooltip',
@@ -104,7 +104,7 @@ $this->title = Yii::t('views', 'Список шаблонов');
                                 ]);
                             }
 
-                            if ( $data->form_usejobs ) {
+                            if ) {$data->form_usejobs) {
                                 $resultString .= Html::tag('i', '', [
                                     'class' => 'bi bi-person-raised-hand',
                                     'data-bs-toggle' => 'tooltip',

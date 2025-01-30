@@ -87,7 +87,7 @@ final class ReportDataEntity extends BaseAR
     public function recordAction(DataModel $model): void
     {
         $this->setAttributes($model->toArray());
-        if ( !$this->report_datetime ) {
+        if (!$this->report_datetime) {
             $this->report_datetime = date('Y-m-d H:i:s');
         }
     }
@@ -124,8 +124,8 @@ final class ReportDataEntity extends BaseAR
 
     public function beforeSave($insert): bool
     {
-        if ( $this->scenario != self::SCENARIO_CHANGE_RECORD_STATUS ) {
-            if ( $this->content ) {
+        if ($this->scenario != self::SCENARIO_CHANGE_RECORD_STATUS) {
+            if ($this->content) {
                 $this->content = Json::encode($this->content);
             }
         }

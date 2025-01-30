@@ -48,7 +48,7 @@ class AddAction extends Action
 
     public function run()
     {
-        if ( $this->constructClass ) {
+        if ($this->constructClass) {
             $model = new $this->model(new $this->constructClass);
         } else {
             $model = new $this->model();

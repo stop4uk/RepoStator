@@ -228,11 +228,11 @@ final class ConstantruleController extends BaseController
         );
 
 
-        if ( $report_id ) {
+        if ($report_id) {
             $reportInformation = ReportRepository::get($report_id);
 
             $reports  = [$report_id => $report_id];
-            if ( $reportInformation && $reportInformation->groups_only) {
+            if ($reportInformation && $reportInformation->groups_only) {
                 $groups = array_filter($groupsCanSent, function($key) use ($reportInformation) {
                     return in_array($key, CommonHelper::explodeField($reportInformation->groups_only));
                 }, ARRAY_FILTER_USE_KEY);

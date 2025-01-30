@@ -29,12 +29,12 @@ final class EnableAction extends Action
 
     public function run(): Response
     {
-        $entity = match((bool)$this->repository) {
+        $entity = match ((bool)$this->repository) {
             true => $this->repository::get($this->requestID, [], false),
             false => $this->entity::find()->where(['id' => $this->requestID])->limit(1)->one()
         };
 
-        if ( !$entity ) {
+        if (!$entity) {
             throw new NotFoundHttpException(Yii::t('exceptions', $this->exceptionMessage));
         }
 
@@ -43,7 +43,7 @@ final class EnableAction extends Action
             $this->service->enable($entity);
 
             $url = ['edit', 'id' => $this->requestID];
-            if ( $this->formControl ) {
+            if ($this->formControl) {
                 $url['form_control'] = true;
             }
             return $this->controller->redirect($url);

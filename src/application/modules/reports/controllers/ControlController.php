@@ -196,12 +196,12 @@ final class ControlController extends BaseController
             'form_control' => (bool)$form_control
         ]);
 
-        if ( $this->request->isAjax && $model->load($this->request->post()) ) {
+        if ($this->request->isAjax && $model->load($this->request->post())) {
             $this->response->format = Response::FORMAT_JSON;
             return ActiveForm::validate($model);
         }
 
-        if ( $model->load($this->request->post()) && $model->validate() ) {
+        if ($model->load($this->request->post()) && $model->validate()) {
             try {
                 $this->service->edit($model);
 
@@ -217,12 +217,12 @@ final class ControlController extends BaseController
     {
         $form = new ControlCreateForForm();
 
-        if ( $this->request->isAjax && $form->load($this->request->post()) ) {
+        if ($this->request->isAjax && $form->load($this->request->post())) {
             $this->response->format = Response::FORMAT_JSON;
             return ActiveForm::validate($form);
         }
 
-        if ( $form->load($this->request->post()) && $form->validate() ) {
+        if ($form->load($this->request->post()) && $form->validate()) {
             Yii::$app->getSession()->set('controlReport', Json::encode([
                 'group_id' => $form->group,
                 'report_id' => $form->report,
@@ -244,13 +244,13 @@ final class ControlController extends BaseController
         $form = new ControlCheckFullForm();
         $this->response->format = Response::FORMAT_JSON;
 
-        if ( $this->request->isAjax && $form->load($this->request->post()) ) {
-            if ( $validate = ActiveForm::validate($form) ) {
+        if ($this->request->isAjax && $form->load($this->request->post())) {
+            if ($validate = ActiveForm::validate($form)) {
                 return $validate;
             }
         }
 
-        if ( $form->load($this->request->post()) && $form->validate() ) {
+        if ($form->load($this->request->post()) && $form->validate()) {
             return $form->getOutList();
         }
 
@@ -268,14 +268,14 @@ final class ControlController extends BaseController
             ->limit(1)
             ->one();
 
-        if ( $report->left_period ) {
+        if ($report->left_period) {
             $items = DataHelper::getTimePeriods($report, time());
-            if ( $items ) {
+            if ($items) {
                 //Сортировка не работает так как мне надо, поэтому, обойдем весь массив, начиная с последнего элемента
                 $items = (array)$items;
                 end($items);
 
-                while( $value = current($items) ) {
+                while) {$value = current($items)) {
                     $periods[] = date(
                         format: $dateFormat,
                         timestamp: $value['start']
@@ -296,7 +296,7 @@ final class ControlController extends BaseController
     {
         $query = DataRepository::get($id, ['report', 'group', 'structure', 'changes', 'createdUser']);
 
-        if ( $query !== null) {
+        if ($query !== null) {
             return $query;
         }
 

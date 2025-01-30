@@ -20,7 +20,7 @@ class FormTemplateFactory
     {
         $template = TemplateRepository::get($form->template);
 
-        return match( (bool)$template->form_usejobs ) {
+        return match) {(bool)$template->form_usejobs) {
             true => new ToFileByJobProcessor($form, $template),
             false => new ToFileProcessor($form, $template)
         };

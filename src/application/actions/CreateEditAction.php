@@ -42,7 +42,7 @@ final class CreateEditAction extends Action
         switch ($this->actionType) {
             case 'create':
                 $objectParams = [];
-                if ( $this->entityScenario ) {
+                if ($this->entityScenario) {
                     $objectParams['scenario'] = $this->entityScenario;
                 }
 
@@ -50,16 +50,16 @@ final class CreateEditAction extends Action
                 $actionView = 'create';
                 break;
             case 'edit':
-                $entity = match((bool)$this->repository) {
+                $entity = match ((bool)$this->repository) {
                     true => $this->repository::get($this->requestID, $this->repositoryRelations),
                     false => $this->entity::find()->where(['id' => $this->requestID, 'record_status' => BaseAR::RSTATUS_ACTIVE])->limit(1)->one()
                 };
 
-                if ( !$entity ) {
+                if (!$entity) {
                     throw new NotFoundHttpException(Yii::t('exceptions', $this->exceptionMessage));
                 }
 
-                if ( $this->entityScenario ) {
+                if ($this->entityScenario) {
                     $entity->scenario = $this->entityScenario;
                 }
 
@@ -70,13 +70,13 @@ final class CreateEditAction extends Action
 
         $model = new $this->model($entity);
 
-        if ( $this->controller->request->isAjax && $model->load($this->controller->request->post()) ) {
+        if ($this->controller->request->isAjax && $model->load($this->controller->request->post())) {
             $this->controller->response->format = Response::FORMAT_JSON;
             return ActiveForm::validate($model);
         }
 
-        if ( $model->load($this->controller->request->post()) && $model->validate() ) {
-            if ( isset($model->uploadedFile) ) {
+        if ($model->load($this->controller->request->post()) && $model->validate()) {
+            if (isset($model->uploadedFile)) {
                 $model->uploadedFile = UploadedFile::getInstance($model, 'uploadedFile');
             }
 
@@ -88,7 +88,7 @@ final class CreateEditAction extends Action
                 );
 
                 $this->controller->setMessage('success', Yii::t('notifications', $this->successMessage));
-                return match( $this->refresh ) {
+                return match ($this->refresh) {
                     true => $this->controller->refresh(),
                     false => $this->controller->redirect($this->redirectUrl)
                 };

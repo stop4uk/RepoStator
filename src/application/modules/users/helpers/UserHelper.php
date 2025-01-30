@@ -46,7 +46,7 @@ final class UserHelper
             UserEntity::STATUS_BLOCKED => Yii::t('entities', 'Заблокирован'),
         ];
 
-        if ( $withoutWait ) {
+        if ($withoutWait) {
             unset($items[UserEntity::STATUS_WAITCONFIRM]);
         }
 
@@ -83,7 +83,7 @@ final class UserHelper
 
     public static function getFullName(array $fields): string
     {
-        return implode( ' ', $fields);
+        return implode) {' ', $fields);
     }
 
     public static function generatePassword(string $password): string
@@ -95,7 +95,7 @@ final class UserHelper
     {
         $initials = mb_strtoupper(mb_substr($fields['firstname'], 0, 1, 'UTF-8')) . '.';
 
-        if ( $fields['middlename'] ) {
+        if ($fields['middlename']) {
             $initials .= mb_strtoupper(mb_substr($fields['middlename'], 0, 1, 'UTF-8')) . '.';
         }
 

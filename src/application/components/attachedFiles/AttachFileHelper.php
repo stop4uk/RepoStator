@@ -85,7 +85,7 @@ final class AttachFileHelper
     ): bool {
         try {
             $storage = Yii::$app->get($storageID);
-            return match($storage->has($path)) {
+            return match ($storage->has($path)) {
                 true => $storage->delete($path),
                 false => true
             };

@@ -34,7 +34,7 @@ final class ControlService extends BaseService
                 category: 'Reports.Control'
             )
         ) {
-            if ( $this->afterEdit($model, $changeData) ) {
+            if ($this->afterEdit($model, $changeData)) {
                 $transaction->commit();
                 return $saveEntity;
             }
@@ -52,7 +52,7 @@ final class ControlService extends BaseService
 
         $entity->updated_at = time();
         $entity->updated_uid = Yii::$app->getUser()->getId();
-        if ( $entity->softDelete() ) {
+        if ($entity->softDelete()) {
             $transaction->commit();
             return true;
         }
@@ -80,7 +80,7 @@ final class ControlService extends BaseService
                 continue;
             }
 
-            if ( $value != $newContent[$constant] ) {
+            if ($value != $newContent[$constant]) {
                 $changes[$constant] = [
                     'operation' => ReportDataChangeEntity::OPERATION_EDIT,
                     'value' => $newContent[$constant],
@@ -108,7 +108,7 @@ final class ControlService extends BaseService
         BaseModelInterface $model,
         array              $changeData = []
     ): bool {
-        if ( !$changeData ) {
+        if (!$changeData) {
             return true;
         }
 
@@ -117,7 +117,7 @@ final class ControlService extends BaseService
         $changes->data_id = $model->getEntity()->id;
         $changes->content = $changeData;
 
-        if ( !$changes->validate() ) {
+        if (!$changes->validate()) {
             Yii::error('Error validate ReportDataChangeEntity: ' . Json::encode($changes->errors), 'Reports.Control');
             return true;
         }

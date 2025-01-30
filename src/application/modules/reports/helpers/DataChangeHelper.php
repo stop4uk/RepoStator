@@ -59,7 +59,7 @@ final class DataChangeHelper
             $itemsContent = '';
             foreach ($content as $key => $description) {
                 $item = self::getTextItem($key, $description, $constants);
-                if ( $item) {
+                if ($item) {
                     $itemsContent .= Html::tag('li', $item);
                 }
             }
@@ -85,8 +85,8 @@ final class DataChangeHelper
 
     private static function getTextItem(string $key, array $description, array $constants): ?string
     {
-        if ( isset($constants[$key]) ) {
-            $message = match($description['operation']) {
+        if (isset($constants[$key])) {
+            $message = match ($description['operation']) {
                 ReportDataChangeEntity::OPERATION_DELETE => 'удалено значение <strong>{value}</strong>',
                 ReportDataChangeEntity::OPERATION_EDIT => 'изменено значение с <strong>{oldValue}</strong> на <strong>{value}</strong>',
                 ReportDataChangeEntity::OPERATION_ADD => 'добавлено значение <strong>{value}</strong>'

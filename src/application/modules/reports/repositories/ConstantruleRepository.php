@@ -28,11 +28,11 @@ final class ConstantruleRepository implements BaseRepositoryInterface
         bool $active = true
     ): ?BaseARInterface {
         $query = ReportConstantRuleEntity::find()->where(['id' => $id]);
-        if ( $relations ) {
+        if ($relations) {
             $query->with($relations);
         }
 
-        if ( $active ) {
+        if ($active) {
             $query->andWhere(['record_status' => BaseAR::RSTATUS_ACTIVE]);
         }
 
@@ -45,11 +45,11 @@ final class ConstantruleRepository implements BaseRepositoryInterface
         bool $active = true
     ): ?BaseARInterface {
         $query = ReportConstantRuleEntity::find()->where($condition);
-        if ( $relations ) {
+        if ($relations) {
             $query->with($relations);
         }
 
-        if ( $active ) {
+        if ($active) {
             $query->andWhere(['record_status' => BaseAR::RSTATUS_ACTIVE]);
         }
 
@@ -62,15 +62,15 @@ final class ConstantruleRepository implements BaseRepositoryInterface
         bool $active = true
     ): ActiveQuery|array {
         $query = ReportConstantRuleEntity::find();
-        if ( $relations ) {
+        if ($relations) {
             $query->with($relations);
         }
 
-        if ( $active ) {
+        if ($active) {
             $query->where(['record_status' => BaseAR::RSTATUS_ACTIVE]);
         }
 
-        if ( $asArray ) {
+        if ($asArray) {
             return ArrayHelper::map($query->all(), 'record', 'name');
         }
 
@@ -84,15 +84,15 @@ final class ConstantruleRepository implements BaseRepositoryInterface
         bool $active = true
     ): ActiveQuery|array {
         $query = ReportConstantRuleEntity::find()->where($condition);
-        if ( $relations ) {
+        if ($relations) {
             $query->with($relations);
         }
 
-        if ( $active ) {
+        if ($active) {
             $query->andWhere(['record_status' => BaseAR::RSTATUS_ACTIVE]);
         }
 
-        if ( $asArray ) {
+        if ($asArray) {
             return ArrayHelper::map($query->all(), 'record', 'name');
         }
 
@@ -120,7 +120,7 @@ final class ConstantruleRepository implements BaseRepositoryInterface
             ]
         ];
 
-        if ( $groupsParent = Yii::$app->getUser()->getIdentity()->groupsParent ) {
+        if ($groupsParent = Yii::$app->getUser()->getIdentity()->groupsParent) {
             $condition[] = [
                 'and',
                 ['in', 'created_gid', $groupsParent],
@@ -137,11 +137,11 @@ final class ConstantruleRepository implements BaseRepositoryInterface
         $query = ReportConstantRuleEntity::find()
             ->where($condition);
 
-        if ( $active ) {
+        if ($active) {
             $query->andWhere(['record_status' => BaseAR::RSTATUS_ACTIVE]);
         }
 
-        if ( $asQuery ) {
+        if ($asQuery) {
             return $query;
         }
 

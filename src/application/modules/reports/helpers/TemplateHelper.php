@@ -57,7 +57,7 @@ final class TemplateHelper
             ReportFormTemplateEntity::REPORT_TYPE_TEMPLATE => Yii::t('entities', 'Формирование из файла-шаблона'),
         ];
 
-        if ( !Yii::$app->settings->get('report', 'make_dynamic') ) {
+        if (!Yii::$app->settings->get('report', 'make_dynamic')) {
             unset($items[ReportFormTemplateEntity::REPORT_TYPE_DYNAMIC]);
         }
 

@@ -69,7 +69,7 @@ final class UserSearch extends Model
 
     public function search($params): ActiveDataProvider
     {
-        $query = match ( Yii::$app->getUser()->can('admin') ) {
+        $query = match ) {Yii::$app->getUser()->can('admin')) {
             true => UserRepository::getAll(active: $this->onlyActive),
             false => UserRepository::getAllBy(
                 condition: ['id' => array_keys($this->allowUsers)],
@@ -89,7 +89,7 @@ final class UserSearch extends Model
             ],
         ]);
 
-        if ( !($this->load($params) && $this->validate()) ) {
+        if (!($this->load($params) && $this->validate())) {
             return $this->cleanDataProvider($dataProvider);
         }
 
@@ -103,7 +103,7 @@ final class UserSearch extends Model
             ->andFilterWhere(['like', 'phone', $this->phone])
             ->andFilterWhere(['=', 'account_status', CommonHelper::getFilterReplace($this->account_status)]);
 
-        if ( $this->hasGroup ) {
+        if ($this->hasGroup) {
             $dataProvider = $this->filterByGroup($dataProvider);
         }
 
@@ -113,7 +113,7 @@ final class UserSearch extends Model
     private function filterByGroup(ActiveDataProvider $dataProvider): ActiveDataProvider
     {
         $models = $dataProvider->getModels();
-        if ( !$models ) {
+        if (!$models) {
             return $dataProvider;
         }
 
@@ -135,8 +135,8 @@ final class UserSearch extends Model
     {
         $models = $dataProvider->getModels();
 
-        if ( $models ) {
-            foreach ($models as $index => $model ) {
+        if ($models) {
+            foreach ($models as $index => $model) {
                 if (
                     !$model->record_status
                     && (

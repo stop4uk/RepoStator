@@ -82,7 +82,7 @@ final class GroupSearch extends Model
             ],
         ]);
 
-        if ( !($this->load($params) && $this->validate()) ) {
+        if (!($this->load($params) && $this->validate())) {
             return $dataProvider;
         }
 

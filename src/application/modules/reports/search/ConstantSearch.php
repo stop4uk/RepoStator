@@ -95,7 +95,7 @@ final class ConstantSearch extends Model
             ],
         ]);
 
-        if ( !($this->load($params) && $this->validate()) ) {
+        if (!($this->load($params) && $this->validate())) {
             return $this->cleanData($dataProvider);
         }
 
@@ -104,7 +104,7 @@ final class ConstantSearch extends Model
             ->andFilterWhere(['like', 'name_full', $this->name_full])
             ->andFilterWhere(['like', 'union_rules', $this->union_rules]);
 
-        if ( $this->limitReport ) {
+        if ($this->limitReport) {
             $query->andFilterWhere(['REGEXP', 'reports_only', '\b' . $this->limitReport . '\b']);
         }
 

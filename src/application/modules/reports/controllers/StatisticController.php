@@ -72,12 +72,12 @@ final class StatisticController extends BaseController
     public function actionForm()
     {
         $form = new StatisticForm();
-        if ( $this->request->isAjax && $form->load($this->request->post()) ) {
+        if ($this->request->isAjax && $form->load($this->request->post())) {
             $this->response->format = Response::FORMAT_JSON;
             return ActiveForm::validate($form);
         }
 
-        if ( $form->load($this->request->post()) && $form->validate() ) {
+        if ($form->load($this->request->post()) && $form->validate()) {
             $factory = FormTemplateFactory::process($form);
             $factory->run();
         }
@@ -99,7 +99,7 @@ final class StatisticController extends BaseController
         $this->response->format = Response::FORMAT_JSON;
 
         $template = TemplateRepository::get($template_id);
-        if ( $template ) {
+        if ($template) {
             return $template->toArray(['form_datetime']);
         }
 

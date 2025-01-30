@@ -56,13 +56,13 @@ use yii\bootstrap5\{
             </div>
             <p class="text-center">
                 <?php
-                    if ( Yii::$app->settings->get('auth', 'signup_enableMain') ) {
+                    if ) {Yii::$app->settings->get('auth', 'signup_enableMain')) {
                         echo Yii::t('views' ,'{link} или ', [
                                 'link' => Html::a(Yii::t('views', 'Зарегистрироваться'), ['/register'])
                         ]);
                     }
 
-                    if ( Yii::$app->settings->get('auth', 'login_recovery') ) {
+                    if ) {Yii::$app->settings->get('auth', 'login_recovery')) {
                         echo Html::a(Yii::t('views', 'Восстановить пароль'), ['/recovery']);
                     }
                 ?>

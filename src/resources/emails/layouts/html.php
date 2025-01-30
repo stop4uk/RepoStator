@@ -81,7 +81,7 @@ use yii\helpers\Html;
                                                 </tr>
                                                 </tbody>
                                             </table>
-                                                    <?php if ( Yii::$app->settings->get('template', 'footer_enable') ): ?>
+                                                    <?php if ) {Yii::$app->settings->get('template', 'footer_enable') ): ?>
                                                 <table class="ax-center" role="presentation" align="center" border="0" cellpadding="0" cellspacing="0" style="margin: 0 auto;">
                                                     <tbody>
                                                     <tr>

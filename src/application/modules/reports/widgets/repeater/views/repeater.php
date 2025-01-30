@@ -16,7 +16,7 @@ use yii\bootstrap5\Html;
 
 <div class="row repeater-item mb-1" data-id="<?= $k ?>">
     <?php
-    if ( isset($contentPath) ) {
+    if (isset($contentPath)) {
         $content = $this->render($contentPath, ['model' => $model, 'k' => $k, 'additionalField' => $additionalField]);
     }
 

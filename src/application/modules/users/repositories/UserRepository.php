@@ -60,7 +60,7 @@ final class UserRepository implements BaseRepositoryInterface
             $query->where(['record_status' => BaseAR::RSTATUS_ACTIVE]);
         }
 
-        if ( $asArray ) {
+        if ($asArray) {
             return ArrayHelper::map($query->all(), 'id', 'shortName');
         }
 
@@ -78,7 +78,7 @@ final class UserRepository implements BaseRepositoryInterface
             $query->andWhere(['record_status' => BaseAR::RSTATUS_ACTIVE]);
         }
 
-        if ( $asArray ) {
+        if ($asArray) {
             return ArrayHelper::map($query->all(), 'id', 'shortName');
         }
 
@@ -93,11 +93,11 @@ final class UserRepository implements BaseRepositoryInterface
             ->with(['user'])
             ->andFilterWhere(['in', 'group_id', array_keys($groups)]);
 
-        if ( $active ) {
+        if ($active) {
             $query->andWhere(['record_status' => BaseAR::RSTATUS_ACTIVE]);
         }
 
-        if ( $results = $query->all() ) {
+        if ($results = $query->all()) {
             $users = [];
             foreach ($results as $row) {
                 $users[$row->user_id] = $row->user->shortName ?? null;

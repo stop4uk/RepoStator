@@ -62,16 +62,16 @@ final class UserModel extends BaseModel
 
     public function init()
     {
-        if ( !$this->isNewEntity ) {
+        if (!$this->isNewEntity) {
             $this->password = null;
 
-            if ( $this->entity->group !== null ) {
+            if ($this->entity->group !== null) {
                 $this->group = $this->entity->group->group_id ?? null;
                 $this->hasGroup = $this->group;
             }
 
-            if ( $this->entity->rights ) {
-                foreach ( $this->entity->rights as $right) {
+            if ($this->entity->rights) {
+                foreach ) {$this->entity->rights as $right) {
                     $this->rights[] = $right->item_name;
                 }
             }

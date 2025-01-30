@@ -120,7 +120,7 @@ final class TemplateSearch extends Model
             ],
         ]);
 
-        if ( !($this->load($params) && $this->validate()) ) {
+        if (!($this->load($params) && $this->validate())) {
             return $this->cleanData($dataProvider);
         }
 
@@ -131,7 +131,7 @@ final class TemplateSearch extends Model
             ->andFilterWhere(['=', 'form_type', CommonHelper::getFilterReplace($this->form_type)])
             ->andFilterWhere(['=', 'form_usejobs', CommonHelper::getFilterReplace($this->form_usejobs)]);
 
-        if ( $this->hasGroup ) {
+        if ($this->hasGroup) {
             $query->andFilterWhere([
                 'or',
                 ['REGEXP', 'table_rows', '\b' . $this->hasGroup . '\b'],
@@ -139,7 +139,7 @@ final class TemplateSearch extends Model
             ]);
         }
 
-        if ( $this->hasConstant ) {
+        if ($this->hasConstant) {
             $query->andFilterWhere([
                 'or',
                 ['REGEXP', 'table_rows', '\b' . $this->hasConstant . '\b'],
@@ -147,7 +147,7 @@ final class TemplateSearch extends Model
             ]);
         }
 
-        if ( $this->hasConstantRule ) {
+        if ($this->hasConstantRule) {
             $query->andFilterWhere([
                 'or',
                 ['REGEXP', 'table_rows', '\b' . $this->hasConstantRule . '\b'],

@@ -35,7 +35,7 @@ final class GroupService extends BaseService
                 category: $categoryForLog
             )
         ) {
-            if ( $this->afterSave($model, $newEntity) ) {
+            if ($this->afterSave($model, $newEntity)) {
                 $transaction->commit();
                 return $saveModel;
             }
@@ -49,9 +49,9 @@ final class GroupService extends BaseService
     {
         $parent = GroupNestedEntity::find()->where(['id' => 1])->limit(1)->one();
         $nested = GroupNestedEntity::find()->where(['group_id' => $entity->id])->limit(1)->one();
-        if ( $nested) {
+        if ($nested) {
             $childrensArray = ArrayHelper::map($nested->children(1)->all(), 'id', 'id');
-            if ( $childrensArray ) {
+            if ($childrensArray) {
                 foreach (GroupNestedEntity::findAll(['id' => $childrensArray]) as $children) {
                     $children->appendTo($parent)->save(false);
                 }
@@ -67,7 +67,7 @@ final class GroupService extends BaseService
         BaseModelInterface $model,
         bool               $newEntity
     ): bool {
-        if ( !$newEntity ) {
+        if (!$newEntity) {
             return true;
         }
 

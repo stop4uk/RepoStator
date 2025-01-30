@@ -97,16 +97,16 @@ final class ReportEntity extends BaseAR
 
     public function beforeSave($insert): bool
     {
-        if ( $this->scenario != self::SCENARIO_CHANGE_RECORD_STATUS ) {
-            if ( $this->description ) {
+        if ($this->scenario != self::SCENARIO_CHANGE_RECORD_STATUS) {
+            if ($this->description) {
                 $this->description = Json::encode($this->description);
             }
 
-            if ( $this->groups_only ) {
+            if ($this->groups_only) {
                 $this->groups_only = CommonHelper::implodeField($this->groups_only);
             }
 
-            if ( $this->groups_required ) {
+            if ($this->groups_required) {
                 $this->groups_required = CommonHelper::implodeField($this->groups_required);
             }
         }

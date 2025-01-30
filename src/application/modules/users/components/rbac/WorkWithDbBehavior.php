@@ -55,13 +55,13 @@ final class WorkWithDbBehavior extends Behavior
 
     private function checkRole(string|array $roles, array $params = []): bool
     {
-        if ( is_array($roles) ) {
+        if (is_array($roles)) {
             foreach($roles as $role) {
-                if ( Yii::$app->getUser()->can($role, $params) ) {
+                if (Yii::$app->getUser()->can($role, $params)) {
                     return true;
                 }
             }
-        } elseif ( Yii::$app->getUser()->can($roles, $params) ) {
+        } elseif (Yii::$app->getUser()->can($roles, $params)) {
             return true;
         }
 

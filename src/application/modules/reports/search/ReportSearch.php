@@ -86,7 +86,7 @@ final class ReportSearch extends Model
             ],
         ]);
 
-        if ( !($this->load($params) && $this->validate()) ) {
+        if (!($this->load($params) && $this->validate())) {
             return $this->cleanData($dataProvider);
         }
 
@@ -94,11 +94,11 @@ final class ReportSearch extends Model
             ->andFilterWhere(['=', 'left_period', $this->left_period])
             ->andFilterWhere(['=', 'block_minutes', $this->block_minutes]);
 
-        if ( $this->hasGroupOnly ) {
+        if ($this->hasGroupOnly) {
             $query->andFilterWhere(['REGEXP', 'groups_only', '\b' . $this->hasGroupOnly . '\b']);
         }
 
-        if ( $this->hasGroupRequired ) {
+        if ($this->hasGroupRequired) {
             $query->andFilterWhere(['REGEXP', 'groups_required', '\b' . $this->hasGroupRequired . '\b']);
         }
 

@@ -124,7 +124,7 @@ final class DataSearch extends Model
             ],
         ]);
 
-        if ( !($this->load($params) && $this->validate()) ) {
+        if (!($this->load($params) && $this->validate())) {
             return $this->cleanData($dataProvider);
         }
 
@@ -133,16 +133,16 @@ final class DataSearch extends Model
             ->andFilterWhere(['=', 'struct_id', $this->struct_id])
             ->andFilterWhere(['=', 'created_uid', $this->created_uid]);
 
-        if ( $this->hasConstant ) {
+        if ($this->hasConstant) {
             $query->andFilterWhere(['REGEXP', 'content', '\b' . $this->hasConstant . '\b']);
         }
 
-        if ( $this->report_datetime ) {
+        if ($this->report_datetime) {
             $timePeriod = array_map(fn($value) => strtotime($value), explode(' - ', $this->report_datetime));
             $query->andFilterWhere(['BETWEEN', 'report_datetime', $timePeriod[0], $timePeriod[1]]);
         }
 
-        if ( $this->created_at ) {
+        if ($this->created_at) {
             $timePeriod = array_map(fn($value) => strtotime($value), explode(' - ', $this->created_at));
             $query->andFilterWhere(['BETWEEN', 'created_at', $timePeriod[0], $timePeriod[1]]);
         }

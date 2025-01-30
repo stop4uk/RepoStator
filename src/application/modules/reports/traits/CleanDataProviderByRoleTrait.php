@@ -23,7 +23,7 @@ trait CleanDataProviderByRoleTrait
         $models = $dataProvider->getModels();
 
         foreach ($models as $index => $model) {
-            if ( Yii::$app->getUser()->can('admin') ) {
+            if (Yii::$app->getUser()->can('admin')) {
                 continue;
             }
 
@@ -37,7 +37,7 @@ trait CleanDataProviderByRoleTrait
             $gRole = ((bool)$model->record_status) ? $groupListRole : $groupDeleteRole;
             $aRole = ((bool)$model->record_status) ? $allListRole : $allDeleteRole;
 
-            if ( !in_array($model->created_gid, Yii::$app->getUser()->getIdentity()->groupsParent) ) {
+            if (!in_array($model->created_gid, Yii::$app->getUser()->getIdentity()->groupsParent)) {
                 if (
                     $model->created_gid != $mainGroup
                     && Yii::$app->getUser()->can($aRole, $ruleArray)

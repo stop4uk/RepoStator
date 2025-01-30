@@ -47,7 +47,7 @@ final class GroupModel extends BaseModel
 
     public function init()
     {
-        if ( $this->description ) {
+        if ($this->description) {
             $this->description = Json::decode($this->description);
         }
 

@@ -47,7 +47,7 @@ class StructFormWidget extends Widget
 
     public function run()
     {
-        if ( !$this->model->structure ) {
+        if (!$this->model->structure) {
             Yii::error(Yii::t('exceptions', 'Error form REPORTForm Widget. GROUP:{group}, REPORT:{report}', [
                 'group' => $this->model->group_id,
                 'report' => $this->model->report_id
@@ -73,10 +73,10 @@ class StructFormWidget extends Widget
     {
         $results = [];
 
-        if ( $this->model->structure->use_union_rules ) {
+        if ($this->model->structure->use_union_rules) {
             foreach ($data as $item) {
-                if ( isset($this->constants[$item]['union_rules']) && $this->constants[$item]['union_rules'] ) {
-                    if ( str_contains('=', $this->constants[$item]['union_rules']) ) {
+                if (isset($this->constants[$item]['union_rules']) && $this->constants[$item]['union_rules']) {
+                    if (str_contains('=', $this->constants[$item]['union_rules'])) {
                         $rules = explode('=', $this->constants[$item]['union_rules']);
                         $results[$rules[0]][$rules[1]][] = $item;
                     } else {

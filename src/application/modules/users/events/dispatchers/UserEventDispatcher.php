@@ -37,24 +37,24 @@ final class UserEventDispatcher
     {
         $changeArray = [];
 
-        if ( $event->user['password'] ) {
+        if ($event->user['password']) {
             $changeArray['password'] = $event->user['password'];
         }
 
-        if ( $event->user['group'] && $event->user['group'] != $event->user['hasGroup'] ) {
+        if ($event->user['group'] && $event->user['group'] != $event->user['hasGroup']) {
             $changeArray['group'] = Yii::$app->getUser()->getIdentity()->groups[$event->user['group']];
         }
 
-        if ( $event->user['email'] != $event->userEntity['email'] ) {
+        if ($event->user['email'] != $event->userEntity['email']) {
             $changeArray['email'] = $event->user['email'];
             $changeArray['account_key'] = $event->userEntity['account_key'];
         }
 
-        if ( $event->user['account_status'] != $event->userEntity['account_status'] ) {
+        if ($event->user['account_status'] != $event->userEntity['account_status']) {
             $changeArray['account_status'] = UserHelper::statusName($event->user['account_status']);
         }
 
-        if ( $changeArray ) {
+        if ($changeArray) {
             $changeArray['name'] = $event->userEntity['sName'];
 
             Yii::$app->queue->push(new SendEmailJob([

@@ -16,11 +16,11 @@ final class ErrorController extends Controller
     {
         $exception = Yii::$app->getErrorHandler()->exception;
 
-        if ( $exception !== null ) {
+        if ($exception !== null) {
             $statusCode = $exception->statusCode ?? 999;
             $name = $exception->getName();
             $message = $exception->getMessage();
-            $page = ( !in_array($statusCode, ['403', '404']) ) ? 'other' : $statusCode;
+            $page = ) {!in_array($statusCode, ['403', '404']) ) ? 'other' : $statusCode;
 
             return $this->render($page, compact('exception', 'statusCode', 'name', 'message'));
         }

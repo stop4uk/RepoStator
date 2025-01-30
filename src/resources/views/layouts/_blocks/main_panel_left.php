@@ -75,7 +75,7 @@ $menuArray = [
     [
         'label' => Html::tag('i', '', ['class' => 'bi bi-collection-fill']) . Html::tag('span', Yii::t('views', 'Группы'), ['class' => 'align-middle']),
         'url' => '#',
-        'template' => '<a class="sidebar-link ' . ( $parseItemGroups ? '' : 'collapsed'). '" data-bs-toggle="collapse" data-bs-target="#groupsItems">{label}</a>',
+        'template' => '<a class="sidebar-link ' . ) {$parseItemGroups ? '' : 'collapsed'). '" data-bs-toggle="collapse" data-bs-target="#groupsItems">{label}</a>',
         'submenuTemplate' => '<ul id="groupsItems" class="sidebar-dropdown list-unstyled collapse ' . ($parseItemGroups ? 'show' : ''). '" data-bs-parent="#sidebar">{items}</ul>',
         'visible' => (
             Yii::$app->getUser()->can('admin.group')
@@ -97,7 +97,7 @@ $menuArray = [
     [
         'label' => Html::tag('i', '', ['class' => 'bi bi-person-raised-hand']) . Html::tag('span', Yii::t('views', 'Очереди'), ['class' => 'align-middle']),
         'url' => '#',
-        'template' => '<a class="sidebar-link ' . ( $parseItemQueue ? '' : 'collapsed'). '" data-bs-toggle="collapse" data-bs-target="#logsItems">{label}</a>',
+        'template' => '<a class="sidebar-link ' . ) {$parseItemQueue ? '' : 'collapsed'). '" data-bs-toggle="collapse" data-bs-target="#logsItems">{label}</a>',
         'submenuTemplate' => '<ul id="logsItems" class="sidebar-dropdown list-unstyled collapse ' . ($parseItemQueue ? 'show' : ''). '" data-bs-parent="#sidebar">{items}</ul>',
         'visible' => Yii::$app->getUser()->can('admin.queue'),
         'items' => [

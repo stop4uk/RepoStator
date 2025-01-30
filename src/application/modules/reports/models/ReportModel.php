@@ -60,15 +60,15 @@ final class ReportModel extends BaseModel
 
     public function init()
     {
-        if ( $this->groups_only ) {
+        if ($this->groups_only) {
             $this->groups_only = CommonHelper::explodeField($this->groups_only);
         }
 
-        if ( $this->groups_required ) {
+        if ($this->groups_required) {
             $this->groups_required = CommonHelper::explodeField($this->groups_required);
         }
 
-        if ( $this->description ) {
+        if ($this->description) {
             $this->description = Json::decode($this->description);
         }
 
@@ -129,7 +129,7 @@ final class ReportModel extends BaseModel
 
     public function checkCanSentList()
     {
-        if ( $this->groups_only ) {
+        if ($this->groups_only) {
             foreach ($this->groups_only as $group) {
                 if (
                     !in_array($group, array_keys($this->groupsCanSent))
@@ -144,7 +144,7 @@ final class ReportModel extends BaseModel
             }
         }
 
-        if ( $this->groups_required ) {
+        if ($this->groups_required) {
             foreach ($this->groups_required as $group) {
                 if (
                     !in_array($group, array_keys($this->groupsCanSent))

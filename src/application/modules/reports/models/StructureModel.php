@@ -75,21 +75,21 @@ final class StructureModel extends BaseModel
 
     public function init()
     {
-        if ( $this->content ) {
+        if ($this->content) {
             $arrayData = Json::decode($this->content);
             $this->contentGroups = $arrayData['groups'];
             $this->contentConstants = $arrayData['constants'];
         }
 
-        if ( $this->groups_only ) {
+        if ($this->groups_only) {
             $this->groups_only = CommonHelper::explodeField($this->groups_only);
         }
 
-        if ( !$this->isNewEntity && $this->groups_only) {
+        if (!$this->isNewEntity && $this->groups_only) {
             $reportData = ReportRepository::get($this->report_id);
-            if ( $reportData->groups_only ) {
-                foreach ($this->groups as $group => $name ) {
-                    if ( !in_array($group, CommonHelper::explodeField($reportData->groups_only)) ) {
+            if ($reportData->groups_only) {
+                foreach ($this->groups as $group => $name) {
+                    if (!in_array($group, CommonHelper::explodeField($reportData->groups_only))) {
                         unset($this->groups[$group]);
                     }
                 }
@@ -134,8 +134,8 @@ final class StructureModel extends BaseModel
 
     public function checkGroups($attribute)
     {
-        if ( $this->groups_only ) {
-            if ( $this->report_id ) {
+        if ($this->groups_only) {
+            if ($this->report_id) {
                 $reportData = ReportRepository::get($this->report_id);
             }
 
@@ -151,8 +151,8 @@ final class StructureModel extends BaseModel
                     break;
                 }
 
-                if ( isset($reportData) && $reportData->groups_only ) {
-                    if ( !in_array($group, CommonHelper::explodeField($reportData->groups_only)) ) {
+                if (isset($reportData) && $reportData->groups_only) {
+                    if (!in_array($group, CommonHelper::explodeField($reportData->groups_only))) {
                         $this->addError('groups_only', Yii::t('models_error', 'Одна из указанных групп, а именно, ' .
                             '"{name}", не может быть выбрана, так как отчет, для которого строится структура не поддерживает ее.', [
                             'name' => $this->groups[$group]
@@ -162,7 +162,7 @@ final class StructureModel extends BaseModel
             }
         }
 
-        if ( $this->report_id ) {
+        if ($this->report_id) {
             $allowStructures = StructureRepository::getAllow(
                 reports: [$this->report_id => $this->report_id],
                 groups: $this->groups
@@ -172,9 +172,9 @@ final class StructureModel extends BaseModel
             )->all();
             $resultQuery = ['empty' => 0, 'withOnly' => []];
 
-            if ( $structuresList ) {
-                foreach ( $structuresList as $structure ) {
-                    if ( !$structure->groups_only ) {
+            if ($structuresList) {
+                foreach ) {$structuresList as $structure) {
+                    if (!$structure->groups_only) {
                         $resultQuery['empty']++;
                         continue;
                     }
@@ -201,7 +201,7 @@ final class StructureModel extends BaseModel
 
                     $haveGroups = array_unique($haveGroups);
                     foreach ($this->groups_only as $group) {
-                        if ( in_array($group, $haveGroups) ) {
+                        if (in_array($group, $haveGroups)) {
                             $this->addError($attribute, Yii::t('models_error', 'Для группы "{name}" уже есть ' .
                                 'активная структура', ['name' => $this->groups[$group] ?? $group]));
 
@@ -215,8 +215,8 @@ final class StructureModel extends BaseModel
 
     public function checkContentGroups()
     {
-        if ( count($this->contentGroups) > 1 ) {
-            if ( in_array("", $this->contentGroups) ) {
+        if (count($this->contentGroups) > 1) {
+            if (in_array("", $this->contentGroups)) {
                 $this->addError("contentGroups", Yii::t('models_error', 'В Вашей структуре несколько ' .
                     'разделов, а значит каждый из них должен быть именован'));
             }
@@ -224,7 +224,7 @@ final class StructureModel extends BaseModel
             $uniqueItems = array_unique($this->contentGroups);
             $nonUniqueItems = array_values(array_diff_assoc($this->contentGroups, $uniqueItems));
 
-            if ( $nonUniqueItems ) {
+            if ($nonUniqueItems) {
                 $this->addError('contentGroups', Yii::t('models_error', 'Названия разделов в стуктуре ' .
                     'должны быть уникальными'));
             }
@@ -236,7 +236,7 @@ final class StructureModel extends BaseModel
         $haveError = false;
 
         foreach ($this->contentConstants as $constants) {
-            if ( is_string($constants) ) {
+            if (is_string($constants)) {
                 $haveError = true;
                 $this->addError("contentConstants", Yii::t('models_error', 'Заполните содержимое ' .
                     'раздела в структуре или, удалите раздел'));
@@ -245,17 +245,17 @@ final class StructureModel extends BaseModel
             }
         }
 
-        if ( $haveError ) {
+        if ($haveError) {
             return false;
         }
 
         foreach ($this->contentConstants as $key => $constants) {
-            if ( !is_array($constants) ) {
+            if (!is_array($constants)) {
                 continue;
             }
 
             foreach ($constants as $constant) {
-                if ( !is_string($constant) ) {
+                if (!is_string($constant)) {
                     $haveError = true;
                     $this->addError("contentConstants", Yii::t('models_error', 'В структуре {id} ' .
                         'присутствует неверная константа', ['id' => $key]));
@@ -264,7 +264,7 @@ final class StructureModel extends BaseModel
                 }
             }
 
-            if ( !$haveError && count($this->contentConstants) > 1 ) {
+            if (!$haveError && count($this->contentConstants) > 1) {
                 $constantArray = (new \ArrayObject($this->contentConstants))->getArrayCopy();
                 unset($constantArray[$key]);
 
@@ -274,7 +274,7 @@ final class StructureModel extends BaseModel
                 });
 
                 foreach ($constants as $constant) {
-                    if ( in_array($constant, $checkConstants) ) {
+                    if (in_array($constant, $checkConstants)) {
                         $this->addError("contentConstants", Yii::t('models_error', 'В некоторых структурах ' .
                             'есть повторяющиеся константы'));
 
@@ -297,7 +297,7 @@ final class StructureModel extends BaseModel
 
     public function getFieldsForStructures(): array
     {
-        if ( $this->isNewEntity ) {
+        if ($this->isNewEntity) {
             return [$this];
         }
 
@@ -306,7 +306,7 @@ final class StructureModel extends BaseModel
 
         $data = [];
         foreach ($cloneModel->attributes as $key => $value) {
-            if ( !in_array($key, $notCleanAttributes) ) {
+            if (!in_array($key, $notCleanAttributes)) {
                 $cloneModel->{$key} = null;
             }
         }

@@ -61,7 +61,7 @@ $form = ActiveForm::begin([
         </div>
 
 
-        <?php if ( Yii::$app->getUser()->can('admin') ): ?>
+        <?php if ) {Yii::$app->getUser()->can('admin') ): ?>
             <div class="col-12">
                 <?= $form->field($model, 'rights')->widget(Select2::class, [
                     'data' => $model->allowRights,

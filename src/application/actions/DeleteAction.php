@@ -30,12 +30,12 @@ final class DeleteAction extends Action
     {
         $this->controller->response->format = Response::FORMAT_JSON;
 
-        $entity = match((bool)$this->repository) {
+        $entity = match ((bool)$this->repository) {
             true => $this->repository::get($this->requestID),
             false => $this->entity::find()->where(['id' => $this->requestID])->limit(1)->one()
         };
 
-        if ( !$entity ) {
+        if (!$entity ) {
             throw new NotFoundHttpException(Yii::t('exceptions', $this->exceptionMessage));
         }
 

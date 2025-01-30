@@ -36,7 +36,7 @@ final class LogSearch extends LogEntity
             ],
         ]);
 
-        if ( !($this->load($params) && $this->validate()) ) {
+        if (!($this->load($params) && $this->validate())) {
             return $dataProvider;
         }
 
@@ -45,7 +45,7 @@ final class LogSearch extends LogEntity
             ->andFilterWhere(['like', 'prefix', $this->prefix])
             ->andFilterWhere(['like', 'message', $this->message]);
 
-        if ( $this->log_time ) {
+        if ($this->log_time) {
             $timePeriod = array_map(fn($value) => strtotime($value), explode(' - ', $this->log_time));
             $query->andFilterWhere(['BETWEEN', 'log_time', $timePeriod[0], $timePeriod[1]]);
         }

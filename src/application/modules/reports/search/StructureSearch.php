@@ -90,7 +90,7 @@ final class StructureSearch extends Model
             ],
         ]);
 
-        if ( !($this->load($params) && $this->validate()) ) {
+        if (!($this->load($params) && $this->validate())) {
             return $this->cleanData($dataProvider);
         }
 
@@ -99,7 +99,7 @@ final class StructureSearch extends Model
             ->andFilterWhere(['=', 'use_union_rules', CommonHelper::getFilterReplace($this->use_union_rules)]);
 
 
-        if ( $this->hasGroup ) {
+        if ($this->hasGroup) {
             $query->andFilterWhere(['REGEXP', 'groups_only', '\b' . $this->hasGroup . '\b']);
         }
 

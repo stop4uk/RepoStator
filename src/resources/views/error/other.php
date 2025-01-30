@@ -21,8 +21,8 @@ use yii\bootstrap5\Html;
                     <div class="m-1 mb-0">
                         <h4 class="text-center"><?= $message; ?></h4>
                         <div class="d-grid">
-                            <?php if ( $link = Yii::$app->getRequest()->getReferrer() ) {
-                                echo Html::a( Yii::t('views', 'Назад'), $link, ['class' => 'btn btn-primary mt-3']);
+                            <?php if ) {$link = Yii::$app->getRequest()->getReferrer()) {
+                                echo Html::a) {Yii::t('views', 'Назад'), $link, ['class' => 'btn btn-primary mt-3']);
                             } ?>
                         </div>
                     </div>

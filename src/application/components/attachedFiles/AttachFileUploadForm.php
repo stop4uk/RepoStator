@@ -62,7 +62,7 @@ final class AttachFileUploadForm extends Model
     {
         if ($this->workModel === null) {
             $object = Yii::createObject($this->modelClass);
-            $this->workModel = match((bool)$this->modelKey) {
+            $this->workModel = match ((bool)$this->modelKey) {
                 true => $object
                     ->find()
                     ->where([$object->modelKey => $this->modelKey])

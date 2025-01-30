@@ -52,19 +52,19 @@ final class CommonHelper
     ): ?string {
         $path = Yii::getAlias($alias);
         $pathToDB = $alias;
-        if ( $userId ) {
+        if ($userId) {
             $pathToDB .= DIRECTORY_SEPARATOR . $userId;
             $path .= DIRECTORY_SEPARATOR . $userId;
         }
 
-        if ( !is_dir($path) ) {
+        if (!is_dir($path)) {
             mkdir($path, 0755, true);
         }
 
         $extension = $model->{$field}->extension;
         $fileName = implode('.', [Yii::$app->getSecurity()->generateRandomString(16), $extension]);
 
-        if ( $model->{$field}->saveAs($path . DIRECTORY_SEPARATOR . $fileName) ) {
+        if ($model->{$field}->saveAs($path . DIRECTORY_SEPARATOR . $fileName)) {
             return $pathToDB . DIRECTORY_SEPARATOR . $fileName;
         }
 
@@ -75,7 +75,7 @@ final class CommonHelper
     {
         $path = Yii::getAlias($path);
 
-        if ( file_exists(Yii::getAlias($path)) ) {
+        if (file_exists(Yii::getAlias($path))) {
             return FileHelper::unlink($path);
         }
 
@@ -87,9 +87,9 @@ final class CommonHelper
         $notCleanAttributes = [];
         $outCleanAttributes = array_filter($model->attributes);
 
-        if ( $outCleanAttributes ) {
+        if ($outCleanAttributes) {
             foreach ($outCleanAttributes as $attribute => $value) {
-                if ( !is_bool($model->{$attribute}) && !is_array($model->{$attribute}) ) {
+                if (!is_bool($model->{$attribute}) && !is_array($model->{$attribute})) {
                     $notCleanAttributes[$attribute] = $value;
                 }
             }
@@ -171,8 +171,8 @@ final class CommonHelper
 
     public static function getFilterReplace(int|string|null $filterCode = null): ?int
     {
-        if ( $filterCode ) {
-            return ( $filterCode == 99 ) ? 0 : $filterCode;
+        if ($filterCode) {
+            return ) {$filterCode == 99 ) ? 0 : $filterCode;
         }
 
         return null;
@@ -180,7 +180,7 @@ final class CommonHelper
 
     public static function getFilterReplaceData(array $filterData): array
     {
-        if ( isset($filterData[99]) ) {
+        if (isset($filterData[99])) {
             $filterData[99] = $filterData[0];
             unset($filterData[0]);
         }

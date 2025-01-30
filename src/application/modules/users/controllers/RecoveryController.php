@@ -50,12 +50,12 @@ final class RecoveryController extends BaseController
     {
         $model = new RecoveryForm();
 
-        if ( $this->request->isAjax && $model->load($this->request->post()) ) {
+        if ($this->request->isAjax && $model->load($this->request->post())) {
             $this->response->format = Response::FORMAT_JSON;
             return ActiveForm::validate($model);
         }
 
-        if ( $model->load($this->request->post()) && $model->validate() ) {
+        if ($model->load($this->request->post()) && $model->validate()) {
             try {
                 $this->service->recovery($model, $this->request);
 
@@ -71,12 +71,12 @@ final class RecoveryController extends BaseController
     {
         $model = new RecoveryForm($key, ['scenario' => RecoveryForm::SCENARIO_PROCESS]);
 
-        if ( $this->request->isAjax && $model->load($this->request->post()) ) {
+        if ($this->request->isAjax && $model->load($this->request->post())) {
             $this->response->format = Response::FORMAT_JSON;
             return ActiveForm::validate($model);
         }
 
-        if ( $model->load($this->request->post()) && $model->validate() ) {
+        if ($model->load($this->request->post()) && $model->validate()) {
             try {
                 $this->service->recoveryProcess($model);
 

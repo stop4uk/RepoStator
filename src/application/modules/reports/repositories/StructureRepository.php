@@ -26,11 +26,11 @@ final class StructureRepository implements BaseRepositoryInterface
     public static function get(int $id, array $relations = [], bool $active = true): ?BaseARInterface
     {
         $query = ReportStructureEntity::find()->where(['id' => $id]);
-        if ( $relations ) {
+        if ($relations) {
             $query->with($relations);
         }
 
-        if ( $active ) {
+        if ($active) {
             $query->andWhere(['record_status' => BaseAR::RSTATUS_ACTIVE]);
         }
 
@@ -40,11 +40,11 @@ final class StructureRepository implements BaseRepositoryInterface
     public static function getBy(array $condition, array $relations = [], bool $active = true): ?BaseARInterface
     {
         $query = ReportStructureEntity::find()->where($condition);
-        if ( $relations ) {
+        if ($relations) {
             $query->with($relations);
         }
 
-        if ( $active ) {
+        if ($active) {
             $query->andWhere(['record_status' => BaseAR::RSTATUS_ACTIVE]);
         }
 
@@ -54,15 +54,15 @@ final class StructureRepository implements BaseRepositoryInterface
     public static function getAll(array $relations = [], bool $asArray = false, bool $active = true): ActiveQuery|array
     {
         $query = ReportStructureEntity::find();
-        if ( $relations ) {
+        if ($relations) {
             $query->with($relations);
         }
 
-        if ( $active ) {
+        if ($active) {
             $query->where(['record_status' => BaseAR::RSTATUS_ACTIVE]);
         }
 
-        if ( $asArray ) {
+        if ($asArray) {
             return ArrayHelper::map($query->all(), 'id', 'name');
         }
 
@@ -72,15 +72,15 @@ final class StructureRepository implements BaseRepositoryInterface
     public static function getAllBy(array $condition, array $relations = [], bool $asArray = false, bool $active = true): ActiveQuery|array
     {
         $query = ReportStructureEntity::find()->where($condition);
-        if ( $relations ) {
+        if ($relations) {
             $query->with($relations);
         }
 
-        if ( $active ) {
+        if ($active) {
             $query->andWhere(['record_status' => BaseAR::RSTATUS_ACTIVE]);
         }
 
-        if ( $asArray ) {
+        if ($asArray) {
             return ArrayHelper::map($query->all(), 'id', 'name');
         }
 
@@ -108,7 +108,7 @@ final class StructureRepository implements BaseRepositoryInterface
             ]
         ];
 
-        if ( $groupsParent = Yii::$app->getUser()->getIdentity()->groupsParent ) {
+        if ($groupsParent = Yii::$app->getUser()->getIdentity()->groupsParent) {
             $condition[] = [
                 'and',
                 ['in', 'created_gid', $groupsParent],
@@ -125,11 +125,11 @@ final class StructureRepository implements BaseRepositoryInterface
         $query = ReportStructureEntity::find()
             ->where($condition);
 
-        if ( $active ) {
+        if ($active) {
             $query->andWhere(['record_status' => BaseAR::RSTATUS_ACTIVE]);
         }
 
-        if ( $asQuery ) {
+        if ($asQuery) {
             return $query;
         }
 
@@ -140,15 +140,15 @@ final class StructureRepository implements BaseRepositoryInterface
     {
         $structures = self::getAllBy(['report_id' => $report])->all();
 
-        if ( $structures ) {
+        if ($structures) {
             foreach ($structures as $struct) {
-                if ( $struct->groups_only && in_array($group, CommonHelper::explodeField($struct->groups_only)) ) {
+                if ($struct->groups_only && in_array($group, CommonHelper::explodeField($struct->groups_only))) {
                     return $struct;
                 }
             }
 
             foreach ($structures as $struct) {
-                if ( !$struct->groups_only ) {
+                if (!$struct->groups_only) {
                     return $struct;
                 }
             }

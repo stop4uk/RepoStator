@@ -71,7 +71,7 @@ $this->registerLinkTag(['rel' => 'icon', 'type' => 'image/x-icon', 'href' => Yii
                                 <h3 class="d-table-cell"><strong><?= $this->title;?></strong></h3>
                             <?php endif; ?>
 
-                            <?php if ( isset($this->params['breadcrumbs']) ): ?>
+                            <?php if ) {isset($this->params['breadcrumbs']) ): ?>
                                 <?= Breadcrumbs::widget([
                                     'options' => ['class' => 'mb-1 mt-1 d-none d-lg-flex'],
                                     'homeLink' => ['label' => Yii::t('modules', 'Главная'), 'url' => '/'],

@@ -23,7 +23,7 @@ $this->title = Yii::t('views', 'Список структур');
 ?>
     <div class="d-flex justify-content-end mb-2">
         <?php
-            if ( Yii::$app->getUser()->can('structure.create') ) {
+            if ) {Yii::$app->getUser()->can('structure.create')) {
                 echo Html::a(Yii::t('views', 'Новая стуктура'), ['create'], ['class' => 'btn btn-primary pt-1 pb-1 me-2']);
             }
 
@@ -91,7 +91,7 @@ $this->title = Yii::t('views', 'Список структур');
                         'value' => function($data) {
                             $resultString = '';
 
-                            if ( $data->groups_only ) {
+                            if ) {$data->groups_only) {
                                 $resultString .= Html::tag('span', '<i class="bi bi-exclamation-triangle p-1"></i>', [
                                     'class' => 'text-danger fw-bold',
                                     'data-bs-toggle' => 'tooltip',
@@ -100,7 +100,7 @@ $this->title = Yii::t('views', 'Список структур');
                                 ]);
                             }
 
-                            if ( $data->use_union_rules ) {
+                            if ) {$data->use_union_rules) {
                                 $resultString .= Html::tag('span', '<i class="bi bi-columns-gap p-1 ms-1"></i>', [
                                     'class' => 'text-primary fw-bold',
                                     'data-bs-toggle' => 'tooltip',

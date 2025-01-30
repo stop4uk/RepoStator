@@ -67,12 +67,12 @@ final class ProfileController extends BaseController
             'allModels' => $entity->emailChanges
         ]);
 
-        if ( $this->request->isAjax && $model->load($this->request->post()) ) {
+        if ($this->request->isAjax && $model->load($this->request->post())) {
             $this->response->format = Response::FORMAT_JSON;
             return ActiveForm::validate($model);
         }
 
-        if ( $model->load($this->request->post()) && $model->validate() ) {
+        if ($model->load($this->request->post()) && $model->validate()) {
             try {
                 $this->service->save(
                     model: $model,
@@ -92,12 +92,12 @@ final class ProfileController extends BaseController
     {
         $form = new UserEmailChangeForm();
 
-        if ( $this->request->isAjax && $form->load($this->request->post()) ) {
+        if ($this->request->isAjax && $form->load($this->request->post())) {
             $this->response->format = Response::FORMAT_JSON;
             return ActiveForm::validate($form);
         }
 
-        if ( $form->load($this->request->post()) && $form->validate() ) {
+        if ($form->load($this->request->post()) && $form->validate()) {
             try {
                 $this->service->changeEmail($form);
 
@@ -126,12 +126,12 @@ final class ProfileController extends BaseController
         $this->layout='clear';
         $form = new UserPasswordChangeForm();
 
-        if ( $this->request->isAjax && $form->load($this->request->post()) ) {
+        if ($this->request->isAjax && $form->load($this->request->post())) {
             $this->response->format = Response::FORMAT_JSON;
             return ActiveForm::validate($form);
         }
 
-        if ( $form->load($this->request->post()) && $form->validate() ) {
+        if ($form->load($this->request->post()) && $form->validate()) {
             $entity = $this->findEntity(true);
 
             try {
@@ -157,7 +157,7 @@ final class ProfileController extends BaseController
             : ['rights', 'sessions', 'lastAuth', 'emailChanges']
         );
 
-        if ( $query !== null) {
+        if ($query !== null) {
             return $query;
         }
 

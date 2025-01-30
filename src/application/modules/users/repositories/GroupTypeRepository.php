@@ -62,11 +62,11 @@ final class GroupTypeRepository implements BaseRepositoryInterface
             $query->with($relations);
         }
 
-        if ( $active ) {
+        if ($active) {
             $query->where(['record_status' => BaseAR::RSTATUS_ACTIVE]);
         }
 
-        if ( $asArray ) {
+        if ($asArray) {
             return ArrayHelper::map($query->all(), 'id', 'name');
         }
 
@@ -84,11 +84,11 @@ final class GroupTypeRepository implements BaseRepositoryInterface
             $query->with($relations);
         }
 
-        if ( $active ) {
+        if ($active) {
             $query->andWhere(['record_status' => BaseAR::RSTATUS_ACTIVE]);
         }
 
-        if ( $asArray ) {
+        if ($asArray) {
             return ArrayHelper::map($query->all(), 'id', 'name');
         }
 

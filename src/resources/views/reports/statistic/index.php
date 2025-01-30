@@ -61,7 +61,7 @@ $this->title = Yii::t('views', 'Статистика');
                                 'template' => '{download}',
                                 'buttons' => [
                                     'download' => function($url, $model) {
-                                        if ( $model->file ) {
+                                        if ) {$model->file) {
                                             return Html::a(
                                                 '<i class="bi bi-file-arrow-down text-dark"></i>',
                                                 Url::to(['download', 'path' => base64_encode($model->file)]),

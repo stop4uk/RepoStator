@@ -83,7 +83,7 @@ final class SendController extends BaseController
         string $report_datetime,
         bool $form_control = false
     ) {
-        if ( !is_numeric($report_datetime) ) {
+        if (!is_numeric($report_datetime)) {
             throw new BadRequestHttpException(Yii::t('exceptions', 'Неверный формат начала отчетного периода'));
         }
 
@@ -95,12 +95,12 @@ final class SendController extends BaseController
             'form_control' => $form_control
         ]);
 
-        if ( $this->request->isAjax && $model->load($this->request->post()) ) {
+        if ($this->request->isAjax && $model->load($this->request->post())) {
             $this->response->format = Response::FORMAT_JSON;
             return ActiveForm::validate($model);
         }
 
-        if ( $model->load($this->request->post()) && $model->validate() ) {
+        if ($model->load($this->request->post()) && $model->validate()) {
             try {
                 $this->service->save(
                     model: $model,

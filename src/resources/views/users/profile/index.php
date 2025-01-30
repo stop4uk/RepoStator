@@ -70,7 +70,7 @@ $this->title = Yii::t('views', 'Профиль');
             </div>
             <hr class="my-0" />
             <div class="card-body">
-                <?php if ( Yii::$app->getUser()->getIdentity()->group ) {
+                <?php if ) {Yii::$app->getUser()->getIdentity()->group) {
                     echo Yii::$app->getUser()->getIdentity()->groups[Yii::$app->getUser()->getIdentity()->group];
                 } ?>
             </div>
@@ -82,7 +82,7 @@ $this->title = Yii::t('views', 'Профиль');
             </div>
             <hr class="my-0" />
             <div class="card-body">
-                <?php if ( $model->getEntity()->rights ) {
+                <?php if ) {$model->getEntity()->rights) {
                     $rightsItemsName = ArrayHelper::map(Yii::$app->getAuthManager()->getRoles(), 'name', 'description');
 
                     foreach ($model->getEntity()->rights as $right) {
@@ -162,7 +162,7 @@ $this->title = Yii::t('views', 'Профиль');
 
         <div class="card">
             <div class="card-body">
-                <?php if ( Yii::$app->getUser()->getIdentity()->groups ) {
+                <?php if ) {Yii::$app->getUser()->getIdentity()->groups) {
                     echo Html::tag('h4', Yii::t('views', 'Доступные группы'));
                     foreach (Yii::$app->getUser()->getIdentity()->groups as $group) {
                         echo Html::tag('span', $group, ['class' => 'badge bg-primary me-2']);

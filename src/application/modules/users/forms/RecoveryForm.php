@@ -45,7 +45,7 @@ final class RecoveryForm extends Model
     public function rules(): array
     {
         $filterStatuses = [UserEntity::STATUS_ACTIVE];
-        if ( !Yii::$app->settings->get('auth', 'login_withoutVerification') ) {
+        if (!Yii::$app->settings->get('auth', 'login_withoutVerification')) {
             $filterStatuses[] = UserEntity::STATUS_WAITCONFIRM;
         }
 
@@ -91,18 +91,18 @@ final class RecoveryForm extends Model
 
     public function checkUser()
     {
-        if ( $this->hasErrors() ) {
+        if ($this->hasErrors()) {
             return false;
         }
 
-        if ( !$user = $this->getUser() ) {
+        if (!$user = $this->getUser()) {
             $this->addError('password', Yii::t('models_error', 'Пользователь с таким ключем восстановления отсутствует'));
         }
     }
 
     public function afterValidate(): void
     {
-        if ( $this->scenario == self::SCENARIO_PROCESS && !$this->hasErrors() ) {
+        if ($this->scenario == self::SCENARIO_PROCESS && !$this->hasErrors()) {
             $this->password = UserHelper::generatePassword($this->password);
         }
 
@@ -111,7 +111,7 @@ final class RecoveryForm extends Model
 
     private function getUser(): ?UserEntity
     {
-        if ( $this->_user === null ) {
+        if ($this->_user === null) {
             $this->_user = UserRepository::getBy(['account_key' => $this->authKey]);
         }
 

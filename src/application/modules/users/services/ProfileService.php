@@ -54,7 +54,7 @@ final class ProfileService extends BaseService
             ->one();
 
         $entity->updated_at = time();
-        if ( $entity->softDelete() ) {
+        if ($entity->softDelete()) {
             return true;
         }
 

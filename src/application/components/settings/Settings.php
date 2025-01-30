@@ -21,7 +21,7 @@ final class Settings extends Component
     public function init()
     {
         parent::init();
-        if ( !empty($this->preLoad) ) {
+        if (!empty($this->preLoad)) {
             $this->load($this->preLoad);
         }
     }
@@ -71,7 +71,7 @@ final class Settings extends Component
             }
         }
 
-        if (empty($categories) ) {
+        if (empty($categories)) {
             return;
         }
 
@@ -89,7 +89,7 @@ final class Settings extends Component
                 ->all();
         } catch (\Throwable $throwable) {}
 
-        if ( isset($result) ) {
+        if (isset($result)) {
             foreach ($result as $row) {
                 try {
                     $this->items[$row['category']][$row['key']] = Json::decode($row['value']);

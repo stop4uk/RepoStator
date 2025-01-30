@@ -70,7 +70,7 @@ final class AttachFileWidget extends Widget
 
     public function run(): void
     {
-        $viewTemplate = match($this->workMode) {
+        $viewTemplate = match ($this->workMode) {
             self::MODE_MANY => 'many',
             self::MODE_ONE => 'one'
         };

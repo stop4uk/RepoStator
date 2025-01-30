@@ -35,7 +35,7 @@ class BaseModel extends Model implements BaseModelInterface
     {
         $string = 'record_status = ' . BaseAR::RSTATUS_ACTIVE;
 
-        if ( $considerID && !$this->getIsNewEntity() ) {
+        if ($considerID && !$this->getIsNewEntity()) {
             $string .= ' AND id != ' . $this->entity->id;
         }
 

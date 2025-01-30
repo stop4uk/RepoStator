@@ -20,11 +20,11 @@ final class DataRepository implements BaseRepositoryInterface
     public static function get(int $id, array $relations = [], bool $active = true): ?BaseARInterface
     {
         $query = ReportDataEntity::find()->where(['id' => $id]);
-        if ( $relations ) {
+        if ($relations) {
             $query->with($relations);
         }
 
-        if ( $active ) {
+        if ($active) {
             $query->andWhere(['record_status' => BaseAR::RSTATUS_ACTIVE]);
         }
 
@@ -34,11 +34,11 @@ final class DataRepository implements BaseRepositoryInterface
     public static function getBy(array $condition, array $relations = [], bool $active = true): ?BaseARInterface
     {
         $query = ReportDataEntity::find()->where($condition);
-        if ( $relations ) {
+        if ($relations) {
             $query->with($relations);
         }
 
-        if ( $active ) {
+        if ($active) {
             $query->andWhere(['record_status' => BaseAR::RSTATUS_ACTIVE]);
         }
 
@@ -48,11 +48,11 @@ final class DataRepository implements BaseRepositoryInterface
     public static function getAll(array $relations = [], bool $asArray = false, bool $active = true): ActiveQuery|array
     {
         $query = ReportDataEntity::find();
-        if ( $relations ) {
+        if ($relations) {
             $query->with($relations);
         }
 
-        if ( $active ) {
+        if ($active) {
             $query->where(['record_status' => BaseAR::RSTATUS_ACTIVE]);
         }
 
@@ -62,11 +62,11 @@ final class DataRepository implements BaseRepositoryInterface
     public static function getAllBy(array $condition, array $relations = [], bool $asArray = false, bool $active = true): ActiveQuery|array
     {
         $query = ReportDataEntity::find()->where($condition);
-        if ( $relations ) {
+        if ($relations) {
             $query->with($relations);
         }
 
-        if ( $active ) {
+        if ($active) {
             $query->andWhere(['record_status' => BaseAR::RSTATUS_ACTIVE]);
         }
 
@@ -81,11 +81,11 @@ final class DataRepository implements BaseRepositoryInterface
         $query = ReportDataEntity::find()
             ->where(['in', 'group_id', array_keys($groups)]);
 
-        if ( $active ) {
+        if ($active) {
             $query->andWhere(['record_status' => BaseAR::RSTATUS_ACTIVE]);
         }
 
-        if ( $asQuery ) {
+        if ($asQuery) {
             return $query;
         }
 

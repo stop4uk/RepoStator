@@ -77,7 +77,7 @@ $this->params['breadcrumbs'] = [
                 </table>
 
                 <?php
-                    if ( $model->getEntity()->record_status ) {
+                    if ) {$model->getEntity()->record_status) {
                         echo Html::a(
                             Yii::t('views', 'Изменить'),
                             Url::to(['edit', 'id' => $model->getEntity()->id, 'form_control' => true]),
@@ -109,7 +109,7 @@ $this->params['breadcrumbs'] = [
         <div class="card">
             <div class="card-body">
                 <?php
-                    if ( !$model->getEntity()->record_status ) {
+                    if ) {!$model->getEntity()->record_status) {
                         echo Html::tag('div', Yii::t('views', 'Данная запись НЕАКТИВНА'), ['class' => 'alert alert-danger text-center', 'role' => 'alert']);
                     }
 

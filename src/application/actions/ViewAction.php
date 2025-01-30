@@ -21,17 +21,17 @@ final class ViewAction extends Action
 
     public function run(): string
     {
-        $entity = match((bool)$this->repository) {
+        $entity = match ((bool)$this->repository) {
             true => $this->repository::get($this->requestID, $this->repositoryRelations, false),
             false => $this->entity::find()->where(['id' => $this->requestID])->limit(1)->one()
         };
 
-        if ( !$entity ) {
+        if (!$entity) {
             throw new NotFoundHttpException(Yii::t('exceptions', $this->exceptionMessage));
         }
 
 
-        if ( $this->model ) {
+        if ($this->model) {
             $model = new $this->model($entity);
             $returnParams = compact('model');
         } else {

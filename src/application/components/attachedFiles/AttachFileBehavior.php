@@ -61,19 +61,19 @@ final class AttachFileBehavior extends Behavior
     {
         parent::attach($owner);
 
-        if ( !$this->storageID ) {
+        if (!$this->storageID) {
             $this->storageID = AttachFileHelper::STORAGE_LOCAL;
         }
 
-        if ( !$this->modelName ) {
+        if (!$this->modelName) {
             $this->modelName = (new ReflectionClass($this->owner))->getShortName();
         }
 
-        if ( !$this->modelKey ) {
+        if (!$this->modelKey) {
             $this->modelKey = 'id';
         }
 
-        if ( !$this->attachRules ) {
+        if (!$this->attachRules) {
             $this->attachRules = [
                 'default' => [
                     'name' => 'Без категории',
@@ -199,7 +199,7 @@ final class AttachFileBehavior extends Behavior
     {
         $files = $this->getFilesInDB();
 
-        return match($useDataProvider) {
+        return match ($useDataProvider) {
             true => new ArrayDataProvider([
                 'allModels' => $files,
                 'pagination' => [
@@ -216,7 +216,7 @@ final class AttachFileBehavior extends Behavior
     ): array {
         $files = $this->getFilesInDB($type);
 
-        return match($useDataProvider) {
+        return match ($useDataProvider) {
             true => new ArrayDataProvider([
                 'allModels' => $files,
                 'pagination' => [
@@ -242,7 +242,7 @@ final class AttachFileBehavior extends Behavior
         $files = $this->getFilesInDB()
             ?: Yii::$app->getSession()->get($this->sessionKey);
 
-        if ( $files ) {
+        if ($files) {
             $countsByType = [];
             $result = [];
 
@@ -292,7 +292,7 @@ final class AttachFileBehavior extends Behavior
 
     private function getFilesInDB(string|null $type = null)
     {
-        if ( $this->filesInDB === null ) {
+        if ($this->filesInDB === null) {
             $this->filesInDB = AttachFileEntity::find()
                 ->byModel($this->modelName)
                 ->byKey($this->owner->{$this->modelKey})

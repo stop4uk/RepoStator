@@ -36,7 +36,7 @@ final class ControlCheckFullForm extends Model
 
     public function init()
     {
-        if ( !$this->reports ) {
+        if (!$this->reports) {
             $groups = RbacHelper::getAllowGroupsArray('data.list.all');
             $this->reports = ReportRepository::getAllow(
                 groups: $groups
@@ -66,7 +66,7 @@ final class ControlCheckFullForm extends Model
 
     public function validatePeriod($attribute, $value)
     {
-        if ( $value ) {
+        if ($value) {
             $validator = new DateValidator();
             $validator->format = Yii::$app->settings->get('system', 'app_language_date');
 
@@ -74,7 +74,7 @@ final class ControlCheckFullForm extends Model
                 $validator->format = Yii::$app->settings->get('system', 'app_language_dateTimeMin');
             }
 
-            if ( !$validator->validate($value) ) {
+            if (!$validator->validate($value)) {
                 $this->addError($attribute, Yii::t('models_error', 'Формат даты не соотвествует отчету'));
             }
         }
@@ -82,7 +82,7 @@ final class ControlCheckFullForm extends Model
 
     public function beforeValidate(): bool
     {
-        if ( $this->report ) {
+        if ($this->report) {
             $this->reportData = ReportRepository::get($this->report);
         }
 
@@ -91,7 +91,7 @@ final class ControlCheckFullForm extends Model
 
     public function afterValidate()
     {
-        if ( $this->period ) {
+        if ($this->period) {
             $this->period = strtotime($this->period);
         }
 
@@ -102,26 +102,26 @@ final class ControlCheckFullForm extends Model
     {
         $result = [];
 
-        if ( $this->reportData->groups_required ) {
+        if ($this->reportData->groups_required) {
             $query = ReportDataEntity::find()
                 ->where([
                     'record_status' => BaseAR::RSTATUS_ACTIVE,
                     'group_id' => array_keys(Yii::$app->getUser()->getIdentity()->groups)
                 ]);
 
-            if ( $this->reportData->left_period ) {
+            if ($this->reportData->left_period) {
                 $query->andFilterWhere(['BETWEEN', 'report_datetime', $this->period, ($this->period + ($this->reportData->left_period * 60))]);
             } else {
                 $query->andFilterWhere(['=', 'DATE_FORMAT(FROM_UNIXTIME(report_datetime), "%Y-%m-%d")', date('Y-m-d', $this->period)]);
             }
 
-            if ( $resultQuery = $query->all() ) {
+            if ($resultQuery = $query->all()) {
                 $allowGroups = Yii::$app->getUser()->getIdentity()->groups;
                 $requiredGroups = CommonHelper::explodeField($this->reportData->groups_required);
                 $haveReports = ArrayHelper::map($resultQuery, 'id', 'group_id');
 
-                foreach ( $requiredGroups as $group ) {
-                    if ( !in_array($group, $haveReports) &&  isset($allowGroups[$group]) ) {
+                foreach ) {$requiredGroups as $group) {
+                    if (!in_array($group, $haveReports) &&  isset($allowGroups[$group])) {
                         $result[] = $allowGroups[$group];
                     }
                 }

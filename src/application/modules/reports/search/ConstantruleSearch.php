@@ -104,7 +104,7 @@ final class ConstantruleSearch extends Model
             ],
         ]);
 
-        if ( !($this->load($params) && $this->validate()) ) {
+        if (!($this->load($params) && $this->validate())) {
             return $this->cleanData($dataProvider);
         }
 
@@ -113,7 +113,7 @@ final class ConstantruleSearch extends Model
             ->andFilterWhere(['like', 'rule', $this->hasConstant])
             ->andFilterWhere(['=', 'report_id', $this->limitReport]);
 
-        if ( $this->limitReport ) {
+        if ($this->limitReport) {
             $query->andFilterWhere(['REGEXP', 'groups_only', '\b' . $this->limitGroup . '\b']);
         }
 

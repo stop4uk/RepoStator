@@ -53,7 +53,7 @@ final class UserGroupRepository implements BaseRepositoryInterface
             $query->with($relations);
         }
 
-        if ( $asArray ) {
+        if ($asArray) {
             return ArrayHelper::map($query->all(), 'id', 'user_id');
         }
 

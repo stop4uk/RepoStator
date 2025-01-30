@@ -56,12 +56,12 @@ final class AuthController extends BaseController
     {
         $model = new LoginForm();
 
-        if ( $this->request->isAjax && $model->load($this->request->post()) ) {
+        if ($this->request->isAjax && $model->load($this->request->post())) {
             $this->response->format = Response::FORMAT_JSON;
             return ActiveForm::validate($model);
         }
 
-        if ( $model->load($this->request->post()) && $model->validate() ) {
+        if ($model->load($this->request->post()) && $model->validate()) {
             try {
                 $this->service->login($model, $this->request);
                 return $this->goHome();
@@ -73,24 +73,24 @@ final class AuthController extends BaseController
 
     public function actionRegister(): array|string|Response
     {
-        if ( !Yii::$app->settings->get('auth', 'register_enableMain') ) {
+        if (!Yii::$app->settings->get('auth', 'register_enableMain')) {
             $this->setMessage('error', Yii::t('notifications', 'Самостоятельная регистрация выключена. Пожалуйста, обратитесь к Вашему администратору'));
             return $this->goHome();
         }
 
         $model = new RegisterForm();
 
-        if ( $this->request->isAjax && $model->load($this->request->post()) ) {
+        if ($this->request->isAjax && $model->load($this->request->post())) {
             $this->response->format = Response::FORMAT_JSON;
             return ActiveForm::validate($model);
         }
 
-        if ( $model->load($this->request->post()) && $model->validate() ) {
+        if ($model->load($this->request->post()) && $model->validate()) {
             try {
                 $this->service->register($model, $this->request);
                 $message = 'Регистрация успешно завершена. ';
 
-                if ( !Yii::$app->settings->get('auth', 'login_withoutVerification') ) {
+                if (!Yii::$app->settings->get('auth', 'login_withoutVerification')) {
                     $message .= 'Пожалуйста, перейдите по ссылке в письме для подтверждения Email адреса';
                 }
 

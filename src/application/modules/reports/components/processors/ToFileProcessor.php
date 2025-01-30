@@ -67,7 +67,7 @@ class ToFileProcessor extends BaseProcessor implements BaseProcessorInterface
     {
         $process = $this->getSpreadsheet();
 
-        if ( $this->template->table_template ) {
+        if ($this->template->table_template) {
             $process
                 ->getIndicatorsFromFile()
                 ->getDataFromDB()
@@ -90,7 +90,7 @@ class ToFileProcessor extends BaseProcessor implements BaseProcessorInterface
 
     private function getSpreadsheet(): static
     {
-        if ( $this->template->table_template ) {
+        if ($this->template->table_template) {
             $file = Yii::getAlias($this->template->table_template);
 
             $this->extension = pathinfo($file, PATHINFO_EXTENSION);
@@ -139,7 +139,7 @@ class ToFileProcessor extends BaseProcessor implements BaseProcessorInterface
             alignVertical: Alignment::VERTICAL_CENTER
         );
 
-        if ( $this->template->form_datetime == $this->template::REPORT_DATETIME_PERIOD ) {
+        if ($this->template->form_datetime == $this->template::REPORT_DATETIME_PERIOD) {
             $this->sheet->setCellValue('A2', $this->form->period . ($this->template->use_appg ? Yii::t('views', ' с АППГ') : ''))->mergeCells("A2:{$this->sheet->getHighestColumn()}2");
             $this->setStyle(
                 coords: [1, 2],
@@ -148,7 +148,7 @@ class ToFileProcessor extends BaseProcessor implements BaseProcessorInterface
             );
         }
 
-        if ( $this->periodDays ) {
+        if ($this->periodDays) {
             $this->sheet->setCellValue(
                 coordinate: "A3",
                 value: Yii::t('views', 'Период расчета: {periodDesc}. Правила расчета: {rules}', [
@@ -189,12 +189,12 @@ class ToFileProcessor extends BaseProcessor implements BaseProcessorInterface
     {
         $rowID = $rowStart = ($this->sheet->getHighestRow()+1);
 
-        if ( $this->template->table_type == $this->template::REPORT_TABLE_TYPE_CONST ) {
+        if ($this->template->table_type == $this->template::REPORT_TABLE_TYPE_CONST) {
             $arrayForForeach = $this->periodDays ?: $this->indicatorsContent;
 
-            if ( $this->template->use_grouptype ) {
-                foreach ($this->groupsTypeContent as $groupTypeID => $groupTypeData ) {
-                    if ( $groupTypeData['groups'] ) {
+            if ($this->template->use_grouptype) {
+                foreach ($this->groupsTypeContent as $groupTypeID => $groupTypeData) {
+                    if ($groupTypeData['groups']) {
                         foreach ($groupTypeData['groups'] as $groupID => $groupName) {
                             $columnID = 1;
                             $this->sheet->setCellValue([$columnID, $rowID], $groupName);
@@ -272,7 +272,7 @@ class ToFileProcessor extends BaseProcessor implements BaseProcessorInterface
             }
 
             $rowsData = $this->periodDays ?: $indicatorsNames;
-            foreach ($rowsData as $key => $value ) {
+            foreach ($rowsData as $key => $value) {
                 $columnID = 1;
                 $this->sheet->setCellValue([$columnID, $rowID], is_array($value) ? $value['name'] : $value);
 
@@ -280,7 +280,7 @@ class ToFileProcessor extends BaseProcessor implements BaseProcessorInterface
                     $columnID++;
                     $this->sheet->setCellValue([$columnID, $rowID], ($this->calculateCounters['now'][$group][$key] ?? 0));
 
-                    if ( $this->template->use_appg ) {
+                    if ($this->template->use_appg) {
                         $columnID++;
                         $this->sheet->setCellValue([$columnID, $rowID], ($this->calculateCounters['appg'][$group][$key] ?? 0));
                     }
@@ -305,7 +305,7 @@ class ToFileProcessor extends BaseProcessor implements BaseProcessorInterface
                     color: '34ADEB',
                 );
 
-                if ( $this->template->use_appg ) {
+                if ($this->template->use_appg) {
                     $columnID++;
                     $this->sheet->setCellValue([$columnID, $rowID], ($this->calculateCounters['appg'][$group] ?? 0));
                     $this->setStyle(
@@ -341,12 +341,12 @@ class ToFileProcessor extends BaseProcessor implements BaseProcessorInterface
             $cellIterator->setIterateOnlyExistingCells(true);
 
             foreach ($cellIterator as $cell) {
-                if ( !$cell->getValue() ) {
+                if (!$cell->getValue()) {
                     continue;
                 }
 
                 preg_match_all('/{{(.*?)}}/', $cell->getValue(), $indicators);
-                if ( $indicators[1] ) {
+                if ($indicators[1]) {
                     foreach ($indicators[1] as $indicator) {
                         $constant = explode('#', $indicator);
                         $useIndicators[$constant[0]] = $constant[0];
@@ -355,7 +355,7 @@ class ToFileProcessor extends BaseProcessor implements BaseProcessorInterface
                 }
             }
 
-            if ( $useIndicators ) {
+            if ($useIndicators) {
                 $this->setIndicators($useIndicators);
                 foreach ($useIndicatorsWithInner as $record => $items) {
                     $this->indicatorsForReplace[$record] = array_unique($items);
@@ -368,7 +368,7 @@ class ToFileProcessor extends BaseProcessor implements BaseProcessorInterface
 
     private function calculateCountersForFile(): static
     {
-        if ( !isset($this->sentData['now']) ) {
+        if (!isset($this->sentData['now'])) {
             return $this;
         }
 
@@ -376,17 +376,17 @@ class ToFileProcessor extends BaseProcessor implements BaseProcessorInterface
         foreach ($this->sentData['now'] as $groupID => $pCounters) {
             foreach ($pCounters as $period => $counters) {
                 foreach ($counters as $key => $value) {
-                    if ( in_array($key, $this->indicators) ) {
+                    if (in_array($key, $this->indicators)) {
                         $calculatedValue[$groupID][$key]['all'] = ($calculatedValue[$groupID][$key]['all'] ?? 0) + $value;
-                        if ( date('Y-m-d', $this->period['now']['end']) == date('Y-m-d', $period) ) {
+                        if (date('Y-m-d', $this->period['now']['end']) == date('Y-m-d', $period)) {
                             $calculatedValue[$groupID][$key]['D'] = ($calculatedValue[$groupID][$key]['D'] ?? 0) + $value;
                         }
 
-                        if ( date('Y-m', $this->period['now']['end']) == date('Y-m', $period) ) {
+                        if (date('Y-m', $this->period['now']['end']) == date('Y-m', $period)) {
                             $calculatedValue[$groupID][$key]['M'] = ($calculatedValue[$groupID][$key]['M'] ?? 0) + $value;
                         }
 
-                        if ( date('Y', $this->period['now']['end']) == date('Y', $period) ) {
+                        if (date('Y', $this->period['now']['end']) == date('Y', $period)) {
                             $calculatedValue[$groupID][$key]['Y'] = ($calculatedValue[$groupID][$key]['Y'] ?? 0) + $value;
                         }
                     }
@@ -409,8 +409,8 @@ class ToFileProcessor extends BaseProcessor implements BaseProcessorInterface
                     : [];
 
                 foreach ($countersData as $recordName => $counters) {
-                    if ( in_array($recordName, $constants) ) {
-                        if ( ($groups && in_array($groupID, $groups)) || !$groups ) {
+                    if (in_array($recordName, $constants)) {
+                        if (($groups && in_array($groupID, $groups)) || !$groups) {
                             $this->calculateCounters[$ruleName] = ($this->calculateCounters[$ruleName] ?? 0) + $counters['all'];
                             $this->calculateCounters[$ruleName. '#D'] = ($this->calculateCounters[$ruleName. '#D'] ?? 0) + ($counters['D'] ?? 0);
                             $this->calculateCounters[$ruleName. '#M'] = ($this->calculateCounters[$ruleName. '#M'] ?? 0) + ($counters['M'] ?? 0);
@@ -431,7 +431,7 @@ class ToFileProcessor extends BaseProcessor implements BaseProcessorInterface
             $cellIterator->setIterateOnlyExistingCells(true);
 
             foreach ($cellIterator as $cell) {
-                if ( !$cell->getValue() ) {
+                if (!$cell->getValue()) {
                     continue;
                 }
 
@@ -459,7 +459,7 @@ class ToFileProcessor extends BaseProcessor implements BaseProcessorInterface
 
     private function write(): static
     {
-        $this->writer = match( (bool)$this->template->table_template ) {
+        $this->writer = match) {(bool)$this->template->table_template) {
             true => IOFactory::createWriter($this->spreadsheet, ucfirst($this->extension)),
             false => new Xlsx($this->spreadsheet)
         };
@@ -471,7 +471,7 @@ class ToFileProcessor extends BaseProcessor implements BaseProcessorInterface
     {
         $fileName = urlencode(Yii::$app->security->generateRandomString(6)) . '.' . $this->extension;
 
-        if ( $this->template->form_usejobs ) {
+        if ($this->template->form_usejobs) {
             $this->writer->save(Yii::getAlias(Yii::$app->params['downloadFormFilesAlias']) . DIRECTORY_SEPARATOR . $fileName);
 
             (ReportFormJobEntity::find()
@@ -500,7 +500,7 @@ class ToFileProcessor extends BaseProcessor implements BaseProcessorInterface
         ?string $alignVertical = null
     ): void
     {
-        if ( $color ) {
+        if ($color) {
             $this->sheet
                 ->getStyle($coords)
                 ->getFill()
@@ -509,16 +509,16 @@ class ToFileProcessor extends BaseProcessor implements BaseProcessorInterface
                 ->setARGB($color);
         }
 
-        if ( $alignHorizontal || $alignVertical ) {
+        if ($alignHorizontal || $alignVertical) {
             $sheet = $this->sheet
                 ->getStyle($coords)
                 ->getAlignment();
 
-            if ( $alignHorizontal ) {
+            if ($alignHorizontal) {
                 $sheet->setHorizontal($alignHorizontal);
             }
 
-            if ( $alignVertical ) {
+            if ($alignVertical) {
                 $sheet->setVertical($alignVertical);
             }
         }
@@ -533,7 +533,7 @@ class ToFileProcessor extends BaseProcessor implements BaseProcessorInterface
     {
         $columnID = 2;
         foreach($columns as $columnName) {
-            if ( $this->template->use_appg ) {
+            if ($this->template->use_appg) {
                 $mergeColumnID = ($columnID+1);
                 $this->sheet->setCellValue([$columnID, $firstRow], $columnName)
                     ->mergeCells([$columnID, $firstRow, $mergeColumnID, $firstRow]);
@@ -565,7 +565,7 @@ class ToFileProcessor extends BaseProcessor implements BaseProcessorInterface
             );
 
             $column = $this->sheet->getColumnDimensionByColumn($columnID);
-            if ( $this->template->use_appg ) {
+            if ($this->template->use_appg) {
                 $column->setAutoSize(true);
             } else {
                 $column->setWidth(4);
@@ -593,7 +593,7 @@ class ToFileProcessor extends BaseProcessor implements BaseProcessorInterface
                 alignHorizontal: Alignment::HORIZONTAL_CENTER
             );
 
-            if ( $this->template->use_appg ) {
+            if ($this->template->use_appg) {
                 $column++;
                 $this->sheet->setCellValue([$column, $row], ($this->$attribute['appg'][$group][$key] ?? 0));
                 $this->setStyle(

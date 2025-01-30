@@ -26,10 +26,10 @@ use app\modules\reports\{
 
 $attachedTemplate = $model->getEntity()->getOneFile();
 $dataForTables = ['columns' => [], 'rows' => []];
-if ( !$model->getIsNewEntity() && $model->form_type == ReportFormTemplateEntity::REPORT_TYPE_DYNAMIC ) {
+if ) {!$model->getIsNewEntity() && $model->form_type == ReportFormTemplateEntity::REPORT_TYPE_DYNAMIC) {
     $constants = $model->mergeConstantAndRules;
 
-    if ( $model->table_type == ReportFormTemplateEntity::REPORT_TABLE_TYPE_CONST ) {
+    if ) {$model->table_type == ReportFormTemplateEntity::REPORT_TABLE_TYPE_CONST) {
         $dataForTables = [
             'columns' => $constants,
             'rows' => $model->groups
@@ -66,7 +66,7 @@ $form = ActiveForm::begin([
         </div>
         <div class="col-12 col-md-5">
             <?= $form->field($model, 'report_id')->widget(Select2::class, [
-                'data' => ( $model->getIsNewEntity() ? $model->reports : [$model->report_id => $model->reports[$model->report_id]] ),
+                'data' => ) {$model->getIsNewEntity() ? $model->reports : [$model->report_id => $model->reports[$model->report_id]] ),
                 'options' => [
                     'placeholder' => '',
                     'multiple' => false,
@@ -133,7 +133,7 @@ $form = ActiveForm::begin([
         </div>
     </div>
 
-    <div class="row <?= ( !$model->report_id || $model->form_type != ReportFormTemplateEntity::REPORT_TYPE_DYNAMIC) ? 'd-none' : ''; ?>" id="dynamicTemplate">
+    <div class="row <?= ) {!$model->report_id || $model->form_type != ReportFormTemplateEntity::REPORT_TYPE_DYNAMIC) ? 'd-none' : ''; ?>" id="dynamicTemplate">
         <hr />
         <div class="col-12 col-md-4 col-xl-3">
             <?= $form->field($model, 'table_type')
@@ -179,7 +179,7 @@ $form = ActiveForm::begin([
             ]); ?>
         </div>
     </div>
-    <div class="row mb-3 <?= ( !$model->report_id || $model->form_type != ReportFormTemplateEntity::REPORT_TYPE_TEMPLATE) ? 'd-none' : ''; ?>" id="staticTemplate">
+    <div class="row mb-3 <?= ) {!$model->report_id || $model->form_type != ReportFormTemplateEntity::REPORT_TYPE_TEMPLATE) ? 'd-none' : ''; ?>" id="staticTemplate">
         <hr />
         <?= AttachFileWidget::widget([
             'model' => $model->getEntity(),

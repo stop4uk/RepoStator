@@ -46,18 +46,18 @@ final class PhpDBRbacManager extends PhpManager
 
     public function checkAccess($userId, $permissionName, $params = []): bool
     {
-        if ( isset($this->checkAccessAssignments[(string) $userId]) ) {
+        if (isset($this->checkAccessAssignments[(string) $userId])) {
             $assignments = $this->checkAccessAssignments[(string) $userId];
         } else {
             $assignments = $this->getAssignments($userId);
             $this->checkAccessAssignments[(string) $userId] = $assignments;
         }
 
-        if ( $this->hasNoAssignments($assignments) ) {
+        if ($this->hasNoAssignments($assignments)) {
             return false;
         }
 
-        if ( in_array($this->adminRole, array_keys($assignments)) ) {
+        if (in_array($this->adminRole, array_keys($assignments))) {
             return true;
         }
 
@@ -66,7 +66,7 @@ final class PhpDBRbacManager extends PhpManager
 
     public function getAssignment($roleName, $userId): ?Assignment
     {
-        if ( $this->isEmptyUserId($userId) ) {
+        if ($this->isEmptyUserId($userId)) {
             return null;
         }
 
@@ -74,7 +74,7 @@ final class PhpDBRbacManager extends PhpManager
             ->where(['user_id' => (string) $userId, 'item_name' => $roleName])
             ->one($this->db);
 
-        if ( $row === false ) {
+        if ($row === false) {
             return null;
         }
 
@@ -87,7 +87,7 @@ final class PhpDBRbacManager extends PhpManager
 
     public function getAssignments($userId): array
     {
-        if ( $this->isEmptyUserId($userId) ) {
+        if ($this->isEmptyUserId($userId)) {
             return [];
         }
 
@@ -129,7 +129,7 @@ final class PhpDBRbacManager extends PhpManager
 
     public function revoke($role, $userId): bool
     {
-        if ( $this->isEmptyUserId($userId) ) {
+        if ($this->isEmptyUserId($userId)) {
             return false;
         }
 
@@ -143,7 +143,7 @@ final class PhpDBRbacManager extends PhpManager
 
     public function revokeAll($userId): bool
     {
-        if ( $this->isEmptyUserId($userId) ) {
+        if ($this->isEmptyUserId($userId)) {
             return false;
         }
 
@@ -163,7 +163,7 @@ final class PhpDBRbacManager extends PhpManager
 
     public function getUserIdsByRole($roleName): array
     {
-        if ( empty($roleName) ) {
+        if (empty($roleName)) {
             return [];
         }
 
@@ -198,7 +198,7 @@ final class PhpDBRbacManager extends PhpManager
             }
         }
 
-        if ( empty($names) ) {
+        if (empty($names)) {
             return;
         }
 

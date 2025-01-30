@@ -52,7 +52,7 @@ final class ControlCreateForForm extends Model
 
     public function init()
     {
-        if ( !$this->reports ) {
+        if (!$this->reports) {
             $this->reports = ReportRepository::getAllow(
                 groups: $this->groups
             );
@@ -84,15 +84,15 @@ final class ControlCreateForForm extends Model
 
     public function validatePeriod($attribute, $value)
     {
-        if ( $value ) {
+        if ($value) {
             $validator = new DateValidator();
             $validator->format = 'php:d.m.Y';
 
-            if ( $this->reportData !== null && $this->reportData->left_period ) {
+            if ($this->reportData !== null && $this->reportData->left_period) {
                 $validator->format = 'php:d.m.Y H:i';
             }
 
-            if ( !$validator->validate($value) ) {
+            if (!$validator->validate($value)) {
                 $this->addError($attribute, Yii::t('models_error', 'Формат даты не соотвествует отчету'));
             }
         }
@@ -100,14 +100,14 @@ final class ControlCreateForForm extends Model
 
     public function checkSend($attribute)
     {
-        if ( !$this->hasErrors() && $this->reportData->left_period ) {
+        if (!$this->hasErrors() && $this->reportData->left_period) {
             $query = DataRepository::getBy([
                 'group_id' => $this->group,
                 'report_id' => $this->report,
                 'report_datetime' => $this->period
             ], [], true);
 
-            if ( $query ) {
+            if ($query) {
                 $this->addError($attribute, Yii::t('models_error', 'За данный период отчет уже передан'));
             }
         }
@@ -115,7 +115,7 @@ final class ControlCreateForForm extends Model
 
     public function beforeValidate()
     {
-        if ( $this->report ) {
+        if ($this->report) {
             $this->reportData = ReportRepository::get($this->report);
         }
 

@@ -25,7 +25,7 @@ class BaseService extends Component implements BaseServiceInterface
         $entity->recordAction($model);
 
         $transaction = $entity::getDb()->beginTransaction();
-        if ( $saveModel = CommonHelper::saveAttempt($entity, $categoryForLog) ) {
+        if ($saveModel = CommonHelper::saveAttempt($entity, $categoryForLog)) {
             $transaction->commit();
             return $saveModel;
         }
@@ -42,7 +42,7 @@ class BaseService extends Component implements BaseServiceInterface
         $entity->updated_uid = Yii::$app->getUser()->getId();
 
         $transaction = $entity::getDb()->beginTransaction();
-        if ( $entity->softDelete() && $this->afterDelete($entity) ) {
+        if ($entity->softDelete() && $this->afterDelete($entity)) {
             $transaction->commit();
             return true;
         }
@@ -56,7 +56,7 @@ class BaseService extends Component implements BaseServiceInterface
         $entity->record_status = BaseAR::RSTATUS_ACTIVE;
 
         $transaction = $entity::getDb()->beginTransaction();
-        if ( CommonHelper::saveAttempt($entity, 'Application') ) {
+        if (CommonHelper::saveAttempt($entity, 'Application')) {
             $transaction->commit();
             return true;
         }

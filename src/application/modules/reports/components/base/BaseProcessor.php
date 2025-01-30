@@ -88,7 +88,7 @@ class BaseProcessor extends Component
         $startDate = $this->period['now']['start'];
         $endDate = $this->period['now']['end'];
 
-        if ( $this->template->form_datetime != $this->template::REPORT_DATETIME_PERIOD ) {
+        if ($this->template->form_datetime != $this->template::REPORT_DATETIME_PERIOD) {
             while ($startDate <= $endDate) {
                 $periodDates[$startDate] = Yii::$app->formatter->asDate($startDate);
                 $startDate = strtotime('+1 day', $startDate);
@@ -396,7 +396,7 @@ class BaseProcessor extends Component
 
     private function runEval(string $rule): int
     {
-        if (preg_match('/^[0-9\+\-\*\/\(\)\s]+$/', $rule)) {
+        if (preg_match ('/^[0-9\+\-\*\/\(\)\s]+$/', $rule)) {
             return eval("return $rule;");
         }
 

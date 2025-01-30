@@ -42,7 +42,7 @@ class ToFileByJobProcessor implements BaseProcessorInterface
         $saveModel->template_id = $this->form->template;
         $saveModel->form_period = $this->form->period;
 
-        if ( CommonHelper::saveAttempt($saveModel, 'Reports.Jobs') ) {
+        if (CommonHelper::saveAttempt($saveModel, 'Reports.Jobs')) {
             Yii::$app->queue->push(new FormTemplateJob([
                 'form' => $this->form,
                 'template' => $this->template,

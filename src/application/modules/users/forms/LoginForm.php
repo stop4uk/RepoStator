@@ -58,7 +58,7 @@ final class LoginForm extends Model
 
     public function validatePassword($attribute)
     {
-        if ( !$this->hasErrors() ) {
+        if (!$this->hasErrors()) {
             $user = $this->getUser();
 
             if (!Yii::$app->getSecurity()->validatePassword($this->password, $user->password)) {
@@ -69,7 +69,7 @@ final class LoginForm extends Model
 
     public function validateAccount($attribute): void
     {
-       if ( !$this->hasErrors() ) {
+       if (!$this->hasErrors()) {
            $user = $this->getUser();
 
            if (
@@ -88,7 +88,7 @@ final class LoginForm extends Model
                );
            }
 
-           if ( $user->account_status == UserEntity::STATUS_BLOCKED ) {
+           if ($user->account_status == UserEntity::STATUS_BLOCKED) {
                $this->addError($attribute, Yii::t('models_error', 'Ваша учетная запись заблокирована. Вход в систему невозможен'));
            }
        }
@@ -96,7 +96,7 @@ final class LoginForm extends Model
 
     private function getUser(): ?UserEntity
     {
-        if ( $this->user === null ) {
+        if ($this->user === null) {
             $this->user = UserRepository::getBy(['email' => $this->email]);
         }
 

@@ -149,12 +149,12 @@ final class ReportFormTemplateEntity extends BaseAR
 
     public function beforeSave($insert): bool
     {
-        if ( $this->scenario != self::SCENARIO_CHANGE_RECORD_STATUS ) {
-            if ( $this->table_rows ) {
+        if ($this->scenario != self::SCENARIO_CHANGE_RECORD_STATUS) {
+            if ($this->table_rows) {
                 $this->table_rows = CommonHelper::implodeField($this->table_rows);
             }
 
-            if ( $this->table_columns ) {
+            if ($this->table_columns) {
                 $this->table_columns = CommonHelper::implodeField($this->table_columns);
             }
         }

@@ -11,9 +11,9 @@ use yii\bootstrap5\Html;
  * @var int $id
  */
 
-if ( isset($elements['###']) ) {
+if (isset($elements['###'])) {
     foreach ($elements['###'] as $item) {
-        if ( isset($constants[$item]) ) {
+        if (isset($constants[$item])) {
             echo Html::beginTag('div', ['class' => 'col-auto col-md-4 col-xl-3']);
                 echo $form->field($model, $formField . "[$item]")->input("number")->label($constants[$item]['name'], ['class' => ['form-label']]);
             echo Html::endTag('div');
@@ -25,7 +25,7 @@ if ( isset($elements['###']) ) {
 
 ?>
 
-<?php if ( $elements ): foreach ($elements as $block => $groups): ?>
+<?php if ($elements ): foreach ($elements as $block => $groups): ?>
     <div class="col-12 mb-3">
         <div class="accordion" id="reportWorkAccordion<?= $id . $block ?>">
             <?php foreach($groups as $groupName => $items): ?>

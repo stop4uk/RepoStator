@@ -19,7 +19,7 @@ final class SettingModel extends Model
     public function __construct($config = [])
     {
         $this->settings = (new Query())->select('*')->from('settings')->all();
-        if ( $this->settings ) {
+        if ($this->settings) {
             foreach ($this->settings as $setting) {
                 $this->key[$setting['category'] . '__' . $setting['key']] = $setting['value'];
                 $settingsInArray[$setting['category']][$setting['key']] = [
@@ -48,7 +48,7 @@ final class SettingModel extends Model
 
         foreach ($this->key as $key => $value) {
             $data = explode('__', $key);
-            if ( !isset($this->settingsInArray[$data[0]][$data[1]]) ) {
+            if (!isset($this->settingsInArray[$data[0]][$data[1]])) {
                 $this->addError("key[$key]", Yii::t('models_error', 'Такого ключа не существует'));
             }
 
@@ -65,7 +65,7 @@ final class SettingModel extends Model
     {
         foreach ($this->key as $key => $value) {
             $data = explode('__', $key);
-            if ( $this->settingsInArray[$data[0]][$data[1]]['value'] != $value ) {
+            if ($this->settingsInArray[$data[0]][$data[1]]['value'] != $value) {
                 Yii::$app->db->createCommand()->update('settings', ['value' => $value], ['category' => $data[0], 'key' => $data[1]])->execute();
             }
         }

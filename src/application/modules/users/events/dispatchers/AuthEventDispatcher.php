@@ -22,7 +22,7 @@ final class AuthEventDispatcher
         $session = new UserSessionEntity();
         $session->save();
 
-        if ( Yii::$app->get('settings')->get('auth', 'login_sendEmailAfter') ) {
+        if (Yii::$app->get('settings')->get('auth', 'login_sendEmailAfter')) {
             Yii::$app->queue->push(new SendEmailJob([
                 'template' => 'auth/signin',
                 'email' => $event->user->email,
@@ -44,7 +44,7 @@ final class AuthEventDispatcher
             'subject' => Yii::t('emails', 'Вы успешно зарегистрированы'),
         ];
 
-        if ( !Yii::$app->settings->get('auth', 'login_withoutVerification') ) {
+        if (!Yii::$app->settings->get('auth', 'login_withoutVerification')) {
             $userArray = [
                 'name' => $event->user->shortName,
                 'account_key' => $event->user->account_key

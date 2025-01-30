@@ -32,7 +32,7 @@ final class CheckUserAllRule extends Rule
             ));
         }, 3600);
 
-        if ( !in_array($params['id'], $users) ) {
+        if (!in_array($params['id'], $users)) {
             return false;
         }
 

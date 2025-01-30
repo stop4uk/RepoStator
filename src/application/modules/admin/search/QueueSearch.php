@@ -33,7 +33,7 @@ final class QueueSearch extends QueueEntity
             ],
         ]);
 
-        if ( !($this->load($params) && $this->validate()) ) {
+        if (!($this->load($params) && $this->validate())) {
             return $dataProvider;
         }
 
@@ -41,12 +41,12 @@ final class QueueSearch extends QueueEntity
             ->andFilterWhere(['like', 'job', $this->job])
             ->andFilterWhere(['like', 'channel', $this->channel]);
 
-        if ( $this->pushed_at ) {
+        if ($this->pushed_at) {
             $timePeriod = array_map(fn($value) => strtotime($value), explode(' - ', $this->pushed_at));
             $query->andFilterWhere(['BETWEEN', 'pushed_at', $timePeriod[0], $timePeriod[1]]);
         }
 
-        if ( $this->done_at ) {
+        if ($this->done_at) {
             $timePeriod = array_map(fn($value) => strtotime($value), explode(' - ', $this->done_at));
             $query->andFilterWhere(['BETWEEN', 'done_at', $timePeriod[0], $timePeriod[1]]);
         }

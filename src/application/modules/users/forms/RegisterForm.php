@@ -65,7 +65,7 @@ final class RegisterForm extends Model
 
     public function afterValidate(): void
     {
-        if ( !$this->hasErrors() ) {
+        if (!$this->hasErrors()) {
             $this->password = UserHelper::generatePassword($this->password);
         }
 

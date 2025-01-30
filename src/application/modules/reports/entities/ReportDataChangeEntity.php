@@ -92,8 +92,8 @@ final class ReportDataChangeEntity extends BaseAR
 
     public function beforeSave($insert): bool
     {
-        if ( $this->scenario != self::SCENARIO_CHANGE_RECORD_STATUS ) {
-            if ( $this->content ) {
+        if ($this->scenario != self::SCENARIO_CHANGE_RECORD_STATUS) {
+            if ($this->content) {
                 $this->content = Json::encode($this->content);
             }
         }

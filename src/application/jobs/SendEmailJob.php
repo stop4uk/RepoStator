@@ -19,12 +19,12 @@ final class SendEmailJob extends BaseObject implements JobInterface
 
     public function execute($queue): void
     {
-        $senderEmail = match((bool) Yii::$app->get('settings')) {
+        $senderEmail = match ((bool) Yii::$app->get('settings')) {
             true => Yii::$app->get('settings')->get('system', 'sender_email') ?? env('MAIL_FROM_EMAIL'),
             false => env('MAIL_FROM_EMAIL')
         };
 
-        $senderName = match((bool) Yii::$app->get('settings')) {
+        $senderName = match ((bool) Yii::$app->get('settings')) {
             true => Yii::$app->get('settings')->get('system', 'sender_email') ?? env('MAIL_FROM_NAME'),
             false => env('MAIL_FROM_NAME')
         };

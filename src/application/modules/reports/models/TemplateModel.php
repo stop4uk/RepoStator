@@ -97,11 +97,11 @@ final class TemplateModel extends BaseModel
 
     public function init()
     {
-        if ( $this->table_rows ) {
+        if ($this->table_rows) {
             $this->table_rows = CommonHelper::explodeField($this->table_rows);
         }
 
-        if ( $this->table_columns ) {
+        if ($this->table_columns) {
             $this->table_columns = CommonHelper::explodeField($this->table_columns);
         }
 
@@ -214,7 +214,7 @@ final class TemplateModel extends BaseModel
             };
 
             foreach ($this->{$attribute} as $element) {
-                if ( !in_array($element, array_keys($elements)) ) {
+                if (!in_array($element, array_keys($elements))) {
                     $this->addError('table_columns', Yii::t('models_error', 'Одно из значений не может быть выбрано и использовано'));
                 }
             }
@@ -225,7 +225,7 @@ final class TemplateModel extends BaseModel
     {
         parent::afterValidate();
 
-        if ( $this->form_type == ReportFormTemplateEntity::REPORT_TYPE_TEMPLATE ) {
+        if ($this->form_type == ReportFormTemplateEntity::REPORT_TYPE_TEMPLATE) {
             foreach (['table_type', 'table_rows', 'table_columns'] as $attribute) {
                 $this->{$attribute} = null;
             }

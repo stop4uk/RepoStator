@@ -25,7 +25,7 @@ $form = ActiveForm::begin([
     <div class="row">
         <?php
             echo $form->field($model, $formField . "[]")->hiddenInput()->label(false);
-            if ( count($model->structureContent['groups']) == 1 ) {
+            if (count($model->structureContent['groups']) == 1) {
                 echo Html::beginTag('div', ['class' => "col-12"]);
                     echo Html::beginTag('div', ['class' => 'row']);
                         $elements = $this->context->formContents($model->structureContent['constants'][0]);
@@ -86,7 +86,7 @@ $form = ActiveForm::begin([
         ?>
     </div>
 
-    <?php if ( !$view ): ?>
+    <?php if (!$view ): ?>
         <div class="row mt-5">
             <div class="col-12 mb-2 d-grid">
                 <?= Html::submitButton(Yii::t('views', $model->isNewEntity ? 'Отправить' : 'Обновить'), ['class' => 'btn btn-primary']); ?>
@@ -98,7 +98,7 @@ $form = ActiveForm::begin([
 
 ActiveForm::end();
 
-if ( $view ) {
+if ($view) {
     $this->registerJs(<<<JS
         $("#$formId").find("input, select").attr({"readonly": true, "disabled": true});
 JS);

@@ -68,7 +68,7 @@ final class AuthService extends Component implements BaseServiceInterface
             'user' => UserRepository::get(Yii::$app->getUser()->id)
         ]));
 
-        if ( !Yii::$app->getUser()->logout() ) {
+        if (!Yii::$app->getUser()->logout()) {
             throw new Exception(Yii::t('exceptions', 'При прекращении работы сессии произошла ошибка'), 500);
         }
     }
@@ -142,8 +142,8 @@ final class AuthService extends Component implements BaseServiceInterface
             ->limit(1)
             ->one();
 
-        if ( $user ) {
-            if ( CommonHelper::saveAttempt($user, 'Users.Auth') ) {
+        if ($user) {
+            if (CommonHelper::saveAttempt($user, 'Users.Auth')) {
                 return true;
             }
         }
@@ -161,7 +161,7 @@ final class AuthService extends Component implements BaseServiceInterface
             ->limit(1)
             ->one();
 
-        if ( $user ) {
+        if ($user) {
             $this->trigger(self::EVENT_AFTER_VERIFICATION_GET, new AuthEvent([
                 'user' => $user,
                 'request' => $request
@@ -187,7 +187,7 @@ final class AuthService extends Component implements BaseServiceInterface
         if ($user) {
             $user->account_status = UserEntity::STATUS_ACTIVE;
             $user->account_key = Yii::$app->getSecurity()->generateRandomString(32);
-            if ( CommonHelper::saveAttempt($user, 'Users.Auth') ) {
+            if (CommonHelper::saveAttempt($user, 'Users.Auth')) {
                 return true;
             }
         }

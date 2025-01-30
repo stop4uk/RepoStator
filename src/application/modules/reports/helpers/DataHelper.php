@@ -34,20 +34,20 @@ final class DataHelper
 
     public static function getTimePeriods(ReportEntity $model, string|int $toDate, bool $onlyLast = false): ?object
     {
-        if ( !$model->left_period ) {
+        if (!$model->left_period) {
             return null;
         }
 
         $periods = [];
         $timeToSeconds = ($model->left_period * 60);
         $timeBlockToSeconds = 0;
-        $roundTime = strtotime(date(( ($model->null_day) ? 'Y-m-d' : 'Y-m-d H:00:00'), $model->created_at));
+        $roundTime = strtotime(date() {($model->null_day) ? 'Y-m-d' : 'Y-m-d H:00:00'), $model->created_at));
 
-        if ( $model->block_minutes ) {
+        if ($model->block_minutes) {
             $timeBlockToSeconds = ($model->block_minutes * 60);
         }
 
-        while ($toDate >= $roundTime ) {
+        while ($toDate >= $roundTime) {
             $endRoundTime = (($roundTime+$timeToSeconds)-60);
             $endRoundTimeWithBlock = ($endRoundTime - $timeBlockToSeconds);
 
@@ -60,6 +60,6 @@ final class DataHelper
         }
 
         $list = array_slice($periods, -100);
-        return (object)(( $onlyLast ) ? end($list) : $list);
+        return (object)() {$onlyLast ) ? end($list) : $list);
     }
 }

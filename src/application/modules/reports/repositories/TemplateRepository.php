@@ -22,11 +22,11 @@ final class TemplateRepository implements BaseRepositoryInterface
     public static function get(int $id, array $relations = [], bool $active = true): ?BaseARInterface
     {
         $query = ReportFormTemplateEntity::find()->where(['id' => $id]);
-        if ( $relations ) {
+        if ($relations) {
             $query->with($relations);
         }
 
-        if ( $active ) {
+        if ($active) {
             $query->andWhere(['record_status' => BaseAR::RSTATUS_ACTIVE]);
         }
 
@@ -36,11 +36,11 @@ final class TemplateRepository implements BaseRepositoryInterface
     public static function getBy(array $condition, array $relations = [], bool $active = true): ?BaseARInterface
     {
         $query = ReportFormTemplateEntity::find()->where($condition);
-        if ( $relations ) {
+        if ($relations) {
             $query->with($relations);
         }
 
-        if ( $active ) {
+        if ($active) {
             $query->andWhere(['record_status' => BaseAR::RSTATUS_ACTIVE]);
         }
 
@@ -50,15 +50,15 @@ final class TemplateRepository implements BaseRepositoryInterface
     public static function getAll(array $relations = [], bool $asArray = false, bool $active = true): ActiveQuery|array
     {
         $query = ReportFormTemplateEntity::find();
-        if ( $relations ) {
+        if ($relations) {
             $query->with($relations);
         }
 
-        if ( $active ) {
+        if ($active) {
             $query->where(['record_status' => BaseAR::RSTATUS_ACTIVE]);
         }
 
-        if ( $asArray ) {
+        if ($asArray) {
             return ArrayHelper::map($query->all(), 'id', 'name');
         }
 
@@ -68,15 +68,15 @@ final class TemplateRepository implements BaseRepositoryInterface
     public static function getAllBy(array $condition, array $relations = [], bool $asArray = false, bool $active = true): ActiveQuery|array
     {
         $query = ReportFormTemplateEntity::find()->where($condition);
-        if ( $relations ) {
+        if ($relations) {
             $query->with($relations);
         }
 
-        if ( $active ) {
+        if ($active) {
             $query->andWhere(['record_status' => BaseAR::RSTATUS_ACTIVE]);
         }
 
-        if ( $asArray ) {
+        if ($asArray) {
             return ArrayHelper::map($query->all(), 'id', 'name');
         }
 
@@ -98,7 +98,7 @@ final class TemplateRepository implements BaseRepositoryInterface
             ]
         ];
 
-        if ( $groupsParent = Yii::$app->getUser()->getIdentity()->groupsParent ) {
+        if ($groupsParent = Yii::$app->getUser()->getIdentity()->groupsParent) {
             $condition[] = [
                 'and',
                 ['in', 'created_gid', $groupsParent],
@@ -109,11 +109,11 @@ final class TemplateRepository implements BaseRepositoryInterface
         $query = ReportFormTemplateEntity::find()
             ->where($condition);
 
-        if ( $active ) {
+        if ($active) {
             $query->andWhere(['record_status' => BaseAR::RSTATUS_ACTIVE]);
         }
 
-        if ( $asQuery ) {
+        if ($asQuery) {
             return $query;
         }
 

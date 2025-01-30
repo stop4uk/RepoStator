@@ -58,12 +58,12 @@ final class ConstantRuleModel extends BaseModel
             asArray: true
         );
 
-        if ( !$entity->id !== null && $entity->report_id ) {
+        if (!$entity->id !== null && $entity->report_id) {
             $reportInformation = ReportRepository::get($entity->report_id);
             $reports  = [$entity->report_id => $entity->report_id];
 
 
-            if ( $reportInformation && $reportInformation->groups_only) {
+            if ($reportInformation && $reportInformation->groups_only) {
                 $groups = array_filter($groupsCanSent, function($key) use ($reportInformation) {
                     return in_array($key, CommonHelper::explodeField($reportInformation->groups_only));
                 }, ARRAY_FILTER_USE_KEY);
@@ -91,19 +91,19 @@ final class ConstantRuleModel extends BaseModel
 
     public function init()
     {
-        if ( $this->groups_only ) {
+        if ($this->groups_only) {
             $this->groups_only = CommonHelper::explodeField($this->groups_only);
         }
 
-        if ( $this->description ) {
+        if ($this->description) {
             $this->description = Json::decode($this->description);
         }
 
-        if ( !$this->isNewEntity && $this->groups_only) {
+        if (!$this->isNewEntity && $this->groups_only) {
             $reportData = ReportRepository::get($this->report_id);
-            if ( $reportData->groups_only ) {
-                foreach ($this->groups as $group => $name ) {
-                    if ( !in_array($group, CommonHelper::explodeField($reportData->groups_only)) ) {
+            if ($reportData->groups_only) {
+                foreach ($this->groups as $group => $name) {
+                    if (!in_array($group, CommonHelper::explodeField($reportData->groups_only))) {
                         unset($this->groups[$group]);
                     }
                 }
@@ -178,11 +178,11 @@ final class ConstantRuleModel extends BaseModel
     {
         preg_match_all('/\"(.*?)\"/', $this->rule, $matchConstants);
 
-        if ( !$matchConstants[1] ) {
+        if (!$matchConstants[1]) {
             $this->addError($attribute, Yii::t('models_error', 'В математическом правиле отсутствуют ' .
                 'константы, которые указаны в кавычках, или, само математическое правило неверно'));
         } else {
-            $constantForCheck = match( (bool)$this->report_id) {
+            $constantForCheck = match) {(bool)$this->report_id) {
                 true => ConstantRepository::getAllow(
                     reports: [$this->report_id => $this->report_id],
                     groups: $this->groups
@@ -191,7 +191,7 @@ final class ConstantRuleModel extends BaseModel
             };
 
             foreach ($matchConstants[1] as $constant) {
-                if ( !in_array($constant, array_keys($constantForCheck)) ) {
+                if (!in_array($constant, array_keys($constantForCheck))) {
                     $this->addError($attribute, Yii::t('models_error', 'В правиле присутствуют константы, ' .
                         'которые не могут быть Вами использованы, или не могут работать с выбранными для рассчета отчетами. ' .
                         'Например, "<strong>{name}</strong>"', ['name' => $constant]));
@@ -202,9 +202,9 @@ final class ConstantRuleModel extends BaseModel
 
     public function checkCanSentList()
     {
-        if ( $this->groups_only ) {
+        if ($this->groups_only) {
             foreach ($this->groups_only as $group) {
-                if ( !in_array($group, array_keys($this->groups)) ) {
+                if (!in_array($group, array_keys($this->groups))) {
                     $this->addError('groups_only', Yii::t('models_error', 'Одна из групп, для которой ' .
                         'предназначено данное правило, а именно "{name}", не может передавать сведения. Следовательно, данное ' .
                         'правило для нее указаывать нельзя', ['name' => $this->groups[$group]]));

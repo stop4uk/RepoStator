@@ -79,7 +79,7 @@ class JobSearch extends Model
             ->where(['created_gid' => array_keys($this->groups)])
             ->with(['report', 'template']);
 
-        if ( !$this->onlyMain ) {
+        if (!$this->onlyMain) {
             $query->andFilterWhere(['=', 'created_uid', Yii::$app->getUser()->id]);
         }
 
@@ -93,7 +93,7 @@ class JobSearch extends Model
             ],
         ]);
 
-        if ( !($this->load($params) && $this->validate()) ) {
+        if (!($this->load($params) && $this->validate())) {
             return $dataProvider;
         }
 
@@ -102,12 +102,12 @@ class JobSearch extends Model
             ->andFilterWhere(['=', 'report_id', $this->report_id])
             ->andFilterWhere(['=', 'template_id', $this->template_id]);
 
-        if ( $this->created_at ) {
+        if ($this->created_at) {
             $timePeriod = array_map(fn($value) => strtotime($value), explode(' - ', $this->created_at));
             $query->andFilterWhere(['BETWEEN', 'created_at', $timePeriod[0], $timePeriod[1]]);
         }
 
-        if ( $this->updated_at ) {
+        if ($this->updated_at) {
             $timePeriod = array_map(fn($value) => strtotime($value), explode(' - ', $this->updated_at));
             $query->andFilterWhere(['BETWEEN', 'updated_at', $timePeriod[0], $timePeriod[1]]);
         }

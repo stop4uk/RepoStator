@@ -78,7 +78,7 @@ final class SendSearch extends Model
             ],
         ]);
 
-        if ( !($this->load($params) && $this->validate()) ) {
+        if (!($this->load($params) && $this->validate())) {
             return $this->filterResult($dataProvider);
         }
 
@@ -90,7 +90,7 @@ final class SendSearch extends Model
     private function filterResult(ActiveDataProvider $dataProvider): ActiveDataProvider
     {
         $models = $dataProvider->getModels();
-        if ( !$models ) {
+        if (!$models) {
             return $dataProvider;
         }
 
@@ -119,10 +119,10 @@ final class SendSearch extends Model
 
                 foreach ($this->groupsCanSent as $groupId => $groupName) {
                     if (
-                        ( !$groupsOnly || in_array($groupId, $groupsOnly) )
+                        ) {!$groupsOnly || in_array($groupId, $groupsOnly) )
                         && $canAddedNow
                     ) {
-                        if ( $sentData && !in_array($groupId, $sentData) ) {
+                        if ($sentData && !in_array($groupId, $sentData)) {
                             $model->canAddedFor[] = [
                                 'groupId' => $groupId,
                                 'groupName' => $groupName,
@@ -141,7 +141,7 @@ final class SendSearch extends Model
                 }
             }
 
-            if ( !$model->canAddedFor ) {
+            if (!$model->canAddedFor) {
                 unset($models[$index]);
             }
         }

@@ -65,12 +65,12 @@ final class DataModel extends BaseModel
 
     public function init()
     {
-        if ( !$this->isNewEntity ) {
+        if (!$this->isNewEntity) {
             foreach (['report', 'group', 'structure', 'changes', 'createdUser'] as $relation) {
                 $this->{$relation} = $this->entity->{$relation};
             }
 
-            if ( $this->content ) {
+            if ($this->content) {
                 $this->content = Json::decode($this->content);
             }
         } else {
@@ -81,7 +81,7 @@ final class DataModel extends BaseModel
             $this->changes = [];
         }
 
-        if ( $this->structure !== null ) {
+        if ($this->structure !== null) {
             $this->struct_id = $this->structure->id;
             $this->structureContent = Json::decode($this->structure->content);
         }
@@ -97,7 +97,7 @@ final class DataModel extends BaseModel
 
             ['content', 'checkContent'],
             ['report_id', 'checkAccess'],
-            ['report_id', 'checkReportUnique', 'when' => fn($model) => ( !$model->isNewEntity && $model->report->left_period)],
+            ['report_id', 'checkReportUnique', 'when' => fn($model) => ) {!$model->isNewEntity && $model->report->left_period)],
 
             ['form_control', 'safe']
         ];
@@ -110,19 +110,19 @@ final class DataModel extends BaseModel
 
     public function checkReportUnique()
     {
-        if ( $this->report_id && $this->group_id && $this->report_datetime ) {
+        if ($this->report_id && $this->group_id && $this->report_datetime) {
             $periodsList = DataHelper::getTimePeriods($this->report, $this->report_datetime);
             $periodsArray = ArrayHelper::map($periodsList, 'start', 'end');
 
-            if ( !in_array($this->report_datetime, array_keys($periodsArray)) && !$this->form_control ) {
+            if (!in_array($this->report_datetime, array_keys($periodsArray)) && !$this->form_control) {
                 $this->addError('content', Yii::t('models_error', 'Указанное в запросе время не ' .
                     'подходит под периоды отправки сведений'));
             }
 
             $query = DataRepository::getAllBy(['report_id' => $this->report_id, 'group_id' => $this->group_id], [])->all();
-            if ( $query ) {
+            if ($query) {
                 foreach ($query as $row) {
-                    if ( $this->report_datetime == $row->report_datetime && !$this->form_control ) {
+                    if ($this->report_datetime == $row->report_datetime && !$this->form_control) {
                         $this->addError('content', Yii::t('models_error', 'Сведения по отчету от ' .
                             'имени этой группы и за данный период уже были переданы'));
 
@@ -139,11 +139,11 @@ final class DataModel extends BaseModel
             !$this->hasErrors()
             && $this->entity->scenario == BaseAR::SCENARIO_INSERT
         ) {
-            if ( $this->report->left_period ) {
-                if ( !$this->form_control ) {
+            if ($this->report->left_period) {
+                if (!$this->form_control) {
                     $periods = DataHelper::getTimePeriods($this->report, time(), true);
 
-                    if ( $periods && $this->report_datetime != $periods->start) {
+                    if ($periods && $this->report_datetime != $periods->start) {
                         $this->addError('content', Yii::t('models_error', 'Вы не можете передавать ' .
                             'данные за не текущий период'));
 
@@ -153,14 +153,14 @@ final class DataModel extends BaseModel
                     $periods = DataHelper::getTimePeriods($this->report, time());
                     $startTimes = ArrayHelper::map($periods, 'start', 'start');
 
-                    if ( !in_array($this->report_datetime, $startTimes) ) {
+                    if (!in_array($this->report_datetime, $startTimes)) {
                         $this->addError('content', Yii::t('models_error', 'Вы не можете передавать ' .
                             'данные за не текущий период'));
 
                         return false;
                     }
 
-                    if ( Yii::$app->getSession()->has('controlReport') ) {
+                    if (Yii::$app->getSession()->has('controlReport')) {
                         $sessionData = Json::decode(Yii::$app->getSession()->get('controlReport'));
                         $hasData = [
                             'group_id' => $this->group_id,
@@ -168,7 +168,7 @@ final class DataModel extends BaseModel
                             'report_datetime' => $this->report_datetime
                         ];
 
-                        if ( array_diff_assoc($sessionData, $hasData) ) {
+                        if (array_diff_assoc($sessionData, $hasData)) {
                             $this->addError('content', Yii::t('models_error', 'Данные контроля не ' .
                                 'совпатают с текущими данными'));
                         }
@@ -180,14 +180,14 @@ final class DataModel extends BaseModel
 
     public function checkContent()
     {
-        if ( count(array_filter($this->content)) == 0 ) {
+        if (count(array_filter($this->content)) == 0) {
             $this->addError('content', Yii::t('models_error', 'Нельзя передавать пустой отчет'));
         }
     }
 
     public function afterValidate()
     {
-        if ( $this->content ) {
+        if ($this->content) {
             $this->content = array_filter($this->content);
         }
 
