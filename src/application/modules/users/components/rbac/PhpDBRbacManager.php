@@ -29,7 +29,7 @@ final class PhpDBRbacManager extends PhpManager
     public $itemFile = '@app/modules/users/components/rbac/data/item_child.php';
     public $ruleFile = '@app/modules/users/components/rbac/data/rule.php';
 
-    public string $adminRole = Roles::ADMINISTRATOR;
+    public string $adminRole = Roles::ADMIN;
     public string $assignmentTable = '{{%users_rights}}';
     public array $checkAccessAssignments = [];
     public Connection|array|string $db = 'db';
