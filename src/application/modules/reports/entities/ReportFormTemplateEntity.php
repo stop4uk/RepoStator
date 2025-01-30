@@ -113,7 +113,18 @@ final class ReportFormTemplateEntity extends BaseAR
                         'name' => 'Шаблон отчета',
                         'maxFiles' => 1,
                         'rules' => [
-                            ['file', 'extensions' => ['xls', 'xlsx', 'ods', 'txt']],
+                            [
+                                'file',
+                                'extensions' => ['xls', 'xlsx', 'ods'],
+                                'checkExtensionByMimeType' => true,
+                                'skipOnEmpty' => false,
+                                'mimeTypes' => [
+                                    'application/vnd.oasis.opendocument.spreadsheet',
+                                    'application/vnd.ms-excel',
+                                    'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
+                                    'application/vnd.ms-excel.sheet.macroEnabled.12',
+                                ],
+                            ],
                         ]
                     ],
                 ]

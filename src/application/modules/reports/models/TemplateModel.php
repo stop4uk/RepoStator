@@ -163,28 +163,8 @@ final class TemplateModel extends BaseModel
             ],
             [['table_columns', 'table_rows'], 'checkDynamicValues'],
 
-            [
-                'uploadedFile',
-                'file',
-                'maxFiles' => 1, 'maxSize' => 1024 * 1024 * 10,
-                'extensions' => ['ods', 'xls', 'xlsx'],
-                'checkExtensionByMimeType' => true,
-                'skipOnEmpty' => false,
-                'mimeTypes' => [
-                    'application/vnd.oasis.opendocument.spreadsheet',
-                    'application/vnd.ms-excel',
-                    'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
-                    'application/vnd.ms-excel.sheet.macroEnabled.12',
-                ],
-                'when' => function ($model) {
-                    return $model->form_type == ReportFormTemplateEntity::REPORT_TYPE_TEMPLATE && !$model->isNewEntity;
-                },
-                'whenClient' => 'function (attribute, value) {
-                    return ($("#templatemodel-form_type").val() == "' . ReportFormTemplateEntity::REPORT_TYPE_TEMPLATE .'" && ' . (!$this->isNewEntity ? 'false' : 'true') . ');
-                }'
-            ],
-
-            ['use_appg', 'default', 'value' => 0]
+            ['use_appg', 'default', 'value' => 0],
+            ['table_type', 'checkLoadedFile']
         ];
     }
 
@@ -193,7 +173,7 @@ final class TemplateModel extends BaseModel
         return TemplateHelper::labels();
     }
 
-    public function checkDynamicValues($attribute)
+    public function checkDynamicValues($attribute): void
     {
         if (
             $this->table_type
@@ -212,14 +192,19 @@ final class TemplateModel extends BaseModel
         }
     }
 
-    public function afterValidate()
+    public function afterValidate(): void
     {
-        parent::afterValidate();
-
         if ($this->form_type == ReportFormTemplateEntity::REPORT_TYPE_TEMPLATE) {
             foreach (['table_type', 'table_rows', 'table_columns'] as $attribute) {
                 $this->{$attribute} = null;
             }
         }
+
+        parent::afterValidate();
+    }
+
+    public function checkLoadedFile(): void
+    {
+
     }
 }
