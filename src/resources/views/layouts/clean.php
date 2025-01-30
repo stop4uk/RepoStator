@@ -15,8 +15,8 @@ ClearAsset::register($this);
 $this->registerCsrfMetaTags();
 $this->registerMetaTag(['charset' => Yii::$app->charset], 'charset');
 $this->registerMetaTag(['name' => 'viewport', 'content' => 'width=device-width, initial-scale=1, shrink-to-fit=no']);
-$this->registerMetaTag(['name' => 'description', 'content' => Yii::$app->settings->get('system', 'meta_description')]);
-$this->registerMetaTag(['name' => 'keywords', 'content' => Yii::$app->settings->get('system', 'meta_keywords')]);
+$this->registerMetaTag(['name' => 'description', 'content' => env('YII_APP_DESC', Yii::$app->settings->get('system', 'meta_description'))]);
+$this->registerMetaTag(['name' => 'keywords', 'content' => env('YII_APP_META_KEY', Yii::$app->settings->get('system', 'meta_keywords'))]);
 $this->registerLinkTag(['rel' => 'icon', 'type' => 'image/x-icon', 'href' => Yii::getAlias('@web/favicon.ico')]);
 ?>
 <?php $this->beginPage() ?>
