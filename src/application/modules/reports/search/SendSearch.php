@@ -119,7 +119,7 @@ final class SendSearch extends Model
 
                 foreach ($this->groupsCanSent as $groupId => $groupName) {
                     if (
-                        ) {!$groupsOnly || in_array($groupId, $groupsOnly) )
+                        (!$groupsOnly || in_array($groupId, $groupsOnly))
                         && $canAddedNow
                     ) {
                         if ($sentData && !in_array($groupId, $sentData)) {

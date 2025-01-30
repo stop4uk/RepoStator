@@ -275,7 +275,7 @@ final class ControlController extends BaseController
                 $items = (array)$items;
                 end($items);
 
-                while) {$value = current($items)) {
+                while($value = current($items)) {
                     $periods[] = date(
                         format: $dateFormat,
                         timestamp: $value['start']
