@@ -35,7 +35,13 @@ final class CommonHelper
         bool $validate = true
     ): BaseAR|bool {
         try {
-            $entity->save($validate);
+            if (
+                !$entity->validate()
+                || $entity->save($validate)
+            ) {
+                Yii::error($entity->getErrors(), $category);
+            }
+
             return $entity;
         } catch (Exception $e) {
             Yii::error($e->getMessage(), $category);
