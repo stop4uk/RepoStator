@@ -92,6 +92,7 @@ $config = [
             ],
             'rules' => [
                 'profile'                                                                       => 'users/profile',
+                'profile/<action>'                                                              => 'users/profile/<action>',
                 '<action:(login|logout|register)>'                                              => 'users/auth/<action>',
                 '<controller:(dashboard|send|control|statistic)>'                               => 'reports/<controller>',
                 '<controller:(dashboard|send|control|statistic)>/<action>'                      => 'reports/<controller>/<action>',
