@@ -123,7 +123,7 @@ final class ProfileController extends BaseController
 
     public function actionChangepassword()
     {
-        $this->layout='clear';
+        $this->layout=Yii::$app->getModule('users')->layoutClean;
         $form = new UserPasswordChangeForm();
 
         if ($this->request->isAjax && $form->load($this->request->post())) {
