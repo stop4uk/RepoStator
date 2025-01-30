@@ -6,1751 +6,1462 @@ use app\modules\users\components\rbac\items\{
 };
 
 return [
-    Roles::ADMINISTRATOR => [
+    Roles::ADMIN => [
         'type' => 1,
         'description' => 'Администратор',
     ],
-    Roles::CLIENT => [
+    Roles::ROLE_ADMINGROUP => [
         'type' => 1,
-        'description' => 'Роль "Клиент"',
+        'description' => 'Админка. Группы. Управление',
         'children' => [
-            Roles::RC__LCL__BOOKING,
-            Roles::RC__ORDER,
-            Roles::RC__ORDERCARDELIVERY,
-            Roles::RC__ORDERCUSTOMPROCESSING,
-            Roles::RC__REQUEST,
-        ],
-    ],
-    Roles::MANAGER => [
-        'type' => 1,
-        'description' => 'Роль "Менеджер"',
-        'children' => [
-            Roles::RA__CONTRACT,
-            Roles::RA__DIR__CONTAINERTYPE,
-            Roles::RA__DIR__CONTAINERTYPE_DELETE,
-            Roles::RA__DIR__GEO__CITY,
-            Roles::RA__DIR__GEO__COUNTRY,
-            Roles::RA__DIR__GEO__COUNTRY_DELETE,
-            Roles::RA__DIR__INCOTERM,
-            Roles::RA__DIR__INCOTERM_DELETE,
-            Roles::RA__DIR__LCLAGENT,
-            Roles::RA__DIR__RAILROAD,
-            Roles::RA__DIR__RAILROAD_DELETE,
-            Roles::RA__DIR__ROUTE,
-            Roles::RA__DIR__ROUTE_DELETE,
-            Roles::RA__DIR__STOCK,
-            Roles::RA__DIR__STOCK_DELETE,
-            Roles::RA__DIR__TRANSIT,
-            Roles::RA__DIR__TRANSIT_DELETE,
-            Roles::RA__DIR__TRANSPORTTYPE,
-            Roles::RA__DIR__TRANSPORTTYPE_DELETE,
-            Roles::RA__FINANCE__INVOICE,
-            Roles::RA__FINANCE__INVOICE_DELETE,
-            Roles::RA__FINANCE__INVOICE_HISTORY,
-            Roles::RA__FINANCE__REPORT,
-            Roles::RA__LCL__BOOKING,
-            Roles::RA__LCL__BOOKING_DELETE,
-            Roles::RA__LCL__BOOKING_HISTORY,
-            Roles::RA__LCL__CONTAINER,
-            Roles::RA__LCL__CONTAINER_BOOKING,
-            Roles::RA__LCL__CONTAINER_DELETE,
-            Roles::RA__LCL__CONTAINER_HISTORY,
-            Roles::RA__ORDER,
-            Roles::RA__ORDER_CHANGESTATUS,
-            Roles::RA__ORDERCARDELIVERY,
-            Roles::RA__ORDERCARDELIVERY_CHANGESTATUS,
-            Roles::RA__ORDERCARDELIVERY_DELETE,
-            Roles::RA__ORDERCARDELIVERY_HISTORY,
-            Roles::RA__ORDERCUSTOMPROCESSING,
-            Roles::RA__ORDERCUSTOMPROCESSING_CHANGESTATUS,
-            Roles::RA__ORDERCUSTOMPROCESSING_DELETE,
-            Roles::RA__ORGANIZATION,
-            Roles::RA__ORGANIZATION_DELETE,
-            Roles::RA__REQUEST,
-            Roles::RA__REQUEST_CHANGESTATUS,
-            Roles::RA__REQUEST_DELETE,
-            Roles::RA__REQUEST_HISTORY,
-            Roles::RA__USER__CLIENT,
-            Roles::RA__USER__CLIENT_DELETE,
-            Roles::RA__TRANSPORTATION_ORDER,
-            Roles::RA__TRANSPORTATION_ORDER_CHANGESTATUS,
-            Roles::RA__TRANSPORTATION_ORDER_DELETE,
-            Roles::RA__TRANSPORTATION_ORDER_HISTORY,
-            Permissions::ADMIN__DASHBOARD,
-            Permissions::ADMIN__DIRECTORY__TERMINAL_VIEW,
-            Permissions::ADMIN__ORGANIZATION_VIEW,
-        ],
-    ],
-
-    Roles::CLIENT_MANAGER => [
-        'type' => 1,
-        'description' => 'Роль "Менеджер клиента"',
-        'children' => [
-            Roles::RA__DIR__STOCK,
-            Roles::RA__DIR__STOCK_DELETE,
-            Roles::RA__ORDERCARDELIVERY,
-            Roles::RA__ORDERCARDELIVERY_CHANGESTATUS,
-            Roles::RA__ORDERCARDELIVERY_HISTORY,
-            Permissions::ADMIN__DASHBOARD,
-            Permissions::ADMIN__DIRECTORY__TERMINAL_VIEW,
-        ],
-    ],
-
-    Roles::LOGIST => [
-        'type' => 1,
-        'description' => 'Роль "Логист"',
-        'children' => [
-            Roles::RA__LOGISTICS__LIST,
-            Permissions::ADMIN__LOGISTICS__UPDATE_RATES,
-            Permissions::ADMIN__LOGISTICS__DELETE_RATES,
-            Permissions::ADMIN__LOGISTICS__TAKE,
-            Permissions::ADMIN__LOGISTICS__CHANGESTATUS,
-        ],
-    ],
-
-    Roles::RA__CONTRACT => [
-        'type' => 1,
-        'description' => 'РА. Контракты',
-        'children' => [
-            Permissions::ADMIN__CONTRACT_LIST,
-            Permissions::ADMIN__CONTRACT_UPDATE,
-        ],
-    ],
-    Roles::RA__DIR__CONTAINERTYPE => [
-        'type' => 1,
-        'description' => 'РА. Справочники. Типы контейнеров',
-        'children' => [
-            Permissions::ADMIN__DIRECTORY__CONTAINERTYPE_CREATE,
-            Permissions::ADMIN__DIRECTORY__CONTAINERTYPE_UPDATE,
-        ],
-    ],
-    Roles::RA__DIR__CONTAINERTYPE_DELETE => [
-        'type' => 1,
-        'description' => 'РА. Справочники. Типы контейнеров. Удаление',
-        'children' => [
-            Permissions::ADMIN__DIRECTORY__CONTAINERTYPE_DELETE,
-        ],
-    ],
-    Roles::RA__DIR__CURRENCY => [
-        'type' => 1,
-        'description' => 'РА. Справочники. Валюты',
-        'children' => [
-            Permissions::ADMIN__DIRECTORY__CURRENCY_CREATE,
-            Permissions::ADMIN__DIRECTORY__CURRENCY_UPDATE,
-        ],
-    ],
-    Roles::RA__DIR__GEO__CITY => [
-        'type' => 1,
-        'description' => 'РА. Справочники. Города',
-        'children' => [
-            Permissions::ADMIN__DIRECTORY__GEO__CITY_CREATE,
-            Permissions::ADMIN__DIRECTORY__GEO__CITY_UPDATE,
-        ],
-    ],
-    Roles::RA__DIR__GEO__COUNTRY => [
-        'type' => 1,
-        'description' => 'РА. Справочники. Страны',
-        'children' => [
-            Permissions::ADMIN__DIRECTORY__GEO__COUNTRY_CREATE,
-            Permissions::ADMIN__DIRECTORY__GEO__COUNTRY_UPDATE,
-        ],
-    ],
-    Roles::RA__DIR__GEO__COUNTRY_DELETE => [
-        'type' => 1,
-        'description' => 'РА. Справочники. Страны. Удаление',
-        'children' => [
-            Permissions::ADMIN__DIRECTORY__GEO__COUNTRY_DELETE,
-        ],
-    ],
-    Roles::RA__DIR__INCOTERM => [
-        'type' => 1,
-        'description' => 'РА. Справочники. Условия Инкотерм',
-        'children' => [
-            Permissions::ADMIN__DIRECTORY__INCOTERM_CREATE,
-            Permissions::ADMIN__DIRECTORY__INCOTERM_UPDATE,
-        ],
-    ],
-    Roles::RA__DIR__INCOTERM_DELETE => [
-        'type' => 1,
-        'description' => 'РА. Справочники. Условия Инкотерм. Удаление',
-        'children' => [
-            Permissions::ADMIN__DIRECTORY__INCOTERM_DELETE,
-        ],
-    ],
-    Roles::RA__DIR__LCLAGENT => [
-        'type' => 1,
-        'description' => 'РА. Справочники. Сборные грузы. Агенты',
-        'children' => [
-            Permissions::ADMIN__DIRECTORY__LCLAGENT_CREATE,
-            Permissions::ADMIN__DIRECTORY__LCLAGENT_UPDATE,
-        ],
-    ],
-    Roles::RA__DIR__RAILROAD => [
-        'type' => 1,
-        'description' => 'РА. Справочники. ЖД станции',
-        'children' => [
-            Permissions::ADMIN__DIRECTORY__RAILROAD_CREATE,
-            Permissions::ADMIN__DIRECTORY__RAILROAD_UPDATE,
-        ],
-    ],
-    Roles::RA__DIR__RAILROAD_DELETE => [
-        'type' => 1,
-        'description' => 'РА. Справочники. ЖД станции. Удаление',
-        'children' => [
-            Permissions::ADMIN__DIRECTORY__RAILROAD_DELETE,
-        ],
-    ],
-    Roles::RA__DIR__ROUTE => [
-        'type' => 1,
-        'description' => 'РА. Справочники. Маршруты',
-        'children' => [
-            Permissions::ADMIN__DIRECTORY__ROUTE_CREATE,
-            Permissions::ADMIN__DIRECTORY__ROUTE_UPDATE,
-        ],
-    ],
-    Roles::RA__DIR__ROUTE_DELETE => [
-        'type' => 1,
-        'description' => 'РА. Справочники. Маршруты. Удаление',
-        'children' => [
-            Permissions::ADMIN__DIRECTORY__ROUTE_DELETE,
-        ],
-    ],
-    Roles::RA__DIR__SERVICE => [
-        'type' => 1,
-        'description' => 'РА. Справочники. Услуги',
-        'children' => [
-            Permissions::ADMIN__DIRECTORY__SERVICE_CREATE,
-            Permissions::ADMIN__DIRECTORY__SERVICE_UPDATE,
-        ],
-    ],
-    Roles::RA__DIR__STOCK => [
-        'type' => 1,
-        'description' => 'РА. Справочники. Стоки',
-        'children' => [
-            Permissions::ADMIN__DIRECTORY__STOCK_CREATE,
-            Permissions::ADMIN__DIRECTORY__STOCK_UPDATE,
-        ],
-    ],
-    Roles::RA__DIR__STOCK_DELETE => [
-        'type' => 1,
-        'description' => 'РА. Справочники. Стоки. Удаление',
-        'children' => [
-            Permissions::ADMIN__DIRECTORY__STOCK_DELETE,
-        ],
-    ],
-    Roles::RA__DIR__TERMINAL => [
-        'type' => 1,
-        'description' => 'РА. Справочники. Терминалы',
-        'children' => [
-            Permissions::ADMIN__DIRECTORY__TERMINAL_CREATE,
-            Permissions::ADMIN__DIRECTORY__TERMINAL_UPDATE,
-        ],
-    ],
-    Roles::RA__DIR__TERMINAL_DELETE => [
-        'type' => 1,
-        'description' => 'РА. Справочники. Терминалы. Удаление',
-        'children' => [
-            Permissions::ADMIN__DIRECTORY__TERMINAL_DELETE,
-        ],
-    ],
-    Roles::RA__DIR__TRANSIT => [
-        'type' => 1,
-        'description' => 'РА. Справочники. Погран. переходы',
-        'children' => [
-            Permissions::ADMIN__DIRECTORY__TRANSIT_CREATE,
-            Permissions::ADMIN__DIRECTORY__TRANSIT_UPDATE,
-            Permissions::ADMIN__DIRECTORY__TRANSPORTTYPE_UPDATE,
-        ],
-    ],
-    Roles::RA__DIR__TRANSIT_DELETE => [
-        'type' => 1,
-        'description' => 'РА. Справочники. Погран. переходы. Удаление',
-        'children' => [
-            Permissions::ADMIN__DIRECTORY__TRANSIT_DELETE,
-        ],
-    ],
-    Roles::RA__DIR__TRANSPORTTYPE => [
-        'type' => 1,
-        'description' => 'РА. Справочники. Транспортные профили',
-        'children' => [
-            Permissions::ADMIN__DIRECTORY__TRANSPORTTYPE_CREATE,
-        ],
-    ],
-    Roles::RA__DIR__TRANSPORTTYPE_DELETE => [
-        'type' => 1,
-        'description' => 'РА. Справочники. Транспортные профили. Удаление',
-        'children' => [
-            Permissions::ADMIN__DIRECTORY__TRANSPORTTYPE_DELETE,
-        ],
-    ],
-    Roles::RA__FINANCE__INVOICE => [
-        'type' => 1,
-        'description' => 'РА. Финансы. Счета',
-        'children' => [
-            Permissions::ADMIN__FINANCE__INVOICE_CREATE,
-            Permissions::ADMIN__FINANCE__INVOICE_UPDATE,
-        ],
-    ],
-    Roles::RA__FINANCE__INVOICE_DELETE => [
-        'type' => 1,
-        'description' => 'РА. Финансы. Счета. Удаление',
-        'children' => [
-            Permissions::ADMIN__FINANCE__INVOICE_DELETE,
-        ],
-    ],
-    Roles::RA__FINANCE__INVOICE_HISTORY => [
-        'type' => 1,
-        'description' => 'РА. Финансы. Счета. История изменений',
-        'children' => [
-            Permissions::ADMIN__FINANCE__INVOICE_HISTORY,
-        ],
-    ],
-    Roles::RA__FINANCE__REPORT => [
-        'type' => 1,
-        'description' => 'РА. Финансы. Отчеты',
-        'children' => [
-            Permissions::ADMIN__FINANCE__REPORT_CREATE,
-            Permissions::ADMIN__FINANCE__REPORT_UPDATE,
-        ],
-    ],
-    Roles::RA__LCL__BOOKING => [
-        'type' => 1,
-        'description' => 'РА. Сборные грузы. Заказы',
-        'children' => [
-            Permissions::ADMIN__LCL__BOOKING_CREATE,
-            Permissions::ADMIN__LCL__BOOKING_HISTORY,
-            Permissions::ADMIN__LCL__BOOKING_UPDATE,
-        ],
-    ],
-    Roles::RA__LCL__BOOKING_DELETE => [
-        'type' => 1,
-        'description' => 'РА. Сборные грузы. Заказы. Удаление',
-        'children' => [
-            Permissions::ADMIN__LCL__BOOKING_DELETE,
-        ],
-    ],
-    Roles::RA__LCL__BOOKING_HISTORY => [
-        'type' => 1,
-        'description' => 'РА. Сборные грузы. Заказы. История изменений',
-        'children' => [
-            Permissions::ADMIN__LCL__BOOKING_HISTORY,
-        ],
-    ],
-    Roles::RA__LCL__CONTAINER => [
-        'type' => 1,
-        'description' => 'РА. Сборные грузы. Контейнеры',
-        'children' => [
-            Permissions::ADMIN__LCL__CONTAINER_CREATE,
-            Permissions::ADMIN__LCL__CONTAINER_HISTORY,
-            Permissions::ADMIN__LCL__CONTAINER_UPDATE,
-        ],
-    ],
-    Roles::RA__LCL__CONTAINER_BOOKING => [
-        'type' => 1,
-        'description' => 'РА. Сборные грузы. Контейнеры. Просмотр заказов',
-        'children' => [
-            Permissions::ADMIN__LCL__CONTAINER_BOOKING,
-        ],
-    ],
-    Roles::RA__LCL__CONTAINER_DELETE => [
-        'type' => 1,
-        'description' => 'РА. Сборные грузы. Контейнеры. Удаление',
-        'children' => [
-            Permissions::ADMIN__LCL__CONTAINER_DELETE,
-        ],
-    ],
-    Roles::RA__LCL__CONTAINER_HISTORY => [
-        'type' => 1,
-        'description' => 'РА. Сборные грузы. Контейнеры. История изменений',
-        'children' => [
-            Permissions::ADMIN__LCL__CONTAINER_HISTORY,
-        ],
-    ],
-    Roles::RA__ORDER => [
-        'type' => 1,
-        'description' => 'РА. ЖД перевозки',
-        'children' => [
-            Permissions::ADMIN__ORDER_UPDATE,
-        ],
-    ],
-    Roles::RA__ORDER_CHANGESTATUS => [
-        'type' => 1,
-        'description' => 'РА. ЖД перевозки. Изменение статуса',
-        'children' => [
-            Permissions::ADMIN__ORDER_CHANGESTATUS,
-        ],
-    ],
-    Roles::RA__ORDER_UPDATETRIP => [
-        'type' => 1,
-        'description' => 'РА. ЖД перевозки. Обновление маршрута',
-        'children' => [
-            Permissions::ADMIN__ORDER_UPDATETRIP,
-        ],
-    ],
-    Roles::RA__ORDERCARDELIVERY => [
-        'type' => 1,
-        'description' => 'РА. Автодоставка',
-        'children' => [
-            Permissions::ADMIN__ORDERCARDELIVERY_CREATE,
-            Permissions::ADMIN__ORDERCARDELIVERY_HISTORY,
-            Permissions::ADMIN__ORDERCARDELIVERY_UPDATE,
-        ],
-    ],
-    Roles::RA__ORDERCARDELIVERY_CHANGECONTAINERCODE => [
-        'type' => 1,
-        'description' => 'РА. Атводоставка. Изменение номера контейнера',
-        'children' => [
-            Permissions::ADMIN__ORDERCARDELIVERY_CHANGECONTAINERCODE,
-        ],
-    ],
-    Roles::RA__ORDERCARDELIVERY_CHANGESTATUS => [
-        'type' => 1,
-        'description' => 'РА. Автодоставка. Изменение статуса',
-        'children' => [
-            Permissions::ADMIN__ORDERCARDELIVERY_CHANGESTATUS,
-        ],
-    ],
-    Roles::RA__ORDERCARDELIVERY_DELETE => [
-        'type' => 1,
-        'description' => 'РА. Автодоставка. Удаление',
-        'children' => [
-            Permissions::ADMIN__ORDERCARDELIVERY_DELETE,
-        ],
-    ],
-    Roles::RA__ORDERCARDELIVERY_HISTORY => [
-        'type' => 1,
-        'description' => 'РА. Автодоставка. История изменений',
-        'children' => [
-            Permissions::ADMIN__ORDERCARDELIVERY_HISTORY,
-        ],
-    ],
-    Roles::RA__ORDERCUSTOMPROCESSING => [
-        'type' => 1,
-        'description' => 'РА. Терминальная обработка',
-        'children' => [
-            Permissions::ADMIN__ORDERCUSTOMPROCESSING_CREATE,
-            Permissions::ADMIN__ORDERCUSTOMPROCESSING_TRANSFERTRIP,
-        ],
-    ],
-    Roles::RA__ORDERCUSTOMPROCESSING_CHANGESTATUS => [
-        'type' => 1,
-        'description' => 'РА. Терминальная обработка. Изменение статуса',
-        'children' => [
-            Permissions::ADMIN__ORDERCUSTOMPROCESSING_CHANGESTATUS,
-        ],
-    ],
-    Roles::RA__ORDERCUSTOMPROCESSING_DELETE => [
-        'type' => 1,
-        'description' => 'РА. Терминальная обработка. Удаление',
-        'children' => [
-            Permissions::ADMIN__ORDERCUSTOMPROCESSING_DELETE,
-        ],
-    ],
-    Roles::RA__ORGANIZATION => [
-        'type' => 1,
-        'description' => 'РА. Организации',
-        'children' => [
-            Permissions::ADMIN__ORGANIZATION_CREATE,
-            Permissions::ADMIN__ORGANIZATION_UPDATE,
-        ],
-    ],
-    Roles::RA__ORGANIZATION_DELETE => [
-        'type' => 1,
-        'description' => 'РА. Организации. Удаление',
-        'children' => [
-            Permissions::ADMIN__ORGANIZATION_DELETE,
-        ],
-    ],
-    Roles::RA__REQUEST => [
-        'type' => 1,
-        'description' => 'РА. Запросы',
-        'children' => [
-            Permissions::ADMIN__REQUEST_CREATE,
-            Permissions::ADMIN__REQUEST_UPDATE,
-            Permissions::ADMIN__REQUEST_UPDATE_RATES,
-            Permissions::ADMIN__REQUEST_DELETE_RATES,
-        ],
-    ],
-    Roles::RA__REQUEST_CHANGESTATUS => [
-        'type' => 1,
-        'description' => 'РА. Запросы. Изменение статуса',
-        'children' => [
-            Permissions::ADMIN__REQUEST_CHANGESTATUS,
-        ],
-    ],
-    Roles::RA__REQUEST_DELETE => [
-        'type' => 1,
-        'description' => 'РА. Запросы. Удаление',
-        'children' => [
-            Permissions::ADMIN__REQUEST_DELETE,
-        ],
-    ],
-    Roles::RA__REQUEST_HISTORY => [
-        'type' => 1,
-        'description' => 'РА. Запросы. История изменений',
-        'children' => [
-            Permissions::ADMIN__REQUEST_HISTORY,
-        ],
-    ],
-    Roles::RA__TRANSPORTATION_ORDER => [
-        'type' => 1,
-        'description' => 'РА. Заявки на перевозку',
-        'children' => [
-            Permissions::ADMIN__TRANSPORTATION_ORDER_LIST,
-            Permissions::ADMIN__TRANSPORTATION_ORDER_CREATE,
-            Permissions::ADMIN__TRANSPORTATION_ORDER_UPDATE,
-            Permissions::ADMIN__TRANSPORTATION_ORDER_UPDATE_RATES,
-            Permissions::ADMIN__TRANSPORTATION_ORDER_DELETE_RATES,
-        ],
-    ],
-    Roles::RA__TRANSPORTATION_ORDER_CHANGESTATUS => [
-        'type' => 1,
-        'description' => 'РА. Заявки на перевозку. Изменение статуса',
-        'children' => [
-            Permissions::ADMIN__TRANSPORTATION_ORDER_CHANGE_STATUS,
-        ],
-    ],
-    Roles::RA__TRANSPORTATION_ORDER_DELETE => [
-        'type' => 1,
-        'description' => 'РА. Заявки на перевозку. Удаление',
-        'children' => [
-            Permissions::ADMIN__TRANSPORTATION_ORDER_DELETE,
-        ],
-    ],
-    Roles::RA__TRANSPORTATION_ORDER_HISTORY => [
-        'type' => 1,
-        'description' => 'РА. Заявки на перевозку. История изменений',
-        'children' => [
-            Permissions::ADMIN__TRANSPORTATION_ORDER_HISTORY,
-        ],
-    ],
-    Roles::RA__LOGISTICS__LIST => [
-        'type' => 1,
-        'description' => 'РА. Кабинет логиста. Просмотр заявок',
-        'children' => [
-            Permissions::ADMIN__DASHBOARD_MENU_SIDE,
-            Permissions::ADMIN__LOGISTICS__LIST,
+            Permissions::ADMIN_GROUP,
+            Permissions::ADMIN_INCLUDES,
         ]
     ],
-    Roles::RA__USER__CLIENT => [
+    Roles::ROLE_ADMINGROUPTYPE => [
         'type' => 1,
-        'description' => 'РА. Пользователи. Клиенты',
+        'description' => 'Админка. Типы групп. Управление',
         'children' => [
-            Permissions::ADMIN__DASHBOARD,
-            Permissions::ADMIN__DASHBOARD_MENU_TOPNAV_CLIENTS,
-            Permissions::ADMIN__USER__CLIENT_CREATE,
-            Permissions::ADMIN__USER__CLIENT_LIST,
-            Permissions::ADMIN__USER__CLIENT_UPDATE,
-            Permissions::ADMIN__USER__CLIENT_VIEW,
-        ],
+            Permissions::ADMIN_GROUPTYPE,
+            Permissions::ADMIN_INCLUDES,
+        ]
     ],
-    Roles::RA__USER__CLIENT_DELETE => [
+    Roles::ROLE_ADMINLOG => [
         'type' => 1,
-        'description' => 'РА. Пользователи. Клиенты. Удаление',
+        'description' => 'Админка. Логи',
         'children' => [
-            Permissions::ADMIN__USER__CLIENT_DELETE,
-        ],
+            Permissions::ADMIN_INCLUDES,
+            Permissions::ADMIN_LOG,
+        ]
     ],
-    Roles::RA__USER__MANAGER => [
+    Roles::ROLE_ADMINQUEUESYSTEM => [
         'type' => 1,
-        'description' => 'РА. Пользователи. Менеджеры',
+        'description' => 'Админка. Очереди. Системная',
         'children' => [
-            Permissions::ADMIN__DASHBOARD,
-            Permissions::ADMIN__DASHBOARD_MENU_TOPNAV_CLIENTS,
-            Permissions::ADMIN__USER__MANAGER_CREATE,
-            Permissions::ADMIN__USER__MANAGER_LIST,
-            Permissions::ADMIN__USER__MANAGER_UPDATE,
-            Permissions::ADMIN__USER__MANAGER_VIEW,
-        ],
+            Permissions::ADMIN_INCLUDES,
+            Permissions::ADMIN_QUEUE,
+            Permissions::ADMIN_QUEUE_SYSTEM,
+        ]
     ],
-    Roles::RA__USER__MANAGER_DELETE => [
+    Roles::ROLE_ADMINQUEUETEMPLATEALL => [
         'type' => 1,
-        'description' => 'РА. Пользователи. Менеджеры. Удаление',
+        'description' => 'Админка. Очереди. Шаблоны. Своя и подчиненные группы',
         'children' => [
-            Permissions::ADMIN__USER__MANAGER_DELETE,
-        ],
+            Permissions::ADMIN_QUEUE_TEMPLATE_LIST_ALL,
+        ]
     ],
-    Roles::RC__LCL__BOOKING => [
+    Roles::ROLE_ADMINQUEUETEMPLATEGROUP => [
         'type' => 1,
-        'description' => 'РК. Сборный груз',
+        'description' => 'Админка. Очереди. Шаблоны. Своя группа',
         'children' => [
-            Permissions::CLIENT__LCL__BOOKING_LIST,
-            Permissions::CLIENT__LCL__BOOKING_VIEW,
-        ],
+            Permissions::ADMIN_INCLUDES,
+            Permissions::ADMIN_QUEUE,
+            Permissions::ADMIN_QUEUE_TEMPLATE_LIST,
+            Permissions::ADMIN_QUEUE_TEMPLATE_LIST_GROUP,
+        ]
     ],
-    Roles::RC__ORDER => [
+    Roles::ROLE_ADMINUSERADD => [
         'type' => 1,
-        'description' => 'РК. ЖД перевозки',
+        'description' => 'Админка. Пользователи. Создание',
         'children' => [
-            Permissions::CLIENT__ORDER_CREATE,
-            Permissions::CLIENT__ORDER_VIEW,
-        ],
+            Permissions::ADMIN_USER_CREATE,
+        ]
     ],
-    Roles::RC__ORDERCARDELIVERY => [
+    Roles::ROLE_ADMINUSERALL => [
         'type' => 1,
-        'description' => 'РК. Автодоставка',
+        'description' => 'Админка. Пользователи. Своя и подчиненные группы',
         'children' => [
-            Permissions::CLIENT__ORDERCARDELIVERY_CREATE,
-            Permissions::CLIENT__ORDERCARDELIVERY_VIEW,
-        ],
+            Permissions::ADMIN_INCLUDES,
+            Permissions::ADMIN_USER_DELETE_ALL,
+            Permissions::ADMIN_USER_EDIT_ALL,
+            Permissions::ADMIN_USER_LIST,
+            Permissions::ADMIN_USER_LIST_ALL,
+            Permissions::ADMIN_USER_VIEW_ALL,
+        ]
     ],
-    Roles::RC__ORDERCUSTOMPROCESSING => [
+    Roles::ROLE_ADMINUSERDELETEDALL => [
         'type' => 1,
-        'description' => 'РК. Терминальная обработка',
+        'description' => 'Админка. Пользователи. Удаленные. Своя и подчиненные группы',
         'children' => [
-            Permissions::CLIENT__ORDERCUSTOMPROCESSING_CREATE,
-            Permissions::CLIENT__ORDERCUSTOMPROCESSING_UPDATE,
-            Permissions::CLIENT__ORDERCUSTOMPROCESSING_VIEW,
-        ],
+            Permissions::ADMIN_USER_ENABLE_ALL,
+            Permissions::ADMIN_USER_VIEW_DELETE_ALL,
+        ]
     ],
-    Roles::RC__ORDERCUSTOMPROCESSING_CHANGESTATUS => [
+    Roles::ROLE_ADMINUSERDELETEDGROUP => [
         'type' => 1,
-        'description' => 'РК. Терминальная обработка. Изменение статуса',
+        'description' => 'Админка. Пользователи. Удаленные. Своя группа',
         'children' => [
-            Permissions::CLIENT__ORDERCUSTOMPROCESSING_CHANGESTATUS,
-        ],
+            Permissions::ADMIN_USER_ENABLE_GROUP,
+            Permissions::ADMIN_USER_VIEW_DELETE_GROUP,
+        ]
     ],
-    Roles::RC__REQUEST => [
+    Roles::ROLE_ADMINUSERGROUP => [
         'type' => 1,
-        'description' => 'РК. Запросы',
-        'children' => [
-            Permissions::CLIENT__REQUEST_CREATE,
-            Permissions::CLIENT__REQUEST_VIEW,
-            Permissions::CLIENT__REQUEST_UPDATE,
-        ],
-    ],
-    Permissions::ADMIN__CONTRACT_LIST => [
-        'type' => 2,
-        'description' => 'ОА. Контракты',
-        'children' => [
-            Permissions::ADMIN__DASHBOARD_MENU_TOPNAV_CLIENTS,
-        ],
-    ],
-    Permissions::ADMIN__CONTRACT_UPDATE => [
-        'type' => 2,
-        'description' => 'ОА. Контракты. Обновление',
-        'children' => [
-            Permissions::ADMIN__CONTRACT_LIST,
-        ],
-    ],
-    Permissions::ADMIN__DASHBOARD => [
-        'type' => 2,
-        'description' => 'ОА. Доступ к панели администратора',
-    ],
-    Permissions::ADMIN__DASHBOARD_MENU_SIDE => [
-        'type' => 2,
-        'description' => 'ОА. Меню. Показывать боковое меню',
-        'children' => [
-            Permissions::ADMIN__DASHBOARD,
-        ],
-    ],
-    Permissions::ADMIN__DASHBOARD_MENU_TOPNAV => [
-        'type' => 2,
-        'description' => 'ОА. Меню. Показывать кнопку "Основное меню"',
-        'children' => [
-            Permissions::ADMIN__DASHBOARD,
-        ],
-    ],
-    Permissions::ADMIN__DASHBOARD_MENU_TOPNAV_CLIENTS => [
-        'type' => 2,
-        'description' => 'ОА. Меню. Показывать раздел "Клиенты" в "Основном меню"',
-        'children' => [
-            Permissions::ADMIN__DASHBOARD_MENU_TOPNAV,
-        ],
-    ],
-    Permissions::ADMIN__DASHBOARD_MENU_TOPNAV_DIRECTORY => [
-        'type' => 2,
-        'description' => 'ОА. Меню. Показывать раздел "Справочники" в "Основном меню"',
-        'children' => [
-            Permissions::ADMIN__DASHBOARD_MENU_TOPNAV,
-        ],
-    ],
-    Permissions::ADMIN__DIRECTORY__CONTAINERTYPE_CREATE => [
-        'type' => 2,
-        'description' => 'ОА. Справочник "Типы контейнеров". Создание',
-        'children' => [
-            Permissions::ADMIN__DIRECTORY__CONTAINERTYPE_LIST,
-        ],
-    ],
-    Permissions::ADMIN__DIRECTORY__CONTAINERTYPE_DELETE => [
-        'type' => 2,
-        'description' => 'ОА. Справочник "Типы контейнеров". Удаление',
-        'children' => [
-            Permissions::ADMIN__DIRECTORY__CONTAINERTYPE_LIST,
-        ],
-    ],
-    Permissions::ADMIN__DIRECTORY__CONTAINERTYPE_LIST => [
-        'type' => 2,
-        'description' => 'ОА. Справочник "Типы контейнеров"',
-        'children' => [
-            Permissions::ADMIN__DASHBOARD_MENU_TOPNAV_DIRECTORY,
-        ],
-    ],
-    Permissions::ADMIN__DIRECTORY__CONTAINERTYPE_UPDATE => [
+        'description' => 'Админка. Пользователи. Своя группа',
+        'children' => [
+            Permissions::ADMIN_INCLUDES,
+            Permissions::ADMIN_USER_DELETE_GROUP,
+            Permissions::ADMIN_USER_EDIT_GROUP,
+            Permissions::ADMIN_USER_LIST,
+            Permissions::ADMIN_USER_VIEW_GROUP,
+        ]
+    ],
+    Roles::ROLE_CONSTANTADD => [
+        'type' => 1,
+        'description' => 'Константы. Создание',
+        'children' => [
+            Permissions::CONSTANT_CREATE,
+            Permissions::REPORT_INCLUDES,
+        ]
+    ],
+    Roles::ROLE_CONSTANTALL => [
+        'type' => 1,
+        'description' => 'Константы. Своя и подчиненные группы',
+        'children' => [
+            Permissions::CONSTANT_DELETE_ALL,
+            Permissions::CONSTANT_EDIT_ALL,
+            Permissions::CONSTANT_LIST,
+            Permissions::CONSTANT_LIST_ALL,
+            Permissions::CONSTANT_VIEW_ALL,
+            Permissions::REPORT_INCLUDES,
+        ]
+    ],
+    Roles::ROLE_CONSTANTDELETEDALL => [
+        'type' => 1,
+        'description' => 'Константы. Удаленные. Своия и подчиненные группы',
+        'children' => [
+            Permissions::CONSTANT_ENABLE_ALL,
+            Permissions::REPORT_INCLUDES,
+        ]
+    ],
+    Roles::ROLE_CONSTANTDELETEDGROUP => [
+        'type' => 1,
+        'description' => 'Константы. Удаленные. Своя группа',
+        'children' => [
+            Permissions::CONSTANT_ENABLE_GROUP,
+            Permissions::REPORT_INCLUDES,
+        ]
+    ],
+    Roles::ROLE_CONSTANTDELETEDMAIN => [
+        'type' => 1,
+        'description' => 'Константы. Удаленные. Только свои',
+        'children' => [
+            Permissions::CONSTANT_ENABLE_MAIN,
+            Permissions::REPORT_INCLUDES,
+        ]
+    ],
+    Roles::ROLE_CONSTANTGROUP => [
+        'type' => 1,
+        'description' => 'Константы. Только свои',
+        'children' => [
+            Permissions::CONSTANT_DELETE_GROUP,
+            Permissions::CONSTANT_EDIT_GROUP,
+            Permissions::CONSTANT_LIST,
+            Permissions::CONSTANT_LIST_GROUP,
+            Permissions::CONSTANT_VIEW_GROUP,
+            Permissions::REPORT_INCLUDES,
+        ]
+    ],
+    Roles::ROLE_CONSTANTMAIN => [
+        'type' => 1,
+        'description' => 'Константы. Только свои',
+        'children' => [
+            Permissions::CONSTANT_DELETE_MAIN,
+            Permissions::CONSTANT_EDIT_MAIN,
+            Permissions::CONSTANT_LIST,
+            Permissions::CONSTANT_LIST_MAIN,
+            Permissions::CONSTANT_VIEW_MAIN,
+            Permissions::REPORT_INCLUDES,
+        ]
+    ],
+    Roles::ROLE_CONSTANTRULEADD => [
+        'type' => 1,
+        'description' => 'Правила сложения. Создание',
+        'children' => [
+            Permissions::CONSTANTRULE_CREATE,
+            Permissions::REPORT_INCLUDES,
+        ]
+    ],
+    Roles::ROLE_CONSTANTRULEALL => [
+        'type' => 1,
+        'description' => 'Правила сложения. Своя и подчиненные группы',
+        'children' => [
+            Permissions::CONSTANTRULE_DELETE_ALL,
+            Permissions::CONSTANTRULE_EDIT_ALL,
+            Permissions::CONSTANTRULE_LIST,
+            Permissions::CONSTANTRULE_LIST_ALL,
+            Permissions::CONSTANTRULE_VIEW_ALL,
+            Permissions::REPORT_INCLUDES,
+        ]
+    ],
+    Roles::ROLE_CONSTANTRULEDELETEDALL => [
+        'type' => 1,
+        'description' => 'Правила сложения. Удаленные. Своя и подчиненные группы',
+        'children' => [
+            Permissions::CONSTANTRULE_ENABLE_ALL,
+            Permissions::REPORT_INCLUDES,
+        ]
+    ],
+    Roles::ROLE_CONSTANTRULEDELETEDGROUP => [
+        'type' => 1,
+        'description' => 'Правила сложения. Удаленные. Своя группа',
+        'children' => [
+            Permissions::CONSTANTRULE_ENABLE_GROUP,
+            Permissions::REPORT_INCLUDES,
+        ]
+    ],
+    Roles::ROLE_CONSTANTRULEDELETEDMAIN => [
+        'type' => 1,
+        'description' => 'Правила сложения. Удаленные. Только свои',
+        'children' => [
+            Permissions::CONSTANTRULE_ENABLE_MAIN,
+            Permissions::REPORT_INCLUDES,
+        ]
+    ],
+    Roles::ROLE_CONSTANTRULEGROUP => [
+        'type' => 1,
+        'description' => 'Правила сложения. Своя группа',
+        'children' => [
+            Permissions::CONSTANTRULE_DELETE_GROUP,
+            Permissions::CONSTANTRULE_EDIT_GROUP,
+            Permissions::CONSTANTRULE_LIST,
+            Permissions::CONSTANTRULE_LIST_GROUP,
+            Permissions::CONSTANTRULE_VIEW_GROUP,
+            Permissions::REPORT_INCLUDES,
+        ]
+    ],
+    Roles::ROLE_CONSTANTRULEMAIN => [
+        'type' => 1,
+        'description' => 'Правила сложения. Только свои',
+        'children' => [
+            Permissions::CONSTANTRULE_DELETE_MAIN,
+            Permissions::CONSTANTRULE_EDIT_MAIN,
+            Permissions::CONSTANTRULE_LIST_MAIN,
+            Permissions::CONSTANTRULE_VIEW_MAIN,
+            Permissions::REPORT_INCLUDES,
+        ]
+    ],
+    Roles::ROLE_DATAALL => [
+        'type' => 1,
+        'description' => 'Сведения. Своя и подчиненные группы',
+        'children' => [
+            Permissions::DATA_CHANGE_ALL,
+            Permissions::DATA_DELETE_ALL,
+            Permissions::DATA_EDIT_ALL,
+            Permissions::DATA_LIST,
+            Permissions::DATA_LIST_ALL,
+            Permissions::DATA_SEND,
+            Permissions::DATA_VIEW_ALL,
+        ]
+    ],
+    Roles::ROLE_DATACHECKFULL => [
+        'type' => 1,
+        'description' => 'Сведения. Проверка полноты передачи. Своя и подчиненные группы',
+        'children' => [
+            Permissions::DATA_CHECKFULL,
+        ]
+    ],
+    Roles::ROLE_DATACREATEFOR => [
+        'type' => 1,
+        'description' => 'Сведения. Передача за группу. Своя и подчиненные группы',
+        'children' => [
+            Permissions::DATA_CREATEFOR,
+        ]
+    ],
+    Roles::ROLE_DATADELETEDALL => [
+        'type' => 1,
+        'description' => 'Сведения. Удаленные. Своя и подчиенные группы',
+        'children' => [
+            Permissions::DATA_ENABLE_ALL,
+        ]
+    ],
+    Roles::ROLE_DATADELETEDGROUP => [
+        'type' => 1,
+        'description' => 'Сведения. Удаленные. Своя группа',
+        'children' => [
+            Permissions::DATA_ENABLE_GROUP,
+        ]
+    ],
+    Roles::ROLE_DATADELETEDMAIN => [
+        'type' => 1,
+        'description' => 'Сведения. Удаленные. Только свои',
+        'children' => [
+            Permissions::DATA_ENABLE_MAIN,
+        ]
+    ],
+    Roles::ROLE_DATAGROUP => [
+        'type' => 1,
+        'description' => 'Сведения. Своя группа',
+        'children' => [
+            Permissions::DATA_CHANGE_GROUP,
+            Permissions::DATA_DELETE_GROUP,
+            Permissions::DATA_EDIT_GROUP,
+            Permissions::DATA_LIST,
+            Permissions::DATA_LIST_GROUP,
+            Permissions::DATA_SEND,
+            Permissions::DATA_VIEW_GROUP,
+        ]
+    ],
+    Roles::ROLE_DATAMAIN => [
+        'type' => 1,
+        'description' => 'Сведения. Только свои',
+        'children' => [
+            Permissions::DATA_CHANGE_MAIN,
+            Permissions::DATA_DELETE_MAIN,
+            Permissions::DATA_EDIT_MAIN,
+            Permissions::DATA_LIST,
+            Permissions::DATA_LIST_MAIN,
+            Permissions::DATA_SEND,
+            Permissions::DATA_VIEW_MAIN,
+        ]
+    ],
+    Roles::ROLE_REPORTADD => [
+        'type' => 1,
+        'description' => 'Отчеты. Создание',
+        'children' => [
+            Permissions::REPORT_CREATE,
+        ]
+    ],
+    Roles::ROLE_REPORTALL => [
+        'type' => 1,
+        'description' => 'Отчеты. Своя и подчиненные группы',
+        'children' => [
+            Permissions::REPORT_DELETE_ALL,
+            Permissions::REPORT_EDIT_ALL,
+            Permissions::REPORT_INCLUDES,
+            Permissions::REPORT_LIST,
+            Permissions::REPORT_LIST_ALL,
+            Permissions::REPORT_VIEW_ALL,
+        ]
+    ],
+    Roles::ROLE_REPORTDELETEDALL => [
+        'type' => 1,
+        'description' => 'Отчеты. Своя и подчиненные группы',
+        'children' => [
+            Permissions::REPORT_ENABLE_ALL,
+            Permissions::REPORT_INCLUDES,
+        ]
+    ],
+    Roles::ROLE_REPORTDELETEDGROUP => [
+        'type' => 1,
+        'description' => 'Отчеты. Удаленные. Своя группа',
+        'children' => [
+            Permissions::REPORT_ENABLE_GROUP,
+            Permissions::REPORT_INCLUDES,
+        ]
+    ],
+    Roles::ROLE_REPORTDELETEMAIN => [
+        'type' => 1,
+        'description' => 'Отчеты. Удаленные. Только свои'],
+    Roles::ROLE_REPORTGROUP => [
+        'type' => 1,
+        'description' => 'Отчеты. Своя группа',
+        'children' => [
+            Permissions::REPORT_DELETE_GROUP,
+            Permissions::REPORT_EDIT_GROUP,
+            Permissions::REPORT_INCLUDES,
+            Permissions::REPORT_LIST,
+            Permissions::REPORT_LIST_GROUP,
+            Permissions::REPORT_VIEW_GROUP,
+        ]
+    ],
+    Roles::ROLE_REPORTMAIN => [
+        'type' => 1,
+        'description' => 'Отчеты. Только свои',
+        'children' => [
+            Permissions::REPORT_DELETE_MAIN,
+            Permissions::REPORT_EDIT_MAIN,
+            Permissions::REPORT_INCLUDES,
+            Permissions::REPORT_LIST_MAIN,
+            Permissions::REPORT_VIEW_MAIN,
+        ]
+    ],
+    Roles::ROLE_STRUCTUREADD => [
+        'type' => 1,
+        'description' => 'Структуры. Создание',
+        'children' => [
+            Permissions::REPORT_INCLUDES,
+            Permissions::STRUCTURE_CREATE,
+        ]
+    ],
+    Roles::ROLE_STRUCTUREALL => [
+        'type' => 1,
+        'description' => 'Структуры. Своя и подчиненные группы',
+        'children' => [
+            Permissions::REPORT_INCLUDES,
+            Permissions::STRUCTURE_DELETE_ALL,
+            Permissions::STRUCTURE_EDIT_ALL,
+            Permissions::STRUCTURE_LIST,
+            Permissions::STRUCTURE_LIST_ALL,
+            Permissions::STRUCTURE_VIEW_ALL,
+        ]
+    ],
+    Roles::ROLE_STRUCTUREDELETEDALL => [
+        'type' => 1,
+        'description' => 'Структуры. Удаленные. Своя и подчиненные группы',
+        'children' => [
+            Permissions::REPORT_INCLUDES,
+            Permissions::STRUCTURE_ENABLE_ALL,
+        ]
+    ],
+    Roles::ROLE_STRUCTUREDELETEDGROUP => [
+        'type' => 1,
+        'description' => 'Структуры. Удаленные. Своя группа',
+        'children' => [
+            Permissions::REPORT_INCLUDES,
+            Permissions::STRUCTURE_ENABLE_GROUP,
+        ]
+    ],
+    Roles::ROLE_STRUCTUREDELETEDMAIN => [
+        'type' => 1,
+        'description' => 'Структуры. Удаленные. Только свои',
+        'children' => [
+            Permissions::REPORT_INCLUDES,
+            Permissions::STRUCTURE_ENABLE_MAIN,
+        ]
+    ],
+    Roles::ROLE_STRUCTUREGROUP => [
+        'type' => 1,
+        'description' => 'Структуры. Своя группа',
+        'children' => [
+            Permissions::REPORT_INCLUDES,
+            Permissions::STRUCTURE_DELETE_GROUP,
+            Permissions::STRUCTURE_EDIT_GROUP,
+            Permissions::STRUCTURE_LIST,
+            Permissions::STRUCTURE_LIST_GROUP,
+            Permissions::STRUCTURE_VIEW_GROUP,
+        ]
+    ],
+    Roles::ROLE_STRUCTUREMAIN => [
+        'type' => 1,
+        'description' => 'Структуры. Только свои',
+        'children' => [
+            Permissions::REPORT_INCLUDES,
+            Permissions::STRUCTURE_DELETE_MAIN,
+            Permissions::STRUCTURE_EDIT_MAIN,
+            Permissions::STRUCTURE_LIST_MAIN,
+            Permissions::STRUCTURE_VIEW_MAIN,
+        ]
+    ],
+    Roles::ROLE_TEMPALTEADD => [
+        'type' => 1,
+        'description' => 'Шаблоны. Создание'],
+    Roles::ROLE_TEMPATEGROUP => [
+        'type' => 1,
+        'description' => 'Шаблоны. Своя группа'],
+    Roles::ROLE_TEMPLATEALL => [
+        'type' => 1,
+        'description' => 'Шаблоны. Своя и подчиненные группы',
+        'children' => [
+            Permissions::REPORT_INCLUDES,
+            Permissions::TEMPLATE_DELETE_ALL,
+            Permissions::TEMPLATE_EDIT_ALL,
+            Permissions::TEMPLATE_LIST,
+            Permissions::TEMPLATE_LIST_ALL,
+            Permissions::TEMPLATE_VIEW_ALL,
+        ]
+    ],
+    Roles::ROLE_TEMPLATEDELETEDALL => [
+        'type' => 1,
+        'description' => 'Шаблоны. Удаленные. Своя и подчиненные группы',
+        'children' => [
+            Permissions::REPORT_INCLUDES,
+            Permissions::TEMPLATE_ENABLE_ALL,
+        ]
+    ],
+    Roles::ROLE_TEMPLATEDELETEDGROUP => [
+        'type' => 1,
+        'description' => 'Шаблоны. Удаленные. Своя группа',
+        'children' => [
+            Permissions::REPORT_INCLUDES,
+            Permissions::TEMPLATE_ENABLE_GROUP,
+        ]
+    ],
+    Roles::ROLE_TEMPLATEDELETEDMAIN => [
+        'type' => 1,
+        'description' => 'Шаблоны. Удаленные. Только свои',
+        'children' => [
+            Permissions::REPORT_INCLUDES,
+            Permissions::TEMPLATE_ENABLE_MAIN,
+        ]
+    ],
+    Roles::ROLE_TEMPLATEMAIN => [
+        'type' => 1,
+        'description' => 'Шаблоны. Только свои',
+        'children' => [
+            Permissions::REPORT_INCLUDES,
+            Permissions::TEMPLATE_DELETE_MAIN,
+            Permissions::TEMPLATE_EDIT_MAIN,
+            Permissions::TEMPLATE_LIST_MAIN,
+            Permissions::TEMPLATE_VIEW_MAIN,
+        ]
+    ],
+
+
+
+
+
+    Permissions::ADMIN_GROUP => [
+        'type' => 2,
+        'description' => 'Управление группами'],
+    Permissions::ADMIN_GROUPTYPE => [
+        'type' => 2,
+        'description' => 'Управление типами групп'],
+    Permissions::ADMIN_INCLUDES => [
+        'type' => 2,
+        'description' => 'Раздел с административными настройками'],
+    Permissions::ADMIN_LOG => [
+        'type' => 2,
+        'description' => 'Просмотр логов'],
+    Permissions::ADMIN_QUEUE => [
+        'type' => 2,
+        'description' => 'Просмотр очередей'],
+    Permissions::ADMIN_QUEUE_SYSTEM => [
+        'type' => 2,
+        'description' => 'Просмотр очередей. Системная'],
+    Permissions::ADMIN_QUEUE_TEMPLATE_LIST => [
+        'type' => 2,
+        'description' => 'Просмотр очередей. Формирование шаблонов'],
+    Permissions::ADMIN_QUEUE_TEMPLATE_LIST_ALL => [
+        'type' => 2,
+        'description' => 'Просмотр очередей. Формирование шаблонов. Своя и подчиненные группы',
+        'ruleName' =>'checkAll'],
+    Permissions::ADMIN_QUEUE_TEMPLATE_LIST_GROUP => [
+        'type' => 2,
+        'description' => 'Просмотр очередей. Формирование шаблонов. Своя группа',
+        'ruleName' =>'checkGroup'],
+    Permissions::ADMIN_SETTING => [
+        'type' => 2,
+        'description' => 'Управление настройками'],
+    Permissions::ADMIN_USER_CREATE => [
+        'type' => 2,
+        'description' => 'Пользователи. Добавление'],
+    Permissions::ADMIN_USER_DELETE_ALL => [
         'type' => 2,
-        'description' => 'ОА. Справочник "Типы контейнеров". Обновление',
+        'description' => 'Пользователи. Удаление. Своя и подчиненные группы',
+        'ruleName' =>'checkUserAll',
         'children' => [
-            Permissions::ADMIN__DIRECTORY__CONTAINERTYPE_VIEW,
-        ],
+            Permissions::ADMIN_USER_VIEW_ALL,
+        ]
     ],
-    Permissions::ADMIN__DIRECTORY__CONTAINERTYPE_VIEW => [
+    Permissions::ADMIN_USER_DELETE_GROUP => [
         'type' => 2,
-        'description' => 'ОА. Справочник "Типы контейнеров". Детальный просмотр',
+        'description' => 'Пользователи. Удаление. Своя группа',
+        'ruleName' =>'checkUserGroup',
         'children' => [
-            Permissions::ADMIN__DIRECTORY__CONTAINERTYPE_LIST,
-        ],
+            Permissions::ADMIN_USER_VIEW_GROUP,
+        ]
     ],
-    Permissions::ADMIN__DIRECTORY__CURRENCY_CREATE => [
+    Permissions::ADMIN_USER_EDIT_ALL => [
         'type' => 2,
-        'description' => 'ОА. Справочник "Валюты". Создание',
+        'description' => 'Пользователи. Редактирование. Своя и подчиненные группы',
+        'ruleName' =>'checkUserAll',
         'children' => [
-            Permissions::ADMIN__DIRECTORY__CURRENCY_LIST,
-        ],
+            Permissions::ADMIN_USER_VIEW_ALL,
+        ]
     ],
-    Permissions::ADMIN__DIRECTORY__CURRENCY_LIST => [
+    Permissions::ADMIN_USER_EDIT_GROUP => [
         'type' => 2,
-        'description' => 'ОА. Справочник "Валюты"',
+        'description' => 'Пользователи. Редактирование. Своя группа',
+        'ruleName' =>'checkUserGroup',
         'children' => [
-            Permissions::ADMIN__DASHBOARD_MENU_TOPNAV_DIRECTORY,
-        ],
+            Permissions::ADMIN_USER_VIEW_GROUP,
+        ]
     ],
-    Permissions::ADMIN__DIRECTORY__CURRENCY_UPDATE => [
+    Permissions::ADMIN_USER_ENABLE_ALL => [
         'type' => 2,
-        'description' => 'ОА. Справочник "Валюты". Обновление',
+        'description' => 'Пользователи. Восстановление. Своя и подчиненные группы',
+        'ruleName' =>'checkUserDeleteAll',
         'children' => [
-            Permissions::ADMIN__DIRECTORY__CURRENCY_LIST,
-        ],
+            Permissions::ADMIN_USER_VIEW_DELETE_ALL,
+        ]
     ],
-    Permissions::ADMIN__DIRECTORY__GEO__CITY_CREATE => [
+    Permissions::ADMIN_USER_ENABLE_GROUP => [
         'type' => 2,
-        'description' => 'ОА. Справочник "География". Города. Создание',
+        'description' => 'Пользователи. Восстановление. Своя группа',
+        'ruleName' =>'checkUserDeleteGroup',
         'children' => [
-            Permissions::ADMIN__DIRECTORY__GEO__CITY_LIST,
-        ],
+            Permissions::ADMIN_USER_VIEW_DELETE_GROUP,
+        ]
     ],
-    Permissions::ADMIN__DIRECTORY__GEO__CITY_LIST => [
+    Permissions::ADMIN_USER_LIST => [
         'type' => 2,
-        'description' => 'ОА. Справочник "География". Города',
-        'children' => [
-            Permissions::ADMIN__DASHBOARD_MENU_TOPNAV_DIRECTORY,
-        ],
-    ],
-    Permissions::ADMIN__DIRECTORY__GEO__CITY_UPDATE => [
+        'description' => 'Пользователи. Список'],
+    Permissions::ADMIN_USER_LIST_ALL => [
         'type' => 2,
-        'description' => 'ОА. Справочник "География". Города. Обновление',
-        'children' => [
-            Permissions::ADMIN__DIRECTORY__GEO__CITY_LIST,
-        ],
-    ],
-    Permissions::ADMIN__DIRECTORY__GEO__COUNTRY_CREATE => [
+        'description' => 'Пользователи. Список. Своя и подчиненные группы',
+        'ruleName' =>'checkUserAll'],
+    Permissions::ADMIN_USER_LIST_GROUP => [
         'type' => 2,
-        'description' => 'ОА. Справочник "География". Страны. Создание',
-        'children' => [
-            Permissions::ADMIN__DIRECTORY__GEO__COUNTRY_LIST,
-        ],
-    ],
-    Permissions::ADMIN__DIRECTORY__GEO__COUNTRY_DELETE => [
+        'description' => 'Пользователи. Список. Своя группа',
+        'ruleName' =>'checkUserGroup'],
+    Permissions::ADMIN_USER_VIEW_ALL => [
         'type' => 2,
-        'description' => 'ОА. Справочник "География". Страны. Удаление',
+        'description' => 'Пользователи. Просмотр. Своя и подчиненные группы',
+        'ruleName' =>'checkUserAll',
         'children' => [
-            Permissions::ADMIN__DIRECTORY__GEO__COUNTRY_LIST,
-        ],
+            Permissions::ADMIN_USER_LIST_ALL,
+        ]
     ],
-    Permissions::ADMIN__DIRECTORY__GEO__COUNTRY_LIST => [
+    Permissions::ADMIN_USER_VIEW_DELETE_ALL => [
         'type' => 2,
-        'description' => 'ОА. Справочник "География". Страны',
-        'children' => [
-            Permissions::ADMIN__DASHBOARD_MENU_TOPNAV_DIRECTORY,
-        ],
+        'description' => 'Пользователи. Удаленные. Просмотр. Своя и подчиненные группы',
     ],
-    Permissions::ADMIN__DIRECTORY__GEO__COUNTRY_UPDATE => [
+    Permissions::ADMIN_USER_VIEW_DELETE_GROUP => [
         'type' => 2,
-        'description' => 'ОА. Справочник "География". Страны. Обновление',
+        'description' => 'Пользователи. Удаленные. Просмотр. Своя группа',
+        'ruleName' =>'checkUserDeleteGroup',
         'children' => [
-            Permissions::ADMIN__DIRECTORY__GEO__COUNTRY_LIST,
-        ],
+            Permissions::ADMIN_USER_LIST,
+        ]
     ],
-    Permissions::ADMIN__DIRECTORY__INCOTERM_CREATE => [
+    Permissions::ADMIN_USER_VIEW_GROUP => [
         'type' => 2,
-        'description' => 'ОА. Справочник "Условия Инкотермс". Создание',
+        'description' => 'Пользователи. Просмотр. Своя группа',
+        'ruleName' =>'checkUserGroup',
         'children' => [
-            Permissions::ADMIN__DIRECTORY__INCOTERM_LIST,
-        ],
+            Permissions::ADMIN_USER_LIST,
+        ]
     ],
-    Permissions::ADMIN__DIRECTORY__INCOTERM_DELETE => [
+    Permissions::CONSTANT_CREATE => [
         'type' => 2,
-        'description' => 'ОА. Справочник "Условия Инкотермс". Удаление',
-        'children' => [
-            Permissions::ADMIN__DIRECTORY__INCOTERM_LIST,
-        ],
-    ],
-    Permissions::ADMIN__DIRECTORY__INCOTERM_LIST => [
+        'description' => 'Константы. Добавление'],
+    Permissions::CONSTANT_DELETE_ALL => [
         'type' => 2,
-        'description' => 'ОА. Справочник "Условия Инкотермс"',
+        'description' => 'Константы. Удаление. Своя и подчиненные группы',
+        'ruleName' =>'checkAll',
         'children' => [
-            Permissions::ADMIN__DASHBOARD_MENU_TOPNAV_DIRECTORY,
-        ],
+            Permissions::CONSTANT_VIEW_ALL,
+        ]
     ],
-    Permissions::ADMIN__DIRECTORY__INCOTERM_UPDATE => [
+    Permissions::CONSTANT_DELETE_GROUP => [
         'type' => 2,
-        'description' => 'ОА. Справочник "Условия Инкотермс". Обновление',
+        'description' => 'Константы. Удаление. Своя группа',
+        'ruleName' =>'checkGroup',
         'children' => [
-            Permissions::ADMIN__DIRECTORY__INCOTERM_VIEW,
-        ],
+            Permissions::CONSTANT_VIEW_GROUP,
+        ]
     ],
-    Permissions::ADMIN__DIRECTORY__INCOTERM_VIEW => [
+    Permissions::CONSTANT_DELETE_MAIN => [
         'type' => 2,
-        'description' => 'ОА. Справочник "Условия Инкотермс". Детальный просмотр',
+        'description' => 'Константы. Удаление. Только свои',
+        'ruleName' =>'checkMain',
         'children' => [
-            Permissions::ADMIN__DIRECTORY__INCOTERM_LIST,
-        ],
+            Permissions::CONSTANT_VIEW_MAIN,
+        ]
     ],
-    Permissions::ADMIN__DIRECTORY__LCLAGENT_CREATE => [
+    Permissions::CONSTANT_EDIT_ALL => [
         'type' => 2,
-        'description' => 'ОА. Справочник "Агенты сборных грузоперевозок". Создание',
+        'description' => 'Константы. Редактирование. Своя и подчиненные группы',
+        'ruleName' =>'checkAll',
         'children' => [
-            Permissions::ADMIN__DIRECTORY__LCLAGENT_LIST,
-        ],
+            Permissions::CONSTANT_VIEW_ALL,
+        ]
     ],
-    Permissions::ADMIN__DIRECTORY__LCLAGENT_LIST => [
+    Permissions::CONSTANT_EDIT_GROUP => [
         'type' => 2,
-        'description' => 'ОА. Справочник "Агенты сборных грузоперевозок"',
+        'description' => 'Константы. Редактирование. Своя группа',
+        'ruleName' =>'checkGroup',
         'children' => [
-            Permissions::ADMIN__DASHBOARD_MENU_TOPNAV_DIRECTORY,
-        ],
+            Permissions::CONSTANT_VIEW_GROUP,
+        ]
     ],
-    Permissions::ADMIN__DIRECTORY__LCLAGENT_UPDATE => [
+    Permissions::CONSTANT_EDIT_MAIN => [
         'type' => 2,
-        'description' => 'ОА. Справочник "Агенты сборных грузоперевозок". Обновление',
+        'description' => 'Константы. Редактирование. Только свои',
+        'ruleName' =>'checkMain',
         'children' => [
-            Permissions::ADMIN__DIRECTORY__LCLAGENT_LIST,
-        ],
+            Permissions::CONSTANT_VIEW_MAIN,
+        ]
     ],
-    Permissions::ADMIN__DIRECTORY__RAILROAD_CREATE => [
+    Permissions::CONSTANT_ENABLE_ALL => [
         'type' => 2,
-        'description' => 'ОА. Справочник "ЖД станции". Создание',
+        'description' => 'Константы. Восстановление. Своя и подчиненные группы',
+        'ruleName' =>'checkDeleteAll',
         'children' => [
-            Permissions::ADMIN__DIRECTORY__RAILROAD_LIST,
-        ],
+            Permissions::CONSTANT_VIEW_DELETE_ALL,
+        ]
     ],
-    Permissions::ADMIN__DIRECTORY__RAILROAD_DELETE => [
+    Permissions::CONSTANT_ENABLE_GROUP => [
         'type' => 2,
-        'description' => 'ОА. Справочник "ЖД станции". Удаление',
+        'description' => 'Константы. Восстановление. Своя группа',
+        'ruleName' =>'checkDeleteGroup',
         'children' => [
-            Permissions::ADMIN__DIRECTORY__RAILROAD_LIST,
-        ],
+            Permissions::CONSTANT_VIEW_DELETE_GROUP,
+        ]
     ],
-    Permissions::ADMIN__DIRECTORY__RAILROAD_LIST => [
+    Permissions::CONSTANT_ENABLE_MAIN => [
         'type' => 2,
-        'description' => 'ОА. Справочник "ЖД станции"',
+        'description' => 'Константы. Восстановление. Только свои',
+        'ruleName' =>'checkDeleteMain',
         'children' => [
-            Permissions::ADMIN__DASHBOARD_MENU_TOPNAV_DIRECTORY,
-        ],
+            Permissions::CONSTANT_VIEW_DELETE_MAIN,
+        ]
     ],
-    Permissions::ADMIN__DIRECTORY__RAILROAD_UPDATE => [
+    Permissions::CONSTANT_LIST => [
         'type' => 2,
-        'description' => 'ОА. Справочник "ЖД станции". Обновление',
-        'children' => [
-            Permissions::ADMIN__DIRECTORY__RAILROAD_VIEW,
-        ],
-    ],
-    Permissions::ADMIN__DIRECTORY__RAILROAD_VIEW => [
+        'description' => 'Константы. Список'],
+    Permissions::CONSTANT_LIST_ALL => [
         'type' => 2,
-        'description' => 'ОА. Справочник "ЖД станции". Детальный просмотр',
+        'description' => 'Константы. Список. Своя и подчиненные группы',
+        'ruleName' =>'checkAll',
         'children' => [
-            Permissions::ADMIN__DIRECTORY__RAILROAD_LIST,
-        ],
+            Permissions::CONSTANT_LIST_GROUP,
+        ]
     ],
-    Permissions::ADMIN__DIRECTORY__ROUTE_CREATE => [
+    Permissions::CONSTANT_LIST_GROUP => [
         'type' => 2,
-        'description' => 'ОА. Справочник "Маршруты". Создание',
+        'description' => 'Константы. Список. Своя группа',
+        'ruleName' =>'checkGroup',
         'children' => [
-            Permissions::ADMIN__DIRECTORY__ROUTE_LIST,
-        ],
+            Permissions::CONSTANT_LIST_MAIN,
+        ]
     ],
-    Permissions::ADMIN__DIRECTORY__ROUTE_DELETE => [
+    Permissions::CONSTANT_LIST_MAIN => [
         'type' => 2,
-        'description' => 'ОА. Справочник "Маршруты". Удаление',
-        'children' => [
-            Permissions::ADMIN__DIRECTORY__ROUTE_LIST,
-        ],
-    ],
-    Permissions::ADMIN__DIRECTORY__ROUTE_LIST => [
+        'description' => 'Константы. Список. Только свои',
+        'ruleName' =>'checkMain'],
+    Permissions::CONSTANT_VIEW_ALL => [
         'type' => 2,
-        'description' => 'ОА. Справочник "Маршруты"',
+        'description' => 'Константы. Просмотр. Своя и подчиненные группы',
+        'ruleName' =>'checkAll',
         'children' => [
-            Permissions::ADMIN__DASHBOARD_MENU_TOPNAV_DIRECTORY,
-        ],
+            Permissions::CONSTANT_LIST_ALL,
+        ]
     ],
-    Permissions::ADMIN__DIRECTORY__ROUTE_UPDATE => [
+    Permissions::CONSTANT_VIEW_DELETE_ALL => [
         'type' => 2,
-        'description' => 'ОА. Справочник "Маршруты". Обновление',
+        'description' => 'Константы. Удаленные. Просмотр. Своя и подчиненные группы',
+        'ruleName' =>'checkDeleteAll',
         'children' => [
-            Permissions::ADMIN__DIRECTORY__ROUTE_VIEW,
-        ],
+            Permissions::CONSTANT_LIST_ALL,
+        ]
     ],
-    Permissions::ADMIN__DIRECTORY__ROUTE_VIEW => [
+    Permissions::CONSTANT_VIEW_DELETE_GROUP => [
         'type' => 2,
-        'description' => 'ОА. Справочник "Маршруты". Детальный просмотр',
+        'description' => 'Константы. Удаленные. Просмотр. Своя группа',
+        'ruleName' =>'checkDeleteGroup',
         'children' => [
-            Permissions::ADMIN__DIRECTORY__ROUTE_LIST,
-        ],
+            Permissions::CONSTANT_LIST_GROUP,
+        ]
     ],
-    Permissions::ADMIN__DIRECTORY__SERVICE_CREATE => [
+    Permissions::CONSTANT_VIEW_DELETE_MAIN => [
         'type' => 2,
-        'description' => 'ОА. Справочник "Усуги". Создание',
+        'description' => 'Константы. Удаленные. Просмотр. Только свои',
+        'ruleName' =>'checkDeleteMain',
         'children' => [
-            Permissions::ADMIN__DIRECTORY__SERVICE_LIST,
-        ],
+            Permissions::CONSTANT_LIST_MAIN,
+        ]
     ],
-    Permissions::ADMIN__DIRECTORY__SERVICE_LIST => [
+    Permissions::CONSTANT_VIEW_GROUP => [
         'type' => 2,
-        'description' => 'ОА. Справочник "Усуги"',
+        'description' => 'Константы. Просмотр. Своя группа',
+        'ruleName' =>'checkGroup',
         'children' => [
-            Permissions::ADMIN__DASHBOARD_MENU_TOPNAV_DIRECTORY,
-        ],
+            Permissions::CONSTANT_LIST_GROUP,
+        ]
     ],
-    Permissions::ADMIN__DIRECTORY__SERVICE_UPDATE => [
+    Permissions::CONSTANT_VIEW_MAIN => [
         'type' => 2,
-        'description' => 'ОА. Справочник "Усуги". Обновление',
+        'description' => 'Константы. Просмотр. Только свои',
+        'ruleName' =>'checkMain',
         'children' => [
-            Permissions::ADMIN__DIRECTORY__SERVICE_LIST,
-        ],
+            Permissions::CONSTANT_LIST_MAIN,
+        ]
     ],
-    Permissions::ADMIN__DIRECTORY__STOCK_CREATE => [
+    Permissions::CONSTANTRULE_CREATE => [
         'type' => 2,
-        'description' => 'ОА. Справочник "Стоки". Создание',
-        'children' => [
-            Permissions::ADMIN__DIRECTORY__STOCK_LIST,
-        ],
-    ],
-    Permissions::ADMIN__DIRECTORY__STOCK_DELETE => [
+        'description' => 'Правила сложения. Добавление'],
+    Permissions::CONSTANTRULE_DELETE_ALL => [
         'type' => 2,
-        'description' => 'ОА. Справочник "Стоки". Удаление',
+        'description' => 'Правила сложения. Удаление. Своя и подчиненные группы',
+        'ruleName' =>'checkAll',
         'children' => [
-            Permissions::ADMIN__DIRECTORY__STOCK_LIST,
-        ],
+            Permissions::CONSTANTRULE_VIEW_ALL,
+        ]
     ],
-    Permissions::ADMIN__DIRECTORY__STOCK_LIST => [
+    Permissions::CONSTANTRULE_DELETE_GROUP => [
         'type' => 2,
-        'description' => 'ОА. Справочник "Стоки"',
+        'description' => 'Правила сложения. Удаление. Своя группа',
+        'ruleName' =>'checkGroup',
         'children' => [
-            Permissions::ADMIN__DASHBOARD_MENU_TOPNAV_DIRECTORY,
-        ],
+            Permissions::CONSTANTRULE_VIEW_GROUP,
+        ]
     ],
-    Permissions::ADMIN__DIRECTORY__STOCK_UPDATE => [
+    Permissions::CONSTANTRULE_DELETE_MAIN => [
         'type' => 2,
-        'description' => 'ОА. Справочник "Стоки". Обновление',
+        'description' => 'Правила сложения. Удаление. Только свои',
+        'ruleName' =>'checkMain',
         'children' => [
-            Permissions::ADMIN__DIRECTORY__STOCK_VIEW,
-        ],
+            Permissions::CONSTANTRULE_VIEW_MAIN,
+        ]
     ],
-    Permissions::ADMIN__DIRECTORY__STOCK_VIEW => [
+    Permissions::CONSTANTRULE_EDIT_ALL => [
         'type' => 2,
-        'description' => 'ОА. Справочник "Стоки". Детальный просмотр',
+        'description' => 'Правила сложения. Редактирование. Своя и подчиненные группы',
+        'ruleName' =>'checkAll',
         'children' => [
-            Permissions::ADMIN__DIRECTORY__STOCK_LIST,
-        ],
+            Permissions::CONSTANTRULE_VIEW_ALL,
+        ]
     ],
-    Permissions::ADMIN__DIRECTORY__TERMINAL_CREATE => [
+    Permissions::CONSTANTRULE_EDIT_GROUP => [
         'type' => 2,
-        'description' => 'ОА. Справочник "Терминалы". Создание',
+        'description' => 'Правила сложения. Редактирование. Своя группа',
+        'ruleName' =>'checkGroup',
         'children' => [
-            Permissions::ADMIN__DIRECTORY__TERMINAL_LIST,
-        ],
+            Permissions::CONSTANTRULE_VIEW_GROUP,
+        ]
     ],
-    Permissions::ADMIN__DIRECTORY__TERMINAL_DELETE => [
+    Permissions::CONSTANTRULE_EDIT_MAIN => [
         'type' => 2,
-        'description' => 'ОА. Справочник "Терминалы". Удаление',
+        'description' => 'Правила сложения. Редактирование. Только свои',
+        'ruleName' =>'checkMain',
         'children' => [
-            Permissions::ADMIN__DIRECTORY__TERMINAL_LIST,
-        ],
+            Permissions::CONSTANTRULE_VIEW_MAIN,
+        ]
     ],
-    Permissions::ADMIN__DIRECTORY__TERMINAL_LIST => [
+    Permissions::CONSTANTRULE_ENABLE_ALL => [
         'type' => 2,
-        'description' => 'ОА. Справочник "Терминалы"',
+        'description' => 'Правила сложения. Восстановление. Своя и подчиненные группы',
+        'ruleName' =>'checkDeleteAll',
         'children' => [
-            Permissions::ADMIN__DASHBOARD_MENU_TOPNAV_DIRECTORY,
-        ],
+            Permissions::CONSTANTRULE_VIEW_DELETE_ALL,
+        ]
     ],
-    Permissions::ADMIN__DIRECTORY__TERMINAL_UPDATE => [
+    Permissions::CONSTANTRULE_ENABLE_GROUP => [
         'type' => 2,
-        'description' => 'ОА. Справочник "Терминалы". Обновление',
+        'description' => 'Правила сложения. Восстановление. Своя группа',
+        'ruleName' =>'checkDeleteGroup',
         'children' => [
-            Permissions::ADMIN__DIRECTORY__TERMINAL_VIEW,
-        ],
+            Permissions::CONSTANTRULE_VIEW_DELETE_GROUP,
+        ]
     ],
-    Permissions::ADMIN__DIRECTORY__TERMINAL_VIEW => [
+    Permissions::CONSTANTRULE_ENABLE_MAIN => [
         'type' => 2,
-        'description' => 'ОА. Справочник "Терминалы". Детальный просмотр',
+        'description' => 'Правила сложения. Восстановление. Только свои',
+        'ruleName' =>'checkDeleteMain',
         'children' => [
-            Permissions::ADMIN__DIRECTORY__TERMINAL_LIST,
-        ],
+            Permissions::CONSTANTRULE_VIEW_DELETE_MAIN,
+        ]
     ],
-    Permissions::ADMIN__DIRECTORY__TRANSIT_CREATE => [
+    Permissions::CONSTANTRULE_LIST => [
         'type' => 2,
-        'description' => 'ОА. Справочник "Погран. переходы". Создание',
-        'children' => [
-            Permissions::ADMIN__DIRECTORY__TRANSIT_LIST,
-        ],
-    ],
-    Permissions::ADMIN__DIRECTORY__TRANSIT_DELETE => [
+        'description' => 'Правила сложения. Список'],
+    Permissions::CONSTANTRULE_LIST_ALL => [
         'type' => 2,
-        'description' => 'ОА. Справочник "Погран. переходы". Удаление',
+        'description' => 'Правила сложения. Список. Своя и подчиненные группы',
+        'ruleName' =>'checkAll',
         'children' => [
-            Permissions::ADMIN__DIRECTORY__TRANSIT_LIST,
-        ],
+            Permissions::CONSTANTRULE_LIST_GROUP,
+        ]
     ],
-    Permissions::ADMIN__DIRECTORY__TRANSIT_LIST => [
+    Permissions::CONSTANTRULE_LIST_GROUP => [
         'type' => 2,
-        'description' => 'ОА. Справочник "Погран. переходы"',
+        'description' => 'Правила сложения. Список. Своя группа',
+        'ruleName' =>'checkGroup',
         'children' => [
-            Permissions::ADMIN__DASHBOARD_MENU_TOPNAV_DIRECTORY,
-        ],
+            Permissions::CONSTANTRULE_LIST_MAIN,
+        ]
     ],
-    Permissions::ADMIN__DIRECTORY__TRANSIT_UPDATE => [
+    Permissions::CONSTANTRULE_LIST_MAIN => [
         'type' => 2,
-        'description' => 'ОА. Справочник "Погран. переходы". Обновление',
+        'description' => 'Правила сложения. Список. Только свои',
+        'ruleName' =>'checkMain',
         'children' => [
-            Permissions::ADMIN__DIRECTORY__TRANSIT_VIEW,
-        ],
+            Permissions::CONSTANTRULE_LIST,
+        ]
     ],
-    Permissions::ADMIN__DIRECTORY__TRANSIT_VIEW => [
+    Permissions::CONSTANTRULE_VIEW_ALL => [
         'type' => 2,
-        'description' => 'ОА. Справочник "Погран. переходы". Детальный просмотр',
+        'description' => 'Правила сложения. Просмотр. Своя и подчиненные группы',
+        'ruleName' =>'checkAll',
         'children' => [
-            Permissions::ADMIN__DIRECTORY__TRANSIT_LIST,
-        ],
+            Permissions::CONSTANTRULE_LIST_ALL,
+        ]
     ],
-    Permissions::ADMIN__DIRECTORY__TRANSPORTTYPE_CREATE => [
+    Permissions::CONSTANTRULE_VIEW_DELETE_ALL => [
         'type' => 2,
-        'description' => 'ОА. Справочник "Транспортные профили". Создание',
+        'description' => 'Правила сложения. Удаленные. Просмотр. Созданные пользователями своей и подчиненных групп',
+        'ruleName' =>'checkDeleteAll',
         'children' => [
-            Permissions::ADMIN__DIRECTORY__TRANSPORTTYPE_LIST,
-        ],
+            Permissions::CONSTANTRULE_LIST_ALL,
+        ]
     ],
-    Permissions::ADMIN__DIRECTORY__TRANSPORTTYPE_DELETE => [
+    Permissions::CONSTANTRULE_VIEW_DELETE_GROUP => [
         'type' => 2,
-        'description' => 'ОА. Справочник "Транспортные профили". Удаление',
+        'description' => 'Правила сложения. Удаленные. Просмотр. Своя группа',
+        'ruleName' =>'checkDeleteGroup',
         'children' => [
-            Permissions::ADMIN__DIRECTORY__TRANSPORTTYPE_LIST,
-        ],
+            Permissions::CONSTANTRULE_LIST_GROUP,
+        ]
     ],
-    Permissions::ADMIN__DIRECTORY__TRANSPORTTYPE_LIST => [
+    Permissions::CONSTANTRULE_VIEW_DELETE_MAIN => [
         'type' => 2,
-        'description' => 'ОА. Справочник "Транспортные профили"',
+        'description' => 'Правила сложения. Удаленные. Просмотр. Только свои',
+        'ruleName' =>'checkDeleteMain',
         'children' => [
-            Permissions::ADMIN__DASHBOARD_MENU_TOPNAV_DIRECTORY,
-        ],
+            Permissions::CONSTANTRULE_LIST_MAIN,
+        ]
     ],
-    Permissions::ADMIN__DIRECTORY__TRANSPORTTYPE_UPDATE => [
+    Permissions::CONSTANTRULE_VIEW_GROUP => [
         'type' => 2,
-        'description' => 'ОА. Справочник "Транспортные профили". Обновление',
+        'description' => 'Правила сложения. Просмотр. Своя группа',
+        'ruleName' =>'checkGroup',
         'children' => [
-            Permissions::ADMIN__DIRECTORY__TRANSPORTTYPE_VIEW,
-        ],
+            Permissions::CONSTANTRULE_LIST_GROUP,
+        ]
     ],
-    Permissions::ADMIN__DIRECTORY__TRANSPORTTYPE_VIEW => [
+    Permissions::CONSTANTRULE_VIEW_MAIN => [
         'type' => 2,
-        'description' => 'ОА. Справочник "Транспортные профили". Детальный просмотр',
+        'description' => 'Правила сложения. Просмотр. Только свои',
+        'ruleName' =>'checkMain',
         'children' => [
-            Permissions::ADMIN__DIRECTORY__TRANSPORTTYPE_LIST,
-        ],
+            Permissions::CONSTANTRULE_LIST_MAIN,
+        ]
     ],
-    Permissions::ADMIN__FINANCE__INVOICE_CREATE => [
+    Permissions::DATA_CHANGE_ALL => [
         'type' => 2,
-        'description' => 'ОА. Финансы. Счета. Создание',
-        'children' => [
-            Permissions::ADMIN__FINANCE__INVOICE_LIST,
-        ],
-    ],
-    Permissions::ADMIN__FINANCE__INVOICE_DELETE => [
+        'description' => 'Сведения. Просмотр изменений. Своя и подчиненные группы',
+        'ruleName' =>'checkAll'],
+    Permissions::DATA_CHANGE_GROUP => [
         'type' => 2,
-        'description' => 'ОА. Финансы. Счета. Удаление',
-        'children' => [
-            Permissions::ADMIN__FINANCE__INVOICE_LIST,
-        ],
-    ],
-    Permissions::ADMIN__FINANCE__INVOICE_HISTORY => [
+        'description' => 'Сведения. Просмотр изменений. Своя группа',
+        'ruleName' =>'checkGroup'],
+    Permissions::DATA_CHANGE_MAIN => [
         'type' => 2,
-        'description' => 'ОА. Финансы. Счета. История изменений',
-        'children' => [
-            Permissions::ADMIN__FINANCE__INVOICE_VIEW,
-        ],
-    ],
-    Permissions::ADMIN__FINANCE__INVOICE_LIST => [
+        'description' => 'Сведения. Просмотр изменений. Только свои',
+        'ruleName' =>'checkMain'],
+    Permissions::DATA_CHECKFULL => [
         'type' => 2,
-        'description' => 'ОА. Финансы. Счета',
-        'children' => [
-            Permissions::ADMIN__DASHBOARD_MENU_SIDE,
-        ],
-    ],
-    Permissions::ADMIN__FINANCE__INVOICE_UPDATE => [
+        'description' => 'Сведения. Просмотр полноты передачи'],
+    Permissions::DATA_CREATEFOR => [
         'type' => 2,
-        'description' => 'ОА. Финансы. Счета. Обновление',
-        'children' => [
-            Permissions::ADMIN__FINANCE__INVOICE_VIEW,
-        ],
-    ],
-    Permissions::ADMIN__FINANCE__INVOICE_VIEW => [
+        'description' => 'Сведения. Добавление за подчиненную группу'],
+    Permissions::DATA_DELETE_ALL => [
         'type' => 2,
-        'description' => 'ОА. Финансы. Счета. Детальный просмотр',
+        'description' => 'Сведения. Удаление. Своя и подчиненные группы',
+        'ruleName' =>'checkAll',
         'children' => [
-            Permissions::ADMIN__FINANCE__INVOICE_LIST,
-        ],
+            Permissions::DATA_VIEW_ALL,
+        ]
     ],
-    Permissions::ADMIN__FINANCE__REPORT_CREATE => [
+    Permissions::DATA_DELETE_GROUP => [
         'type' => 2,
-        'description' => 'ОА. Финансы. Отчеты. Создание',
+        'description' => 'Сведения. Удаление. Своя группа',
+        'ruleName' =>'checkGroup',
         'children' => [
-            Permissions::ADMIN__FINANCE__REPORT_LIST,
-        ],
+            Permissions::DATA_VIEW_GROUP,
+        ]
     ],
-    Permissions::ADMIN__FINANCE__REPORT_LIST => [
+    Permissions::DATA_DELETE_MAIN => [
         'type' => 2,
-        'description' => 'ОА. Финансы. Отчеты',
+        'description' => 'Сведения. Удаление. Только свои',
+        'ruleName' =>'checkMain',
         'children' => [
-            Permissions::ADMIN__DASHBOARD_MENU_SIDE,
-        ],
+            Permissions::DATA_VIEW_MAIN,
+        ]
     ],
-    Permissions::ADMIN__FINANCE__REPORT_UPDATE => [
+    Permissions::DATA_EDIT_ALL => [
         'type' => 2,
-        'description' => 'ОА. Финансы. Отчеты. Обновление',
+        'description' => 'Сведения. Редактирование. Своя и подчиненные группы',
+        'ruleName' =>'checkAll',
         'children' => [
-            Permissions::ADMIN__FINANCE__REPORT_VIEW,
-        ],
+            Permissions::DATA_VIEW_ALL,
+        ]
     ],
-    Permissions::ADMIN__FINANCE__REPORT_VIEW => [
+    Permissions::DATA_EDIT_GROUP => [
         'type' => 2,
-        'description' => 'ОА. Финансы. Отчеты. Детальный просмотр',
+        'description' => 'Сведения. Редактирование. Своя группа',
+        'ruleName' =>'checkGroup',
         'children' => [
-            Permissions::ADMIN__FINANCE__REPORT_LIST,
-        ],
+            Permissions::DATA_VIEW_GROUP,
+        ]
     ],
-    Permissions::ADMIN__LCL__BOOKING_CREATE => [
+    Permissions::DATA_EDIT_MAIN => [
         'type' => 2,
-        'description' => 'ОА. Сборный груз. Заказы. Создание',
+        'description' => 'Сведения. Редактирование. Только свои',
+        'ruleName' =>'checkMain',
         'children' => [
-            Permissions::ADMIN__LCL__BOOKING_LIST,
-        ],
+            Permissions::DATA_VIEW_MAIN,
+        ]
     ],
-    Permissions::ADMIN__LCL__BOOKING_DELETE => [
+    Permissions::DATA_ENABLE_ALL => [
         'type' => 2,
-        'description' => 'ОА. Сборный груз. Заказы. Удаление',
+        'description' => 'Сведения. Восстановление. Своя и подчиненные группы',
+        'ruleName' =>'checkDeleteAll',
         'children' => [
-            Permissions::ADMIN__LCL__BOOKING_LIST,
-        ],
+            Permissions::DATA_VIEW_DELETE_ALL,
+        ]
     ],
-    Permissions::ADMIN__LCL__BOOKING_HISTORY => [
+    Permissions::DATA_ENABLE_GROUP => [
         'type' => 2,
-        'description' => 'ОА. Сборный груз. Заказы. История изменений',
+        'description' => 'Сведения. Восстановление. Своя группа',
+        'ruleName' =>'checkDeleteGroup',
         'children' => [
-            Permissions::ADMIN__LCL__BOOKING_VIEW,
-        ],
+            Permissions::DATA_VIEW_DELETE_GROUP,
+        ]
     ],
-    Permissions::ADMIN__LCL__BOOKING_LIST => [
+    Permissions::DATA_ENABLE_MAIN => [
         'type' => 2,
-        'description' => 'ОА. Сборный груз. Заказы',
+        'description' => 'Сведения. Восстановление. Только свои',
+        'ruleName' =>'checkDeleteMain',
         'children' => [
-            Permissions::ADMIN__DASHBOARD_MENU_SIDE,
-        ],
+            Permissions::DATA_VIEW_DELETE_MAIN,
+        ]
     ],
-    Permissions::ADMIN__LCL__BOOKING_UPDATE => [
+    Permissions::DATA_LIST => [
         'type' => 2,
-        'description' => 'ОА. Сборный груз. Заказы. Обновление',
-        'children' => [
-            Permissions::ADMIN__LCL__BOOKING_VIEW,
-        ],
-    ],
-    Permissions::ADMIN__LCL__BOOKING_VIEW => [
+        'description' => 'Сведения. Список'],
+    Permissions::DATA_LIST_ALL => [
         'type' => 2,
-        'description' => 'ОА. Сборный груз. Заказы. Детальный просмотр',
+        'description' => 'Сведения. Список. Своя и подчиненные группы',
+        'ruleName' =>'checkAll',
         'children' => [
-            Permissions::ADMIN__LCL__BOOKING_LIST,
-        ],
+            Permissions::DATA_LIST_GROUP,
+        ]
     ],
-    Permissions::ADMIN__LCL__CONTAINER_BOOKING => [
+    Permissions::DATA_LIST_GROUP => [
         'type' => 2,
-        'description' => 'ОА. Сборный груз. Контейнеры. Просмотр заказов',
+        'description' => 'Сведения. Список. Своя группа',
+        'ruleName' =>'checkGroup',
         'children' => [
-            Permissions::ADMIN__LCL__CONTAINER_LIST,
-        ],
+            Permissions::DATA_LIST_MAIN,
+        ]
     ],
-    Permissions::ADMIN__LCL__CONTAINER_CREATE => [
+    Permissions::DATA_LIST_MAIN => [
         'type' => 2,
-        'description' => 'ОА. Сборный груз. Контейнеры. Создание',
-        'children' => [
-            Permissions::ADMIN__LCL__CONTAINER_LIST,
-        ],
-    ],
-    Permissions::ADMIN__LCL__CONTAINER_DELETE => [
+        'description' => 'Сведения. Список. Только свои'],
+    Permissions::DATA_SEND => [
         'type' => 2,
-        'description' => 'ОА. Сборный груз. Контейнеры. Удаление',
-        'children' => [
-            Permissions::ADMIN__LCL__CONTAINER_LIST,
-        ],
-    ],
-    Permissions::ADMIN__LCL__CONTAINER_HISTORY => [
+        'description' => 'Сведения. Передача'],
+    Permissions::DATA_SEND_ALL => [
         'type' => 2,
-        'description' => 'ОА. Сборный груз. Контейнеры. История изменений',
-        'children' => [
-            Permissions::ADMIN__LCL__CONTAINER_UPDATE,
-        ],
-    ],
-    Permissions::ADMIN__LCL__CONTAINER_LIST => [
+        'description' => 'Передача сведений за подчиненные группы',
+        'ruleName' =>'checkDataAll'],
+    Permissions::DATA_VIEW_ALL => [
         'type' => 2,
-        'description' => 'ОА. Сборный груз. Контейнеры',
+        'description' => 'Сведения. Просмотр. Своя и подчиненные группы',
+        'ruleName' =>'checkAll',
         'children' => [
-            Permissions::ADMIN__DASHBOARD_MENU_SIDE,
-        ],
+            Permissions::DATA_LIST_ALL,
+        ]
     ],
-    Permissions::ADMIN__LCL__CONTAINER_UPDATE => [
+    Permissions::DATA_VIEW_DELETE_ALL => [
         'type' => 2,
-        'description' => 'ОА. Сборный груз. Контейнеры. Обновление',
+        'description' => 'Сведения. Удаленные. Просмотр. Своя и подчиненные группы',
+        'ruleName' =>'checkDeleteAll',
         'children' => [
-            Permissions::ADMIN__LCL__CONTAINER_LIST,
-        ],
+            Permissions::DATA_LIST_ALL,
+        ]
     ],
-    Permissions::ADMIN__ORDER_CHANGESTATUS => [
+    Permissions::DATA_VIEW_DELETE_GROUP => [
         'type' => 2,
-        'description' => 'ОА. ЖД перевозки. Изменение статуса',
+        'description' => 'Сведения. Удаленные. Просмотр. Своя группа',
+        'ruleName' =>'checkDeleteGroup',
         'children' => [
-            Permissions::ADMIN__ORDER_UPDATE,
-        ],
+            Permissions::DATA_LIST_GROUP,
+        ]
     ],
-    Permissions::ADMIN__ORDER_LIST => [
+    Permissions::DATA_VIEW_DELETE_MAIN => [
         'type' => 2,
-        'description' => 'ОА. ЖД перевозки',
+        'description' => 'Сведения. Удаленные. Просмотр. Только свои',
+        'ruleName' =>'checkDeleteMain',
         'children' => [
-            Permissions::ADMIN__DASHBOARD_MENU_SIDE,
-        ],
+            Permissions::DATA_LIST_MAIN,
+        ]
     ],
-    Permissions::ADMIN__ORDER_UPDATE => [
+    Permissions::DATA_VIEW_GROUP => [
         'type' => 2,
-        'description' => 'ОА. ЖД перевозки. Обновление',
+        'description' => 'Сведения. Просмотр. Своя группа',
+        'ruleName' =>'checkGroup',
         'children' => [
-            Permissions::ADMIN__ORDER_VIEW,
-        ],
+            Permissions::DATA_LIST_GROUP,
+        ]
     ],
-    Permissions::ADMIN__ORDER_UPDATETRIP => [
+    Permissions::DATA_VIEW_MAIN => [
         'type' => 2,
-        'description' => 'ОА. ЖД перевозки. Обновление маршрута',
+        'description' => 'Сведения. Просмотр. Только свои',
+        'ruleName' =>'checkMain',
         'children' => [
-            Permissions::ADMIN__ORDER_UPDATE,
-        ],
+            Permissions::DATA_LIST_MAIN,
+        ]
     ],
-    Permissions::ADMIN__ORDER_VIEW => [
+    Permissions::REPORT_CREATE => [
         'type' => 2,
-        'description' => 'ОА. ЖД перевозки. Детальный просмотр',
-        'children' => [
-            Permissions::ADMIN__ORDER_LIST,
-        ],
-    ],
-    Permissions::ADMIN__ORDERCARDELIVERY_CHANGECONTAINERCODE => [
+        'description' => 'Отчеты. Добавление'],
+    Permissions::REPORT_DELETE_ALL => [
         'type' => 2,
-        'description' => 'ОА. Автодоставка. Изменение номера контейнера',
-        'children' => [
-            Permissions::ADMIN__ORDERCARDELIVERY_UPDATE,
-        ],
-    ],
-    Permissions::ADMIN__ORDERCARDELIVERY_CHANGESTATUS => [
+        'description' => 'Отчеты. Удаление. Своя и подчиненные группы',
+        'ruleName' =>'checkAll'],
+    Permissions::REPORT_DELETE_GROUP => [
         'type' => 2,
-        'description' => 'ОА. Автодоставка. Изменение статуса',
-        'children' => [
-            Permissions::ADMIN__ORDERCARDELIVERY_UPDATE,
-        ],
-    ],
-    Permissions::ADMIN__ORDERCARDELIVERY_CREATE => [
+        'description' => 'Отчеты. Удаление. Своя группа',
+        'ruleName' =>'checkGroup'],
+    Permissions::REPORT_DELETE_MAIN => [
         'type' => 2,
-        'description' => 'ОА. Автодоставка. Создание',
-        'children' => [
-            Permissions::ADMIN__ORDERCARDELIVERY_LIST,
-        ],
-    ],
-    Permissions::ADMIN__ORDERCARDELIVERY_DELETE => [
+        'description' => 'Отчеты. Удаление. Только свои',
+        'ruleName' =>'checkMain'],
+    Permissions::REPORT_EDIT_ALL => [
         'type' => 2,
-        'description' => 'ОА. Автодоставка. Удаление',
-        'children' => [
-            Permissions::ADMIN__ORDERCARDELIVERY_LIST,
-        ],
-    ],
-    Permissions::ADMIN__ORDERCARDELIVERY_HISTORY => [
+        'description' => 'Отчеты. Редактирование. Своя и подчиненные группы',
+        'ruleName' =>'checkAll'],
+    Permissions::REPORT_EDIT_GROUP => [
         'type' => 2,
-        'description' => 'ОА. Автодоставка. История изменений',
-        'children' => [
-            Permissions::ADMIN__ORDERCARDELIVERY_VIEW,
-        ],
-    ],
-    Permissions::ADMIN__ORDERCARDELIVERY_LIST => [
+        'description' => 'Отчеты. Редактирование. Своя группа',
+        'ruleName' =>'checkGroup'],
+    Permissions::REPORT_EDIT_MAIN => [
         'type' => 2,
-        'description' => 'ОА. Автодоставка',
-        'children' => [
-            Permissions::ADMIN__DASHBOARD_MENU_SIDE,
-        ],
-    ],
-    Permissions::ADMIN__ORDERCARDELIVERY_UPDATE => [
+        'description' => 'Отчеты. Редактирование. Только свои',
+        'ruleName' =>'checkMain'],
+    Permissions::REPORT_ENABLE_ALL => [
         'type' => 2,
-        'description' => 'ОА. Автодоставка. Обновление',
-        'children' => [
-            Permissions::ADMIN__ORDERCARDELIVERY_VIEW,
-        ],
-    ],
-    Permissions::ADMIN__ORDERCARDELIVERY_VIEW => [
+        'description' => 'Отчеты. Восстановление. Своя и подчиненные группы',
+        'ruleName' =>'checkDeleteAll'],
+    Permissions::REPORT_ENABLE_GROUP => [
         'type' => 2,
-        'description' => 'ОА. Автодоставка. Детальный просмотр',
-        'children' => [
-            Permissions::ADMIN__ORDERCARDELIVERY_LIST,
-        ],
-        'ruleName' => 'checkManagerOrganizationLimits',
-    ],
-    Permissions::ADMIN__ORDERCUSTOMPROCESSING_CHANGESTATUS => [
+        'description' => 'Отчеты. Восстановление. Своя группа',
+        'ruleName' =>'checkDeleteGroup'],
+    Permissions::REPORT_ENABLE_MAIN => [
         'type' => 2,
-        'description' => 'ОА. Терминальная обработка. Изменение статуса',
-        'children' => [
-            Permissions::ADMIN__ORDERCUSTOMPROCESSING_UPDATE,
-        ],
-    ],
-    Permissions::ADMIN__ORDERCUSTOMPROCESSING_CREATE => [
+        'description' => 'Отчеты. Восстановление. Только свои',
+        'ruleName' =>'checkDeleteMain'],
+    Permissions::REPORT_INCLUDES => [
         'type' => 2,
-        'description' => 'ОА. Терминальная обработка. Создание',
-        'children' => [
-            Permissions::ADMIN__ORDERCUSTOMPROCESSING_LIST,
-        ],
-    ],
-    Permissions::ADMIN__ORDERCUSTOMPROCESSING_DELETE => [
+        'description' => 'Раздел с настройкой компонентов отчетов'],
+    Permissions::REPORT_LIST => [
         'type' => 2,
-        'description' => 'ОА. Терминальная обработка. Удаление',
-        'children' => [
-            Permissions::ADMIN__ORDERCUSTOMPROCESSING_LIST,
-        ],
-    ],
-    Permissions::ADMIN__ORDERCUSTOMPROCESSING_LIST => [
+        'description' => 'Отчеты. Список'],
+    Permissions::REPORT_LIST_ALL => [
         'type' => 2,
-        'description' => 'ОА. Терминальная обработка',
-        'children' => [
-            Permissions::ADMIN__DASHBOARD_MENU_SIDE,
-        ],
-    ],
-    Permissions::ADMIN__ORDERCUSTOMPROCESSING_TRANSFERTRIP => [
+        'description' => 'Отчеты. Список. Своя и подчиненные группы',
+        'ruleName' =>'checkAll'],
+    Permissions::REPORT_LIST_GROUP => [
         'type' => 2,
-        'description' => 'ОА. Терминальная обработка. Маршрут',
-        'children' => [
-            Permissions::ADMIN__ORDERCUSTOMPROCESSING_UPDATE,
-        ],
-    ],
-    Permissions::ADMIN__ORDERCUSTOMPROCESSING_UPDATE => [
+        'description' => 'Отчеты. Список. Своя группа',
+        'ruleName' =>'checkGroup'],
+    Permissions::REPORT_VIEW_ALL => [
         'type' => 2,
-        'description' => 'ОА. Терминальная обработка. Обновление',
-        'children' => [
-            Permissions::ADMIN__ORDERCUSTOMPROCESSING_VIEW,
-        ],
-    ],
-    Permissions::ADMIN__ORDERCUSTOMPROCESSING_VIEW => [
+        'description' => 'Отчеты. Просмотр. Своя и починенные группы',
+        'ruleName' =>'checkAll'],
+    Permissions::REPORT_VIEW_DELETE_ALL => [
         'type' => 2,
-        'description' => 'ОА. Терминальная обработка. Детальный просмотр',
-        'children' => [
-            Permissions::ADMIN__ORDERCUSTOMPROCESSING_LIST,
-        ],
-    ],
-    Permissions::ADMIN__ORGANIZATION_CREATE => [
+        'description' => 'Отчеты. Удаленные. Просмотр. Своя и подчиненные группы',
+        'ruleName' =>'checkDeleteAll'],
+    Permissions::REPORT_VIEW_DELETE_GROUP => [
         'type' => 2,
-        'description' => 'ОА. Организации. Создание',
-        'children' => [
-            Permissions::ADMIN__ORGANIZATION_LIST,
-        ],
-    ],
-    Permissions::ADMIN__ORGANIZATION_DELETE => [
+        'description' => 'Отчеты. Удаленные. Просмотр. Своя группа',
+        'ruleName' =>'checkDeleteGroup'],
+    Permissions::REPORT_VIEW_DELETE_MAIN => [
         'type' => 2,
-        'description' => 'ОА. Организации. Удаление',
-        'children' => [
-            Permissions::ADMIN__ORGANIZATION_LIST,
-        ],
-    ],
-    Permissions::ADMIN__ORGANIZATION_LIST => [
+        'description' => 'Отчеты. Удаленные. Просмотр. Только свои',
+        'ruleName' =>'checkDeleteMain'],
+    Permissions::REPORT_VIEW_GROUP => [
         'type' => 2,
-        'description' => 'ОА. Организации',
-        'children' => [
-            Permissions::ADMIN__DASHBOARD_MENU_SIDE,
-            Permissions::ADMIN__DASHBOARD_MENU_TOPNAV_CLIENTS,
-        ],
-    ],
-    Permissions::ADMIN__ORGANIZATION_UPDATE => [
+        'description' => 'Отчеты. Просмотр. Своя группа',
+        'ruleName' =>'checkGroup'],
+    Permissions::REPORT_VIEW_MAIN => [
         'type' => 2,
-        'description' => 'ОА. Организации. Обновление',
-        'children' => [
-            Permissions::ADMIN__ORGANIZATION_VIEW,
-        ],
-    ],
-    Permissions::ADMIN__ORGANIZATION_VIEW => [
+        'description' => 'Отчеты. Просмотр. Только свои',
+        'ruleName' =>'checkMain'],
+    Permissions::STATISTIC => [
         'type' => 2,
-        'description' => 'ОА. Организации. Детальный просмотр',
-        'children' => [
-            Permissions::ADMIN__ORGANIZATION_LIST,
-        ],
-    ],
-    Permissions::ADMIN__REQUEST_CHANGESTATUS => [
+        'description' => 'Формирование отчетов'],
+    Permissions::STRUCTURE_CREATE => [
         'type' => 2,
-        'description' => 'ОА. Запросы. Изменение статуса',
-        'children' => [
-            Permissions::ADMIN__REQUEST_UPDATE,
-        ],
-    ],
-    Permissions::ADMIN__REQUEST_CREATE => [
+        'description' => 'Структуры передачи. Добавление'],
+    Permissions::STRUCTURE_DELETE_ALL => [
         'type' => 2,
-        'description' => 'ОА. Запросы. Создание',
+        'description' => 'Структуры передачи. Удаление. Своя и подчиненные группы',
+        'ruleName' =>'checkAll',
         'children' => [
-            Permissions::ADMIN__REQUEST_LIST,
-        ],
+            Permissions::STRUCTURE_VIEW_ALL,
+        ]
     ],
-    Permissions::ADMIN__REQUEST_DELETE => [
+    Permissions::STRUCTURE_DELETE_GROUP => [
         'type' => 2,
-        'description' => 'ОА. Запросы. Удаление',
+        'description' => 'Структуры передачи. Удаление. Своя группа',
+        'ruleName' =>'checkGroup',
         'children' => [
-            Permissions::ADMIN__REQUEST_LIST,
-        ],
-    ],
-    Permissions::ADMIN__REQUEST_DELETE_RATES => [
-        'type' => 2,
-        'descriptions' => 'ОА. Запросы. Удаление рейтов',
-        'ruleName' => 'checkMainPerson',
+            Permissions::STRUCTURE_VIEW_GROUP,
+        ]
     ],
-    Permissions::ADMIN__REQUEST_HISTORY => [
+    Permissions::STRUCTURE_DELETE_MAIN => [
         'type' => 2,
-        'description' => 'ОА. Запросы. История изменений',
+        'description' => 'Структуры передачи. Удаление. Только свои',
+        'ruleName' =>'checkMain',
         'children' => [
-            Permissions::ADMIN__REQUEST_VIEW,
-        ],
+            Permissions::STRUCTURE_VIEW_MAIN,
+        ]
     ],
-    Permissions::ADMIN__REQUEST_LIST => [
+    Permissions::STRUCTURE_EDIT_ALL => [
         'type' => 2,
-        'description' => 'ОА. Запросы',
+        'description' => 'Структуры передачи. Редактирование. Своя и подчиненные группы',
+        'ruleName' =>'checkAll',
         'children' => [
-            Permissions::ADMIN__DASHBOARD_MENU_SIDE,
-        ],
+            Permissions::STRUCTURE_VIEW_ALL,
+        ]
     ],
-    Permissions::ADMIN__REQUEST_UPDATE => [
+    Permissions::STRUCTURE_EDIT_GROUP => [
         'type' => 2,
-        'description' => 'ОА. Запросы. Обновление',
+        'description' => 'Структуры передачи. Редактирование. Своя группа',
+        'ruleName' =>'checkGroup',
         'children' => [
-            Permissions::ADMIN__REQUEST_VIEW,
-            Permissions::ADMIN__REQUEST__TAKE,
-        ],
+            Permissions::STRUCTURE_VIEW_GROUP,
+        ]
     ],
-    Permissions::ADMIN__REQUEST_VIEW => [
+    Permissions::STRUCTURE_EDIT_MAIN => [
         'type' => 2,
-        'description' => 'ОА. Запросы. Детальный просмотр',
+        'description' => 'Структуры передачи. Редактирование. Только свои',
+        'ruleName' =>'checkMain',
         'children' => [
-            Permissions::ADMIN__REQUEST_LIST,
-        ],
-    ],
-    Permissions::ADMIN__REQUEST__TAKE => [
-        'type' => 2,
-        'description' => 'ОА. Запросы. Назначение себя ответственным менеджером',
+            Permissions::STRUCTURE_VIEW_MAIN,
+        ]
     ],
-    Permissions::ADMIN__TRANSPORTATION_ORDER_CHANGE_STATUS => [
+    Permissions::STRUCTURE_ENABLE_ALL => [
         'type' => 2,
-        'description' => 'ОА. Заявки на перевозку. Изменение статуса',
+        'description' => 'Структуры передачи. Восстановление. Своя и подчиненные группы',
+        'ruleName' =>'checkDeleteAll',
         'children' => [
-            Permissions::ADMIN__TRANSPORTATION_ORDER_UPDATE,
-        ],
+            Permissions::STRUCTURE_VIEW_DELETE_ALL,
+        ]
     ],
-    Permissions::ADMIN__TRANSPORTATION_ORDER_CREATE => [
+    Permissions::STRUCTURE_ENABLE_GROUP => [
         'type' => 2,
-        'description' => 'ОА. Заявки на перевозку. Создание',
+        'description' => 'Структуры передачи. Восстановление. Своя группа',
+        'ruleName' =>'checkDeleteGroup',
         'children' => [
-            Permissions::ADMIN__TRANSPORTATION_ORDER_LIST,
-        ],
+            Permissions::STRUCTURE_VIEW_DELETE_GROUP,
+        ]
     ],
-    Permissions::ADMIN__TRANSPORTATION_ORDER_DELETE => [
+    Permissions::STRUCTURE_ENABLE_MAIN => [
         'type' => 2,
-        'description' => 'ОА. Заявки на перевозку. Удаление',
+        'description' => 'Структуры передачи. Восстановление. Только свои',
+        'ruleName' =>'checkDeleteMain',
         'children' => [
-            Permissions::ADMIN__TRANSPORTATION_ORDER_LIST,
-        ],
-    ],
-    Permissions::ADMIN__TRANSPORTATION_ORDER_DELETE_RATES => [
-        'type' => 2,
-        'descriptions' => 'ОА. Заявки на перевозку. Удаление рейтов',
-        'ruleName' => 'checkMainPerson',
+            Permissions::STRUCTURE_VIEW_DELETE_MAIN,
+        ]
     ],
-    Permissions::ADMIN__TRANSPORTATION_ORDER_HISTORY => [
+    Permissions::STRUCTURE_LIST => [
         'type' => 2,
-        'description' => 'ОА. Заявки на перевозку. История изменений',
-        'children' => [
-            Permissions::ADMIN__TRANSPORTATION_ORDER_VIEW,
-        ],
-    ],
-    Permissions::ADMIN__TRANSPORTATION_ORDER_LIST => [
+        'description' => 'Структуры передачи. Список'],
+    Permissions::STRUCTURE_LIST_ALL => [
         'type' => 2,
-        'description' => 'ОА. Заявки на перевозку',
+        'description' => 'Структуры передачи. Список. Своя и подчиненные группы',
+        'ruleName' =>'checkAll',
         'children' => [
-            Permissions::ADMIN__DASHBOARD_MENU_SIDE,
-        ],
+            Permissions::STRUCTURE_LIST_GROUP,
+        ]
     ],
-    Permissions::ADMIN__TRANSPORTATION_ORDER_UPDATE => [
+    Permissions::STRUCTURE_LIST_GROUP => [
         'type' => 2,
-        'description' => 'ОА. Заявки на перевозку. Обновление',
+        'description' => 'Структуры передачи. Список. Своя группа',
+        'ruleName' =>'checkGroup',
         'children' => [
-            Permissions::ADMIN__TRANSPORTATION_ORDER_VIEW,
-            Permissions::ADMIN__TRANSPORTATION_ORDER_TAKE,
-        ],
+            Permissions::STRUCTURE_LIST_MAIN,
+        ]
     ],
-    Permissions::ADMIN__TRANSPORTATION_ORDER_VIEW => [
+    Permissions::STRUCTURE_LIST_MAIN => [
         'type' => 2,
-        'description' => 'ОА. Заявки на перевозку. Детальный просмотр',
+        'description' => 'Структуры передачи. Список. Только свои',
         'children' => [
-            Permissions::ADMIN__TRANSPORTATION_ORDER_LIST,
-        ],
-    ],
-    Permissions::ADMIN__TRANSPORTATION_ORDER_TAKE => [
-        'type' => 2,
-        'description' => 'ОА. Заявки на перевозку. Назначение себя ответственным менеджером',
-    ],
-    Permissions::ADMIN__LOGISTICS__LIST => [
-        'type' => 2,
-        'description' => 'ОА. Кабинет логиста. Просмотр запросов',
+            Permissions::STRUCTURE_LIST,
+        ]
     ],
-    Permissions::ADMIN__LOGISTICS__DELETE_RATES => [
+    Permissions::STRUCTURE_VIEW_ALL => [
         'type' => 2,
-        'description' => 'ОА. Кабинет логиста. Удаление рейтов',
-        'ruleName' => 'checkMainPerson',
-    ],
-    Permissions::ADMIN__LOGISTICS__UPDATE_RATES => [
-        'type' => 2,
-        'description' => 'ОА. Кабинет логиста. Изменение ставок',
-    ],
-    Permissions::ADMIN__LOGISTICS__TAKE => [
-        'type' => 2,
-        'description' => 'ОА. Кабинет логиста. Назначение себя ответственным логистом',
-    ],
-    Permissions::ADMIN__LOGISTICS__CHANGESTATUS => [
-        'type' => 2,
-        'description' => 'ОА. Кабинет логиста. Изменение статуса',
-    ],
-    Permissions::ADMIN__USER__CLIENT_CREATE => [
-        'type' => 2,
-        'description' => 'ОА. Пользователи. Клиенты. Добавление',
+        'description' => 'Структуры передачи. Просмотр. Своя и подчиненные группы',
+        'ruleName' =>'checkAll',
         'children' => [
-            Permissions::ADMIN__USER__CLIENT_LIST,
-        ],
+            Permissions::STRUCTURE_LIST_ALL,
+        ]
     ],
-    Permissions::ADMIN__USER__CLIENT_DELETE => [
+    Permissions::STRUCTURE_VIEW_DELETE_ALL => [
         'type' => 2,
-        'description' => 'ОА. Пользователи. Клиенты. Удаление',
-        'ruleName' => 'checkUserType',
-        'data' => [
-            'roleControl' => 'Client'
-        ],
+        'description' => 'Структуры передачи. Удаленные. Просмотр. Своя и подчиненные группы',
+        'ruleName' =>'checkDeleteAll',
         'children' => [
-            Permissions::ADMIN__USER__CLIENT_LIST,
-        ],
+            Permissions::STRUCTURE_LIST_ALL,
+        ]
     ],
-    Permissions::ADMIN__USER__CLIENT_LIST => [
+    Permissions::STRUCTURE_VIEW_DELETE_GROUP => [
         'type' => 2,
-        'description' => 'ОА. Пользователи. Клиенты',
+        'description' => 'Структуры передачи. Удаленные. Просмотр. Своя группа',
+        'ruleName' =>'checkDeleteGroup',
         'children' => [
-            Permissions::ADMIN__DASHBOARD_MENU_TOPNAV_CLIENTS,
-        ],
+            Permissions::STRUCTURE_LIST_GROUP,
+        ]
     ],
-    Permissions::ADMIN__USER__CLIENT_UPDATE => [
+    Permissions::STRUCTURE_VIEW_DELETE_MAIN => [
         'type' => 2,
-        'description' => 'ОА. Пользователи. Клиенты. Обновление',
-        'ruleName' => 'checkUserType',
-        'data' => [
-            'roleControl' => 'Client'
-        ],
+        'description' => 'Структуры передачи. Удаленные. Просмотр. Только свои',
+        'ruleName' =>'checkDeleteMain',
         'children' => [
-            Permissions::ADMIN__USER__CLIENT_VIEW,
-        ],
+            Permissions::STRUCTURE_LIST_MAIN,
+        ]
     ],
-    Permissions::ADMIN__USER__CLIENT_VIEW => [
+    Permissions::STRUCTURE_VIEW_GROUP => [
         'type' => 2,
-        'description' => 'ОА. Пользователи. Клиенты. Детальный просмотр',
-        'ruleName' => 'checkUserType',
-        'data' => [
-            'roleControl' => 'Client'
-        ],
+        'description' => 'Структуры передачи. Просмотр. Своя группа',
+        'ruleName' =>'checkGroup',
         'children' => [
-            Permissions::ADMIN__USER__CLIENT_LIST,
-        ],
+            Permissions::STRUCTURE_LIST_GROUP,
+        ]
     ],
-    Permissions::ADMIN__USER__MANAGER_CREATE => [
+    Permissions::STRUCTURE_VIEW_MAIN => [
         'type' => 2,
-        'description' => 'ОА. Пользователи. Менеджеры. Добавление',
+        'description' => 'Структуры передачи. Просмотр. Только свои',
+        'ruleName' =>'checkMain',
         'children' => [
-            Permissions::ADMIN__USER__MANAGER_LIST,
-        ],
+            Permissions::STRUCTURE_LIST_MAIN,
+        ]
     ],
-    Permissions::ADMIN__USER__MANAGER_DELETE => [
+    Permissions::TEMPLATE_CREATE => [
         'type' => 2,
-        'description' => 'ОА. Пользователи. Менеджеры. Удаление',
-        'ruleName' => 'checkUserType',
-        'data' => [
-            'roleControl' => 'Manager'
-        ],
-        'children' => [
-            Permissions::ADMIN__USER__MANAGER_LIST,
-        ],
-    ],
-    Permissions::ADMIN__USER__MANAGER_LIST => [
+        'description' => 'Шаблоны формирования. Добавление'],
+    Permissions::TEMPLATE_DELETE_ALL => [
         'type' => 2,
-        'description' => 'ОА. Пользователи. Менеджеры',
+        'description' => 'Шаблоны формирования. Удаление. Своя и подчиненные группы',
+        'ruleName' =>'checkAll',
         'children' => [
-            Permissions::ADMIN__DASHBOARD_MENU_TOPNAV_CLIENTS,
-        ],
+            Permissions::TEMPLATE_VIEW_ALL,
+        ]
     ],
-    Permissions::ADMIN__USER__MANAGER_UPDATE => [
+    Permissions::TEMPLATE_DELETE_GROUP => [
         'type' => 2,
-        'description' => 'ОА. Пользователи. Менеджеры. Обновление',
-        'ruleName' => 'checkUserType',
-        'data' => [
-            'roleControl' => 'Manager'
-        ],
+        'description' => 'Шаблоны формирования. Удаление. Своя группа',
+        'ruleName' =>'checkGroup',
         'children' => [
-            Permissions::ADMIN__USER__MANAGER_VIEW,
-        ],
+            Permissions::TEMPLATE_VIEW_GROUP,
+        ]
     ],
-    Permissions::ADMIN__USER__MANAGER_VIEW => [
+    Permissions::TEMPLATE_DELETE_MAIN => [
         'type' => 2,
-        'description' => 'ОА. Пользователи. Менеджеры. Детальный просмотр',
-        'ruleName' => 'checkUserType',
-        'data' => [
-            'roleControl' => 'Manager'
-        ],
+        'description' => 'Шаблоны формирования. Удаление. Только свои',
+        'ruleName' =>'checkMain',
         'children' => [
-            Permissions::ADMIN__USER__MANAGER_LIST,
-        ],
-    ],
-    Permissions::CLIENT__DASHBOARD => [
-        'type' => 2,
-        'description' => 'ОК. Доступ к панели клиента',
+            Permissions::TEMPLATE_VIEW_MAIN,
+        ]
     ],
-    Permissions::CLIENT__DASHBOARD_MENU_SIDE => [
+    Permissions::TEMPLATE_EDIT_ALL => [
         'type' => 2,
-        'description' => 'ОК. Меню. Показывать боковое меню',
+        'description' => 'Шаблоны формирования. Редактирование. Своя и подчиненные группы',
+        'ruleName' =>'checkAll',
         'children' => [
-            Permissions::CLIENT__DASHBOARD,
-        ],
-    ],
-    Permissions::CLIENT__LCL__BOOKING_LIST => [
-        'type' => 2,
-        'description' => 'ОК. Сборный груз. Заказы',
-    ],
-    Permissions::CLIENT__LCL__BOOKING_VIEW => [
-        'type' => 2,
-        'description' => 'ОК. Сборный груз. Заказы. Детальный просмотр',
+            Permissions::TEMPLATE_VIEW_ALL,
+        ]
     ],
-    Permissions::CLIENT__ORDER_CREATE => [
+    Permissions::TEMPLATE_EDIT_GROUP => [
         'type' => 2,
-        'description' => 'ОК. ЖД перевозки. Создание',
+        'description' => 'Шаблоны формирования. Редактирование. Своя группа',
+        'ruleName' =>'checkGroup',
         'children' => [
-            Permissions::CLIENT__ORDER_LIST,
-        ],
+            Permissions::TEMPLATE_VIEW_GROUP,
+        ]
     ],
-    Permissions::CLIENT__ORDER_LIST => [
+    Permissions::TEMPLATE_EDIT_MAIN => [
         'type' => 2,
-        'description' => 'ОК. ЖД перевозки',
+        'description' => 'Шаблоны формирования. Редактирование. Только свои',
+        'ruleName' =>'checkMain',
         'children' => [
-            Permissions::CLIENT__DASHBOARD_MENU_SIDE,
-        ],
+            Permissions::TEMPLATE_VIEW_MAIN,
+        ]
     ],
-    Permissions::CLIENT__ORDER_VIEW => [
+    Permissions::TEMPLATE_ENABLE_ALL => [
         'type' => 2,
-        'description' => 'ОК. ЖД перевозки. Детальный просмотр',
-        'ruleName' => 'checkMain',
+        'description' => 'Шаблоны формирования. Восстановление. Своя и подчиненные группы',
+        'ruleName' =>'checkDeleteAll',
         'children' => [
-            Permissions::CLIENT__ORDER_LIST,
-        ],
+            Permissions::TEMPLATE_VIEW_DELETE_ALL,
+        ]
     ],
-    Permissions::CLIENT__ORDERCARDELIVERY_CREATE => [
+    Permissions::TEMPLATE_ENABLE_GROUP => [
         'type' => 2,
-        'description' => 'ОК. Автодоставка. Создание',
+        'description' => 'Шаблоны формирования. Восстановление. Своя группа',
+        'ruleName' =>'checkDeleteGroup',
         'children' => [
-            Permissions::CLIENT__ORDERCARDELIVERY_LIST,
-        ],
+            Permissions::TEMPLATE_VIEW_DELETE_GROUP,
+        ]
     ],
-    Permissions::CLIENT__ORDERCARDELIVERY_LIST => [
+    Permissions::TEMPLATE_ENABLE_MAIN => [
         'type' => 2,
-        'description' => 'ОК. Автодоставка',
+        'description' => 'Шаблоны формирования. Восстановление. Только свои',
+        'ruleName' =>'checkDeleteMain',
         'children' => [
-            Permissions::CLIENT__DASHBOARD_MENU_SIDE,
-        ],
+            Permissions::TEMPLATE_VIEW_DELETE_MAIN,
+        ]
     ],
-    Permissions::CLIENT__ORDERCARDELIVERY_VIEW => [
+    Permissions::TEMPLATE_LIST => [
         'type' => 2,
-        'description' => 'ОК. Автодоставка. Детальный просмотр',
-        'ruleName' => 'checkMain',
-        'children' => [
-            Permissions::CLIENT__ORDERCARDELIVERY_LIST,
-        ],
-    ],
-    Permissions::CLIENT__ORDERCUSTOMPROCESSING_CHANGESTATUS => [
+        'description' => 'Шаблоны формирования. Список'],
+    Permissions::TEMPLATE_LIST_ALL => [
         'type' => 2,
-        'description' => 'ОК. Терминальная обработка. Изменение статуса',
-        'ruleName' => 'checkMain',
+        'description' => 'Шаблоны формирования. Список. Своя и подчиненные группы',
+        'ruleName' =>'checkAll',
         'children' => [
-            Permissions::CLIENT__ORDERCUSTOMPROCESSING_UPDATE,
-        ],
+            Permissions::TEMPLATE_LIST_GROUP,
+        ]
     ],
-    Permissions::CLIENT__ORDERCUSTOMPROCESSING_CREATE => [
+    Permissions::TEMPLATE_LIST_GROUP => [
         'type' => 2,
-        'description' => 'ОК. Терминалная обработка. Создание',
+        'description' => 'Шаблоны формирования. Список. Своя группа',
+        'ruleName' =>'checkGroup',
         'children' => [
-            Permissions::CLIENT__ORDERCUSTOMPROCESSING_LIST,
-        ],
+            Permissions::TEMPLATE_LIST_MAIN,
+        ]
     ],
-    Permissions::CLIENT__ORDERCUSTOMPROCESSING_LIST => [
+    Permissions::TEMPLATE_LIST_MAIN => [
         'type' => 2,
-        'description' => 'ОК. Терминальная обработка',
+        'description' => 'Шаблоны формирования. Список. Только свои',
         'children' => [
-            Permissions::CLIENT__DASHBOARD_MENU_SIDE,
-        ],
+            Permissions::TEMPLATE_LIST,
+        ]
     ],
-    Permissions::CLIENT__ORDERCUSTOMPROCESSING_UPDATE => [
+    Permissions::TEMPLATE_VIEW_ALL => [
         'type' => 2,
-        'description' => 'ОК. Терминальная обработка. Обновление',
-        'ruleName' => 'checkMain',
+        'description' => 'Шаблоны формирования. Просмотр. Своя и подчиненные группы',
+        'ruleName' =>'checkAll',
         'children' => [
-            Permissions::CLIENT__ORDERCUSTOMPROCESSING_VIEW,
-        ],
+            Permissions::TEMPLATE_LIST_ALL,
+        ]
     ],
-    Permissions::CLIENT__ORDERCUSTOMPROCESSING_VIEW => [
+    Permissions::TEMPLATE_VIEW_DELETE_ALL => [
         'type' => 2,
-        'description' => 'ОК. Терминальная обработка. Детальный просмотр',
-        'ruleName' => 'checkMain',
+        'description' => 'Шаблоны формирования. Удаленные. Просмотр. Своя и подчиненные группы',
+        'ruleName' =>'checkDeleteAll',
         'children' => [
-            Permissions::CLIENT__ORDERCUSTOMPROCESSING_LIST,
-        ],
+            Permissions::TEMPLATE_LIST_ALL,
+        ]
     ],
-    Permissions::CLIENT__REQUEST_CREATE => [
+    Permissions::TEMPLATE_VIEW_DELETE_GROUP => [
         'type' => 2,
-        'description' => 'ОК. Запросы. Создание',
+        'description' => 'Шаблоны формирования. Удаленные. Просмотр. Своя группа',
+        'ruleName' =>'checkDeleteGroup',
         'children' => [
-            Permissions::CLIENT__REQUEST_LIST,
-        ],
+            Permissions::TEMPLATE_LIST_GROUP,
+        ]
     ],
-    Permissions::CLIENT__REQUEST_LIST => [
+    Permissions::TEMPLATE_VIEW_DELETE_MAIN => [
         'type' => 2,
-        'description' => 'ОК. Запросы',
+        'description' => 'Шаблоны формирования. Удаленные. Просмотр. Только свои',
+        'ruleName' =>'checkDeleteMain',
         'children' => [
-            Permissions::CLIENT__DASHBOARD_MENU_SIDE,
-        ],
+            Permissions::TEMPLATE_LIST_MAIN,
+        ]
     ],
-    Permissions::CLIENT__REQUEST_VIEW => [
+    Permissions::TEMPLATE_VIEW_GROUP => [
         'type' => 2,
-        'description' => 'ОК. Запросы. Детальный просмотр',
-        'ruleName' => 'checkMain',
+        'description' => 'Шаблоны формирования. Просмотр. Своя группа',
+        'ruleName' =>'checkGroup',
         'children' => [
-            Permissions::CLIENT__REQUEST_LIST,
-        ],
+            Permissions::TEMPLATE_LIST_GROUP,
+        ]
     ],
-    Permissions::CLIENT__REQUEST_UPDATE => [
+    Permissions::TEMPLATE_VIEW_MAIN => [
         'type' => 2,
-        'description' => 'ОК. Запросы. Изменение.',
-        'ruleName' => 'requestUpdate',
+        'description' => 'Шаблоны формирования. Просмотр. Только свои',
+        'ruleName' =>'checkMain',
         'children' => [
-            Permissions::CLIENT__REQUEST_LIST,
-            Permissions::CLIENT__REQUEST_VIEW,
-        ],
+            Permissions::TEMPLATE_LIST_MAIN,
+        ]
     ],
 ];
