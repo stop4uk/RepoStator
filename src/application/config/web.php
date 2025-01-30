@@ -117,7 +117,7 @@ $config = [
     'params' => $params,
 ];
 
-if ((bool)getenv('YII_GII')) {
+if ((bool)env('YII_GII')) {
     $config['modules']['gii'] = [
         'class' => GiiModule::class,
         'allowedIPs' => ['*'],
@@ -126,7 +126,7 @@ if ((bool)getenv('YII_GII')) {
     $config['bootstrap'][] = 'gii';
 }
 
-if ((bool)getenv('YII_DEBUG')) {
+if ((bool)env('YII_DEBUG')) {
     $config['modules']['debug'] = [
         'class' => DebugModule::class,
         'panels' => [

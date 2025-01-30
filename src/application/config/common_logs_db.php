@@ -9,12 +9,6 @@ return [
         [
             'class' => DbTarget::class,
             'logTable' => LogEntity::tableName(),
-            'levels' => ['error'],
-            'logVars' => []
-        ],
-        [
-            'class' => DbTarget::class,
-            'logTable' => LogEntity::tableName(),
             'categories' => ['Queue'],
             'levels' => ['error'],
             'logVars' => [],

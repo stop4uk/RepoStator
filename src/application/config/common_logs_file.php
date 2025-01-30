@@ -7,7 +7,7 @@ return [
     'targets' => [
         [
             'class' => FileTarget::class,
-            'levels' => ['error', 'warning'],
+            'levels' => ['error'],
             'logFile' => '@runtime/logs/app.log',
             'logVars' => []
         ],
