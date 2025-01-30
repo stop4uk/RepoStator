@@ -10,7 +10,7 @@ use yii\behaviors\{
 
 use app\components\base\BaseAR;
 use app\helpers\HtmlPurifier;
-use app\modules\users\UserSessionHelper;
+use app\modules\users\helpers\UserSessionHelper;
 
 /**
  * @property int $user_id
