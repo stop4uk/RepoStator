@@ -66,7 +66,7 @@ $form = ActiveForm::begin([
         </div>
         <div class="col-12 col-md-5">
             <?= $form->field($model, 'report_id')->widget(Select2::class, [
-                'data' => ) {$model->getIsNewEntity() ? $model->reports : [$model->report_id => $model->reports[$model->report_id]] ),
+                'data' => ($model->getIsNewEntity() ? $model->reports : [$model->report_id => $model->reports[$model->report_id]]),
                 'options' => [
                     'placeholder' => '',
                     'multiple' => false,

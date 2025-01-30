@@ -157,7 +157,7 @@ final class TemplateController extends BaseController
             && !$this->request->isPjax
         ) {
             $session = Yii::$app->getSession();
-            $sessionKey = env('YII_UPLOADS_TEMPORARY_KEY', 'tmpUploadSession') . CommonHelper::getUserID();
+            $sessionKey = implode('_', [self::getUniqueId(), Yii::$app->getUser()->id]);
             $sessionFiles = $session->get($sessionKey);
 
             if ($sessionFiles) {

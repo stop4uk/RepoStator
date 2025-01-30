@@ -51,9 +51,7 @@ final class AttachFileBehavior extends Behavior
 
     public function init(): void
     {
-        $this->userID = $this->getUserID();
-        $this->sessionKey = env('YII_UPLOADS_TEMPORARY_KEY', 'tmpUploadSession') . $this->userID;
-
+        $this->sessionKey = implode('_', [Yii::$app->controller->getUniqueId(), Yii::$app->getUser()->id]);
         parent::init();
     }
 
@@ -322,14 +320,5 @@ final class AttachFileBehavior extends Behavior
             'mime' =>$mime ?: FileHelper::getMimeType($path)
 
         ];
-    }
-
-    private function getUserID(): int
-    {
-        try {
-            return Yii::$app->getUser()->getId();
-        } catch(Exception $e) {}
-
-        return 0;
     }
 }

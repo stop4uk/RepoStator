@@ -33,7 +33,7 @@ final class TemplateService extends BaseService
     {
         $isNewRecordWhenLoad = $model->getIsNewEntity();
         $session = Yii::$app->getSession();
-        $sessionKey = env('YII_UPLOADS_TEMPORARY_KEY', 'tmpUpload') . CommonHelper::getUserID();
+        $sessionKey = implode('_', [Yii::$app->controller->getUniqueId(), Yii::$app->getUser()->id]);
         $sessionFiles = $session->get($sessionKey);
 
         $model->getEntity()->recordAction($model);

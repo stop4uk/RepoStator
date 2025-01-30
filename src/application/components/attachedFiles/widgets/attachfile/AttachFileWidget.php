@@ -3,10 +3,7 @@
 namespace app\components\attachedFiles\widgets\attachfile;
 
 use Yii;
-use yii\base\{
-    Exception,
-    Widget
-};
+use yii\base\Widget;
 use yii\db\ActiveRecordInterface;
 
 /**
@@ -87,16 +84,7 @@ final class AttachFileWidget extends Widget
             'uploadButtonHintText' => $this->uploadButtonHintText,
             'dataProvider' => $this->model->getAttachedFiles(),
             'canAttached' => $this->model->getCanFilesToAttach(),
-            'sessionKey' => env('YII_UPLOADS_TEMPORARY_KEY', 'tmpUploadSession') . $this->getUserID()
+            'sessionKey' => implode('_', [Yii::$app->controller->getUniqueId(), Yii::$app->getUser()->id])
         ]);
-    }
-
-    private function getUserID(): int
-    {
-        try {
-            return Yii::$app->getUser()->getId();
-        } catch(Exception $e) {}
-
-        return 0;
     }
 }
