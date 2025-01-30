@@ -70,8 +70,8 @@ $form = ActiveForm::begin([
                 'options' => [
                     'placeholder' => '',
                     'multiple' => false,
-                    'readonly' => !$model->getIsNewEntity(),
-                    'disabled' => !$model->getIsNewEntity()
+                    'readonly' => !$model->getIsNewEntity() && !$model->report_id,
+                    'disabled' => !$model->getIsNewEntity() && !$model->report_id
                 ],
                 'pluginOptions' => ['allowClear' => true],
                 'pluginEvents' => [
