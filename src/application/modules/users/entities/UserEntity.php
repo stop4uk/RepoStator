@@ -116,6 +116,10 @@ final class UserEntity extends BaseAR
 
         $this->setAttributes($model->toArray());
         $this->password = $password;
+
+        if (!$this->phone) {
+            $this->phone = NULL;
+        }
     }
 
     public function attributeLabels(): array
