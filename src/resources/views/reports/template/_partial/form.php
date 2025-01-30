@@ -133,7 +133,7 @@ $form = ActiveForm::begin([
         </div>
     </div>
 
-    <div class="row <?= ) {!$model->report_id || $model->form_type != ReportFormTemplateEntity::REPORT_TYPE_DYNAMIC) ? 'd-none' : ''; ?>" id="dynamicTemplate">
+    <div class="row <?= (!$model->report_id || $model->form_type != ReportFormTemplateEntity::REPORT_TYPE_DYNAMIC) ? 'd-none' : ''; ?>" id="dynamicTemplate">
         <hr />
         <div class="col-12 col-md-4 col-xl-3">
             <?= $form->field($model, 'table_type')
@@ -179,7 +179,7 @@ $form = ActiveForm::begin([
             ]); ?>
         </div>
     </div>
-    <div class="row mb-3 <?= ) {!$model->report_id || $model->form_type != ReportFormTemplateEntity::REPORT_TYPE_TEMPLATE) ? 'd-none' : ''; ?>" id="staticTemplate">
+    <div class="row mb-3 <?= (!$model->report_id || $model->form_type != ReportFormTemplateEntity::REPORT_TYPE_TEMPLATE) ? 'd-none' : ''; ?>" id="staticTemplate">
         <hr />
         <?= AttachFileWidget::widget([
             'model' => $model->getEntity(),
