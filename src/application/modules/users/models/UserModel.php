@@ -2,19 +2,11 @@
 
 namespace app\modules\users\models;
 
-use Yii;
-use yii\helpers\{
-    ArrayHelper,
-    Json
-};
-
 use app\components\base\BaseModel;
 use app\helpers\HtmlPurifier;
-use app\modules\users\{
-    entities\UserEntity,
-    helpers\RbacHelper,
-    helpers\UserHelper
-};
+use app\modules\users\{components\rbac\RbacHelper, entities\UserEntity, helpers\UserHelper};
+use Yii;
+use yii\helpers\{ArrayHelper, Json};
 
 /**
  * @property string $email

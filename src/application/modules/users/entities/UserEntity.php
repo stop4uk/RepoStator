@@ -3,6 +3,7 @@
 namespace app\modules\users\entities;
 
 use Yii;
+use yii\base\Model;
 use yii\behaviors\{
     BlameableBehavior,
     TimestampBehavior
@@ -93,7 +94,7 @@ final class UserEntity extends BaseAR
         ];
     }
 
-    public function recordAction(BaseModel $model): void
+    public function recordAction(BaseModel|Model $model): void
     {
         $password = $this->password;
 

@@ -2,22 +2,16 @@
 
 namespace app\modules\reports\controllers;
 
-use Yii;
-use yii\web\Response;
-use yii\filters\AccessControl;
-use yii\bootstrap5\ActiveForm;
-
 use app\components\base\BaseController;
-use app\modules\reports\{
-    components\factories\FormTemplateFactory,
+use app\modules\reports\{components\factories\FormTemplateFactory,
     forms\StatisticForm,
     repositories\TemplateRepository,
-    search\JobSearch
-};
-use app\modules\users\{
-    components\rbac\items\Permissions,
-    helpers\RbacHelper,
-};
+    search\JobSearch};
+use app\modules\users\{components\rbac\items\Permissions, components\rbac\RbacHelper,};
+use Yii;
+use yii\bootstrap5\ActiveForm;
+use yii\filters\AccessControl;
+use yii\web\Response;
 
 /**
  * @author Stop4uk <stop4uk@yandex.ru>

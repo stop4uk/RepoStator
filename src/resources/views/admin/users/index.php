@@ -1,16 +1,18 @@
 <?php
 
-use yii\helpers\Url;
 use yii\grid\ActionColumn;
+use yii\helpers\Url;
 use yii\widgets\Pjax;
 use yii\bootstrap5\Html;
 
 use app\helpers\CommonHelper;
-use app\modules\users\helpers\{
-    RbacHelper,
-    UserHelper
+use app\modules\users\{
+    components\rbac\items\Permissions,
+    components\rbac\RbacHelper,
+    helpers\UserHelper
 };
 use app\widgets\GridView;
+
 
 /**
  * @var \app\modules\admin\search\UserSearch $searchModel
@@ -22,7 +24,7 @@ $this->title = Yii::t('views', 'Список пользователей');
 ?>
     <div class="d-flex justify-content-end mb-2">
         <?php
-            if (Yii::$app->getUser()->can('admin.user.create')) {
+            if (Yii::$app->getUser()->can(Permissions::ADMIN_USER_CREATE)) {
                 echo Html::a(Yii::t('views', 'Новый пользователь'), ['create'], ['class' => 'btn btn-primary pt-1 pb-1 me-2']);
             }
 
@@ -128,10 +130,10 @@ $this->title = Yii::t('views', 'Список пользователей');
                                     'view' => function($model) {
                                         $ruleArray = $model->toArray(['id', 'record_status']);
                                         $rolesArray = [
-                                            'admin.user.view.group',
-                                            'admin.user.view.all',
-                                            'admin.user.view.delete.group',
-                                            'admin.user.view.delete.all'
+                                            Permissions::ADMIN_USER_VIEW_GROUP,
+                                            Permissions::ADMIN_USER_VIEW_ALL,
+                                            Permissions::ADMIN_USER_VIEW_DELETE_GROUP,
+                                            Permissions::ADMIN_USER_VIEW_DELETE_ALL
                                         ];
 
                                         return RbacHelper::canArray($rolesArray, $ruleArray);
@@ -139,9 +141,8 @@ $this->title = Yii::t('views', 'Список пользователей');
                                     'edit' => function($model){
                                         $ruleArray = $model->toArray(['id', 'record_status']);
                                         $rolesArray = [
-                                            'constant.edit.main',
-                                            'admin.user.edit.group',
-                                            'admin.user.edit.group.all',
+                                            Permissions::ADMIN_USER_EDIT_GROUP,
+                                            Permissions::ADMIN_USER_EDIT_ALL
                                         ];
 
                                         return RbacHelper::canArray($rolesArray, $ruleArray);
@@ -149,8 +150,8 @@ $this->title = Yii::t('views', 'Список пользователей');
                                     'delete' => function($model){
                                         $ruleArray = $model->toArray(['id', 'record_status']);
                                         $rolesArray = [
-                                            'admin.user.delete.group',
-                                            'admin.user.delete.all',
+                                            Permissions::ADMIN_USER_DELETE_GROUP,
+                                            Permissions::ADMIN_USER_DELETE_ALL,
                                         ];
 
                                         return RbacHelper::canArray($rolesArray, $ruleArray);

@@ -7,6 +7,7 @@ use yii\bootstrap5\Html;
 
 use app\helpers\CommonHelper;
 use app\widgets\GridView;
+use app\modules\users\components\rbac\items\Roles;
 
 /**
  * @var \app\modules\admin\search\GroupTypeSearch $searchModel
@@ -74,66 +75,42 @@ $this->title = Yii::t('views', 'Список типов групп');
                                 'template' => '{view} {edit} {delete}',
                                 'buttons' => [
                                     'view' => function($url, $model) {
-                                        if (
-                                            (
-                                                $model->record_status
-                                                && Yii::$app->getUser()->can('admin.groupsType.view', ['id' => $model->id])
-                                            )
-                                            || (
-                                                !$model->record_status
-                                                && Yii::$app->getUser()->can('admin.groupsType.view.delete', ['id' => $model->id])
-                                            )
-                                        ) {
-                                            return Html::a(
-                                                '<i class="bi bi-eye text-dark"></i>',
-                                                Url::to(['view', 'id' => $model->id]),
-                                                [
-                                                    'data-pjax' => 0,
-                                                    'data-bs-toggle' => 'tooltip',
-                                                    'data-bs-placement' => 'bottom',
-                                                    'title' => Yii::t('views', 'Просмотреть'),
-                                                ]
-                                            );
-                                        }
+                                        return Html::a('<i class="bi bi-eye text-dark"></i>', Url::to(['view', 'id' => $model->id]), [
+                                            'data-pjax' => 0,
+                                            'data-bs-toggle' => 'tooltip',
+                                            'data-bs-placement' => 'bottom',
+                                            'title' => Yii::t('views', 'Просмотреть'),
+                                        ]);
                                     },
                                     'edit' => function($url, $model) {
-                                        if (
-                                            $model->record_status
-                                            && Yii::$app->getUser()->can('admin.groupsType.edit')
-                                        ) {
-                                            return Html::a(
-                                                '<i class="bi bi-pen text-dark"></i>',
-                                                Url::to(['edit', 'id' => $model->id]),
-                                                [
-                                                    'data-pjax' => 0,
-                                                    'data-bs-toggle' => 'tooltip',
-                                                    'data-bs-placement' => 'bottom',
-                                                    'title' => Yii::t('views', 'Редактировать'),
-                                                ]
-                                            );
-                                        }
+                                        return Html::a( '<i class="bi bi-pen text-dark"></i>', Url::to(['edit', 'id' => $model->id]), [
+                                            'data-pjax' => 0,
+                                            'data-bs-toggle' => 'tooltip',
+                                            'data-bs-placement' => 'bottom',
+                                            'title' => Yii::t('views', 'Редактировать'),
+                                        ]);
                                     },
                                     'delete' => function($url, $model) {
-                                        if (
-                                            $model->record_status
-                                            && Yii::$app->getUser()->can('admin.groupsType.delete')
-                                        ) {
-                                            return Html::tag('span',
-                                                Html::tag('i', '', ['class' => 'bi bi-trash text-dark']),
-                                                [
-                                                    'role' => 'button',
-                                                    'data-bs-toggle' => 'tooltip',
-                                                    'data-bs-placement' => 'bottom',
-                                                    'title' => Yii::t('views', 'Удалить'),
-                                                    'data-message' => Yii::t('views', 'Вы действительно хотите удалить тип группы "{name}"?', ['name' =>  $model->name]),
-                                                    'data-url' => Url::to(['delete', 'id' => $model->id]),
-                                                    'data-pjaxContainer' => '#groupsTypeList',
-                                                    'onclick' => 'workWithRecord($(this))',
-                                                ]
-                                            );
-                                        }
+                                        return Html::tag('span', '<i class="bi bi-trash text-dark"></i>', [
+                                            'role' => 'button',
+                                            'data-bs-toggle' => 'tooltip',
+                                            'data-bs-placement' => 'bottom',
+                                            'title' => Yii::t('views', 'Удалить'),
+                                            'data-message' => Yii::t('views', 'Вы действительно хотите удалить тип группы "{name}"?', ['name' =>  $model->name]),
+                                            'data-url' => Url::to(['delete', 'id' => $model->id]),
+                                            'data-pjaxContainer' => '#groupsTypeList',
+                                            'onclick' => 'workWithRecord($(this))',
+                                        ]);
                                     }
                                 ],
+                                'visibleButtons' => [
+                                    'delete' => function($model) {
+                                        return (
+                                            $model->record_status
+                                            && Yii::$app->getUser()->can(Roles::ADMIN, ['id' => $model->id])
+                                        );
+                                    },
+                                ]
                             ],
                         ],
                     ]);

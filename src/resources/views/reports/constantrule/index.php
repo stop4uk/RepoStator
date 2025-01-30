@@ -1,13 +1,17 @@
 <?php
 
+use yii\grid\ActionColumn;
 use yii\helpers\Url;
 use yii\widgets\Pjax;
-use yii\grid\ActionColumn;
 use yii\bootstrap5\Html;
 
-use app\widgets\GridView;
 use app\helpers\CommonHelper;
-use app\modules\users\helpers\RbacHelper;
+use app\widgets\GridView;
+use app\modules\users\components\rbac\{
+    items\Permissions,
+    RbacHelper
+};
+
 
 /**
  * @var \app\modules\reports\search\ConstantruleSearch $searchModel
@@ -20,7 +24,7 @@ $this->title = Yii::t('views', 'Список правил');
 ?>
     <div class="d-flex justify-content-end mb-2">
         <?php
-        if (Yii::$app->getUser()->can('constantRule.create')) {
+        if (Yii::$app->getUser()->can(Permissions::CONSTANTRULE_CREATE)) {
             echo Html::a(Yii::t('views', 'Новое правило'), ['create'], ['class' => 'btn btn-primary pt-1 pb-1 me-2']);
         }
 

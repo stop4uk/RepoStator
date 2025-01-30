@@ -7,6 +7,7 @@ use yii\bootstrap5\Html;
 
 use app\helpers\CommonHelper;
 use app\widgets\GridView;
+use app\modules\users\components\rbac\items\Roles;
 
 /**
  * @var \app\modules\admin\search\GroupSearch $searchModel
@@ -129,29 +130,10 @@ $this->title = Yii::t('views', 'Список групп');
                                     }
                                 ],
                                 'visibleButtons' => [
-                                    'view' => function($model) {
-                                        return (
-                                            (
-                                                $model->record_status
-                                                && Yii::$app->getUser()->can('admin.groups.view', ['id' => $model->id])
-                                            )
-                                            || (
-                                                !$model->record_status
-                                                && Yii::$app->getUser()->can('admin.groups.view.delete', ['id' => $model->id])
-                                            )
-                                        );
-                                    },
-                                    'edit' => function($model) {
-                                        return (
-                                            $model->id != Yii::$app->getUser()->id
-                                            && Yii::$app->getUser()->can('admin.groups.edit', ['id' => $model->id])
-                                        );
-                                    },
                                     'delete' => function($model) {
                                         return (
                                             $model->record_status
-                                            && $model->id != Yii::$app->getUser()->id
-                                            && Yii::$app->getUser()->can('admin.groups.delete', ['id' => $model->id])
+                                            && Yii::$app->getUser()->can(Roles::ADMIN, ['id' => $model->id])
                                         );
                                     },
                                 ]

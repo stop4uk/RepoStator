@@ -2,41 +2,21 @@
 
 namespace app\modules\reports\controllers;
 
-use Yii;
-use yii\web\Response;
-use yii\filters\AccessControl;
-use yii\helpers\{
-    ArrayHelper,
-    FileHelper,
-    Url
-};
-
-use app\actions\{
-    CreateEditAction,
-    DeleteAction,
-    EnableAction,
-    IndexAction,
-    ViewAction
-};
-use app\components\{
-    base\BaseController,
-    base\BaseAR,
-    attachedFiles\AttachFileActionsTrait
-};
-use app\modules\reports\{
-    entities\ReportFormTemplateEntity,
+use app\actions\{CreateEditAction, DeleteAction, EnableAction, IndexAction, ViewAction};
+use app\components\{attachedFiles\AttachFileActionsTrait, base\BaseAR, base\BaseController};
+use app\helpers\CommonHelper;
+use app\modules\reports\{entities\ReportFormTemplateEntity,
     models\TemplateModel,
     repositories\ConstantRepository,
     repositories\ConstantruleRepository,
     repositories\TemplateRepository,
-    services\TemplateService,
-    search\TemplateSearch
-};
-use app\helpers\CommonHelper;
-use app\modules\users\{
-    components\rbac\items\Permissions,
-    helpers\RbacHelper
-};
+    search\TemplateSearch,
+    services\TemplateService};
+use app\modules\users\{components\rbac\items\Permissions, components\rbac\RbacHelper};
+use Yii;
+use yii\filters\AccessControl;
+use yii\helpers\{ArrayHelper, FileHelper, Url};
+use yii\web\Response;
 
 /**
  * @author Stop4uk <stop4uk@yandex.ru>

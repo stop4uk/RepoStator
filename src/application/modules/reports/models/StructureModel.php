@@ -2,25 +2,16 @@
 
 namespace app\modules\reports\models;
 
-use Yii;
-use yii\helpers\Json;
-
 use app\components\base\BaseModel;
-use app\helpers\{
-    CommonHelper,
-    HtmlPurifier
-};
-use app\modules\reports\{
-    entities\ReportStructureEntity,
+use app\helpers\{CommonHelper, HtmlPurifier};
+use app\modules\reports\{entities\ReportStructureEntity,
+    helpers\StructureHelper,
     repositories\ConstantRepository,
     repositories\ReportRepository,
-    repositories\StructureRepository,
-    helpers\StructureHelper
-};
-use app\modules\users\{
-    repositories\GroupRepository,
-    helpers\RbacHelper
-};
+    repositories\StructureRepository};
+use app\modules\users\{components\rbac\RbacHelper, repositories\GroupRepository};
+use Yii;
+use yii\helpers\Json;
 
 /**
  * @property int report_id

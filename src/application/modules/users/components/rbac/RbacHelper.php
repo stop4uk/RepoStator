@@ -1,8 +1,10 @@
 <?php
 
-namespace app\modules\users\helpers;
+namespace app\modules\users\components\rbac;
 
 use Yii;
+
+use app\modules\users\components\rbac\items\Roles;
 
 /**
  * @author Stop4uk <stop4uk@yandex.ru>
@@ -12,7 +14,7 @@ class RbacHelper
 {
     public static function getOnlyActiveRecordsState(array $permissions): bool
     {
-        if (Yii::$app->getUser()->can('admin')) {
+        if (Yii::$app->getUser()->can(Roles::ADMIN)) {
             return false;
         }
 
@@ -31,7 +33,7 @@ class RbacHelper
         $mainGroup = Yii::$app->getUser()->getIdentity()->group;
         $allowGroups = [];
 
-        if (Yii::$app->getUser()->can('admin')) {
+        if (Yii::$app->getUser()->can(Roles::ADMIN)) {
             return Yii::$app->getUser()->getIdentity()->groups;
         }
 

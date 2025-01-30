@@ -7,6 +7,10 @@ use yii\bootstrap5\{
 };
 
 use app\modules\reports\widgets\structform\StructFormWidget;
+use app\modules\users\components\rbac\{
+    items\Permissions,
+    RbacHelper
+};
 
 /**
  * @var \yii\web\View $this
@@ -68,12 +72,11 @@ $this->params['breadcrumbs'] = [
 
                                 if (
                                     $model->changes
-                                    && (
-                                        Yii::$app->getUser()->can('data.change.main', $ruleArray)
-                                        || Yii::$app->getUser()->can('data.change.group', $ruleArray)
-                                        || Yii::$app->getUser()->can('data.change.all', $ruleArray)
-                                    )
-                                ) {
+                                    && RbacHelper::canArray([
+                                        Permissions::DATA_CHANGE_MAIN,
+                                        Permissions::DATA_CHANGE_GROUP,
+                                        Permissions::DATA_CHANGE_ALL,
+                                    ], $ruleArray)) {
                                     Modal::begin([
                                         'size' => Modal::SIZE_LARGE,
                                         'title' => Yii::t('views', 'Внесенные изменения в отчет'),

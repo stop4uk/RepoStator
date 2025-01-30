@@ -1,13 +1,17 @@
 <?php
 
+use yii\grid\ActionColumn;
 use yii\helpers\Url;
 use yii\widgets\Pjax;
-use yii\grid\ActionColumn;
 use yii\bootstrap5\Html;
 
-use app\widgets\GridView;
 use app\helpers\CommonHelper;
-use app\modules\users\helpers\RbacHelper;
+use app\widgets\GridView;
+use app\modules\users\components\rbac\{
+    items\Permissions,
+    RbacHelper
+};
+
 
 /**
  * @var \app\modules\reports\search\ConstantSearch $searchModel
@@ -19,7 +23,7 @@ $this->title = Yii::t('views', 'Список констант');
 ?>
     <div class="d-flex justify-content-end mb-2">
         <?php
-            if (Yii::$app->getUser()->can('constant.create')) {
+            if (Yii::$app->getUser()->can(Permissions::CONSTANT_CREATE)) {
                 echo Html::a(Yii::t('views', 'Новая константа'), ['create'], ['class' => 'btn btn-primary pt-1 pb-1 me-2']);
             }
 

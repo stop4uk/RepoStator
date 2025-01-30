@@ -2,18 +2,15 @@
 
 namespace app\modules\reports\search;
 
+use app\helpers\CommonHelper;
+use app\modules\reports\{entities\ReportFormJobEntity,
+    helpers\JobHelper,
+    repositories\ReportRepository,
+    repositories\TemplateRepository};
+use app\modules\users\components\rbac\RbacHelper;
 use Yii;
 use yii\base\Model;
 use yii\data\ActiveDataProvider;
-
-use app\helpers\CommonHelper;
-use app\modules\reports\{
-    entities\ReportFormJobEntity,
-    repositories\TemplateRepository,
-    repositories\ReportRepository,
-    helpers\JobHelper
-};
-use app\modules\users\helpers\RbacHelper;
 
 /**
  * @property int|null $job_status

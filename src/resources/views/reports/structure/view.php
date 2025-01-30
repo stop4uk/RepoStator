@@ -3,6 +3,11 @@
 use yii\helpers\Url;
 use yii\bootstrap5\Html;
 
+use app\modules\users\components\rbac\{
+    items\Permissions,
+    RbacHelper
+};
+
 /**
  * @var \app\modules\reports\models\StructureModel $model
  * @var \yii\web\View $this
@@ -42,11 +47,11 @@ $this->params['breadcrumbs'] = [
             if (!$model->getEntity()->record_status) {
                 $ruleArray = $model->getEntity()->toArray(['created_uid', 'created_gid', 'record_status']);
 
-                if (
-                    Yii::$app->getUser()->can('structure.enable.main', $ruleArray)
-                    || Yii::$app->getUser()->can('structure.enable.group', $ruleArray)
-                    || Yii::$app->getUser()->can('structure.enable.all', $ruleArray)
-                ) {
+                if (RbacHelper::canArray([
+                    Permissions::STRUCTURE_ENABLE_MAIN,
+                    Permissions::STRUCTURE_ENABLE_GROUP,
+                    Permissions::STRUCTURE_ENABLE_ALL,
+                ], $ruleArray)) {
                     echo Html::a(Yii::t('views', 'Сделать карточку активной'), Url::to(['enable', 'id' => $model->getEntity()->id]), ['class' => 'btn btn-dark w-100']);
                 }
             }

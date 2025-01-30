@@ -6,6 +6,7 @@ use Yii;
 use yii\web\IdentityInterface;
 
 use app\modules\users\{
+    components\rbac\items\Roles,
     entities\UserEntity,
     entities\GroupNestedEntity,
     repositories\GroupRepository,
@@ -91,7 +92,7 @@ final class Identity implements IdentityInterface
 
         if ($this->group) {
             $allGroups = GroupRepository::getAll([], true);
-            if (Yii::$app->getUser()->can('admin')) {
+            if (Yii::$app->getUser()->can(Roles::ADMIN)) {
                 foreach (array_keys($allGroups) as $groupID) {
                     $this->groups[$groupID] = $groupID;
                 }

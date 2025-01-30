@@ -2,19 +2,14 @@
 
 namespace app\modules\reports\forms;
 
+use app\components\base\BaseAR;
+use app\helpers\CommonHelper;
+use app\modules\reports\{entities\ReportDataEntity, entities\ReportEntity, repositories\ReportRepository,};
+use app\modules\users\components\rbac\RbacHelper;
 use Yii;
 use yii\base\Model;
 use yii\helpers\ArrayHelper;
 use yii\validators\DateValidator;
-
-use app\components\base\BaseAR;
-use app\helpers\CommonHelper;
-use app\modules\reports\{
-    entities\ReportDataEntity,
-    entities\ReportEntity,
-    repositories\ReportRepository,
-};
-use app\modules\users\helpers\RbacHelper;
 
 /**
  * @property int $report

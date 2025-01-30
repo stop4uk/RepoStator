@@ -2,21 +2,16 @@
 
 namespace app\modules\admin\search;
 
+use app\helpers\{CommonHelper, HtmlPurifier};
+use app\modules\users\{components\rbac\items\Permissions,
+    components\rbac\items\Roles,
+    components\rbac\RbacHelper,
+    entities\UserEntity,
+    helpers\UserHelper,
+    repositories\UserRepository};
 use Yii;
 use yii\base\Model;
 use yii\data\ActiveDataProvider;
-
-use app\helpers\{
-    CommonHelper, HtmlPurifier
-};
-use app\modules\users\{
-    components\rbac\items\Permissions,
-    components\rbac\items\Roles,
-    entities\UserEntity,
-    repositories\UserRepository,
-    helpers\RbacHelper,
-    helpers\UserHelper
-};
 
 /**
  * @author Stop4uk <stop4uk@yandex.ru>

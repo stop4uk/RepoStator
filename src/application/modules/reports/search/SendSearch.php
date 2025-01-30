@@ -2,24 +2,15 @@
 
 namespace app\modules\reports\search;
 
+use app\helpers\{CommonHelper, HtmlPurifier,};
+use app\modules\reports\{entities\ReportDataEntity,
+    helpers\DataHelper,
+    helpers\ReportHelper,
+    repositories\ReportRepository,};
+use app\modules\users\{components\rbac\RbacHelper, repositories\GroupRepository};
 use yii\base\Model;
 use yii\data\ActiveDataProvider;
 use yii\helpers\ArrayHelper;
-
-use app\helpers\{
-    CommonHelper,
-    HtmlPurifier,
-};
-use app\modules\reports\{
-    entities\ReportDataEntity,
-    repositories\ReportRepository,
-    helpers\ReportHelper,
-    helpers\DataHelper,
-};
-use app\modules\users\{
-    repositories\GroupRepository,
-    helpers\RbacHelper
-};
 
 /**
  * @property string|null $name

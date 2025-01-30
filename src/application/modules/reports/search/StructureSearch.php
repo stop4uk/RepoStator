@@ -2,20 +2,14 @@
 
 namespace app\modules\reports\search;
 
-use yii\base\Model;
-use yii\data\ActiveDataProvider;
-
 use app\helpers\CommonHelper;
-use app\modules\reports\{
+use app\modules\reports\{helpers\StructureHelper,
     repositories\ReportRepository,
     repositories\StructureRepository,
-    traits\CleanDataProviderByRoleTrait,
-    helpers\StructureHelper
-};
-use app\modules\users\{
-    components\rbac\items\Permissions,
-    helpers\RbacHelper
-};
+    traits\CleanDataProviderByRoleTrait};
+use app\modules\users\{components\rbac\items\Permissions, components\rbac\RbacHelper};
+use yii\base\Model;
+use yii\data\ActiveDataProvider;
 
 /**
  * @property string|null $name

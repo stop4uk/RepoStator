@@ -2,22 +2,15 @@
 
 namespace app\modules\reports\search;
 
-use yii\base\Model;
-use yii\data\ActiveDataProvider;
-
-use app\modules\reports\{
+use app\modules\reports\{helpers\DataHelper,
     repositories\ConstantRepository,
     repositories\DataRepository,
     repositories\ReportRepository,
     repositories\StructureRepository,
-    helpers\DataHelper,
-    traits\CleanDataProviderByRoleTrait
-};
-use app\modules\users\{
-    components\rbac\items\Permissions,
-    repositories\UserRepository,
-    helpers\RbacHelper
-};
+    traits\CleanDataProviderByRoleTrait};
+use app\modules\users\{components\rbac\items\Permissions, components\rbac\RbacHelper, repositories\UserRepository};
+use yii\base\Model;
+use yii\data\ActiveDataProvider;
 
 /**
  * @property int|null $group_id

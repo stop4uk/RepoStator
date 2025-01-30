@@ -2,26 +2,17 @@
 
 namespace app\modules\reports\models;
 
+use app\components\base\BaseModel;
+use app\helpers\{CommonHelper, HtmlPurifier};
+use app\modules\reports\{entities\ReportFormTemplateEntity,
+    helpers\TemplateHelper,
+    repositories\ConstantRepository,
+    repositories\ConstantruleRepository,
+    repositories\ReportRepository};
+use app\modules\users\{components\rbac\RbacHelper, repositories\GroupRepository};
 use Yii;
 use yii\helpers\ArrayHelper;
 use yii\web\UploadedFile;
-
-use app\components\base\BaseModel;
-use app\helpers\{
-    CommonHelper,
-    HtmlPurifier
-};
-use app\modules\reports\{
-    entities\ReportFormTemplateEntity,
-    repositories\ConstantRepository,
-    repositories\ConstantruleRepository,
-    repositories\ReportRepository,
-    helpers\TemplateHelper
-};
-use app\modules\users\{
-    repositories\GroupRepository,
-    helpers\RbacHelper
-};
 
 /**
  * @property string $name

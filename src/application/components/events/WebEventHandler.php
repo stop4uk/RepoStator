@@ -10,6 +10,7 @@ use yii\base\{
 };
 
 use app\modules\users\{
+    components\rbac\items\Roles,
     events\dispatchers\AuthEventDispatcher,
     events\dispatchers\ProfileEventDispatcher,
     events\dispatchers\UserEventDispatcher,
@@ -45,7 +46,7 @@ final class WebEventHandler implements BootstrapInterface
 
             if (
                 $maintenanceMode
-                && !$app->getUser()->can('admin')
+                && !$app->getUser()->can(Roles::ADMIN)
                 && !in_array($actionID, ['login', 'logout'])
                 && $controllerID != 'offline'
             ) {

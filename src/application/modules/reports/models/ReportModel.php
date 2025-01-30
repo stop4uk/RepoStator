@@ -2,22 +2,12 @@
 
 namespace app\modules\reports\models;
 
+use app\components\base\BaseModel;
+use app\helpers\{CommonHelper, HtmlPurifier};
+use app\modules\reports\{entities\ReportEntity, helpers\ReportHelper};
+use app\modules\users\{components\rbac\RbacHelper, repositories\GroupRepository};
 use Yii;
 use yii\helpers\Json;
-
-use app\components\base\BaseModel;
-use app\helpers\{
-    CommonHelper,
-    HtmlPurifier
-};
-use app\modules\reports\{
-    entities\ReportEntity,
-    helpers\ReportHelper
-};
-use app\modules\users\{
-    repositories\GroupRepository,
-    helpers\RbacHelper
-};
 
 /**
  * @property string $name

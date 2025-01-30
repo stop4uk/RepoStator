@@ -7,6 +7,7 @@ use yii\bootstrap5\Html;
 
 use app\widgets\GridView;
 use app\modules\reports\helpers\JobHelper;
+use app\modules\users\components\rbac\items\Permissions;
 
 /**
  * @var \yii\data\ActiveDataProvider $queueTemplates
@@ -19,7 +20,7 @@ Pjax::begin(['id' => 'dashBoard', 'enablePushState' => false, 'clientOptions' =>
 
 ?>
 
-<?php if (Yii::$app->getUser()->can('data.send') && $needSentData->getTotalCount()): ?>
+<?php if (Yii::$app->getUser()->can(Permissions::DATA_SEND) && $needSentData->getTotalCount()): ?>
     <div class="card">
         <div class="card-header">
             <?= Yii::t('views', 'Напоминания'); ?>
@@ -57,7 +58,7 @@ Pjax::begin(['id' => 'dashBoard', 'enablePushState' => false, 'clientOptions' =>
     </div>
 <?php endif; ?>
 
-<?php if (Yii::$app->getUser()->can('statistic')): ?>
+<?php if (Yii::$app->getUser()->can(Permissions::STATISTIC)): ?>
     <div class="row">
         <div class="col-12">
             <div class="card">

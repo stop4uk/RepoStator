@@ -7,6 +7,10 @@ use yii\bootstrap5\{
 };
 
 use app\modules\reports\widgets\structform\StructFormWidget;
+use app\modules\users\components\rbac\{
+    items\Permissions,
+    RbacHelper
+};
 
 /**
  * @var \app\modules\reports\models\DataModel $model
@@ -42,12 +46,11 @@ $this->params['breadcrumbs'] = [
 
                                 if (
                                     $model->changes
-                                    && (
-                                        Yii::$app->getUser()->can('data.change.main', $ruleArray)
-                                        || Yii::$app->getUser()->can('data.change.group', $ruleArray)
-                                        || Yii::$app->getUser()->can('data.change.all', $ruleArray)
-                                    )
-                                ) {
+                                    && RbacHelper::canArray([
+                                        Permissions::DATA_CHANGE_MAIN,
+                                        Permissions::DATA_CHANGE_GROUP,
+                                        Permissions::DATA_CHANGE_ALL,
+                                    ], $ruleArray)) {
                                     Modal::begin([
                                         'size' => Modal::SIZE_LARGE,
                                         'title' => Yii::t('views', 'Внесенные изменения в отчет'),
@@ -86,11 +89,11 @@ $this->params['breadcrumbs'] = [
                     } else {
                         $ruleArray = $model->getEntity()->toArray(['created_uid', 'created_gid', 'record_status']);
 
-                        if (
-                            Yii::$app->getUser()->can('data.enable.main', $ruleArray)
-                            || Yii::$app->getUser()->can('data.enable.group', $ruleArray)
-                            || Yii::$app->getUser()->can('data.enable.all', $ruleArray)
-                        ) {
+                        if (RbacHelper::canArray([
+                            Permissions::DATA_ENABLE_MAIN,
+                            Permissions::DATA_ENABLE_GROUP,
+                            Permissions::DATA_ENABLE_ALL,
+                        ], $ruleArray)) {
                             echo Html::a(
                                 Yii::t('views', 'Восстановить запись'),
                                 Url::to(['enable', 'id' => $model->getEntity()->id]),

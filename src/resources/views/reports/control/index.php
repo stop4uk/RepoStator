@@ -10,6 +10,10 @@ use yii\bootstrap5\{
 
 use app\widgets\GridView;
 use app\helpers\CommonHelper;
+use app\modules\users\components\rbac\{
+    items\Permissions,
+    RbacHelper
+};
 
 /**
  * @var \app\modules\reports\search\ConstantSearch $searchModel
@@ -23,7 +27,7 @@ $this->title = Yii::t('views', 'Контроль за передачей');
 
     <div class="d-flex justify-content-end mb-2">
         <?php
-            if (Yii::$app->getUser()->can('data.checkFull')) {
+            if (Yii::$app->getUser()->can(Permissions::DATA_CHECKFULL)) {
                 Modal::begin([
                     'size' => Modal::SIZE_LARGE,
                     'title' => Yii::t('views', 'Выбор отчета для проверки'),
@@ -39,7 +43,7 @@ $this->title = Yii::t('views', 'Контроль за передачей');
                 Modal::end();
             }
 
-            if (Yii::$app->getUser()->can('createfor')) {
+            if (Yii::$app->getUser()->can(Permissions::DATA_CREATEFOR)) {
                 Modal::begin([
                     'size' => Modal::SIZE_LARGE,
                     'title' => Yii::t('views', 'Заполнение отчета за конкретный период'),
@@ -113,14 +117,14 @@ $this->title = Yii::t('views', 'Контроль за передачей');
                                     'view' => function($url, $model) {
                                         $ruleArray = $model->toArray(['created_uid', 'created_gid', 'record_status']);
 
-                                        if (
-                                            Yii::$app->getUser()->can('data.view.main', $ruleArray)
-                                            || Yii::$app->getUser()->can('data.view.group', $ruleArray)
-                                            || Yii::$app->getUser()->can('data.view.all', $ruleArray)
-                                            || Yii::$app->getUser()->can('data.view.delete.main', $ruleArray)
-                                            || Yii::$app->getUser()->can('data.view.delete.group', $ruleArray)
-                                            || Yii::$app->getUser()->can('data.view.delete.all', $ruleArray)
-                                        ) {
+                                        if (RbacHelper::canArray([
+                                            Permissions::DATA_VIEW_MAIN,
+                                            Permissions::DATA_VIEW_GROUP,
+                                            Permissions::DATA_VIEW_ALL,
+                                            Permissions::DATA_VIEW_DELETE_MAIN,
+                                            Permissions::DATA_VIEW_DELETE_GROUP,
+                                            Permissions::DATA_VIEW_DELETE_ALL
+                                        ], $ruleArray)) {
                                             return Html::a(
                                                 '<i class="bi bi-eye text-dark"></i>',
                                                 Url::to(['view', 'id' => $model->id]),
@@ -136,11 +140,11 @@ $this->title = Yii::t('views', 'Контроль за передачей');
                                     'edit' => function($url, $model) {
                                         $ruleArray = $model->toArray(['created_uid', 'created_gid', 'record_status']);
 
-                                        if (
-                                            Yii::$app->getUser()->can('data.edit.main', $ruleArray)
-                                            || Yii::$app->getUser()->can('data.edit.group', $ruleArray)
-                                            || Yii::$app->getUser()->can('data.edit.all', $ruleArray)
-                                        ) {
+                                        if (RbacHelper::canArray([
+                                            Permissions::DATA_EDIT_MAIN,
+                                            Permissions::DATA_EDIT_GROUP,
+                                            Permissions::DATA_EDIT_ALL,
+                                        ], $ruleArray)) {
                                             return Html::a(
                                                 '<i class="bi bi-pen text-dark"></i>',
                                                 Url::to(['edit', 'id' => $model->id]),
@@ -156,11 +160,11 @@ $this->title = Yii::t('views', 'Контроль за передачей');
                                     'delete' => function($url, $model) {
                                         $ruleArray = $model->toArray(['created_uid', 'created_gid', 'record_status']);
 
-                                        if (
-                                            Yii::$app->getUser()->can('data.delete.main', $ruleArray)
-                                            || Yii::$app->getUser()->can('data.delete.group', $ruleArray)
-                                            || Yii::$app->getUser()->can('data.delete.all', $ruleArray)
-                                        ) {
+                                        if (RbacHelper::canArray([
+                                            Permissions::DATA_DELETE_MAIN,
+                                            Permissions::DATA_DELETE_GROUP,
+                                            Permissions::DATA_DELETE_ALL
+                                        ], $ruleArray)) {
                                             return Html::tag('span',
                                                 Html::tag('i', '', ['class' => 'bi bi-trash text-dark']),
                                                 [

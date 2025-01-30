@@ -6,7 +6,10 @@ use yii\bootstrap5\{
 };
 use kartik\select2\Select2;
 
-use app\modules\users\helpers\UserHelper;
+use app\modules\users\{
+    components\rbac\items\Roles,
+    helpers\UserHelper
+};
 
 /**
  * @var \app\modules\users\models\UserModel $model
@@ -61,7 +64,7 @@ $form = ActiveForm::begin([
         </div>
 
 
-        <?php if (Yii::$app->getUser()->can('admin') ): ?>
+        <?php if (Yii::$app->getUser()->can(Roles::ADMIN)): ?>
             <div class="col-12">
                 <?= $form->field($model, 'rights')->widget(Select2::class, [
                     'data' => $model->allowRights,
