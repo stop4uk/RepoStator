@@ -97,7 +97,7 @@ final class DataModel extends BaseModel
 
             ['content', 'checkContent'],
             ['report_id', 'checkAccess'],
-            ['report_id', 'checkReportUnique', 'when' => fn($model) => ) {!$model->isNewEntity && $model->report->left_period)],
+            ['report_id', 'checkReportUnique', 'when' => fn($model) => (!$model->isNewEntity && $model->report->left_period)],
 
             ['form_control', 'safe']
         ];
