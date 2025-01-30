@@ -40,8 +40,8 @@ $form = ActiveForm::begin([
             <?= $form
                 ->field($model, 'null_day')
                 ->checkbox([
-                    'disabled' => ) {$model->getIsNewEntity() || !$model->left_period ),
-                    'readonly' => ) {$model->getIsNewEntity() || !$model->left_period )
+                    'disabled' => ($model->getIsNewEntity() || !$model->left_period ),
+                    'readonly' => ($model->getIsNewEntity() || !$model->left_period )
                 ])
                 ->hint(Yii::t('models', 'Если, стоит отметка, то расчетный период, который устанавливается ограничением в ' .
                 'минутах, начинает рассчитываться с суток <strong>создания</strong> отчета, а не с момента ее включения/выключения. При этом, ' .
