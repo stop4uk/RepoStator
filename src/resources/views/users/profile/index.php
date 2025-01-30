@@ -53,12 +53,12 @@ $this->title = Yii::t('views', 'Профиль');
                     <li class="mb-1">
                         <span class="bi bi-alarm me-1"></span>
                         <?= Yii::t('views', 'Время: {time}', [
-                            'time' => Yii::$app->formatter->asDatetime($model->getEntity()->lastAuth->created_at)
+                            'time' => Yii::$app->formatter->asDatetime($model->getEntity()->lastAuth?->created_at)
                         ]); ?>
                     </li>
                     <li class="mb-1">
                         <span class="bi bi-ethernet me-1"></span>
-                        <?= Yii::t('views', 'IP: {ip}', ['ip' => $model->getEntity()->lastAuth->ip]); ?>
+                        <?= Yii::t('views', 'IP: {ip}', ['ip' => $model->getEntity()->lastAuth?->ip]); ?>
                     </li>
                 </ul>
             </div>
