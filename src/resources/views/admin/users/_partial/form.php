@@ -22,7 +22,7 @@ $form = ActiveForm::begin([
 
     <div class="row">
         <div class="col-12 col-md-6 col-xl-4 col-xxl-3">
-            <?= $form->field($model, 'email'); ?>
+            <?= $form->field($model, 'email')->input('email'); ?>
         </div>
         <div class="col-12 col-md-6 col-xl-4 col-xxl-3">
             <?= $form->field($model, 'password')->passwordInput(); ?>

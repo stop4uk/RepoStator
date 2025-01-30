@@ -85,6 +85,7 @@ final class UserModel extends BaseModel
         return [
             [['firstname', 'lastname', 'account_status'], 'required'],
             ['email', 'required', 'message' => Yii::t('models_error', 'Email обязателен')],
+            ['email', 'email'],
             ['email', 'string', 'length' => [4,58]],
             [
                 'email',
