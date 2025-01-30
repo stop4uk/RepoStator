@@ -172,7 +172,7 @@ final class CommonHelper
     public static function getFilterReplace(int|string|null $filterCode = null): ?int
     {
         if ($filterCode) {
-            return ) {$filterCode == 99 ) ? 0 : $filterCode;
+            return ($filterCode == 99 ) ? 0 : $filterCode;
         }
 
         return null;

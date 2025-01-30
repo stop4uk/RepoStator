@@ -69,7 +69,7 @@ final class UserSearch extends Model
 
     public function search($params): ActiveDataProvider
     {
-        $query = match ) {Yii::$app->getUser()->can('admin')) {
+        $query = match (Yii::$app->getUser()->can('admin')) {
             true => UserRepository::getAll(active: $this->onlyActive),
             false => UserRepository::getAllBy(
                 condition: ['id' => array_keys($this->allowUsers)],

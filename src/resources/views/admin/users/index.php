@@ -22,7 +22,7 @@ $this->title = Yii::t('views', 'Список пользователей');
 ?>
     <div class="d-flex justify-content-end mb-2">
         <?php
-            if ) {Yii::$app->getUser()->can('admin.user.create')) {
+            if (Yii::$app->getUser()->can('admin.user.create')) {
                 echo Html::a(Yii::t('views', 'Новый пользователь'), ['create'], ['class' => 'btn btn-primary pt-1 pb-1 me-2']);
             }
 
@@ -72,7 +72,7 @@ $this->title = Yii::t('views', 'Список пользователей');
                                 'enableSorting' => false,
                                 'contentOptions' => ['class' => 'small'],
                                 'value' => function($data) use ($searchModel) {
-                                    if ) {$data->group) {
+                                    if ($data->group) {
                                         return $searchModel->groups[$data->group->group_id] ?? null;
                                     }
                                 }

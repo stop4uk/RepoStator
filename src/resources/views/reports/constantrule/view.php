@@ -32,13 +32,13 @@ $this->params['breadcrumbs'] = [
 
     <div class="card-body">
         <?php
-        if ) {!$model->getEntity()->record_status) {
+        if (!$model->getEntity()->record_status) {
             echo Html::tag('div', Yii::t('views', 'Данная запись НЕАКТИВНА'), ['class' => 'alert alert-danger text-center', 'role' => 'alert']);
         }
 
         echo $this->render('_partial/form', compact('model'));
 
-        if ) {!$model->getEntity()->record_status) {
+        if (!$model->getEntity()->record_status) {
             $ruleArray = $model->getEntity()->toArray(['created_uid', 'created_gid', 'record_status']);
 
             if (

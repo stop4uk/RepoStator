@@ -83,7 +83,7 @@ final class UserHelper
 
     public static function getFullName(array $fields): string
     {
-        return implode) {' ', $fields);
+        return implode(' ', $fields);
     }
 
     public static function generatePassword(string $password): string

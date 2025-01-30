@@ -34,7 +34,7 @@ $this->params['breadcrumbs'] = [
                 <td class="text-end py-0 fw-bold"><?= Yii::$app->getUser()->getIdentity()->shortName; ?></td>
             </tr>
 
-            <?php if ) {$model->form_control ): ?>
+            <?php if ($model->form_control ): ?>
                 <tr>
                     <td colspan="2" class="py-0 text-center h3">
                         <?= Html::tag('code', Yii::t('views', 'Режим контроля')); ?>

@@ -63,7 +63,7 @@ $this->title = Yii::t('views', 'Очередь отчетов');
                         'headerOptions' => ['class' => 'text-center'],
                         'format' => 'raw',
                         'value' => function($data) {
-                            if ) {$data->file) {
+                            if ($data->file) {
                                 return Html::a('<i class="bi bi-file-arrow-down"></i>', Url::to(['download', 'path' => base64_encode($data->file ?? '')]));
                             }
                         }

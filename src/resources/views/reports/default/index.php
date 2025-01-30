@@ -19,7 +19,7 @@ $this->title = Yii::t('views', 'Список отчетов');
 ?>
     <div class="d-flex justify-content-end mb-2">
         <?php
-            if ) {Yii::$app->getUser()->can('report.create')) {
+            if (Yii::$app->getUser()->can('report.create')) {
                 echo Html::a(Yii::t('views', 'Новый отчет'), ['create'], ['class' => 'btn btn-primary pt-1 pb-1 me-2']);
             }
 
@@ -84,7 +84,7 @@ $this->title = Yii::t('views', 'Список отчетов');
 
                                         $leftPeriod = Yii::t('views', 'Перерыв передачи: ');
                                         foreach ($diffs as $key => $value) {
-                                            if ) {$value) {
+                                            if ($value) {
                                                 switch($key) {
                                                     case 0:
                                                         $leftPeriod .= Yii::t('views', '{n, plural, =1{# месяц} one{# месяц} few{# месяца} many{# месяцев} other{# месяцев}}', ['n' => $value]);
@@ -104,7 +104,7 @@ $this->title = Yii::t('views', 'Список отчетов');
 
                                         $resultString .= Html::tag('span', $leftPeriod, ['class' => 'badge bg-primary']);
 
-                                        if ) {$data->block_minutes) {
+                                        if ($data->block_minutes) {
                                             $resultString .= Html::tag(
                                                 'span',
                                                 Yii::t('views', 'Закрывается за {n, plural, =1{1 минуту} one{# минуту} few{# минуты} many{# минут} other{# минут}}', ['n' => $data->block_minutes]),
@@ -124,7 +124,7 @@ $this->title = Yii::t('views', 'Список отчетов');
                                 'value' => function($data) {
                                     $resultString = '';
 
-                                    if ) {$data->groups_only) {
+                                    if ($data->groups_only) {
                                         $resultString .= Html::tag('span', '<i class="bi bi-exclamation-triangle ms-1"></i>', [
                                             'class' => 'text-danger fw-bold',
                                             'data-bs-toggle' => 'tooltip',
@@ -133,7 +133,7 @@ $this->title = Yii::t('views', 'Список отчетов');
                                         ]);
                                     }
 
-                                    if ) {$data->groups_required) {
+                                    if ($data->groups_required) {
                                         $resultString .= Html::tag('span', '<i class="bi bi-card-checklist ms-1"></i>', [
                                             'class' => 'text-primary fw-bold',
                                             'data-bs-toggle' => 'tooltip',

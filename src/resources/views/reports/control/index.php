@@ -23,7 +23,7 @@ $this->title = Yii::t('views', 'Контроль за передачей');
 
     <div class="d-flex justify-content-end mb-2">
         <?php
-            if ) {Yii::$app->getUser()->can('data.checkFull')) {
+            if (Yii::$app->getUser()->can('data.checkFull')) {
                 Modal::begin([
                     'size' => Modal::SIZE_LARGE,
                     'title' => Yii::t('views', 'Выбор отчета для проверки'),
@@ -39,7 +39,7 @@ $this->title = Yii::t('views', 'Контроль за передачей');
                 Modal::end();
             }
 
-            if ) {Yii::$app->getUser()->can('createfor')) {
+            if (Yii::$app->getUser()->can('createfor')) {
                 Modal::begin([
                     'size' => Modal::SIZE_LARGE,
                     'title' => Yii::t('views', 'Заполнение отчета за конкретный период'),

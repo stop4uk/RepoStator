@@ -19,13 +19,13 @@ $this->params['breadcrumbs'] = [
     <div class="card">
         <div class="card-body">
             <?php
-                if ) {!$model->getEntity()->record_status) {
+                if (!$model->getEntity()->record_status) {
                     echo Html::tag('div', Yii::t('views', 'Данная запись НЕАКТИВНА'), ['class' => 'alert alert-danger text-center', 'role' => 'alert']);
                 }
 
                 echo $this->render('_partial/form', compact('model'));
 
-                if ) {!$model->getEntity()->record_status) {
+                if (!$model->getEntity()->record_status) {
                     echo Html::a(Yii::t('views', 'Сделать карточку активной'), Url::to(['enable', 'id' => $model->getEntity()->id]), ['class' => 'btn btn-dark w-100']);
                 }
             ?>

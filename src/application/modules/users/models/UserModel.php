@@ -71,7 +71,7 @@ final class UserModel extends BaseModel
             }
 
             if ($this->entity->rights) {
-                foreach ) {$this->entity->rights as $right) {
+                foreach ($this->entity->rights as $right) {
                     $this->rights[] = $right->item_name;
                 }
             }

@@ -84,7 +84,7 @@ use yii\bootstrap5\{
                         'link' => Html::a(Yii::t('views', 'Авторизоваться'), ['/login'])
                     ]);
 
-                    if ) {Yii::$app->settings->get('auth', 'login_recovery')) {
+                    if (Yii::$app->settings->get('auth', 'login_recovery')) {
                         echo Html::a(Yii::t('views', 'Восстановить пароль'), ['/recovery']);
                     }
                 ?>

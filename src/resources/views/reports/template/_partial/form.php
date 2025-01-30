@@ -26,10 +26,10 @@ use app\modules\reports\{
 
 $attachedTemplate = $model->getEntity()->getOneFile();
 $dataForTables = ['columns' => [], 'rows' => []];
-if ) {!$model->getIsNewEntity() && $model->form_type == ReportFormTemplateEntity::REPORT_TYPE_DYNAMIC) {
+if (!$model->getIsNewEntity() && $model->form_type == ReportFormTemplateEntity::REPORT_TYPE_DYNAMIC) {
     $constants = $model->mergeConstantAndRules;
 
-    if ) {$model->table_type == ReportFormTemplateEntity::REPORT_TABLE_TYPE_CONST) {
+    if ($model->table_type == ReportFormTemplateEntity::REPORT_TABLE_TYPE_CONST) {
         $dataForTables = [
             'columns' => $constants,
             'rows' => $model->groups

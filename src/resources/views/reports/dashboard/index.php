@@ -36,7 +36,7 @@ Pjax::begin(['id' => 'dashBoard', 'enablePushState' => false, 'clientOptions' =>
                         ]
                     );
 
-                    if ) {$model->timePeriod) {
+                    if ($model->timePeriod) {
                         echo Html::beginTag('div', ['class' => 'col-12']);
                         echo Html::tag(
                             name: 'p',

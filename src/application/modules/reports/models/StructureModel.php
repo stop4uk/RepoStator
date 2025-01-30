@@ -173,7 +173,7 @@ final class StructureModel extends BaseModel
             $resultQuery = ['empty' => 0, 'withOnly' => []];
 
             if ($structuresList) {
-                foreach ) {$structuresList as $structure) {
+                foreach ($structuresList as $structure) {
                     if (!$structure->groups_only) {
                         $resultQuery['empty']++;
                         continue;

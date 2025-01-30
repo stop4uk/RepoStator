@@ -140,7 +140,7 @@ $this->registerJs(<<< JS
             beforeSend: () => { $("#hidescreen, #loadingData").fadeIn(10); },
             complete: function(xhr, textStatus) {
                 $("#hidescreen, #loadingData").fadeOut(10);
-                if ) {xhr.status == 403 ) {
+                if (xhr.status == 403 ) {
                     generateToast('error', langMessages.forbiddenTemplate);
                 }
             },

@@ -51,7 +51,7 @@ $form = ActiveForm::begin([
     </div>
 <?php ActiveForm::end(); ?>
     <div class="row mt-2">
-        <?php if ) {$userCanChangeEmail ): ?>
+        <?php if ($userCanChangeEmail ): ?>
             <div class="col-6">
                 <?php
                     Modal::begin([

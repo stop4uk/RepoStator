@@ -99,7 +99,7 @@ final class UserEntity extends BaseAR
 
         if (in_array($this->scenario, [self::SCENARIO_UPDATE_BY_ADMIN, self::SCENARIO_CHANGE_PASSWORD])) {
             if ($this->scenario == self::SCENARIO_UPDATE_BY_ADMIN) {
-                $password = ) {!$model->password ) ? $this->password : UserHelper::generatePassword($model->password);
+                $password = (!$model->password) ? $this->password : UserHelper::generatePassword($model->password);
                 if ($model->password) {
                     $this->account_key = Yii::$app->getSecurity()->generateRandomString();
                 }

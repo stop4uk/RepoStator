@@ -19,7 +19,7 @@ $this->title = Yii::t('views', 'Список констант');
 ?>
     <div class="d-flex justify-content-end mb-2">
         <?php
-            if ) {Yii::$app->getUser()->can('constant.create')) {
+            if (Yii::$app->getUser()->can('constant.create')) {
                 echo Html::a(Yii::t('views', 'Новая константа'), ['create'], ['class' => 'btn btn-primary pt-1 pb-1 me-2']);
             }
 
@@ -90,7 +90,7 @@ $this->title = Yii::t('views', 'Список констант');
                                 'value' => function($data) {
                                     $resultString = '';
 
-                                    if ) {$data->reports_only) {
+                                    if ($data->reports_only) {
                                         $resultString .= Html::tag('span', '<i class="bi bi-exclamation-triangle p-1"></i>', [
                                             'class' => 'text-danger fw-bold',
                                             'data-bs-toggle' => 'tooltip',
@@ -99,7 +99,7 @@ $this->title = Yii::t('views', 'Список констант');
                                         ]);
                                     }
 
-                                    if ) {$data->union_rules) {
+                                    if ($data->union_rules) {
                                         $resultString .= Html::tag('span', '<i class="bi bi-columns-gap p-1 ms-1"></i>', [
                                             'class' => 'text-primary fw-bold',
                                             'data-bs-toggle' => 'tooltip',

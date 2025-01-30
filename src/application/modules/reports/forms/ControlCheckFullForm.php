@@ -120,7 +120,7 @@ final class ControlCheckFullForm extends Model
                 $requiredGroups = CommonHelper::explodeField($this->reportData->groups_required);
                 $haveReports = ArrayHelper::map($resultQuery, 'id', 'group_id');
 
-                foreach ) {$requiredGroups as $group) {
+                foreach ($requiredGroups as $group) {
                     if (!in_array($group, $haveReports) &&  isset($allowGroups[$group])) {
                         $result[] = $allowGroups[$group];
                     }

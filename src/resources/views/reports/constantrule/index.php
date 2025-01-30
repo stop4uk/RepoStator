@@ -20,7 +20,7 @@ $this->title = Yii::t('views', 'Список правил');
 ?>
     <div class="d-flex justify-content-end mb-2">
         <?php
-        if ) {Yii::$app->getUser()->can('constantRule.create')) {
+        if (Yii::$app->getUser()->can('constantRule.create')) {
             echo Html::a(Yii::t('views', 'Новое правило'), ['create'], ['class' => 'btn btn-primary pt-1 pb-1 me-2']);
         }
 
@@ -77,7 +77,7 @@ $this->title = Yii::t('views', 'Список правил');
                                 'label' => null,
                                 'format' => 'html',
                                 'value' => function($data) {
-                                    if ) {!$data->record_status) {
+                                    if (!$data->record_status) {
                                         preg_match_all('/\"(.*?)\"/', $data->rule, $constants);
                                         $countRuleMessage = Yii::t('views', '{n, plural, =1{одна константа} one{# константа} few{# константы} many{# констант} other{# констант}}', ['n' => count($constants[1] ?: 0)]);
 
@@ -94,7 +94,7 @@ $this->title = Yii::t('views', 'Список правил');
                                 'value' => function($data) {
                                     $resultString = '';
 
-                                    if ) {$data->report_id) {
+                                    if ($data->report_id) {
                                         $resultString .= Html::tag('span', '<i class="bi bi-exclamation-triangle p-1 me-2"></i>', [
                                             'class' => 'text-danger fw-bold',
                                             'data-bs-toggle' => 'tooltip',
@@ -103,7 +103,7 @@ $this->title = Yii::t('views', 'Список правил');
                                         ]);
                                     }
 
-                                    if ) {$data->groups_only) {
+                                    if ($data->groups_only) {
                                         $resultString .= Html::tag('span', '<i class="bi bi-collection p-1 me-2"></i>', [
                                             'class' => 'text-danger fw-bold',
                                             'data-bs-toggle' => 'tooltip',

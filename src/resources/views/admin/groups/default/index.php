@@ -76,7 +76,7 @@ $this->title = Yii::t('views', 'Список групп');
                                 'attribute' => 'type_id',
                                 'contentOptions' => ['class' => 'small'],
                                 'value' => function($data) {
-                                    if ) {$data->type) {
+                                    if ($data->type) {
                                         return $data->type->name;
                                     }
                                 }
@@ -87,7 +87,7 @@ $this->title = Yii::t('views', 'Список групп');
                                 'headerOptions' => ['class' => 'text-center'],
                                 'format' => 'html',
                                 'value' => function($data) {
-                                    if ) {$data->accept_send) {
+                                    if ($data->accept_send) {
                                         return CommonHelper::getYesOrNoColor($data->accept_send);
                                     }
                                 }
