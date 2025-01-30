@@ -91,6 +91,7 @@ $config = [
                 'collapseSlashes' => true,
             ],
             'rules' => [
+                'profile'                                                       => 'users/profile',
                 '<controller:(dashboard|send|control|statistic)>'               => 'reports/<controller>',
                 '<controller:(dashboard|send|control|statistic)>/<action>'      => 'reports/<controller>/<action>',
 
@@ -103,7 +104,7 @@ $config = [
                 'recovery/<action>'                 => 'users/recovery/<action>',
                 'verification'                      => 'users/verification',
                 'verification/<action>'             => 'users/verification/<action>',
-                'profile'                           => 'users/profile',
+
 
                 #Reports module
                 'reports/<controller:(constant|constantrule|structure|template)>'               => 'reports/<controller>',
