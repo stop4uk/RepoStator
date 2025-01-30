@@ -84,7 +84,12 @@ final class ProfileController extends BaseController
             } catch (Exception $e) { $this->catchException($e); }
         }
 
-        return $this->render('index', compact('model', 'userEmailChangeForm', 'userPasswordChangeForm', 'emailchangesDataProvider'));
+        return $this->render('index', compact(
+            'model',
+            'userEmailChangeForm',
+            'userPasswordChangeForm',
+            'emailchangesDataProvider'
+        ));
     }
 
     public function actionChangeemail(): array|Response
