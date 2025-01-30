@@ -19,6 +19,7 @@ use app\actions\{
 };
 use app\modules\admin\search\GroupSearch;
 use app\modules\users\{
+    components\rbac\items\Permissions,
     entities\GroupEntity,
     entities\GroupNestedEntity,
     models\GroupModel,
@@ -40,7 +41,9 @@ final class DefaultController extends BaseController
                 'rules' => [
                     [
                         'allow' => true,
-                        'roles' => ['admin.group'],
+                        'roles' => [
+                            Permissions::ADMIN_GROUP
+                        ],
                     ],
                 ],
             ],

@@ -7,6 +7,7 @@ use yii\filters\AccessControl;
 use app\components\base\BaseController;
 use app\actions\IndexAction;
 use app\modules\reports\search\JobSearch;
+use app\modules\users\components\rbac\items\Permissions;
 
 /**
  * @author Stop4uk <stop4uk@yandex.ru>
@@ -23,7 +24,9 @@ final class TemplateController extends BaseController
                     [
                         'actions' => ['index'],
                         'allow' => true,
-                        'roles' => ['admin.queue.template.list'],
+                        'roles' => [
+                            Permissions::ADMIN_QUEUE_TEMPLATE_LIST
+                        ],
                     ],
                 ],
             ],

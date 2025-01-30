@@ -10,10 +10,12 @@ use app\helpers\{
     CommonHelper, HtmlPurifier
 };
 use app\modules\users\{
+    components\rbac\items\Permissions,
+    components\rbac\items\Roles,
     entities\UserEntity,
     repositories\UserRepository,
     helpers\RbacHelper,
-    helpers\UserHelper,
+    helpers\UserHelper
 };
 
 /**
@@ -37,8 +39,8 @@ final class UserSearch extends Model
         parent::__construct($config);
 
         $this->onlyActive = RbacHelper::getOnlyActiveRecordsState([
-            'admin.user.view.group',
-            'admin.user.view.delete'
+            Permissions::ADMIN_USER_VIEW_GROUP,
+             Permissions::ADMIN_USER_VIEW_DELETE_GROUP
         ]);
         $this->groups = RbacHelper::getAllowGroupsArray('admin.user.list.all');
         $this->allowUsers = UserRepository::getAllow(
@@ -69,7 +71,7 @@ final class UserSearch extends Model
 
     public function search($params): ActiveDataProvider
     {
-        $query = match (Yii::$app->getUser()->can('admin')) {
+        $query = match (Yii::$app->getUser()->can(Roles::ADMIN)) {
             true => UserRepository::getAll(active: $this->onlyActive),
             false => UserRepository::getAllBy(
                 condition: ['id' => array_keys($this->allowUsers)],
@@ -140,11 +142,11 @@ final class UserSearch extends Model
                 if (
                     !$model->record_status
                     && (
-                        !Yii::$app->getUser()->can('admin.user.view.delete.group', [
+                        !Yii::$app->getUser()->can(Permissions::ADMIN_USER_VIEW_DELETE_GROUP, [
                             'id' => $model->id,
                             'record_status' => $model->record_status
                         ])
-                        && !Yii::$app->getUser()->can('admin.user.view.delete.all', [
+                        && !Yii::$app->getUser()->can(Permissions::ADMIN_USER_VIEW_DELETE_ALL, [
                             'id' => $model->id,
                             'record_status' => $model->record_status
                         ])

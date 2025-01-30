@@ -12,7 +12,10 @@ use app\modules\reports\{
     traits\CleanDataProviderByRoleTrait,
     helpers\StructureHelper
 };
-use app\modules\users\helpers\RbacHelper;
+use app\modules\users\{
+    components\rbac\items\Permissions,
+    helpers\RbacHelper
+};
 
 /**
  * @property string|null $name
@@ -43,9 +46,9 @@ final class StructureSearch extends Model
     public function __construct($config = [])
     {
         $this->onlyActive = RbacHelper::getOnlyActiveRecordsState([
-            'structure.view.delete.main',
-            'structure.view.delete.group',
-            'structure.view.delete.all'
+            Permissions::STRUCTURE_VIEW_DELETE_MAIN,
+            Permissions::STRUCTURE_VIEW_DELETE_GROUP,
+            Permissions::STRUCTURE_VIEW_DELETE_ALL
         ]);
         $this->groups = RbacHelper::getAllowGroupsArray('structure.list.all');
         $this->reports = ReportRepository::getAllow(
@@ -110,12 +113,12 @@ final class StructureSearch extends Model
     {
         return $this->cleanDataProvider(
             dataProvider: $dataProvider,
-            allDeleteRole: 'structure.view.delete.all',
-            groupDeleteRole: 'structure.view.delete.group',
-            mainDeleteRole: 'structure.view.delete.main',
-            allListRole: 'structure.list.all',
-            groupListRole: 'structure.list.group',
-            mainListRole: 'structure.list.main'
+            allDeleteRole: Permissions::STRUCTURE_VIEW_DELETE_ALL,
+            groupDeleteRole: Permissions::STRUCTURE_VIEW_DELETE_GROUP,
+            mainDeleteRole: Permissions::STRUCTURE_VIEW_DELETE_MAIN,
+            allListRole: Permissions::STRUCTURE_LIST_ALL,
+            groupListRole: Permissions::STRUCTURE_LIST_GROUP,
+            mainListRole: Permissions::STRUCTURE_LIST_MAIN
         );
     }
 }

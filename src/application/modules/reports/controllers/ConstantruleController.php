@@ -28,6 +28,7 @@ use app\modules\reports\{
     search\ConstantruleSearch
 };
 use app\modules\users\{
+    components\rbac\items\Permissions,
     helpers\RbacHelper,
     repositories\GroupRepository
 };
@@ -48,19 +49,19 @@ final class ConstantruleController extends BaseController
                         'allow' => true,
                         'actions' => ['index'],
                         'roles' => [
-                            'constantRule.list',
+                            Permissions::CONSTANTRULE_LIST,
                         ],
                     ],
                     [
                         'allow' => true,
                         'actions' => ['view'],
                         'roles' => [
-                            'constantRule.view.main',
-                            'constantRule.view.group',
-                            'constantRule.view.all',
-                            'constantRule.view.main.delete',
-                            'constantRule.view.group.delete',
-                            'constantRule.view.all.delete'
+                            Permissions::CONSTANTRULE_VIEW_MAIN,
+                            Permissions::CONSTANTRULE_VIEW_GROUP,
+                            Permissions::CONSTANTRULE_VIEW_ALL,
+                            Permissions::CONSTANTRULE_VIEW_DELETE_MAIN,
+                            Permissions::CONSTANTRULE_VIEW_DELETE_GROUP,
+                            Permissions::CONSTANTRULE_VIEW_DELETE_ALL
                         ],
                         'roleParams' => function($rule) {
                             $recordInformation = ConstantruleRepository::get(
@@ -78,15 +79,15 @@ final class ConstantruleController extends BaseController
                     [
                         'actions' => ['create', 'getselectdata'],
                         'allow' => true,
-                        'roles' => ['constantRule.create'],
+                        'roles' => [Permissions::CONSTANTRULE_CREATE],
                     ],
                     [
                         'actions' => ['edit', 'getselectdata'],
                         'allow' => true,
                         'roles' => [
-                            'constantRule.edit.main',
-                            'constantRule.edit.group',
-                            'constantRule.edit.all',
+                            Permissions::CONSTANTRULE_EDIT_MAIN,
+                            Permissions::CONSTANTRULE_EDIT_GROUP,
+                            Permissions::CONSTANTRULE_EDIT_ALL,
                         ],
                         'roleParams' => function($rule) {
                             $recordInformation = ConstantruleRepository::get($this->request->get('id'));
@@ -106,9 +107,9 @@ final class ConstantruleController extends BaseController
                         'actions' => ['delete'],
                         'allow' => true,
                         'roles' => [
-                            'constantRule.delete.main',
-                            'constantRule.delete.group',
-                            'constantRule.delete.all',
+                            Permissions::CONSTANTRULE_DELETE_MAIN,
+                            Permissions::CONSTANTRULE_DELETE_GROUP,
+                            Permissions::CONSTANTRULE_DELETE_ALL,
                         ],
                         'roleParams' => function($rule) {
                             $recordInformation = ConstantruleRepository::get($this->request->get('id'));
@@ -128,9 +129,9 @@ final class ConstantruleController extends BaseController
                         'actions' => ['enable'],
                         'allow' => true,
                         'roles' => [
-                            'constantRule.enable.main',
-                            'constantRule.enable.group',
-                            'constantRule.enable.all',
+                            Permissions::CONSTANTRULE_ENABLE_MAIN,
+                            Permissions::CONSTANTRULE_ENABLE_GROUP,
+                            Permissions::CONSTANTRULE_ENABLE_ALL,
                         ],
                         'roleParams' => function($rule) {
                             $recordInformation = ConstantruleRepository::get(

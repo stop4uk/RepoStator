@@ -10,6 +10,7 @@ use app\components\{
     base\BaseController,
     settings\SettingModel
 };
+use app\modules\users\components\rbac\items\Permissions;
 
 /**
  * @author Stop4uk <stop4uk@yandex.ru>
@@ -26,7 +27,9 @@ final class SettingsController extends BaseController
                     [
                         'actions' => ['index'],
                         'allow' => true,
-                        'roles' => ['admin.setting'],
+                        'roles' => [
+                            Permissions::ADMIN_SETTING
+                        ],
                     ],
                 ],
             ],

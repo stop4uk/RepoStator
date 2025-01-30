@@ -14,6 +14,7 @@ use app\modules\reports\{
     traits\CleanDataProviderByRoleTrait
 };
 use app\modules\users\{
+    components\rbac\items\Permissions,
     repositories\UserRepository,
     helpers\RbacHelper
 };
@@ -59,9 +60,9 @@ final class DataSearch extends Model
     public function __construct($config = [])
     {
         $this->onlyActive = RbacHelper::getOnlyActiveRecordsState([
-            'data.view.delete.main',
-            'data.view.delete.group',
-            'data.view.delete.all'
+            Permissions::DATA_VIEW_DELETE_MAIN,
+            Permissions::DATA_VIEW_DELETE_GROUP,
+            Permissions::DATA_VIEW_DELETE_ALL
         ]);
         $this->groups = RbacHelper::getAllowGroupsArray('data.list.all');
         $this->reports = ReportRepository::getAllow(
@@ -154,12 +155,12 @@ final class DataSearch extends Model
     {
         return $this->cleanDataProvider(
             dataProvider: $dataProvider,
-            allDeleteRole: 'data.view.delete.all',
-            groupDeleteRole: 'data.view.delete.group',
-            mainDeleteRole: 'data.view.delete.main',
-            allListRole: 'data.list.all',
-            groupListRole: 'data.list.group',
-            mainListRole: 'data.list.main'
+            allDeleteRole: Permissions::DATA_VIEW_DELETE_ALL,
+            groupDeleteRole: Permissions::DATA_VIEW_DELETE_GROUP,
+            mainDeleteRole: Permissions::DATA_VIEW_DELETE_MAIN,
+            allListRole: Permissions::DATA_LIST_ALL,
+            groupListRole: Permissions::DATA_LIST_GROUP,
+            mainListRole: Permissions::DATA_LIST_MAIN
         );
     }
 }

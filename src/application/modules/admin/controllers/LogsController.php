@@ -13,6 +13,7 @@ use app\components\{
     entities\LogEntity
 };
 use app\modules\admin\search\LogSearch;
+use app\modules\users\components\rbac\items\Permissions;
 
 /**
  * @author Stop4uk <stop4uk@yandex.ru>
@@ -29,7 +30,9 @@ final class LogsController extends BaseController
                     [
                         'actions' => ['index', 'view'],
                         'allow' => true,
-                        'roles' => ['admin.log'],
+                        'roles' => [
+                            Permissions::ADMIN_LOG
+                        ],
                     ],
                 ],
             ],

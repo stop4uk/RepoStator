@@ -11,7 +11,10 @@ use app\modules\reports\{
     helpers\ReportHelper,
     traits\CleanDataProviderByRoleTrait
 };
-use app\modules\users\helpers\RbacHelper;
+use app\modules\users\{
+    components\rbac\items\Permissions,
+    helpers\RbacHelper
+};
 
 /**
  * @property string|null $name
@@ -42,9 +45,9 @@ final class ReportSearch extends Model
     public function __construct($config = [])
     {
         $this->onlyActive = RbacHelper::getOnlyActiveRecordsState([
-            'report.view.delete.main',
-            'report.view.delete.group',
-            'report.view.delete.all'
+            Permissions::REPORT_VIEW_DELETE_MAIN,
+            Permissions::REPORT_VIEW_DELETE_GROUP,
+            Permissions::REPORT_VIEW_DELETE_ALL
         ]);
         $this->groups = RbacHelper::getAllowGroupsArray('report.list.all');
 
@@ -109,12 +112,12 @@ final class ReportSearch extends Model
     {
         return $this->cleanDataProvider(
             dataProvider: $dataProvider,
-            allDeleteRole: 'report.view.delete.all',
-            groupDeleteRole: 'report.view.delete.group',
-            mainDeleteRole: 'report.view.delete.main',
-            allListRole: 'report.list.all',
-            groupListRole: 'report.list.group',
-            mainListRole: 'report.list.main'
+            allDeleteRole: Permissions::REPORT_VIEW_DELETE_ALL,
+            groupDeleteRole: Permissions::REPORT_VIEW_DELETE_GROUP,
+            mainDeleteRole: Permissions::REPORT_VIEW_DELETE_MAIN,
+            allListRole: Permissions::REPORT_LIST_ALL,
+            groupListRole: Permissions::REPORT_LIST_GROUP,
+            mainListRole: Permissions::REPORT_LIST_MAIN
         );
     }
 }

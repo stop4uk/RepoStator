@@ -23,6 +23,7 @@ use app\modules\reports\{
     services\ConstantService,
     search\ConstantSearch
 };
+use app\modules\users\components\rbac\items\Permissions;
 
 /**
  * @author Stop4uk <stop4uk@yandex.ru>
@@ -40,19 +41,19 @@ final class ConstantController extends BaseController
                         'allow' => true,
                         'actions' => ['index'],
                         'roles' => [
-                            'constant.list',
+                            Permissions::CONSTANT_LIST,
                         ],
                     ],
                     [
                         'allow' => true,
                         'actions' => ['view'],
                         'roles' => [
-                            'constant.view.main',
-                            'constant.view.group',
-                            'constant.view.all',
-                            'constant.view.delete.main',
-                            'constant.view.delete.group',
-                            'constant.view.delete.all'
+                            Permissions::CONSTANT_VIEW_MAIN,
+                            Permissions::CONSTANT_VIEW_GROUP,
+                            Permissions::CONSTANT_VIEW_ALL,
+                            Permissions::CONSTANT_VIEW_DELETE_MAIN,
+                            Permissions::CONSTANT_VIEW_DELETE_GROUP,
+                            Permissions::CONSTANT_VIEW_DELETE_ALL
                         ],
                         'roleParams' => function($rule) {
                             $recordInformation = ConstantRepository::get(
@@ -70,15 +71,15 @@ final class ConstantController extends BaseController
                     [
                         'actions' => ['create'],
                         'allow' => true,
-                        'roles' => ['constant.create'],
+                        'roles' => [Permissions::CONSTANT_CREATE],
                     ],
                     [
                         'actions' => ['edit'],
                         'allow' => true,
                         'roles' => [
-                            'constant.edit.main',
-                            'constant.edit.group',
-                            'constant.edit.all'
+                            Permissions::CONSTANT_EDIT_MAIN,
+                            Permissions::CONSTANT_EDIT_GROUP,
+                            Permissions::CONSTANT_EDIT_ALL
                         ],
                         'roleParams' => function($rule) {
                             $recordInformation = ConstantRepository::get($this->request->get('id'));
@@ -98,9 +99,9 @@ final class ConstantController extends BaseController
                         'actions' => ['delete'],
                         'allow' => true,
                         'roles' => [
-                            'constant.delete.main',
-                            'constant.delete.group',
-                            'constant.delete.all'
+                            Permissions::CONSTANT_DELETE_MAIN,
+                            Permissions::CONSTANT_DELETE_GROUP,
+                            Permissions::CONSTANT_DELETE_ALL
                         ],
                         'roleParams' => function($rule) {
                             $recordInformation = ConstantRepository::get($this->request->get('id'));
@@ -120,9 +121,9 @@ final class ConstantController extends BaseController
                         'actions' => ['enable'],
                         'allow' => true,
                         'roles' => [
-                            'constant.enable.main',
-                            'constant.enable.group',
-                            'constant.enable.all'
+                            Permissions::CONSTANT_ENABLE_MAIN,
+                            Permissions::CONSTANT_ENABLE_GROUP,
+                            Permissions::CONSTANT_EDIT_ALL
                         ],
                         'roleParams' => function($rule) {
                             $recordInformation = ConstantRepository::get(

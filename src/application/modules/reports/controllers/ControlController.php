@@ -27,6 +27,7 @@ use app\modules\reports\{
     helpers\DataHelper,
     search\DataSearch,
 };
+use app\modules\users\components\rbac\items\Permissions;
 
 /**
  * @author Stop4uk <stop4uk@yandex.ru>
@@ -44,19 +45,19 @@ final class ControlController extends BaseController
                         'actions' => ['index', 'getperiods'],
                         'allow' => true,
                         'roles' => [
-                            'data.list',
+                            Permissions::DATA_LIST,
                         ],
                     ],
                     [
                         'actions' => ['view'],
                         'allow' => true,
                         'roles' => [
-                            'data.view.main',
-                            'data.view.group',
-                            'data.view.all',
-                            'data.view.delete.main',
-                            'data.view.delete.group',
-                            'data.view.delete.all',
+                            Permissions::DATA_VIEW_MAIN,
+                            Permissions::DATA_VIEW_GROUP,
+                            Permissions::DATA_VIEW_ALL,
+                            Permissions::DATA_VIEW_DELETE_MAIN,
+                            Permissions::DATA_VIEW_DELETE_GROUP,
+                            Permissions::DATA_VIEW_DELETE_ALL,
                         ],
                         'roleParams' => function($rule) {
                             $recordInformation = DataRepository::get(
@@ -75,9 +76,9 @@ final class ControlController extends BaseController
                         'actions' => ['edit'],
                         'allow' => true,
                         'roles' => [
-                            'data.edit.main',
-                            'data.edit.group',
-                            'data.edit.all'
+                            Permissions::DATA_EDIT_MAIN,
+                            Permissions::DATA_EDIT_GROUP,
+                            Permissions::DATA_EDIT_ALL
                         ],
                         'roleParams' => function($rule) {
                             $recordInformation = DataRepository::get($this->request->get('id'));
@@ -92,20 +93,20 @@ final class ControlController extends BaseController
                     [
                         'actions' => ['createfor'],
                         'allow' => true,
-                        'roles' => ['data.createFor'],
+                        'roles' => [Permissions::DATA_CREATEFOR],
                     ],
                     [
                         'actions' => ['checkfull'],
                         'allow' => true,
-                        'roles' => ['data.checkFull']
+                        'roles' => [Permissions::DATA_CHECKFULL]
                     ],
                     [
                         'actions' => ['delete'],
                         'allow' => true,
                         'roles' => [
-                            'data.delete.main',
-                            'data.delete.group',
-                            'data.delete.all'
+                            Permissions::DATA_DELETE_MAIN,
+                            Permissions::DATA_DELETE_GROUP,
+                            Permissions::DATA_DELETE_ALL
                         ],
                         'roleParams' => function($rule) {
                             $recordInformation = DataRepository::get($this->request->get('id'));
@@ -122,9 +123,9 @@ final class ControlController extends BaseController
                         'actions' => ['enable'],
                         'allow' => true,
                         'roles' => [
-                            'data.enable.main',
-                            'data.enable.group',
-                            'data.enable.all'
+                            Permissions::DATA_ENABLE_MAIN,
+                            Permissions::DATA_ENABLE_GROUP,
+                            Permissions::DATA_ENABLE_ALL
                         ],
                         'roleParams' => function($rule) {
                             $recordInformation = DataRepository::get(

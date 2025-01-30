@@ -33,7 +33,10 @@ use app\modules\reports\{
     search\TemplateSearch
 };
 use app\helpers\CommonHelper;
-use app\modules\users\helpers\RbacHelper;
+use app\modules\users\{
+    components\rbac\items\Permissions,
+    helpers\RbacHelper
+};
 
 /**
  * @author Stop4uk <stop4uk@yandex.ru>
@@ -53,19 +56,19 @@ final class TemplateController extends BaseController
                         'allow' => true,
                         'actions' => ['index'],
                         'roles' => [
-                            'template.list',
+                            Permissions::TEMPLATE_CREATE,
                         ],
                     ],
                     [
                         'allow' => true,
                         'actions' => ['view'],
                         'roles' => [
-                            'template.view.main',
-                            'template.view.group',
-                            'template.view.all',
-                            'template.view.main.delete',
-                            'template.view.group.delete',
-                            'template.view.all.delete'
+                            Permissions::TEMPLATE_VIEW_MAIN,
+                            Permissions::TEMPLATE_VIEW_GROUP,
+                            Permissions::TEMPLATE_VIEW_ALL,
+                            Permissions::TEMPLATE_VIEW_DELETE_MAIN,
+                            Permissions::TEMPLATE_VIEW_DELETE_GROUP,
+                            Permissions::TEMPLATE_VIEW_DELETE_ALL
                         ],
                         'roleParams' => function($rule) {
                             $recordInformation = TemplateRepository::get(
@@ -83,15 +86,17 @@ final class TemplateController extends BaseController
                     [
                         'actions' => ['create', 'getselectdata', 'attachfile', 'detachfile', 'getfile'],
                         'allow' => true,
-                        'roles' => ['template.create'],
+                        'roles' => [
+                            Permissions::TEMPLATE_CREATE
+                        ],
                     ],
                     [
                         'actions' => ['edit', 'getselectdata'],
                         'allow' => true,
                         'roles' => [
-                            'template.edit.main',
-                            'template.edit.group',
-                            'template.edit.all'
+                            Permissions::TEMPLATE_EDIT_MAIN,
+                            Permissions::TEMPLATE_EDIT_GROUP,
+                            Permissions::TEMPLATE_EDIT_ALL
                         ],
                         'roleParams' => function($rule) {
                             $recordInformation = TemplateRepository::get($this->request->get('id'));
@@ -111,9 +116,9 @@ final class TemplateController extends BaseController
                         'actions' => ['delete'],
                         'allow' => true,
                         'roles' => [
-                            'template.delete.main',
-                            'template.delete.group',
-                            'template.delete.all'
+                            Permissions::TEMPLATE_DELETE_MAIN,
+                            Permissions::TEMPLATE_DELETE_GROUP,
+                            Permissions::TEMPLATE_DELETE_ALL
                         ],
                         'roleParams' => function($rule) {
                             $recordInformation = TemplateRepository::get($this->request->get('id'));
@@ -133,9 +138,9 @@ final class TemplateController extends BaseController
                         'actions' => ['enable'],
                         'allow' => true,
                         'roles' => [
-                            'template.enable.main',
-                            'template.enable.group',
-                            'template.enable.all'
+                            Permissions::TEMPLATE_ENABLE_MAIN,
+                            Permissions::TEMPLATE_ENABLE_GROUP,
+                            Permissions::TEMPLATE_ENABLE_ALL
                         ],
                         'roleParams' => function($rule) {
                             $recordInformation = TemplateRepository::get(

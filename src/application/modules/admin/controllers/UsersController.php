@@ -18,6 +18,7 @@ use app\actions\{
 };
 use app\modules\admin\search\UserSearch;
 use app\modules\users\{
+    components\rbac\items\Permissions,
     entities\UserEntity,
     models\UserModel,
     repositories\UserRepository,
@@ -40,18 +41,18 @@ final class UsersController extends BaseController
                         'actions' => ['index'],
                         'allow' => true,
                         'roles' => [
-                            'admin.user.list',
-                            'admin.user.list.all',
+                            Permissions::ADMIN_USER_LIST,
+                            Permissions::ADMIN_USER_LIST_ALL,
                         ],
                     ],
                     [
                         'actions' => ['view'],
                         'allow' => true,
                         'roles' => [
-                            'admin.user.view.group',
-                            'admin.user.view.all',
-                            'admin.user.view.delete.group',
-                            'admin.user.view.delete.all',
+                            Permissions::ADMIN_USER_VIEW_GROUP,
+                            Permissions::ADMIN_USER_VIEW_ALL,
+                            Permissions::ADMIN_USER_VIEW_DELETE_GROUP,
+                            Permissions::ADMIN_USER_VIEW_DELETE_ALL,
                         ],
                         'roleParams' => function($rule) {
                             $recordInformation = UserRepository::get(
@@ -70,15 +71,15 @@ final class UsersController extends BaseController
                         'actions' => ['create'],
                         'allow' => true,
                         'roles' => [
-                            'admin.user.create',
+                            Permissions::ADMIN_USER_CREATE,
                         ],
                     ],
                     [
                         'actions' => ['edit'],
                         'allow' => true,
                         'roles' => [
-                            'admin.user.edit.group',
-                            'admin.user.edit.all'
+                            Permissions::ADMIN_USER_EDIT_GROUP,
+                            Permissions::ADMIN_USER_EDIT_ALL
                         ],
                         'roleParams' => function($rule) {
                             $recordInformation = UserRepository::get($this->request->get('id'));
@@ -94,8 +95,8 @@ final class UsersController extends BaseController
                         'actions' => ['delete'],
                         'allow' => true,
                         'roles' => [
-                            'admin.user.delete.group',
-                            'admin.user.delete.all'
+                            Permissions::ADMIN_USER_DELETE_GROUP,
+                            Permissions::ADMIN_USER_DELETE_ALL
                         ],
                         'roleParams' => function($rule) {
                             $recordInformation = UserRepository::get($this->request->get('id'));
@@ -111,8 +112,8 @@ final class UsersController extends BaseController
                         'actions' => ['enable'],
                         'allow' => true,
                         'roles' => [
-                            'admin.user.enable.group',
-                            'admin.user.enable.all'
+                            Permissions::ADMIN_USER_ENABLE_GROUP,
+                            Permissions::ADMIN_USER_ENABLE_ALL
                         ],
                         'roleParams' => function($rule) {
                             $recordInformation = UserRepository::get(

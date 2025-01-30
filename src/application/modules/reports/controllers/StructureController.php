@@ -30,8 +30,9 @@ use app\modules\reports\{
     widgets\repeater\actions\DeleteAction as RepeaterDeleteAction,
 };
 use app\modules\users\{
+    components\rbac\items\Permissions,
     repositories\GroupRepository,
-    helpers\RbacHelper,
+    helpers\RbacHelper
 };
 
 /**
@@ -50,19 +51,19 @@ final class StructureController extends BaseController
                         'allow' => true,
                         'actions' => ['index'],
                         'roles' => [
-                            'structure.list',
+                            Permissions::STRUCTURE_LIST,
                         ],
                     ],
                     [
                         'allow' => true,
                         'actions' => ['view'],
                         'roles' => [
-                            'structure.view.main',
-                            'structure.view.group',
-                            'structure.view.all',
-                            'structure.view.main.delete',
-                            'structure.view.group.delete',
-                            'structure.view.all.delete'
+                            Permissions::STRUCTURE_VIEW_MAIN,
+                            Permissions::STRUCTURE_VIEW_GROUP,
+                            Permissions::STRUCTURE_VIEW_ALL,
+                            Permissions::STRUCTURE_VIEW_DELETE_MAIN,
+                            Permissions::STRUCTURE_VIEW_DELETE_GROUP,
+                            Permissions::STRUCTURE_VIEW_ALL
                         ],
                         'roleParams' => function($rule) {
                             $recordInformation = StructureRepository::get(
@@ -80,15 +81,17 @@ final class StructureController extends BaseController
                     [
                         'actions' => ['create', 'getselectdata', 'addStructure', 'deleteStructure'],
                         'allow' => true,
-                        'roles' => ['structure.create'],
+                        'roles' => [
+                            Permissions::STRUCTURE_CREATE
+                        ],
                     ],
                     [
                         'actions' => ['edit', 'getselectdata', 'addStructure', 'deleteStructure'],
                         'allow' => true,
                         'roles' => [
-                            'structure.edit.main',
-                            'structure.edit.group',
-                            'structure.edit.all'
+                            Permissions::STRUCTURE_EDIT_MAIN,
+                            Permissions::STRUCTURE_EDIT_GROUP,
+                            Permissions::STRUCTURE_EDIT_ALL
                         ],
                         'roleParams' => function($rule) {
                             $recordInformation = StructureRepository::get($this->request->get('id'));
@@ -108,9 +111,9 @@ final class StructureController extends BaseController
                         'actions' => ['delete'],
                         'allow' => true,
                         'roles' => [
-                            'structure.delete.main',
-                            'structure.delete.group',
-                            'structure.delete.all'
+                            Permissions::STRUCTURE_DELETE_MAIN,
+                            Permissions::STRUCTURE_DELETE_GROUP,
+                            Permissions::STRUCTURE_DELETE_ALL
                         ],
                         'roleParams' => function($rule) {
                             $recordInformation = StructureRepository::get($this->request->get('id'));
@@ -130,9 +133,9 @@ final class StructureController extends BaseController
                         'actions' => ['enable'],
                         'allow' => true,
                         'roles' => [
-                            'structure.enable.main',
-                            'structure.enable.group',
-                            'structure.enable.all'
+                            Permissions::STRUCTURE_ENABLE_MAIN,
+                            Permissions::STRUCTURE_ENABLE_GROUP,
+                            Permissions::STRUCTURE_ENABLE_ALL
                         ],
                         'roleParams' => function($rule) {
                             $recordInformation = StructureRepository::get(

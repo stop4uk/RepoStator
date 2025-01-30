@@ -22,6 +22,7 @@ use app\modules\reports\{
     services\SendService,
     search\SendSearch
 };
+use app\modules\users\components\rbac\items\Permissions;
 
 /**
  * @author Stop4uk <stop4uk@yandex.ru>
@@ -39,13 +40,16 @@ final class SendController extends BaseController
                         'actions' => ['index'],
                         'allow' => true,
                         'roles' => [
-                            'data.send',
+                            Permissions::DATA_SEND,
                         ],
                     ],
                     [
                         'actions' => ['process'],
                         'allow' => true,
-                        'roles' => ['data.send', 'data.send.all'],
+                        'roles' => [
+                            Permissions::DATA_SEND,
+                            Permissions::DATA_SEND_ALL
+                        ],
                         'roleParams' => function($rule) {
                             return [
                                 'group' => $this->request->get('group_id'),

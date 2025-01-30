@@ -5,6 +5,8 @@ namespace app\modules\reports\traits;
 use Yii;
 use yii\data\ActiveDataProvider;
 
+use app\modules\users\components\rbac\items\Roles;
+
 /**
  * @author Stop4uk <stop4uk@yandex.ru>
  * @package app\modules\reports\traits
@@ -23,7 +25,7 @@ trait CleanDataProviderByRoleTrait
         $models = $dataProvider->getModels();
 
         foreach ($models as $index => $model) {
-            if (Yii::$app->getUser()->can('admin')) {
+            if (Yii::$app->getUser()->can(Roles::ADMIN)) {
                 continue;
             }
 

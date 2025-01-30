@@ -20,6 +20,7 @@ use app\modules\reports\{
     services\ReportService,
     search\ReportSearch
 };
+use app\modules\users\components\rbac\items\Permissions;
 
 /**
  * @author Stop4uk <stop4uk@yandex.ru>
@@ -37,19 +38,19 @@ final class DefaultController extends BaseController
                         'allow' => true,
                         'actions' => ['index'],
                         'roles' => [
-                            'report.list',
+                            Permissions::REPORT_LIST,
                         ],
                     ],
                     [
                         'allow' => true,
                         'actions' => ['view'],
                         'roles' => [
-                            'report.view.main',
-                            'report.view.group',
-                            'report.view.all',
-                            'report.view.main.delete',
-                            'report.view.group.delete',
-                            'report.view.all.delete',
+                            Permissions::REPORT_VIEW_MAIN,
+                            Permissions::REPORT_VIEW_GROUP,
+                            Permissions::REPORT_VIEW_ALL,
+                            Permissions::REPORT_VIEW_DELETE_MAIN,
+                            Permissions::REPORT_VIEW_DELETE_GROUP,
+                            Permissions::REPORT_VIEW_DELETE_ALL,
                         ],
                         'roleParams' => function($rule) {
                             $recordInformation = ReportRepository::get(
@@ -67,15 +68,15 @@ final class DefaultController extends BaseController
                     [
                         'actions' => ['create'],
                         'allow' => true,
-                        'roles' => ['report.create'],
+                        'roles' => [Permissions::REPORT_CREATE],
                     ],
                     [
                         'actions' => ['edit'],
                         'allow' => true,
                         'roles' => [
-                            'report.edit.main',
-                            'report.edit.group',
-                            'report.edit.all'
+                            Permissions::REPORT_EDIT_MAIN,
+                            Permissions::REPORT_EDIT_GROUP,
+                            Permissions::REPORT_EDIT_ALL
                         ],
                         'roleParams' => function($rule) {
                             $recordInformation = ReportRepository::get($this->request->get('id'));
@@ -91,9 +92,9 @@ final class DefaultController extends BaseController
                         'actions' => ['delete'],
                         'allow' => true,
                         'roles' => [
-                            'report.delete.main',
-                            'report.delete.group',
-                            'report.delete.all'
+                            Permissions::REPORT_DELETE_MAIN,
+                            Permissions::REPORT_DELETE_GROUP,
+                            Permissions::REPORT_DELETE_ALL
                         ],
                         'roleParams' => function($rule) {
                             $recordInformation = ReportRepository::get($this->request->get('id'));
@@ -109,9 +110,9 @@ final class DefaultController extends BaseController
                         'actions' => ['enable'],
                         'allow' => true,
                         'roles' => [
-                            'report.enable.main',
-                            'report.enable.group',
-                            'report.enable.all'
+                            Permissions::REPORT_ENABLE_MAIN,
+                            Permissions::REPORT_ENABLE_GROUP,
+                            Permissions::REPORT_ENABLE_ALL
                         ],
                         'roleParams' => function($rule) {
                             $recordInformation = ReportRepository::get(

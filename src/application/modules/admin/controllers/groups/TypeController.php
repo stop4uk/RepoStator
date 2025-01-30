@@ -15,6 +15,7 @@ use app\actions\{
 };
 use app\modules\admin\search\GroupTypeSearch;
 use app\modules\users\{
+    components\rbac\items\Permissions,
     entities\GroupTypeEntity,
     models\GroupTypeModel,
     repositories\GroupTypeRepository,
@@ -35,7 +36,9 @@ final class TypeController extends BaseController
                 'rules' => [
                     [
                         'allow' => true,
-                        'roles' => ['admin.groupType'],
+                        'roles' => [
+                            Permissions::ADMIN_GROUPTYPE
+                        ],
                     ],
                 ],
             ],

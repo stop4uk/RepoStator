@@ -33,7 +33,6 @@ final class ProfileController extends BaseController
         return [
             'access' => [
                 'class' => AccessControl::class,
-                'except' => ['download'],
                 'rules' => [
                     [
                         'allow' => true,
@@ -53,7 +52,7 @@ final class ProfileController extends BaseController
         parent::__construct($id, $module, $config);
     }
 
-    public function actionIndex()
+    public function actionIndex(): array|string|Response
     {
         $entity = $this->findEntity();
         $entity->scenario = UserEntity::SCENARIO_UPDATE;
@@ -88,7 +87,7 @@ final class ProfileController extends BaseController
         return $this->render('index', compact('model', 'userEmailChangeForm', 'userPasswordChangeForm', 'emailchangesDataProvider'));
     }
 
-    public function actionChangeemail()
+    public function actionChangeemail(): array|Response
     {
         $form = new UserEmailChangeForm();
 
@@ -107,7 +106,7 @@ final class ProfileController extends BaseController
         }
     }
 
-    public function actionChangeemailcancel(int $id)
+    public function actionChangeemailcancel(int $id): array
     {
         $this->response->format = Response::FORMAT_JSON;
 
@@ -121,7 +120,7 @@ final class ProfileController extends BaseController
         } catch (Exception $e) { return $this->catchException($e, false); }
     }
 
-    public function actionChangepassword()
+    public function actionChangepassword(): array|string|Response
     {
         $this->layout=Yii::$app->getModule('users')->layoutClean;
         $form = new UserPasswordChangeForm();
@@ -150,7 +149,7 @@ final class ProfileController extends BaseController
         ]);
     }
 
-    private function findEntity(bool $withOutRelations = false)
+    private function findEntity(bool $withOutRelations = false): UserEntity
     {
         $query = UserRepository::get(Yii::$app->getUser()->id, $withOutRelations
             ? []

@@ -79,7 +79,7 @@ final class VerificationController extends BaseController
         return $this->redirect(['/']);
     }
 
-    public function actionChange(string $key)
+    public function actionChange(string $key): Response
     {
         try {
             $this->service->changeEmail($key);

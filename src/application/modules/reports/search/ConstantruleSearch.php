@@ -13,7 +13,10 @@ use app\modules\reports\{
     helpers\ConstantRuleHelper,
     traits\CleanDataProviderByRoleTrait
 };
-use app\modules\users\helpers\RbacHelper;
+use app\modules\users\{
+    components\rbac\items\Permissions,
+    helpers\RbacHelper
+};
 
 /**
  * @property string|null $record
@@ -48,11 +51,11 @@ final class ConstantruleSearch extends Model
     public function __construct($config = [])
     {
         $this->onlyActive = RbacHelper::getOnlyActiveRecordsState([
-            'constantRule.view.delete.main',
-            'constantRule.view.delete.group',
-            'constantRule.view.delete.all'
+            Permissions::CONSTANTRULE_VIEW_DELETE_MAIN,
+            Permissions::CONSTANTRULE_VIEW_DELETE_GROUP,
+            Permissions::CONSTANTRULE_VIEW_DELETE_ALL
         ]);
-        $this->groups = RbacHelper::getAllowGroupsArray('constantRule.list.all');
+        $this->groups = RbacHelper::getAllowGroupsArray(Permissions::CONSTANTRULE_LIST_ALL);
         $this->reports = ReportRepository::getAllow(
             groups: $this->groups,
             active: $this->onlyActive
@@ -124,12 +127,12 @@ final class ConstantruleSearch extends Model
     {
         return $this->cleanDataProvider(
             dataProvider: $dataProvider,
-            allDeleteRole: 'constantRule.view.delete.all',
-            groupDeleteRole: 'constantRule.view.delete.group',
-            mainDeleteRole: 'constantRule.view.delete.main',
-            allListRole: 'constantRule.list.all',
-            groupListRole: 'constantRule.list.group',
-            mainListRole: 'constantRule.list.main'
+            allDeleteRole: Permissions::CONSTANTRULE_VIEW_DELETE_ALL,
+            groupDeleteRole: Permissions::CONSTANTRULE_VIEW_DELETE_GROUP,
+            mainDeleteRole: Permissions::CONSTANTRULE_VIEW_DELETE_MAIN,
+            allListRole: Permissions::CONSTANTRULE_LIST_ALL,
+            groupListRole: Permissions::CONSTANTRULE_LIST_GROUP,
+            mainListRole: Permissions::CONSTANTRULE_LIST_MAIN
         );
     }
 }

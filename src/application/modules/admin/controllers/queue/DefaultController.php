@@ -7,6 +7,7 @@ use yii\filters\AccessControl;
 use app\components\base\BaseController;
 use app\actions\IndexAction;
 use app\modules\admin\search\QueueSearch;
+use app\modules\users\components\rbac\items\Permissions;
 
 /**
  * @author Stop4uk <stop4uk@yandex.ru>
@@ -23,7 +24,9 @@ final class DefaultController extends BaseController
                     [
                         'actions' => ['index'],
                         'allow' => true,
-                        'roles' => ['admin.queue.system'],
+                        'roles' => [
+                            Permissions::ADMIN_QUEUE_SYSTEM
+                        ],
                     ],
                 ],
             ],
