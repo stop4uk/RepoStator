@@ -203,8 +203,14 @@ final class TemplateModel extends BaseModel
         parent::afterValidate();
     }
 
-    public function checkLoadedFile(): void
+    public function checkLoadedFile($attribute): void
     {
+        if ($this->hasErrors()) {
+            return;
+        }
 
+        if ($this->form_type == ReportFormTemplateEntity::REPORT_TYPE_TEMPLATE) {
+            $this->addError($attribute, '123');
+        }
     }
 }
