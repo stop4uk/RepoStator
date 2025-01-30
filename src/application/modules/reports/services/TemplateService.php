@@ -59,7 +59,7 @@ final class TemplateService extends BaseService
                 }
             }
 
-            if($saveTemplate) {
+            if($saveTemplate && $sessionFiles) {
                 foreach ($sessionFiles as $sessionFile) {
                     try{unlink($sessionFile['fullPath']);} catch (ErrorException $e){}
                 }
