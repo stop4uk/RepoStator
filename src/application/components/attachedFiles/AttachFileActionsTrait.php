@@ -43,7 +43,10 @@ trait AttachFileActionsTrait
         }
 
         if ($model->validate()) {
-            if ($model->isNewRecord) {
+            if (
+                $model->isNewRecord
+                || !$model->getWorkModel()
+            ) {
                 $sessionFiles = $session->get($this->sessionKey) ?: [];
                 $fileExtension = pathinfo($model->uploadFile->name)['extension'];
                 $fileName = implode('.', [$temporaryName, $fileExtension]);
