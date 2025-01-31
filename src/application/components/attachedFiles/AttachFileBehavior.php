@@ -195,7 +195,7 @@ final class AttachFileBehavior extends Behavior
 
     public function getAttachedFiles(bool $useDataProvider = true): ArrayDataProvider|array
     {
-        $files = $this->getFilesInDB();
+        $files = $this->getFilesFromAllSource();
 
         return match ($useDataProvider) {
             true => new ArrayDataProvider([
@@ -286,6 +286,16 @@ final class AttachFileBehavior extends Behavior
         }
 
         return $filePath;
+    }
+
+    private function getFilesFromAllSource(string|null $type = null)
+    {
+        $files = $this->getFilesInDB($type);
+        if (!$files) {
+            $files = Yii::$app->getSession()->get($this->sessionKey) ?: [];
+        }
+
+        return $files;
     }
 
     private function getFilesInDB(string|null $type = null)
