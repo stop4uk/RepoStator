@@ -18,68 +18,67 @@ use app\modules\reports\helpers\JobHelper;
 $this->title = Yii::t('views', 'Статистика');
 
 ?>
+
+    <?php Pjax::begin(['id' => 'jobsList', 'enablePushState' => false, 'clientOptions' => ['method' => 'POST']]); ?>
+    <?= $this->render('_partial/search', ['searchModel' => $searchModel]); ?>
+
     <div class="card">
         <div class="card-body">
-            <?php
-                Pjax::begin(['id' => 'jobsList', 'enablePushState' => false, 'clientOptions' => ['method' => 'POST']]);
-                    echo $this->render('_partial/search', ['searchModel' => $searchModel]);
-                    echo GridView::widget([
-                        'dataProvider' => $dataProvider,
-                        'tableOptions' => ['class' => 'table'],
-                        'emptyText' => Yii::t('views', 'Завершенных или активных задач на фомирование отчетов нет'),
-                        'columns' => [
-                            [
-                                'attribute' => 'job_status',
-                                'format' => 'html',
-                                'value' => fn($data) => JobHelper::statusNameInColor($data->job_status)
-                            ],
-                            [
-                                'attribute' => 'template_id',
-                                'format' => 'html',
-                                'value' => function($data) {
-                                    $value = $data->template->name . Html::tag('span', ' #' . $data->report->name, ['class' => 'small text-muted']) . '<br />';
-                                    $value .= $data->form_period;
+            <?= GridView::widget([
+                'dataProvider' => $dataProvider,
+                'tableOptions' => ['class' => 'table'],
+                'emptyText' => Yii::t('views', 'Завершенных или активных задач на фомирование отчетов нет'),
+                'columns' => [
+                    [
+                        'attribute' => 'job_status',
+                        'format' => 'html',
+                        'value' => fn($data) => JobHelper::statusNameInColor($data->job_status)
+                    ],
+                    [
+                        'attribute' => 'template_id',
+                        'format' => 'html',
+                        'value' => function($data) {
+                            $value = $data->template->name . Html::tag('span', ' #' . $data->report->name, ['class' => 'small text-muted']) . '<br />';
+                            $value .= $data->form_period;
 
-                                    return $value;
+                            return $value;
+                        }
+                    ],
+                    [
+                        'attribute' => 'created_at',
+                        'contentOptions' => ['class' => 'small'],
+                        'format' => ['date', Yii::$app->settings->get('system', 'app_language_dateTime')]
+                    ],
+                    [
+                        'attribute' => 'updated_at',
+                        'contentOptions' => ['class' => 'small'],
+                        'format' => ['date', Yii::$app->settings->get('system', 'app_language_dateTime')]
+                    ],
+                    [
+                        'class' => ActionColumn::class,
+                        'header' => false,
+                        'headerOptions' => ['width' => '10%'],
+                        'contentOptions' => ['class' => 'text-center'],
+                        'template' => '{download}',
+                        'buttons' => [
+                            'download' => function($url, $model) {
+                                if ($model->file) {
+                                    return Html::a(
+                                        '<i class="bi bi-file-arrow-down text-dark"></i>',
+                                        Url::to(['download', 'path' => base64_encode($model->file)]),
+                                        [
+                                            'data-pjax' => 0,
+                                            'data-bs-toggle' => 'tooltip',
+                                            'data-bs-placement' => 'bottom',
+                                            'title' => Yii::t('views', 'Скачать'),
+                                        ]
+                                    );
                                 }
-                            ],
-                            [
-                                'attribute' => 'created_at',
-                                'contentOptions' => ['class' => 'small'],
-                                'format' => ['date', Yii::$app->settings->get('system', 'app_language_dateTime')]
-                            ],
-                            [
-                                'attribute' => 'updated_at',
-                                'contentOptions' => ['class' => 'small'],
-                                'format' => ['date', Yii::$app->settings->get('system', 'app_language_dateTime')]
-                            ],
-                            [
-                                'class' => ActionColumn::class,
-                                'header' => false,
-                                'headerOptions' => ['width' => '10%'],
-                                'contentOptions' => ['class' => 'text-center'],
-                                'template' => '{download}',
-                                'buttons' => [
-                                    'download' => function($url, $model) {
-                                        if ($model->file) {
-                                            return Html::a(
-                                                '<i class="bi bi-file-arrow-down text-dark"></i>',
-                                                Url::to(['download', 'path' => base64_encode($model->file)]),
-                                                [
-                                                    'data-pjax' => 0,
-                                                    'data-bs-toggle' => 'tooltip',
-                                                    'data-bs-placement' => 'bottom',
-                                                    'title' => Yii::t('views', 'Скачать'),
-                                                ]
-                                            );
-                                        }
-                                    },
-                                ],
-                            ],
+                            },
                         ],
-                    ]);
-                Pjax::end();
-            ?>
+                    ],
+                ],
+            ]); ?>
         </div>
     </div>
 
@@ -92,6 +91,8 @@ $this->title = Yii::t('views', 'Статистика');
         </div>
     </div>
 <?php
+    Pjax::end();
+
     $this->registerJs(<<<JS
         setInterval(function(){
             $.pjax.reload({container:'#jobsList', method: "POST", async: true, push: false , data: $("#searchForm").serialize()});

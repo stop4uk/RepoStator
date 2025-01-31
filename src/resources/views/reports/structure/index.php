@@ -41,8 +41,9 @@ $this->title = Yii::t('views', 'Список структур');
         ?>
     </div>
 
-<?php Pjax::begin(['id' => 'structuresList', 'enablePushState' => false, 'clientOptions' => ['method' => 'POST']]); ?>
+    <?php Pjax::begin(['id' => 'structuresList', 'enablePushState' => false, 'clientOptions' => ['method' => 'POST']]); ?>
     <?= $this->render('_partial/search', ['searchModel' => $searchModel]); ?>
+
     <div class="card">
         <div class="card-body">
             <?= GridView::widget([
