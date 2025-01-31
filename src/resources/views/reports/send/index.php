@@ -17,24 +17,21 @@ $this->title = Yii::t('views', 'Выбор отчета для передачи'
 <?php Pjax::begin(['id' => 'reportWorkList', 'enablePushState' => false, 'clientOptions' => ['method' => 'POST']]) ?>
     <?= $this->render('_partial/search', ['searchModel' => $searchModel]); ?>
     <div class="row">
-        <div class="col-12">
-            <?= ListView::widget([
-                'dataProvider' => $dataProvider,
-                'layout' => '{items}',
-                'emptyText' => Yii::t('views', 'Отчеты для передачи отсутствуют'),
-                'emptyTextOptions' => [
-                    'class' => 'alert alert-success text-center fw-bold'
-                ],
-                'viewParams' => [
-                    'groups' => $searchModel->groups
-                ],
-                'itemView' => '_partial/reportItemSelect',
-                'options' => ['class' => 'row'],
-                'itemOptions' => ['class' => 'col-12'],
-                'pager' => [
-                    'class' => Pager::class
-                ]
-            ]); ?>
-        </div>
+        <?= ListView::widget([
+            'dataProvider' => $dataProvider,
+            'layout' => '{items}',
+            'emptyText' => Yii::t('views', 'Отчеты для передачи отсутствуют'),
+            'emptyTextOptions' => [
+                'class' => 'alert alert-success text-center fw-bold'
+            ],
+            'viewParams' => [
+                'groups' => $searchModel->groups
+            ],
+            'itemView' => '_partial/reportItemSelect',
+            'itemOptions' => ['class' => 'col-12'],
+            'pager' => [
+                'class' => Pager::class
+            ]
+        ]); ?>
     </div>
 <?php Pjax::end();
