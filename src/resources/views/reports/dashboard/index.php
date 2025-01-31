@@ -68,7 +68,7 @@ Pjax::begin(['id' => 'dashBoard', 'enablePushState' => false, 'clientOptions' =>
                 <div class="card-body">
                     <?= GridView::widget([
                         'dataProvider' => $queueTemplates,
-                        'emptyText' => Yii::t('views', 'Завершенных или активных задач на фомирование отчетов нет'),
+                        'emptyText' => Yii::t('views', 'Завершенных или активных задач на формирование отчетов нет'),
                         'columns' => [
                             [
                                 'attribute' => 'job_status',

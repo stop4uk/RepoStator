@@ -84,7 +84,7 @@ return [
     'Общие показатели' => 'General indicators',
     'Напоминания' => 'Reminders',
     'Все отчеты на текущий момент переданы' => 'All reports have been submitted at the moment',
-    'Одна из доступных Вам групп не передала отчет <strong>{name}</strong> в установленный период. <br /><span class="small">{period}</span>' => 'One of the groups available to you did not send the report <strong>{name}</strong> during the specified period. <br /><span class="small">{period}</span>',
+    'Доступной группой не передан отчет "<strong>{name}</strong>" <span class="small">#{period}</span>' => 'The available group did not transmit the report "<strong>{name}</strong>" <span class="small">#{period}</span>',
     'Статистика передачи сведений' => 'Information transfer statistics',
     'Вы еще не передавали сведения за какой-либо отчет' => 'You have not yet submitted information for any report',
     'Отчет <strong>{name}</strong>: {count} сведений' => 'Report <strong>{name}</strong>: {count} details',

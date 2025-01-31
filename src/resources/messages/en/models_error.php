@@ -72,4 +72,5 @@ return [
     'Телефон обязателен' => 'Phone is required',
     'Допускается указание букв, цифр, пробела, точки и математических символов' => 'It is allowed to specify letters, numbers, spaces, dots and mathematical symbols',
     'Правило объединения в обязательном порядке должно содержать разделитель в виде символа "="' => 'The join rule must necessarily contain a separator in the form of a "=" character',
+    'Вы должны прикрепить электронный шаблон для формирования отчета' => "You must attach an electronic template to generate the report.",
 ];
