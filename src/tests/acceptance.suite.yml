@@ -1,0 +1,13 @@
+suite_namespace: frontend\tests\acceptance
+actor: AcceptanceTester
+modules:
+    enabled:
+        - WebDriver:
+            host: selenium
+            port: 4444
+            browser: firefox
+            url: http://nginx:88
+            window_size: 2560x1600
+        - Yii2:
+            part: [orm, email, fixtures]
+        - Asserts
