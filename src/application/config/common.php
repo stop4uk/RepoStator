@@ -85,7 +85,7 @@ return [
         ],
         'cache' => [
             'class' => FileCache::class,
-            'defaultDuration' => (int)env('YII_DURATION_CACHE')
+            'defaultDuration' => (int)env('YII_DURATION_CACHE', 3600)
         ],
         'queue' => [
             'class' => Queue::class,
@@ -100,30 +100,30 @@ return [
             'viewPath' => '@resources/emails',
             'useFileTransport' => false,
             'transport' => [
-                'scheme' => env('MAIL_SCHEME'),
-                'host' => env('MAIL_HOST'),
-                'username' => env('MAIL_USERNAME'),
-                'password' => env('MAIL_PASSWORD'),
-                'port' => env('MAIL_PORT'),
+                'scheme' => env('MAIL_SCHEME', 'smtp'),
+                'host' => env('MAIL_HOST', 'mailhog'),
+                'username' => env('MAIL_USERNAME', ''),
+                'password' => env('MAIL_PASSWORD', ''),
+                'port' => env('MAIL_PORT', 1125),
             ],
         ],
         'db' => [
             'class' => Connection::class,
-            'dsn' => 'mysql:host=' . env('DB_HOST') . ';port=' . env('DB_PORT') . ';dbname=' . env('DB_NAME'),
-            'username' => 'root',
-            'password' => env('DB_PASS'),
+            'dsn' => 'mysql:host=' . env('DB_HOST', '127.0.0.1') . ';port=' . env('DB_PORT', '3306') . ';dbname=' . env('DB_NAME', 'repostator'),
+            'username' => env('DB_USER', 'root'),
+            'password' => env('DB_PASS', ''),
             'charset' => 'utf8',
-            'enableSchemaCache' => (bool)env('YII_DEBUG'),
-            'schemaCacheDuration' => match ((bool)env('YII_DEBUG')) {
+            'enableSchemaCache' => !(bool)env('YII_DEBUG', true),
+            'schemaCacheDuration' => match ((bool)env('YII_DEBUG', true)) {
                 true => 0,
-                false => 3600
+                false => (int)env('YII_DURATION_CACHE', 3600)
             },
-            'schemaCache' => match ((bool)env('YII_DEBUG')) {
+            'schemaCache' => match ((bool)env('YII_DEBUG', true)) {
                 true => null,
                 false => 'cache'
             },
         ],
-        'log' =>  require __DIR__ . '/' . match ((bool)env('YII_DEBUG')) {
+        'log' =>  require __DIR__ . '/' . match ((bool)env('YII_DEBUG', true)) {
             true => 'common_logs_file.php',
             false => 'common_logs_db.php'
         },

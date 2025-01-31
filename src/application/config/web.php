@@ -10,6 +10,7 @@ use yii\{
     debug\Module as DebugModule,
     gii\Module as GiiModule
 };
+use kartik\select2\Select2Asset;
 
 use app\components\{
     bootstrap\WebBootstrap,
@@ -49,10 +50,10 @@ $config = [
         'assetManager' => [
             'appendTimestamp' => true,
             'linkAssets' => true,
-            'forceCopy' => true,
+            'forceCopy' => (bool)env('YII_DEBUG', false),
             'basePath' => '@assets',
             'bundles' => [
-                'kartik\select2\Select2Asset' => [
+                Select2Asset::class => [
                     'sourcePath' => '@resources',
                     'css' => ['assets/components/select2/css/select2.css'],
                     'js' => ['assets/components/select2/js/select2.full.js'],
@@ -92,7 +93,7 @@ $config = [
             ],
             'rules' => [
                 'profile'                                                                       => 'users/profile',
-                'profile/<action>'                                                              => 'users/profile/<action>',
+                'profile/<action:\w+>'                                                          => 'users/profile/<action>',
                 '<action:(login|logout|register)>'                                              => 'users/auth/<action>',
                 '<controller:(dashboard|send|control|statistic)>'                               => 'reports/<controller>',
                 '<controller:(dashboard|send|control|statistic)>/<action>'                      => 'reports/<controller>/<action>',
@@ -117,7 +118,7 @@ $config = [
     'params' => $params,
 ];
 
-if ((bool)env('YII_GII')) {
+if ((bool)env('YII_GII', false)) {
     $config['modules']['gii'] = [
         'class' => GiiModule::class,
         'allowedIPs' => ['*'],
@@ -126,7 +127,7 @@ if ((bool)env('YII_GII')) {
     $config['bootstrap'][] = 'gii';
 }
 
-if ((bool)env('YII_DEBUG')) {
+if ((bool)env('YII_DEBUG', false)) {
     $config['modules']['debug'] = [
         'class' => DebugModule::class,
         'panels' => [
