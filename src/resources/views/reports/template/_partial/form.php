@@ -45,6 +45,7 @@ if (!$model->getIsNewEntity() && $model->form_type == ReportFormTemplateEntity::
 $form = ActiveForm::begin([
     'id' => 'reporttemplate-form',
     'enableAjaxValidation' => true,
+    'enableClientValidation' => false,
     'validateOnSubmit' => true,
     'validateOnChange' => false,
     'validateOnBlur' => false,
