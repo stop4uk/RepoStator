@@ -164,7 +164,7 @@ final class TemplateModel extends BaseModel
             [['table_columns', 'table_rows'], 'checkDynamicValues'],
 
             ['use_appg', 'default', 'value' => 0],
-            ['table_type', 'checkLoadedFile']
+            ['form_type', 'checkLoadedFile']
         ];
     }
 
@@ -205,12 +205,10 @@ final class TemplateModel extends BaseModel
 
     public function checkLoadedFile($attribute): void
     {
-        if ($this->hasErrors()) {
-            return;
-        }
-
         if ($this->form_type == ReportFormTemplateEntity::REPORT_TYPE_TEMPLATE) {
-            $this->addError($attribute, '123');
+            if (!$this->getEntity()->getAttachedFiles(false)) {
+                $this->addError($attribute, Yii::t('models_error', 'Вы должны прикрепить электронный шаблон для формирования отчета'));
+            }
         }
     }
 }
