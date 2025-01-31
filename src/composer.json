@@ -1,10 +1,9 @@
 {
     "name": "stop4uk/repostator",
-    "description": "Reports & Statistics. Send-Form-Get. Make any report easy. A system for receiving data and generating reports",
-    "keywords": ["stop4uk", "repostator", "report", "generate report", "statistic", "getting data"],
+    "description": "RMS, RMS Repostator, Reports & Statistics. Make any report easy. A system for receiving data and generating reports",
+    "keywords": ["stop4uk", "repostator", "report", "generate report", "statistic", "getting data", "rms"],
     "homepage": "https://www.repostator.github.io",
     "type": "project",
-    "license": "BSD-3-Clause",
     "support": {
         "issues": "https://github.com/stop4uk/repostator/issues?state=open",
         "source": "https://github.com/stop4uk/repostator"
@@ -12,7 +11,7 @@
     "minimum-stability": "stable",
     "require": {
         "php": ">=8.2",
-        "yiisoft/yii2": "~2.0.45",
+        "yiisoft/yii2": "~2.0.51",
         "yiisoft/yii2-bootstrap5": "~2.0.2",
         "yiisoft/yii2-symfonymailer": "~2.0.3",
         "yiisoft/yii2-queue": "^2.3",
@@ -31,12 +30,22 @@
     "require-dev": {
         "yiisoft/yii2-debug": "~2.1.0",
         "yiisoft/yii2-gii": "~2.2.0",
-        "insolita/yii2-migration-generator": "^3.2"
+        "yiisoft/yii2-faker": "~2.0.0",
+        "insolita/yii2-migration-generator": "^3.2",
+        "symfony/browser-kit": "*",
+        "elisdn/yii2-gii-fixture-generator": "^1.1",
+        "codeception/codeception": "*",
+        "codeception/module-asserts": "*",
+        "codeception/module-yii2": "^1.1.10",
+        "codeception/module-filesystem": "*",
+        "codeception/verify": "*",
+        "codeception/module-rest": "*",
+        "codeception/module-phpbrowser": "*",
+        "codeception/module-webdriver": "^4.0"
     },
     "autoload": {
         "psr-4": {
-            "app\\": "application",
-            "stop4uk\\users\\": "application\\modules\\users"
+            "app\\": "src\\application"
         }
     },
     "config": {
