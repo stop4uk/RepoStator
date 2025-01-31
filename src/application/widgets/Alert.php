@@ -14,7 +14,7 @@ use yii\bootstrap5\{
  */
 class Alert extends Widget
 {
-    public $alertTypes = [
+    public array $alertTypes = [
         'error'   => 'alert-danger',
         'danger'  => 'alert-danger',
         'success' => 'alert-success',
@@ -22,9 +22,7 @@ class Alert extends Widget
         'warning' => 'alert-warning'
     ];
 
-    public $closeButton = [];
-
-    public function run()
+    public function run(): void
     {
         $session = Yii::$app->session;
         $appendClass = isset($this->options['class']) ? ' ' . $this->options['class'] : '';
