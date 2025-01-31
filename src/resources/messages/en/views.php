@@ -221,4 +221,5 @@ return [
     'Восстановить' => 'Restore',
     'Назад' => 'Go back',
     'Описание' => 'Description',
+    'Важных напоминаний и уведомлений нет' => 'There are no important reminders or notifications',
 ];
