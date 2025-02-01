@@ -20,18 +20,16 @@ $form = ActiveForm::begin([
 ]);
 ?>
 <div class="row">
-    <div class="col-6">
+    <div class="col-12 col-md-6">
         <?= $form->field($userPasswordChangeForm, 'password')->passwordInput(); ?>
     </div>
-    <div class="col-6">
+    <div class="col-12 col-md-6">
         <?= $form->field($userPasswordChangeForm, 'verifyPassword')->passwordInput(); ?>
     </div>
 </div>
 <div class="row">
     <div class="col-12">
-        <div class="d-grid gap-2">
-            <?= Html::submitButton(Yii::t('views', 'Сменить пароль'), ['class' => 'btn btn-lg btn-primary']); ?>
-        </div>
+        <?= Html::submitButton(Yii::t('views', 'Сменить пароль'), ['class' => 'btn btn-lg btn-primary w-100']); ?>
     </div>
 </div>
 <?php

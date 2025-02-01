@@ -43,16 +43,14 @@ $form = ActiveForm::begin([
             ]); ?>
         </div>
         <div class="col-12 col-xl-8 col-xxl-12">
-            <div class="d-grid gap-2">
-                <label class="form-label mb-0 d-none d-xl-block d-xxl-none">&nbsp</label>
-                <?= Html::submitButton(Yii::t('views', 'Обновить'), ['class' => 'btn btn-primary']); ?>
-            </div>
+            <label class="form-label mb-0 d-none d-xl-block d-xxl-none">&nbsp</label>
+            <?= Html::submitButton(Yii::t('views', 'Обновить'), ['class' => 'btn btn-primary w-100']); ?>
         </div>
     </div>
 <?php ActiveForm::end(); ?>
-    <div class="row mt-2">
+    <div class="row mt-3">
         <?php if ($userCanChangeEmail ): ?>
-            <div class="col-6">
+            <div class="col-12 mb-2 mb-md-0 col-md-6">
                 <?php
                     Modal::begin([
                         'title' => Yii::t('views', 'Смена Email адреса'),
@@ -66,7 +64,7 @@ $form = ActiveForm::begin([
                 ?>
             </div>
         <?php endif; ?>
-        <div class="col-<?= $userCanChangeEmail ? '6' : '12' ?>">
+        <div class="<?= $userCanChangeEmail ? 'col-12 col-md-6' : 'col-12' ?>">
             <?php
                 Modal::begin([
                     'title' => Yii::t('views', 'Обновление пароля'),
