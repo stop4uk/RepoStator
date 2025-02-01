@@ -10,7 +10,7 @@ use yii\bootstrap5\ActiveForm;
 
 use app\components\base\BaseController;
 use app\modules\users\{
-    forms\auth\RecoveryForm,
+    forms\RecoveryForm,
     services\AuthService
 };
 
