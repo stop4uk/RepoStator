@@ -104,7 +104,7 @@ return [
                 'host' => env('MAIL_HOST', 'mailhog'),
                 'username' => env('MAIL_USERNAME', ''),
                 'password' => env('MAIL_PASSWORD', ''),
-                'port' => env('MAIL_PORT', 1125),
+                'port' => (int)env('MAIL_PORT', 1025),
             ],
         ],
         'db' => [
