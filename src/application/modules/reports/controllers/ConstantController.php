@@ -73,7 +73,7 @@ final class ConstantController extends BaseController
                         },
                     ],
                     [
-                        'actions' => ['create', 'createmass', 'assConstant', 'deleteConstant'],
+                        'actions' => ['create', 'createmass', 'addconstant', 'deleteconstant'],
                         'allow' => true,
                         'roles' => [Permissions::CONSTANT_CREATE],
                     ],
@@ -210,13 +210,13 @@ final class ConstantController extends BaseController
                 'service' => $this->service,
                 'exceptionMessage' => 'Запрашиваемая константа не найдена, или недоступна'
             ],
-            'addConstant' => [
+            'addconstant' => [
                 'class' => AddAction::class,
                 'model' => ConstantModel::class,
                 'constructClass' => ReportConstantEntity::class,
                 'contentPath' => '@resources/views/reports/constant/_partial/form_generateItems',
             ],
-            'deleteConstant' => [
+            'deleteconstant' => [
                 'class' => RepeaterDeleteAction::class,
             ],
         ];
