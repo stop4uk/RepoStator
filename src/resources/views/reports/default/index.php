@@ -1,5 +1,6 @@
 <?php
 
+use DateTime;
 use yii\grid\ActionColumn;
 use yii\helpers\Url;
 use yii\widgets\Pjax;
@@ -48,9 +49,7 @@ $this->title = Yii::t('views', 'Список отчетов');
                 'columns' => [
                     [
                         'attribute' => 'name',
-                        'headerOptions' => [
-                            'width' => '60%'
-                        ],
+                        'headerOptions' => ['style' => 'min-width: 20rem; width: 50%'],
                         'format' => 'raw',
                         'value' => function($data) {
                             $resultString = Html::tag('i', '', [
@@ -79,10 +78,11 @@ $this->title = Yii::t('views', 'Список отчетов');
                     [
                         'label' => null,
                         'format' => 'html',
+                        'headerOptions' => ['style' => 'min-width: 12rem'],
                         'value' => function($data) {
                             if ($data->left_period) {
-                                $zero = new \DateTime('@0');
-                                $offset = new \DateTime('@' . $data->left_period * 60);
+                                $zero = new DateTime('@0');
+                                $offset = new DateTime('@' . $data->left_period * 60);
                                 $diffs = explode('.', $zero->diff($offset)->format('%m.%d.%h.%i'));
                                 $resultString = '';
 
@@ -121,9 +121,7 @@ $this->title = Yii::t('views', 'Список отчетов');
                     ],
                     [
                         'label' => null,
-                        'headerOptions' => [
-                            'width' => '8%'
-                        ],
+                        'headerOptions' => ['style' => 'min-width: 12rem'],
                         'format' => 'raw',
                         'value' => function($data) {
                             $resultString = '';
@@ -152,7 +150,7 @@ $this->title = Yii::t('views', 'Список отчетов');
                     [
                         'class' => ActionColumn::class,
                         'header' => false,
-                        'headerOptions' => ['width' => '10%'],
+                        'headerOptions' => ['style' => 'min-width: 6rem; width: 10%'],
                         'contentOptions' => ['class' => 'text-center'],
                         'template' => '{view} {edit} {delete}',
                         'buttons' => [

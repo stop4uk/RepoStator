@@ -1,11 +1,8 @@
 <?php
 
-use yii\bootstrap5\{
-    Html,
-    ActiveForm
-};
+use app\widgets\summernote\Summernote;
 use kartik\select2\Select2;
-use mihaildev\ckeditor\CKEditor;
+use yii\bootstrap5\{ActiveForm, Html};
 
 /**
  * @var \app\modules\reports\models\ReportModel $model
@@ -49,24 +46,10 @@ $form = ActiveForm::begin([
                 'создания отчета до часа создания отчета. Например, <strong>при ВКЛЮЧЕННОЙ настройке и времени создания отчета как 01.01.2024 15:33, ' .
                 'время расчета будет начинаться с 01.01.2024 00:00, а при ВЫКЛЮЧЕННОЙ настройке, с 15:00</strong>'), ['class' => 'form-text text-justify']);
             ?>
-        </strong>
-    </div>
-
-    <div class="row">
-        <div class="col-12">
-            <?= $form->field($model, 'description')->widget(CKEditor::class, [
-                'editorOptions' => [
-                    'toolbarGroups' => [
-                        ['name' => 'basicstyles', 'groups' => ['basicstyles', 'cleanup']],
-                        ['name' => 'paragraph', 'groups' => ['templates', 'list', 'indent', 'align']],
-                        ['name' => 'clipboard', 'groups' => ['undo', 'selection', 'clipboard']],
-                    ],
-                ],
-            ]); ?>
         </div>
-    </div>
-
-    <div class="row">
+        <div class="col-12">
+            <?= $form->field($model, 'description')->widget(Summernote::class); ?>
+        </div>
         <div class="col-12">
             <?= $form->field($model, 'groups_only')->widget(Select2::class, [
                 'data' => $model->groupsCanSent,
@@ -87,11 +70,8 @@ $form = ActiveForm::begin([
                 'pluginOptions' => ['allowClear' => true],
             ]); ?>
         </div>
-    </div>
-
-    <div class="row mt-4">
-        <div class="col-12 mb-2 d-grid">
-            <?= Html::submitButton(Yii::t('views', $model->getIsNewEntity() ? 'Добавить' : 'Обновить'), ['class' => 'btn btn-primary']); ?>
+        <div class="col-12">
+            <?= Html::submitButton(Yii::t('views', $model->getIsNewEntity() ? 'Добавить' : 'Обновить'), ['class' => 'btn btn-primary w-100 mb-2']); ?>
         </div>
     </div>
 <?php
