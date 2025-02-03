@@ -5,7 +5,8 @@ use yii\bootstrap5\{
     ActiveForm
 };
 use kartik\select2\Select2;
-use mihaildev\ckeditor\CKEditor;
+
+use app\widgets\summernote\Summernote;
 
 /**
  * @var \app\modules\reports\models\ConstantModel $model
@@ -33,15 +34,7 @@ $form = ActiveForm::begin([
 
     <div class="row">
         <div class="col-12">
-            <?= $form->field($model, 'description')->widget(CKEditor::class, [
-                'editorOptions' => [
-                    'toolbarGroups' => [
-                        ['name' => 'basicstyles', 'groups' => ['basicstyles', 'cleanup']],
-                        ['name' => 'paragraph', 'groups' => ['templates', 'list', 'indent', 'align']],
-                        ['name' => 'clipboard', 'groups' => ['undo', 'selection', 'clipboard']],
-                    ],
-                ],
-            ]); ?>
+            <?= $form->field($model, 'description')->widget(Summernote::class); ?>
         </div>
     </div>
 

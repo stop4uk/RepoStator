@@ -12,7 +12,6 @@ use app\modules\users\components\rbac\{
     RbacHelper
 };
 
-
 /**
  * @var \app\modules\reports\search\ConstantSearch $searchModel
  * @var \yii\data\ActiveDataProvider $dataProvider
@@ -21,10 +20,11 @@ use app\modules\users\components\rbac\{
 $this->title = Yii::t('views', 'Список констант');
 
 ?>
-    <div class="d-flex justify-content-end mb-2">
+    <div class="d-grid d-md-flex justify-content-md-end gap-2 gap-md-0 mb-2">
         <?php
             if (Yii::$app->getUser()->can(Permissions::CONSTANT_CREATE)) {
-                echo Html::a(Yii::t('views', 'Новая константа'), ['create'], ['class' => 'btn btn-primary pt-1 pb-1 me-2']);
+                echo Html::a(Yii::t('views', 'Новая константа'), ['create'], ['class' => 'btn btn-primary me-md-1']);
+                echo Html::a(Yii::t('views', 'Групповое добавление'), ['createmass'], ['class' => 'btn btn-dark me-md-2']);
             }
 
             echo Html::tag('i', '', [
@@ -47,9 +47,7 @@ $this->title = Yii::t('views', 'Список констант');
                 'columns' => [
                     [
                         'attribute' => 'name',
-                        'headerOptions' => [
-                            'width' => '60%'
-                        ],
+                        'headerOptions' => ['style' => 'min-width: 20rem; width: 60%'],
                         'format' => 'raw',
                         'value' => function($data) {
                             $resultString = Html::tag('i', '', [
@@ -86,9 +84,7 @@ $this->title = Yii::t('views', 'Список констант');
                     ],
                     [
                         'label' => null,
-                        'headerOptions' => [
-                            'width' => '8%'
-                        ],
+                        'headerOptions' => ['style' => 'min-width: 12rem; width: 10%'],
                         'format' => 'raw',
                         'value' => function($data) {
                             $resultString = '';
@@ -117,7 +113,7 @@ $this->title = Yii::t('views', 'Список констант');
                     [
                         'class' => ActionColumn::class,
                         'header' => false,
-                        'headerOptions' => ['width' => '10%'],
+                        'headerOptions' => ['style' => 'min-width: 6rem; width: 10%'],
                         'contentOptions' => ['class' => 'text-center'],
                         'template' => '{view} {edit} {delete}',
                         'buttons' => [
