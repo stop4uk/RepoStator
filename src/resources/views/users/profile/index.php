@@ -109,7 +109,8 @@ $this->title = Yii::t('views', 'Профиль');
             </div>
         </div>
 
-        <div class="card">
+        <?php if ($emailchangesDataProvider->getTotalCount()): ?>
+            <div class="card">
             <div class="card-header">
                 <h5 class="card-title mb-0">
                     <?= Yii::t('views', 'Заявки на смену Email') ?>
@@ -118,6 +119,7 @@ $this->title = Yii::t('views', 'Профиль');
             <div class="card-body">
                 <?php
                     Pjax::begin(['id' => 'emailchangesList', 'enablePushState' => false, 'clientOptions' => ['method' => 'POST']]);
+
                         echo GridView::widget([
                             'dataProvider' => $emailchangesDataProvider,
                             'emptyText' => Yii::t('views', 'Активные заявки отсутствуют'),
@@ -160,6 +162,7 @@ $this->title = Yii::t('views', 'Профиль');
                 ?>
             </div>
         </div>
+        <?php endif; ?>
 
         <div class="card">
             <div class="card-body">
