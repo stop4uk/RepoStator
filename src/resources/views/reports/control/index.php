@@ -25,7 +25,7 @@ $this->title = Yii::t('views', 'Контроль за передачей');
 
 ?>
 
-    <div class="d-flex justify-content-end mb-2">
+    <div class="d-grid d-md-flex justify-content-md-end gap-2 gap-md-0 mb-2">
         <?php
             if (Yii::$app->getUser()->can(Permissions::DATA_CHECKFULL)) {
                 Modal::begin([
@@ -33,7 +33,7 @@ $this->title = Yii::t('views', 'Контроль за передачей');
                     'title' => Yii::t('views', 'Выбор отчета для проверки'),
                     'toggleButton' => [
                         'label' => Yii::t('views', 'Проверка полноты'),
-                        'class' => 'btn btn-primary pt-1 pb-1 me-2'
+                        'class' => 'btn btn-primary me-md-1'
                     ],
                 ]);
                 echo $this->render('_partial/checkFull', [
@@ -49,7 +49,7 @@ $this->title = Yii::t('views', 'Контроль за передачей');
                     'title' => Yii::t('views', 'Заполнение отчета за конкретный период'),
                     'toggleButton' => [
                         'label' => Yii::t('views', 'Передача старых данных'),
-                        'class' => 'btn btn-dark pt-1 pb-1 me-2'
+                        'class' => 'btn btn-dark me-md-2'
                     ],
                 ]);
                 echo $this->render('_partial/form_createdFor', [

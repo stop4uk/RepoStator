@@ -28,7 +28,7 @@ $form = ActiveForm::begin([
 ]);
 ?>
     <div class="row">
-        <div class="col-4">
+        <div class="col-12 col-lg-4">
             <?= $form->field($model, 'group')->widget(Select2::class, [
                 'data' => $model->groups,
                 'options' => [
@@ -37,7 +37,7 @@ $form = ActiveForm::begin([
                 ],
             ]); ?>
         </div>
-        <div class="col-4">
+        <div class="col-12 col-lg-4">
             <?= $form->field($model, 'report')->widget(Select2::class, [
                 'data' => $model->reports,
                 'options' => [
@@ -58,7 +58,7 @@ $form = ActiveForm::begin([
                 ]
             ]); ?>
         </div>
-        <div class="col-4">
+        <div class="col-12 col-lg-4">
             <?= $form->field($model, 'period')->widget(Select2::class, [
                 'data' => [],
                 'options' => [
@@ -70,11 +70,9 @@ $form = ActiveForm::begin([
                 'pluginOptions' => ['allowClear' => true],
             ]); ?>
         </div>
-        <div class="col-12">
-            <div class="d-grid gap-2">
-                <?= Html::submitButton(Yii::t('views', 'Передать'), ['class' => 'btn btn-primary']); ?>
-            </div>
-        </div>
+    </div>
+    <div class="d-grid gap-2">
+        <?= Html::submitButton(Yii::t('views', 'Передать'), ['class' => 'btn btn-primary']); ?>
     </div>
 <?php
 
