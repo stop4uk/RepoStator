@@ -7,6 +7,9 @@ use yii\bootstrap5\Html;
  * @var int $k
  * @var array $model
  * @var mixed $additionalInformation
+ * @var string $buttonDeletePlaceBlock
+ * @var string $buttonDeleteName
+ * @var string|null $buttonDeleteClasses
  */
 
 ?>
@@ -24,7 +27,7 @@ use yii\bootstrap5\Html;
 
         echo $content;
     ?>
-    <div class="col-1" id="buttonDeleteBlock_<?= $widgetID ?? null ?>">
-        <?= Html::button('<i class="bi bi-trash"></i>', ['class' => 'remove btn btn-danger']);?>
+    <div class="col-1" class="<?= $buttonDeletePlaceBlock . '_' . $widgetID ?>"  id="buttonDeleteBlock_<?= $widgetID ?>">
+        <?= Html::button($buttonDeleteName, ['class' => 'remove ' . $buttonDeleteClasses]);?>
     </div>
 </div>

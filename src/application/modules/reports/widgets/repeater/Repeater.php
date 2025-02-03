@@ -77,17 +77,17 @@ class Repeater extends Widget
     /**
      * @return string
      */
-    public $buttonDeleteName;
+    public string $buttonDeleteName = '<i class="bi bi-trash"></i>';
 
     /**
      * @return string
      */
-    public $buttonPlaceBlock = 'col-md-2 offset-md-10';
+    public string $buttonPlaceBlock = 'col-md-2 offset-md-10';
 
     /**
      * @return string
      */
-    public $buttonDeletePlaceBlock = 'col-md-1 text-center';
+    public string $buttonDeletePlaceBlock = 'col-md-1 text-center';
 
     /**
      * @return int|string|null

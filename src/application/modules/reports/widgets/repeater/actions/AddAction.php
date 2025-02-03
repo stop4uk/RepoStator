@@ -48,22 +48,30 @@ class AddAction extends Action
 
     public function run()
     {
-        if ($this->constructClass) {
-            $model = new $this->model(new $this->constructClass);
-        } else {
-            $model = new $this->model();
-        }
-
         $this->controller->viewPath = dirname(__DIR__) . '/views';
-        $id = Yii::$app->request->post('id');
-        $additionalField = Yii::$app->request->post('additionalField');
-        $buttonDeleteData = Yii::$app->request->post('buttonDeleteData');
+        $model = is_array($this->model)
+            ? $this->model
+            : ($this->constructClass
+                ? new $this->model(new $this->constructClass)
+                : new $this->model()
+            );
 
-        return $this->controller->renderAjax('repeater', [
+
+        $id = Yii::$app->request->post('id');
+        $widgetID = Yii::$app->request->post('widgetID');
+        $template = Yii::$app->request->post('template') ?: 'div';
+        $buttonDeleteData = Yii::$app->request->post('buttonDeleteData');
+        $additionalField = Yii::$app->request->post('additionalField');
+        $additionalInformation = Yii::$app->request->post('additionalInformation');
+
+        return $this->controller->renderAjax('repeater_' . $template, [
             'k' => $id,
             'model' => $model,
+            'widgetID' => $widgetID,
+            'template' => $template,
             'contentPath' => $this->contentPath,
             'additionalField' => $additionalField,
+            'additionalInformation' => $additionalInformation,
             'buttonDeletePlaceBlock' => $buttonDeleteData['buttonDeletePlaceBlock'],
             'buttonDeleteName' => $buttonDeleteData['buttonDeleteName'],
             'buttonDeleteClasses' => $buttonDeleteData['buttonDeleteClasses']

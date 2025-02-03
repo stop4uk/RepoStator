@@ -34,7 +34,13 @@ var repeater = function () {};
                 widgetID: widgetID,
                 template: template,
                 additionalInformation: additionalInformation,
-                additionalData: $('.repeater-item_' + widgetID).find('input,select,textarea').serialize()
+                additionalData: $('.repeater-item_' + widgetID).find('input,select,textarea').serialize(),
+                additionalField: $('#additionalField_' + widgetID).val() ?? '',
+                buttonDeleteData: {
+                    'buttonDeleteName': $('.repeater-item_' + widgetID + ' .remove').text() ?? '',
+                    'buttonDeleteClasses': $('.repeater-item_' + widgetID + ' .remove').attr('class') ?? '',
+                    'buttonDeletePlaceBlock': $("#buttonDeleteBlock_" + widgetID).attr("class") ?? ''
+                }
             };
 
             data[yii.getCsrfParam()]=yii.getCsrfToken();
@@ -60,7 +66,13 @@ var repeater = function () {};
                     widgetID: widgetID,
                     template: template,
                     additionalInformation: additionalInformation,
-                    additionalData: $('.repeater-item_' + widgetID).find('input,select,textarea').serialize()
+                    additionalData: $('.repeater-item_' + widgetID).find('input,select,textarea').serialize(),
+                    additionalField: $('#additionalField_' + widgetID).val(),
+                    buttonDeleteData: {
+                        'buttonDeleteName': $('.repeater-item_' + widgetID + ' .remove').html(),
+                        'buttonDeleteClasses': $('.repeater-item_' + widgetID + ' .remove').attr('class'),
+                        'buttonDeletePlaceBlock': $("#buttonDeleteBlock_" + widgetID).attr("class")
+                    }
                 };
 
             data[yii.getCsrfParam()]=yii.getCsrfToken();
