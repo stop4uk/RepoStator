@@ -32,11 +32,13 @@ $this->title = Yii::t('views', 'Статистика');
                     [
                         'attribute' => 'job_status',
                         'format' => 'html',
+                        'headerOptions' => ['style' => 'min-width: 8rem'],
                         'value' => fn($data) => JobHelper::statusNameInColor($data->job_status)
                     ],
                     [
                         'attribute' => 'template_id',
                         'format' => 'html',
+                        'headerOptions' => ['style' => 'min-width: 8rem'],
                         'value' => function($data) {
                             $value = $data->template->name . Html::tag('span', ' #' . $data->report->name, ['class' => 'small text-muted']) . '<br />';
                             $value .= $data->form_period;
@@ -47,17 +49,19 @@ $this->title = Yii::t('views', 'Статистика');
                     [
                         'attribute' => 'created_at',
                         'contentOptions' => ['class' => 'small'],
+                        'headerOptions' => ['style' => 'min-width: 12rem'],
                         'format' => ['date', Yii::$app->settings->get('system', 'app_language_dateTime')]
                     ],
                     [
                         'attribute' => 'updated_at',
                         'contentOptions' => ['class' => 'small'],
+                        'headerOptions' => ['style' => 'min-width: 12rem'],
                         'format' => ['date', Yii::$app->settings->get('system', 'app_language_dateTime')]
                     ],
                     [
                         'class' => ActionColumn::class,
                         'header' => false,
-                        'headerOptions' => ['width' => '10%'],
+                        'headerOptions' => ['style' => 'min-width: 6rem'],
                         'contentOptions' => ['class' => 'text-center'],
                         'template' => '{download}',
                         'buttons' => [

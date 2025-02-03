@@ -33,7 +33,7 @@ $form = ActiveForm::begin([
 
 ?>
     <div class="row">
-        <div class="col-4">
+        <div class="col-12 col-md-4">
             <?= $form->field($model, 'report')->widget(Select2::class, [
                 'data' => $model->reports,
                 'options' => ['placeholder' => '', 'multiple' => false],
@@ -48,7 +48,7 @@ $form = ActiveForm::begin([
                 ],
             ]); ?>
         </div>
-        <div class="col-4">
+        <div class="col-12 col-md-4">
             <?= $form->field($model, 'template')->widget(Select2::class, [
                 'data' => [],
                 'options' => [
@@ -67,7 +67,7 @@ $form = ActiveForm::begin([
                 ],
             ]); ?>
         </div>
-        <div class="col-4">
+        <div class="col-12 col-md-4">
             <?php
                 $format = str_replace('php:', '', Yii::$app->settings->get('system', 'app_language_date'));
 
@@ -91,12 +91,8 @@ $form = ActiveForm::begin([
         </div>
     </div>
 
-    <div class="row">
-        <div class="col-12">
-            <div class="d-grid gap-2">
-                <?= Html::submitButton(Yii::t('views', 'Сформировать'), ['class' => 'btn btn-lg btn-primary']); ?>
-            </div>
-        </div>
+    <div class="d-grid gap-2">
+        <?= Html::submitButton(Yii::t('views', 'Сформировать'), ['class' => 'btn btn-lg btn-primary w-100']); ?>
     </div>
 <?php
 ActiveForm::end();
