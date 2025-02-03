@@ -1,8 +1,12 @@
 <?php
 
-use app\widgets\summernote\Summernote;
 use kartik\select2\Select2;
-use yii\bootstrap5\{ActiveForm, Html};
+use yii\bootstrap5\{
+    ActiveForm,
+    Html
+};
+
+use app\widgets\summernote\Summernote;
 
 /**
  * @var \app\modules\reports\models\ReportModel $model
