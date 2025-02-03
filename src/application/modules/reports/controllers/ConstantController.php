@@ -2,6 +2,8 @@
 
 namespace app\modules\reports\controllers;
 
+use Yii;
+use yii\web\Response;
 use yii\filters\AccessControl;
 use yii\helpers\Url;
 
@@ -21,7 +23,9 @@ use app\modules\reports\{
     models\ConstantModel,
     repositories\ConstantRepository,
     services\ConstantService,
-    search\ConstantSearch
+    search\ConstantSearch,
+    widgets\repeater\actions\AddAction,
+    widgets\repeater\actions\DeleteAction as RepeaterDeleteAction
 };
 use app\modules\users\components\rbac\items\Permissions;
 
@@ -69,7 +73,7 @@ final class ConstantController extends BaseController
                         },
                     ],
                     [
-                        'actions' => ['create'],
+                        'actions' => ['create', 'createmass', 'assConstant', 'deleteConstant'],
                         'allow' => true,
                         'roles' => [Permissions::CONSTANT_CREATE],
                     ],
@@ -206,6 +210,47 @@ final class ConstantController extends BaseController
                 'service' => $this->service,
                 'exceptionMessage' => 'Запрашиваемая константа не найдена, или недоступна'
             ],
+            'addConstant' => [
+                'class' => AddAction::class,
+                'model' => ConstantModel::class,
+                'constructClass' => ReportConstantEntity::class,
+                'contentPath' => '@resources/views/reports/constant/_partial/form_generateItems',
+            ],
+            'deleteConstant' => [
+                'class' => RepeaterDeleteAction::class,
+            ],
         ];
+    }
+
+    public function actionCreatemass(): string|Response
+    {
+        $request = $this->request;
+        $models = [];
+        $errors = [];
+
+        if ($request->isPost) {
+            $post = $request->post();
+            $formData = $post['ConstantModel'];
+
+            foreach (array_keys($formData) as $index) {
+                $models[$index] = new ConstantModel(new ReportConstantEntity());
+            }
+
+            if (!empty($models) && (ConstantModel::loadMultiple($models, $post, 'ConstantModel'))) {
+                if (ConstantModel::validateMultiple($models)) {
+                    foreach ($models as $model) {
+                        $this->service->save($model, 'Reports.Constant', 'При обработке константы возникли ошибки. Пожалуйста, обратитесь к администратору');
+                    }
+
+                    Yii::$app->getSession()->setFlash('success', 'Константы успешно добавлены');
+                    return $this->redirect('/constant');
+                }
+            }
+        }
+
+        return $this->render('createMass', [
+            'models' => empty($models) ? [new ConstantModel(new ReportConstantEntity())] : $models,
+            'errors' => $errors,
+        ]);
     }
 }
