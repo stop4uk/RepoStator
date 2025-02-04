@@ -164,7 +164,7 @@ $this->title = Yii::t('views', 'Список правил');
                                     'constantRule.edit.all',
                                 ];
 
-                                return RbacHelper::canArray($rolesArray, $ruleArray);
+                                return $model->record_status && RbacHelper::canArray($rolesArray, $ruleArray);
                             },
                             'delete' => function($model){
                                 $ruleArray = $model->toArray(['created_uid', 'created_gid', 'record_status']);
@@ -174,7 +174,7 @@ $this->title = Yii::t('views', 'Список правил');
                                     'constantRule.delete.all',
                                 ];
 
-                                return RbacHelper::canArray($rolesArray, $ruleArray);
+                                return $model->record_status && RbacHelper::canArray($rolesArray, $ruleArray);
                             }
                         ]
                     ],
