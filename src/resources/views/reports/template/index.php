@@ -50,9 +50,7 @@ $this->title = Yii::t('views', 'Список шаблонов');
                 'columns' => [
                     [
                         'attribute' => 'name',
-                        'headerOptions' => [
-                            'width' => '60%'
-                        ],
+                        'headerOptions' => ['style' => 'min-width: 18rem; width: 60%'],
                         'format' => 'raw',
                         'value' => function($data) {
                             return Html::tag('i', '', [
@@ -65,7 +63,8 @@ $this->title = Yii::t('views', 'Список шаблонов');
                     ],
                     [
                         'label' => null,
-                        'format' => 'html',
+                        'format' => 'raw',
+                        'headerOptions' => ['style' => 'width: 4rem;'],
                         'value' => function($data) {
                             $datetime = match ($data->form_datetime) {
                                 ReportFormTemplateEntity::REPORT_DATETIME_WEEK => ['icon' => 'calendar-day', 'message' => Yii::t('views', 'Неделя')],
@@ -75,7 +74,7 @@ $this->title = Yii::t('views', 'Список шаблонов');
 
 
                             return Html::tag('i', '', [
-                                'class' => "bi bi-{$datetime['icon']} me-2",
+                                'class' => 'bi bi-' . $datetime['icon'],
                                 'data-bs-toggle' => 'tooltip',
                                 'data-bs-placement' => 'bottom',
                                 'title' => Yii::t('views', "Период расчета: {period}", ['period' => $datetime['message']]),
@@ -84,16 +83,14 @@ $this->title = Yii::t('views', 'Список шаблонов');
                     ],
                     [
                         'label' => null,
-                        'headerOptions' => [
-                            'width' => '8%'
-                        ],
+                        'headerOptions' => ['style' => 'width: 6rem'],
                         'format' => 'raw',
                         'value' => function($data) {
                             $resultString = '';
 
                             if ($data->use_appg) {
                                 $resultString .= Html::tag('i', '', [
-                                    'class' => 'bi bi-alarm me-2',
+                                    'class' => 'bi bi-alarm me-1',
                                     'data-bs-toggle' => 'tooltip',
                                     'data-bs-placement' => 'bottom',
                                     'title' => Yii::t('views', 'Сравнение с АППГ'),
@@ -102,7 +99,7 @@ $this->title = Yii::t('views', 'Список шаблонов');
 
                             if ($data->form_type == ReportFormTemplateEntity::REPORT_TYPE_TEMPLATE) {
                                 $resultString .= Html::tag('i', '', [
-                                    'class' => 'bi bi-file-earmark-spreadsheet me-2',
+                                    'class' => 'bi bi-file-earmark-spreadsheet',
                                     'data-bs-toggle' => 'tooltip',
                                     'data-bs-placement' => 'bottom',
                                     'title' => Yii::t('views', 'Формируется из шаблона'),
@@ -124,7 +121,7 @@ $this->title = Yii::t('views', 'Список шаблонов');
                     [
                         'class' => ActionColumn::class,
                         'header' => false,
-                        'headerOptions' => ['width' => '10%'],
+                        'headerOptions' => ['style' => 'min-width: 6rem; width: 8%'],
                         'contentOptions' => ['class' => 'text-center'],
                         'template' => '{view} {edit} {delete}',
                         'buttons' => [
