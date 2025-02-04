@@ -1,6 +1,5 @@
 <?php
 
-use DateTime;
 use yii\grid\ActionColumn;
 use yii\helpers\Url;
 use yii\widgets\Pjax;
@@ -49,7 +48,7 @@ $this->title = Yii::t('views', 'Список отчетов');
                 'columns' => [
                     [
                         'attribute' => 'name',
-                        'headerOptions' => ['style' => 'min-width: 20rem; width: 50%'],
+                        'headerOptions' => ['style' => 'min-width: 18rem; width: 30%'],
                         'format' => 'raw',
                         'value' => function($data) {
                             $resultString = Html::tag('i', '', [
@@ -81,8 +80,8 @@ $this->title = Yii::t('views', 'Список отчетов');
                         'headerOptions' => ['style' => 'min-width: 12rem'],
                         'value' => function($data) {
                             if ($data->left_period) {
-                                $zero = new DateTime('@0');
-                                $offset = new DateTime('@' . $data->left_period * 60);
+                                $zero = new \DateTime('@0');
+                                $offset = new \DateTime('@' . $data->left_period * 60);
                                 $diffs = explode('.', $zero->diff($offset)->format('%m.%d.%h.%i'));
                                 $resultString = '';
 
@@ -112,16 +111,16 @@ $this->title = Yii::t('views', 'Список отчетов');
                                     $resultString .= Html::tag(
                                         'span',
                                         Yii::t('views', 'Закрывается за {n, plural, =1{1 минуту} one{# минуту} few{# минуты} many{# минут} other{# минут}}', ['n' => $data->block_minutes]),
-                                        ['class' => 'me-1 mb-1 d-inline badge bg-danger']);
+                                        ['class' => 'badge bg-danger']);
                                 }
 
-                                return $resultString;
+                                return Html::tag('div', $resultString, ['class' => 'd-grid gap-2']);
                             }
                         }
                     ],
                     [
                         'label' => null,
-                        'headerOptions' => ['style' => 'min-width: 12rem'],
+                        'headerOptions' => ['style' => 'min-width: 4rem'],
                         'format' => 'raw',
                         'value' => function($data) {
                             $resultString = '';
