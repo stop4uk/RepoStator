@@ -22,10 +22,10 @@ use app\modules\users\components\rbac\{
 $this->title = Yii::t('views', 'Список шаблонов');
 
 ?>
-    <div class="d-flex justify-content-end mb-2">
+    <div class="d-grid d-md-flex justify-content-md-end gap-2 gap-md-0 mb-2">
         <?php
             if (Yii::$app->getUser()->can(Permissions::TEMPLATE_CREATE)) {
-                echo Html::a(Yii::t('views', 'Новый шаблон'), ['create'], ['class' => 'btn btn-primary pt-1 pb-1 me-2']);
+                echo Html::a(Yii::t('views', 'Новый шаблон'), ['create'], ['class' => 'btn btn-primary me-md-2']);
             }
 
             echo Html::tag('i', '', [
