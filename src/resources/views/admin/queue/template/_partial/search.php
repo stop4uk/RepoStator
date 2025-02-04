@@ -76,16 +76,12 @@ $resource = Url::to(['/admin/queue/template']);
                 ]); ?>
             </div>
             <div class="col-6 col-xxl-3">
-                <div class="d-grid gap-2">
-                    <label class="form-label mb-0 d-none d-xxl-block">&nbsp;</label>
-                    <?= Html::submitButton(Yii::t('views', 'Поиск'), ['class' => 'btn btn-dark']) ?>
-                </div>
+                <label class="form-label d-none d-xxl-block">&nbsp;</label>
+                <?= Html::submitButton(Yii::t('views', 'Поиск'), ['class' => 'btn btn-dark w-100']) ?>
             </div>
             <div class="col-6 col-xxl-3">
-                <div class="d-grid gap-2">
-                    <label class="form-label mb-0 d-none d-xxl-block">&nbsp;</label>
-                    <?= Html::a(Yii::t('views', 'Очистить'), $resource, ['class' => 'btn btn-danger']) ?>
-                </div>
+                <label class="form-label d-none d-xxl-block">&nbsp;</label>
+                <?= Html::a(Yii::t('views', 'Очистить'), $resource, ['class' => 'btn btn-danger w-100']) ?>
             </div>
         </div>
         <?php ActiveForm::end(); ?>

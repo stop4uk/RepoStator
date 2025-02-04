@@ -59,14 +59,10 @@ $resource = Url::to(['/admin/queue']);
                 ]); ?>
             </div>
             <div class="col-6">
-                <div class="d-grid gap-2">
-                    <?= Html::submitButton(Yii::t('views', 'Поиск'), ['class' => 'btn btn-dark']) ?>
-                </div>
+                <?= Html::submitButton(Yii::t('views', 'Поиск'), ['class' => 'btn btn-dark w-100']) ?>
             </div>
             <div class="col-6">
-                <div class="d-grid gap-2">
-                    <?= Html::a(Yii::t('views', 'Очистить'), $resource, ['class' => 'btn btn-danger']) ?>
-                </div>
+                <?= Html::a(Yii::t('views', 'Очистить'), $resource, ['class' => 'btn btn-danger w-100']) ?>
             </div>
         </div>
         <?php ActiveForm::end(); ?>

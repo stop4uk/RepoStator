@@ -15,7 +15,7 @@ use app\modules\reports\helpers\JobHelper;
 $this->title = Yii::t('views', 'Очередь отчетов');
 
 ?>
-    <div class="d-flex justify-content-end mb-2">
+    <div class="d-grid d-md-flex justify-content-md-end gap-2 gap-md-0 mb-2">
         <?= Html::tag('i', '', [
             'id' => 'searchCardButton',
             'class' => 'btn btn-danger bi bi-funnel',
@@ -25,7 +25,7 @@ $this->title = Yii::t('views', 'Очередь отчетов');
         ]); ?>
     </div>
 
-<?php Pjax::begin(['id' => 'queueTemplateList', 'enablePushState' => false, 'clientOptions' => ['method' => 'POST']]); ?>
+    <?php Pjax::begin(['id' => 'queueTemplateList', 'enablePushState' => false, 'clientOptions' => ['method' => 'POST']]); ?>
     <?= $this->render('_partial/search', ['searchModel' => $searchModel]); ?>
     <div class="card">
         <div class="card-body pt-0">
@@ -35,32 +35,37 @@ $this->title = Yii::t('views', 'Очередь отчетов');
                 'columns' => [
                     [
                         'attribute' => 'job_status',
+                        'headerOptions' => ['style' => 'min-width: 8rem; width: 5%'],
                         'contentOptions' => ['class' => 'small'],
                         'format' => 'html',
                         'value' => fn($data) => JobHelper::statusNameInColor($data->job_status)
                     ],
                     [
                         'attribute' => 'report_id',
+                        'headerOptions' => ['style' => 'min-width: 12rem; width: 10%'],
                         'contentOptions' => ['class' => 'small'],
                         'value' => fn($data) => $data->report->name
                     ],
                     [
                         'attribute' => 'template_id',
+                        'headerOptions' => ['style' => 'min-width: 12rem; width: 10%'],
                         'contentOptions' => ['class' => 'small'],
                         'value' => fn($data) => $data->template->name
                     ],
                     [
                         'attribute' => 'created_at',
+                        'headerOptions' => ['style' => 'min-width: 12rem; width: 8%'],
                         'format' => ['date', Yii::$app->settings->get('system', 'app_language_dateTime')],
                     ],
                     [
                         'attribute' => 'updated_at',
+                        'headerOptions' => ['style' => 'min-width: 12rem; width: 8%'],
                         'format' => ['date', Yii::$app->settings->get('system', 'app_language_dateTime')],
                     ],
                     [
                         'attribute' => 'file',
                         'contentOptions' => ['class' => 'text-center'],
-                        'headerOptions' => ['class' => 'text-center'],
+                        'headerOptions' => ['style' => 'min-width: 2rem; width: 2%', 'class' => 'text-center'],
                         'format' => 'raw',
                         'value' => function($data) {
                             if ($data->file) {
