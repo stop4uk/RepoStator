@@ -24,7 +24,7 @@ $this->title = Yii::t('views', 'Список констант');
         <?php
             if (Yii::$app->getUser()->can(Permissions::CONSTANT_CREATE)) {
                 echo Html::a(Yii::t('views', 'Новая константа'), ['create'], ['class' => 'btn btn-primary me-md-1']);
-                echo Html::a(Yii::t('views', 'Групповое добавление'), ['createmass'], ['class' => 'btn btn-dark me-md-2']);
+                echo Html::a(Yii::t('views', 'Массовое добавление'), ['createmass'], ['class' => 'btn btn-dark me-md-2']);
             }
 
             echo Html::tag('i', '', [
