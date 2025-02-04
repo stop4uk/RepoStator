@@ -106,36 +106,26 @@ final class ConstantRepository implements BaseRepositoryInterface
         bool $active = true,
         bool $asQuery = false,
     ): ActiveQuery|array {
-        $condition = [
-            'or',
-            [
-                'and',
-                ['in', 'created_gid', array_keys($groups)],
-                [
-                    'or',
-                    ['is', 'reports_only', new Expression('null')],
-                    ['=', 'reports_only', new Expression("''")],
-                    ['REGEXP', 'reports_only', '(' . implode('|', array_keys($reports)) . ')']
-                ]
-            ]
-        ];
-
-        if ($groupsParent = Yii::$app->getUser()->getIdentity()->groupsParent) {
-            $condition[] = [
-                'and',
-                ['in', 'created_gid', $groupsParent],
-                [
-                    'or',
-                    ['is', 'reports_only', new Expression('null')],
-                    ['=', 'reports_only', new Expression("''")],
-                    ['REGEXP', 'reports_only', '(' . implode('|', array_keys($reports)) . ')']
-                ]
-            ];
-        }
-
+        $parentGroups = Yii::$app->getUser()->getIdentity()->groupsParent;
+        $groupsForSearch = match((bool)$parentGroups) {
+            true => ArrayHelper::merge(array_keys($groups), array_keys($parentGroups)),
+            false => array_keys($groups)
+        };
 
         $query = ReportConstantEntity::find()
-            ->where($condition);
+            ->where([
+                'or',
+                [
+                    'and',
+                    ['in', 'created_gid', $groupsForSearch],
+                    [
+                        'or',
+                        ['is', 'reports_only', new Expression('null')],
+                        ['=', 'reports_only', new Expression("''")],
+                        ['REGEXP', 'reports_only', '(' . implode('|', array_keys($reports)) . ')']
+                    ]
+                ]
+            ]);
 
         if ($active) {
             $query->andWhere(['record_status' => BaseAR::RSTATUS_ACTIVE]);
