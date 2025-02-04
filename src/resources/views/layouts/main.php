@@ -68,7 +68,7 @@ $this->registerLinkTag(['rel' => 'icon', 'type' => 'image/x-icon', 'href' => Yii
                     <div class="row mb-3">
                         <div class="col-12 d-grid gap-2 justify-content-center gap-md-0 d-md-flex justify-content-md-between">
                             <?php if ($this->title): ?>
-                                <h3 class="fw-bold mb-0"><?= $this->title;?></h3>
+                                <h3 class="fw-bold mb-0 text-center text-md-start"><?= $this->title;?></h3>
                             <?php endif; ?>
 
                             <?php if (isset($this->params['breadcrumbs']) ): ?>
