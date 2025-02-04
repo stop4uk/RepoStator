@@ -33,7 +33,7 @@ $form = ActiveForm::begin([
 echo DuplicatingWidget::widget([
     'blockID' => 'workBlockForDuplicate_' . $tableID,
     'columnForButton' => 0,
-    'buttonClass' => 'btn btn-dark mt-2',
+    'buttonClass' => 'btn btn-dark p-1',
     'filterDuplicateElements' => 'noncopyable'
 ]);
 
@@ -52,16 +52,13 @@ foreach ($models as $i => $model) {
             <table class="table table-sm list-area" id="<?= $tableID ?>">
                 <thead>
                     <tr>
-                        <th class="border-top-0 p-0 text-center" style="min-width: 6rem;"></th>
-                        <th class="border-top-0 p-0 text-center" style="min-width: 13rem;"></th>
-                        <th class="border-top-0 p-0 text-center" style="min-width: 12rem;"></th>
-                        <th class="border-top-0 p-0 text-center" style="min-width: 9rem;"></th>
-                        <th class="border-top-0 p-0 text-center" style="min-width: 8rem;"></th>
-                        <th class="border-top-0 p-0 text-center" style="min-width: 12rem;"></th>
-                        <th class="border-top-0 p-0 text-center" style="min-width: 14rem;"></th>
-                        <th class="border-top-0 p-0 text-center" style="min-width: 15rem;"></th>
-                        <th class="border-top-0 p-0 text-center" style="min-width: 18rem;"></th>
-                        <th class="border-top-0 p-0 text-center" style="min-width: 12rem;"></th>
+                        <th class="border-top-0 text-center" style="min-width: 8rem;"></th>
+                        <th class="border-top-0 text-center" style="min-width: 10rem;"><?= $model->getAttributeLabel('record'); ?></th>
+                        <th class="border-top-0 text-center" style="min-width: 10rem;"><?= $model->getAttributeLabel('name'); ?></th>
+                        <th class="border-top-0 text-center" style="min-width: 12rem;"><?= $model->getAttributeLabel('name_full'); ?></th>
+                        <th class="border-top-0 text-center" style="min-width: 14rem;"><?= $model->getAttributeLabel('description'); ?></th>
+                        <th class="border-top-0 text-center" style="min-width: 12rem;"><?= $model->getAttributeLabel('union_rules'); ?></th>
+                        <th class="border-top-0 text-center" style="min-width: 14rem;"><?= $model->getAttributeLabel('reports_only'); ?></th>
                     </tr>
                 </thead>
                     <tbody id="workBlockForDuplicate_<?= $tableID ?>">
