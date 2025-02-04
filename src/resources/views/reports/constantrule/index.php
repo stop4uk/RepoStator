@@ -22,10 +22,10 @@ use app\modules\users\components\rbac\{
 $this->title = Yii::t('views', 'Список правил');
 
 ?>
-    <div class="d-flex justify-content-end mb-2">
+    <div class="d-grid d-md-flex justify-content-md-end gap-2 gap-md-0 mb-2">
         <?php
         if (Yii::$app->getUser()->can(Permissions::CONSTANTRULE_CREATE)) {
-            echo Html::a(Yii::t('views', 'Новое правило'), ['create'], ['class' => 'btn btn-primary pt-1 pb-1 me-2']);
+            echo Html::a(Yii::t('views', 'Новое правило'), ['create'], ['class' => 'btn btn-primary me-md-2']);
         }
 
         echo Html::tag('i', '', [
@@ -49,9 +49,7 @@ $this->title = Yii::t('views', 'Список правил');
                 'columns' => [
                     [
                         'attribute' => 'name',
-                        'headerOptions' => [
-                            'width' => '60%'
-                        ],
+                        'headerOptions' => ['style' => 'min-width: 18rem; width: 30%'],
                         'format' => 'raw',
                         'value' => function($data) {
                             $resultString = Html::tag('i', '', [
@@ -80,26 +78,25 @@ $this->title = Yii::t('views', 'Список правил');
                     [
                         'label' => null,
                         'format' => 'html',
+                        'headerOptions' => ['style' => 'min-width: 4rem; width: 8%'],
                         'value' => function($data) {
                             if (!$data->record_status) {
                                 preg_match_all('/\"(.*?)\"/', $data->rule, $constants);
                                 $countRuleMessage = Yii::t('views', '{n, plural, =1{одна константа} one{# константа} few{# константы} many{# констант} other{# констант}}', ['n' => count($constants[1] ?: 0)]);
 
-                                return Html::tag('span', $countRuleMessage, ['class' => 'badge bg-primary me-1']);
+                                return Html::tag('span', $countRuleMessage, ['class' => 'badge bg-primary']);
                             }
                         }
                     ],
                     [
                         'label' => null,
-                        'headerOptions' => [
-                            'width' => '8%'
-                        ],
+                        'headerOptions' => ['style' => 'min-width: 4rem; width: 8%'],
                         'format' => 'raw',
                         'value' => function($data) {
                             $resultString = '';
 
                             if ($data->report_id) {
-                                $resultString .= Html::tag('span', '<i class="bi bi-exclamation-triangle p-1 me-2"></i>', [
+                                $resultString .= Html::tag('span', '<i class="bi bi-exclamation-triangle"></i>', [
                                     'class' => 'text-danger fw-bold',
                                     'data-bs-toggle' => 'tooltip',
                                     'data-bs-placement' => 'bottom',
@@ -108,8 +105,8 @@ $this->title = Yii::t('views', 'Список правил');
                             }
 
                             if ($data->groups_only) {
-                                $resultString .= Html::tag('span', '<i class="bi bi-collection p-1 me-2"></i>', [
-                                    'class' => 'text-danger fw-bold',
+                                $resultString .= Html::tag('span', '<i class="bi bi-collection"></i>', [
+                                    'class' => 'text-danger fw-bold ms-1',
                                     'data-bs-toggle' => 'tooltip',
                                     'data-bs-placement' => 'bottom',
                                     'title' => Yii::t('views', 'Расчет для {n, plural, =1{одной группы} one{# группы} few{# групп} many{# групп} other{# групп}}', ['n' => count(CommonHelper::explodeField($data->groups_only))]),
@@ -122,7 +119,7 @@ $this->title = Yii::t('views', 'Список правил');
                     [
                         'class' => ActionColumn::class,
                         'header' => false,
-                        'headerOptions' => ['width' => '10%'],
+                        'headerOptions' => ['style' => 'min-width: 6rem; width: 10%'],
                         'contentOptions' => ['class' => 'text-center'],
                         'template' => '{view} {edit} {delete}',
                         'buttons' => [

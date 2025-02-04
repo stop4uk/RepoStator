@@ -9,7 +9,8 @@ use yii\bootstrap5\{
     ActiveForm
 };
 use kartik\select2\Select2;
-use mihaildev\ckeditor\CKEditor;
+
+use app\widgets\summernote\Summernote;
 
 /**
  * @var \yii\web\View $this
@@ -31,11 +32,7 @@ $form = ActiveForm::begin([
         <div class="col-12 col-md-8">
             <?= $form->field($model, 'name'); ?>
         </div>
-
-    </div>
-
-    <div class="row">
-        <div class="col-6">
+        <div class="col-12 col-md-6">
             <?= $form->field($model, 'report_id')->widget(Select2::class, [
                 'data' => $model->reports,
                 'options' => [
@@ -50,7 +47,7 @@ $form = ActiveForm::begin([
                 'выбор констант и правил при создании или изменении шаблона формирования. Если не указано, правило будет применено ' .
                 'ко всем отчетам в системе'), ['class' => 'form-text text-justify']); ?>
         </div>
-        <div class="col-6">
+        <div class="col-12 col-md-6">
             <?= $form->field($model, 'groups_only')->widget(Select2::class, [
                 'data' => $model->groups,
                 'options' => [
@@ -62,10 +59,10 @@ $form = ActiveForm::begin([
                 'указать в поле "Группа 1" и "Группа 2", то данное правило возьмет все сведения из отчета и выберет среди них только те, которые, ' .
                 'были переданны от имени этих групп'), ['class' => 'form-text text-justify']); ?>
         </div>
-        <div class="col-7">
+        <div class="col-12 col-md-7">
             <?= $form->field($model, 'rule', ['errorOptions' => ['encode' => false]])->textarea(); ?>
         </div>
-        <div class="col-5">
+        <div class="col-12 col-md-5">
             <?= Html::label(Yii::t('models', 'Быстрый поиск константы'), '', ['class' => 'form-label']); ?>
             <?= Select2::widget([
                 'name' => 'constantHelper',
@@ -92,26 +89,15 @@ $form = ActiveForm::begin([
                     'правила. Например, <strong>(("nar5_43"+"nar11_21_1")*0.15)/2-(1+"main_field")') ?>
             </span>
         </div>
-    </div>
-    <hr />
-    <div class="row">
+        <hr />
         <div class="col-12">
-            <?= $form->field($model, 'description')->widget(CKEditor::class, [
-                'editorOptions' => [
-                    'toolbarGroups' => [
-                        ['name' => 'basicstyles', 'groups' => ['basicstyles', 'cleanup']],
-                        ['name' => 'paragraph', 'groups' => ['templates', 'list', 'indent', 'align']],
-                        ['name' => 'clipboard', 'groups' => ['undo', 'selection', 'clipboard']],
-                    ],
-                ],
-            ]); ?>
+            <?= $form->field($model, 'description')->widget(Summernote::class); ?>
         </div>
     </div>
 
-    <div class="row mt-4">
-        <div class="col-12 mb-2 d-grid">
-            <?= Html::submitButton(Yii::t('views', $model->getIsNewEntity() ? 'Добавить' : 'Обновить'), ['class' => 'btn btn-primary']); ?>
-        </div>
+
+    <div class="d-grid gap-2 mt-3">
+        <?= Html::submitButton(Yii::t('views', $model->getIsNewEntity() ? 'Добавить' : 'Обновить'), ['class' => 'btn btn-primary']); ?>
     </div>
 
 <?php
