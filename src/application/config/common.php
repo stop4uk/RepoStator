@@ -36,9 +36,9 @@ return [
         '@app' => dirname(__DIR__) . '/',
         '@runtime' => '@root/runtime',
         '@resources' => '@root/resources',
-        '@downloads' => '@runtime/files',
         '@uploads' => '@root/' . env('YII_UPLOADS_PATH_LOCAL'),
         '@templates' => '@uploads/' . env('YII_UPLOADS_PATH_LOCAL_TEMPLATE'),
+        '@downloads' => '@root/' . env('YII_DOWNLOADS_PATH_LOCAL'),
     ],
     'bootstrap' => [
         'log',
