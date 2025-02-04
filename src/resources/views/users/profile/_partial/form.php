@@ -33,7 +33,7 @@ $form = ActiveForm::begin([
         </div>
         <div class="col-12 col-md-6 col-xl-4 col-xxl-3">
             <?= $form->field($model, 'phone', ['template' => '
-            <label class="form-label mb-0" for="profile-phone_mobile">{label}</label>
+            <label class="form-label" for="profile-phone_mobile">{label}</label>
             <div class="input-group">
                 <span class="input-group-text" id="basic-addon1">+7</span>
                     {input}
@@ -43,7 +43,7 @@ $form = ActiveForm::begin([
             ]); ?>
         </div>
         <div class="col-12 col-xl-8 col-xxl-12">
-            <label class="form-label mb-0 d-none d-xl-block d-xxl-none">&nbsp</label>
+            <label class="form-label d-none d-xl-block d-xxl-none">&nbsp</label>
             <?= Html::submitButton(Yii::t('views', 'Обновить'), ['class' => 'btn btn-primary w-100']); ?>
         </div>
     </div>

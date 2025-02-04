@@ -48,7 +48,7 @@ use yii\bootstrap5\{
                             </div>
                             <div class="col-6">
                                 <?= $form->field($model, 'phone', ['template' => '
-                                    <label class="form-label mb-0" for="pos_phone">{label}</label>
+                                    <label class="form-label" for="pos_phone">{label}</label>
                                     <div class="input-group">
                                         <span class="input-group-text" id="basic-addon1">+7</span>
                                             {input}
