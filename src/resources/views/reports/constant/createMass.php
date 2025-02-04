@@ -52,7 +52,8 @@ foreach ($models as $i => $model) {
             <table class="table table-sm list-area" id="<?= $tableID ?>">
                 <thead>
                     <tr>
-                        <th class="border-top-0 text-center" style="min-width: 8rem;"></th>
+                        <th class="border-top-0 text-center" style="min-width: 6rem;"></th>
+                        <th class="border-top-0 text-center" style="min-width: 2rem;">#</th>
                         <th class="border-top-0 text-center" style="min-width: 10rem;"><?= $model->getAttributeLabel('record'); ?></th>
                         <th class="border-top-0 text-center" style="min-width: 10rem;"><?= $model->getAttributeLabel('name'); ?></th>
                         <th class="border-top-0 text-center" style="min-width: 12rem;"><?= $model->getAttributeLabel('name_full'); ?></th>

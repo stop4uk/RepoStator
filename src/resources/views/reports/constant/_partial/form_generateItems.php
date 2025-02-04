@@ -20,6 +20,9 @@ use kartik\select2\Select2;
             echo Html::button('<i class="bi bi-dash"></i>',['class' => 'remove btn btn-danger p-1 ms-1']);
         ?>
     </td>
+    <td class="text-center">
+        <?= $k+1 ?>
+    </td>
     <td>
         <?= Html::activeTextInput($model, "[$k]record", ['class' => 'form-control']); ?>
     </td>
