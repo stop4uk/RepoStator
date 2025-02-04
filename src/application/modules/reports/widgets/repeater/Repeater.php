@@ -97,7 +97,7 @@ class Repeater extends Widget
     public function init(): void
     {
         if (!$this->widgetID) {
-            $this->widgetID = Yii::$app->getSecurity()->generateRandomKey(6);
+            $this->widgetID = Yii::$app->getSecurity()->generateRandomString(6);
         }
 
         parent::init();
