@@ -4,9 +4,9 @@ use yii\bootstrap5\{
     Html,
     ActiveForm
 };
-use mihaildev\ckeditor\CKEditor;
 
 use app\helpers\CommonHelper;
+use app\widgets\summernote\Summernote;
 
 /**
  * @var \app\modules\users\models\GroupModel $model
@@ -39,15 +39,7 @@ $form = ActiveForm::begin([
     </div>
     <div class="row">
         <div class="col-12">
-            <?= $form->field($model, 'description')->widget(CKEditor::class, [
-                'editorOptions' => [
-                    'toolbarGroups' => [
-                        ['name' => 'basicstyles', 'groups' => ['basicstyles', 'cleanup']],
-                        ['name' => 'paragraph', 'groups' => ['templates', 'list', 'indent', 'align']],
-                        ['name' => 'clipboard', 'groups' => ['undo', 'selection', 'clipboard']],
-                    ],
-                ],
-            ]); ?>
+            <?= $form->field($model, 'description')->widget(Summernote::class); ?>
         </div>
     </div>
     <div class="row mt-4">
