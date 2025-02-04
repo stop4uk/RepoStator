@@ -64,7 +64,7 @@ $this->title = Yii::t('views', 'Список шаблонов');
                     [
                         'label' => null,
                         'format' => 'raw',
-                        'headerOptions' => ['style' => 'width: 4rem;'],
+                        'headerOptions' => ['style' => 'min-width: 1.5rem;'],
                         'value' => function($data) {
                             $datetime = match ($data->form_datetime) {
                                 ReportFormTemplateEntity::REPORT_DATETIME_WEEK => ['icon' => 'calendar-day', 'message' => Yii::t('views', 'Неделя')],
@@ -83,7 +83,7 @@ $this->title = Yii::t('views', 'Список шаблонов');
                     ],
                     [
                         'label' => null,
-                        'headerOptions' => ['style' => 'width: 6rem'],
+                        'headerOptions' => ['style' => 'min-width: 3.5rem'],
                         'format' => 'raw',
                         'value' => function($data) {
                             $resultString = '';

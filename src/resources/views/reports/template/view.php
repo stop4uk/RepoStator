@@ -67,5 +67,5 @@ $this->params['breadcrumbs'] = [
     $this->registerJs(<<<JS
         $("form").on("beforeSend", function(e) {e.preventDefault();});
         $("input, select").attr({"disabled": true, "readonly": true});
-        $("button").remove();
+        $("button").not('.downloadButton').remove();
 JS);
