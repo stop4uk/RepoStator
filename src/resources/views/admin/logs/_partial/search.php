@@ -27,10 +27,10 @@ $resource = Url::to(['/admin/logs']);
             ]
         ]); ?>
         <div class="row">
-            <div class="col-12 col-md-2 col-xxl-1">
+            <div class="col-12 col-md-2 col-xxl-2">
                 <?= $form->field($searchModel, 'level')->input('number'); ?>
             </div>
-            <div class="col-12 col-md-4 col-xxl-3">
+            <div class="col-12 col-md-4 col-xxl-2">
                 <?= $form->field($searchModel, 'category'); ?>
             </div>
             <div class="col-12 col-md-6 col-xxl-2">
@@ -51,14 +51,10 @@ $resource = Url::to(['/admin/logs']);
                 ]); ?>
             </div>
             <div class="col-6">
-                <div class="d-grid gap-2">
-                    <?= Html::submitButton(Yii::t('views', 'Поиск'), ['class' => 'btn btn-dark']) ?>
-                </div>
+                <?= Html::submitButton(Yii::t('views', 'Поиск'), ['class' => 'btn btn-dark w-100']) ?>
             </div>
             <div class="col-6">
-                <div class="d-grid gap-2">
-                    <?= Html::a(Yii::t('views', 'Очистить'), $resource, ['class' => 'btn btn-danger']) ?>
-                </div>
+                <?= Html::a(Yii::t('views', 'Очистить'), $resource, ['class' => 'btn btn-danger w-100']) ?>
             </div>
         </div>
         <?php ActiveForm::end(); ?>

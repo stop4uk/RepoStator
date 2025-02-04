@@ -8,8 +8,8 @@ use app\actions\{
     IndexAction,
     ViewAction
 };
-use app\components\{
-    base\BaseController,
+use app\{
+    components\base\BaseController,
     entities\LogEntity
 };
 use app\modules\admin\search\LogSearch;
@@ -49,7 +49,7 @@ final class LogsController extends BaseController
             'view' => [
                 'class' => ViewAction::class,
                 'entity' => LogEntity::class,
-                'id' => $this->request->get('id'),
+                'requestID' => $this->request->get('id'),
                 'exceptionMessage' => 'Сообщение лога недоступно для просмотра'
             ],
         ];
