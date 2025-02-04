@@ -2,16 +2,25 @@
 
 namespace app\modules\reports\models;
 
+use Yii;
+use yii\helpers\Json;
+
 use app\components\base\BaseModel;
-use app\helpers\{CommonHelper, HtmlPurifier};
-use app\modules\reports\{entities\ReportConstantEntity,
+use app\helpers\{
+    CommonHelper,
+    HtmlPurifier
+};
+use app\modules\reports\{
+    entities\ReportConstantEntity,
     entities\ReportConstantRuleEntity,
     helpers\ConstantRuleHelper,
     repositories\ConstantRepository,
-    repositories\ReportRepository};
-use app\modules\users\{components\rbac\RbacHelper, repositories\GroupRepository};
-use Yii;
-use yii\helpers\Json;
+    repositories\ReportRepository
+};
+use app\modules\users\{
+    components\rbac\RbacHelper,
+    repositories\GroupRepository
+};
 
 /**
  * @property string $record
@@ -40,16 +49,18 @@ final class ConstantRuleModel extends BaseModel
     public array $groups;
     public array $reports;
     public array $constants;
+    private readonly array $groupsAllow;
 
     public function __construct(ReportConstantRuleEntity $entity, array $config = [])
     {
+        $groups = [];
         $groupsAllow = RbacHelper::getAllowGroupsArray('constantRule.list.all');
         $groupsCanSent = GroupRepository::getAllBy(
             condition: ['id' => array_keys($groupsAllow), 'accept_send' => 1],
             asArray: true
         );
 
-        if (!$entity->id !== null && $entity->report_id) {
+        if ($entity->id && $entity->report_id) {
             $reportInformation = ReportRepository::get($entity->report_id);
             $reports  = [$entity->report_id => $entity->report_id];
 
@@ -67,9 +78,9 @@ final class ConstantRuleModel extends BaseModel
         }
 
         $this->groups = $groups;
-
+        $this->groupsAllow = $groupsAllow;
         $this->reports = ReportRepository::getAllow(
-            groups: $groupsAllow
+            groups: $this->groupsAllow
         );
 
         $this->constants = ConstantRepository::getAllow(
@@ -80,7 +91,7 @@ final class ConstantRuleModel extends BaseModel
         parent::__construct($entity, $config);
     }
 
-    public function init()
+    public function init(): void
     {
         if ($this->groups_only) {
             $this->groups_only = CommonHelper::explodeField($this->groups_only);
@@ -165,7 +176,7 @@ final class ConstantRuleModel extends BaseModel
         return ConstantRuleHelper::labels();
     }
 
-    public function checkRule($attribute)
+    public function checkRule($attribute): void
     {
         preg_match_all('/\"(.*?)\"/', $this->rule, $matchConstants);
 
@@ -176,7 +187,7 @@ final class ConstantRuleModel extends BaseModel
             $constantForCheck = match((bool)$this->report_id) {
                 true => ConstantRepository::getAllow(
                     reports: [$this->report_id => $this->report_id],
-                    groups: $this->groups
+                    groups: $this->groupsAllow
                 ),
                 false => $this->constants
             };
@@ -184,7 +195,7 @@ final class ConstantRuleModel extends BaseModel
             foreach ($matchConstants[1] as $constant) {
                 if (!in_array($constant, array_keys($constantForCheck))) {
                     $this->addError($attribute, Yii::t('models_error', 'В правиле присутствуют константы, ' .
-                        'которые не могут быть Вами использованы, или не могут работать с выбранными для рассчета отчетами. ' .
+                        'которые не могут быть Вами использованы, или не могут работать с выбранными для расчета отчетами. ' .
                         'Например, "<strong>{name}</strong>"', ['name' => $constant]));
                 }
             }
@@ -198,7 +209,7 @@ final class ConstantRuleModel extends BaseModel
                 if (!in_array($group, array_keys($this->groups))) {
                     $this->addError('groups_only', Yii::t('models_error', 'Одна из групп, для которой ' .
                         'предназначено данное правило, а именно "{name}", не может передавать сведения. Следовательно, данное ' .
-                        'правило для нее указаывать нельзя', ['name' => $this->groups[$group]]));
+                        'правило для нее указывать нельзя', ['name' => $this->groups[$group]]));
 
                     break;
                 }
