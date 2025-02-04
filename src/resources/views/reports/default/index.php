@@ -48,7 +48,7 @@ $this->title = Yii::t('views', 'Список отчетов');
                 'columns' => [
                     [
                         'attribute' => 'name',
-                        'headerOptions' => ['style' => 'min-width: 18rem; width: 30%'],
+                        'headerOptions' => ['style' => 'min-width: 18rem; width: 60%'],
                         'format' => 'raw',
                         'value' => function($data) {
                             $resultString = Html::tag('i', '', [
@@ -77,7 +77,7 @@ $this->title = Yii::t('views', 'Список отчетов');
                     [
                         'label' => null,
                         'format' => 'html',
-                        'headerOptions' => ['style' => 'min-width: 12rem'],
+                        'headerOptions' => ['style' => 'width: 12rem;'],
                         'value' => function($data) {
                             if ($data->left_period) {
                                 $zero = new \DateTime('@0');
@@ -93,13 +93,13 @@ $this->title = Yii::t('views', 'Список отчетов');
                                                 $leftPeriod .= Yii::t('views', '{n, plural, =1{# месяц} one{# месяц} few{# месяца} many{# месяцев} other{# месяцев}}', ['n' => $value]);
                                                 break;
                                             case 1:
-                                                $leftPeriod .= Yii::t('views', '{n, plural, =1{# день} one{# день} few{# дня} many{# дней} other{# дней}}', ['n' => $value]);
+                                                $leftPeriod .= Yii::t('views', ' {n, plural, =1{# день} one{# день} few{# дня} many{# дней} other{# дней}}', ['n' => $value]);
                                                 break;
                                             case 2:
-                                                $leftPeriod .= Yii::t('views', '{n, plural, =1{# час} one{# час} few{# часа} many{# часов} other{# часов}}', ['n' => $value]);
+                                                $leftPeriod .= Yii::t('views', ' {n, plural, =1{# час} one{# час} few{# часа} many{# часов} other{# часов}}', ['n' => $value]);
                                                 break;
                                             case 3:
-                                                $leftPeriod .= Yii::t('views', '{n, plural, =1{# минуту} one{# минуту} few{# минуты} many{# минут} other{# минут}}', ['n' => $value]);
+                                                $leftPeriod .= Yii::t('views', ' {n, plural, =1{# минуту} one{# минуту} few{# минуты} many{# минут} other{# минут}}', ['n' => $value]);
                                                 break;
                                         }
                                     }
