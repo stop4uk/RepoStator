@@ -53,7 +53,7 @@ $this->title = Yii::t('views', 'Список структур');
                 'columns' => [
                     [
                         'attribute' => 'name',
-                        'headerOptions' => ['style' => 'min-width: 20rem; width: 60%'],
+                        'headerOptions' => ['style' => 'min-width: 18rem; width: 30%'],
                         'format' => 'raw',
                         'value' => function($data) {
                             return Html::tag('i', '', [
@@ -88,13 +88,13 @@ $this->title = Yii::t('views', 'Список структур');
                     ],
                     [
                         'label' => null,
-                        'headerOptions' => ['style' => 'min-width: 10rem; width: 12%'],
+                        'headerOptions' => ['style' => 'min-width: 4rem; width: 8%'],
                         'format' => 'raw',
                         'value' => function($data) {
                             $resultString = '';
 
                             if ($data->groups_only) {
-                                $resultString .= Html::tag('span', '<i class="bi bi-exclamation-triangle p-1"></i>', [
+                                $resultString .= Html::tag('span', '<i class="bi bi-exclamation-triangle"></i>', [
                                     'class' => 'text-danger fw-bold',
                                     'data-bs-toggle' => 'tooltip',
                                     'data-bs-placement' => 'bottom',
@@ -103,7 +103,7 @@ $this->title = Yii::t('views', 'Список структур');
                             }
 
                             if ($data->use_union_rules) {
-                                $resultString .= Html::tag('span', '<i class="bi bi-columns-gap p-1 ms-1"></i>', [
+                                $resultString .= Html::tag('span', '<i class="bi bi-columns-gap ms-1"></i>', [
                                     'class' => 'text-primary fw-bold',
                                     'data-bs-toggle' => 'tooltip',
                                     'data-bs-placement' => 'bottom',
