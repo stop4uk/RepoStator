@@ -76,11 +76,15 @@ $this->title = Yii::t('views', 'Список групп');
                     ],
                     [
                         'attribute' => 'type_id',
+                        'format' => 'html',
                         'headerOptions' => ['class' => 'text-center', 'style' => 'min-width: 12rem; width: 15%'],
-                        'contentOptions' => ['class' => 'text-center small'],
+                        'contentOptions' => ['class' => 'text-center'],
                         'value' => function($data) {
                             if ($data->type) {
-                                return Html::a($data->type->name, Url::to(['/admin/groups/type/view', 'id' => $data->type_id]));
+                                return match(Yii::$app->getUser()->can(Permissions::ADMIN_GROUPTYPE)) {
+                                    true => Html::a($data->type->name, Url::to(['/admin/groups/type/view', 'id' => $data->type_id])),
+                                    false => $data->type->name
+                                };
                             }
                         }
                     ],

@@ -4,7 +4,8 @@ use yii\bootstrap5\{
     Html,
     ActiveForm
 };
-use mihaildev\ckeditor\CKEditor;
+
+use app\widgets\summernote\Summernote;
 
 /**
  * @var \app\modules\users\models\GroupTypeModel $model
@@ -25,21 +26,11 @@ $form = ActiveForm::begin([
     </div>
     <div class="row">
         <div class="col-12">
-            <?= $form->field($model, 'description')->widget(CKEditor::class, [
-                'editorOptions' => [
-                    'toolbarGroups' => [
-                        ['name' => 'basicstyles', 'groups' => ['basicstyles', 'cleanup']],
-                        ['name' => 'paragraph', 'groups' => ['templates', 'list', 'indent', 'align']],
-                        ['name' => 'clipboard', 'groups' => ['undo', 'selection', 'clipboard']],
-                    ],
-                ],
-            ]); ?>
+            <?= $form->field($model, 'description')->widget(Summernote::class); ?>
         </div>
     </div>
-    <div class="row mt-4">
-        <div class="col-12 mb-2 d-grid">
-            <?= Html::submitButton(Yii::t('views', $model->isNewEntity ? 'Добавить' : 'Обновить'), ['class' => 'btn btn-primary']); ?>
-        </div>
+    <div class="d-grid gap-2 mt-3">
+        <?= Html::submitButton(Yii::t('views', $model->isNewEntity ? 'Добавить' : 'Обновить'), ['class' => 'btn btn-primary']); ?>
     </div>
 
 <?php ActiveForm::end();

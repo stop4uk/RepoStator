@@ -41,11 +41,11 @@ $resource = Url::to(['/admin/groups']);
                 <?= $form->field($searchModel, 'type_id')->dropDownList($searchModel->types, ['prompt' => Yii::t('views', 'Выберите')]); ?>
             </div>
             <div class="col-6 col-md-3 col-xxl-6">
-                <label class="form-label mb-0 d-none d-md-block d-xxl-none">&nbsp;</label>
+                <label class="form-label d-none d-md-block d-xxl-none">&nbsp;</label>
                 <?= Html::submitButton(Yii::t('views', 'Поиск'), ['class' => 'btn btn-dark w-100']) ?>
             </div>
             <div class="col-6 col-md-2 col-xl-3 col-xxl-6">
-                <label class="form-label mb-0 d-none d-md-block d-xxl-none">&nbsp;</label>
+                <label class="form-label d-none d-md-block d-xxl-none">&nbsp;</label>
                 <?= Html::a(Yii::t('views', 'Очистить'), $resource, ['class' => 'btn btn-danger w-100']) ?>
             </div>
         </div>
