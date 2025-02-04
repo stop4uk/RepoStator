@@ -63,12 +63,11 @@ final class TemplateService extends BaseService
                 foreach ($sessionFiles as $sessionFile) {
                     try{unlink($sessionFile['fullPath']);} catch (ErrorException $e){}
                 }
-
                 $session->remove($sessionKey);
-                $transaction->commit();
-
-                return $saveEntity;
             }
+
+            $transaction->commit();
+            return $saveEntity;
         }
 
         $transaction->rollBack();
