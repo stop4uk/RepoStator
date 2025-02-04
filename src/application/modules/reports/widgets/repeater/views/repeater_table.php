@@ -7,15 +7,21 @@
  * @var string $template
  * @var mixed $additionalInformation
  * @var string $widgetID
+ * @var string $buttonDeletePlaceBlock
+ * @var string $buttonDeleteName
+ * @var string|null $buttonDeleteClasses
  */
 
 if ( isset($contentPath) ) {
     $content = $this->render($contentPath, [
-        'additionalInformation' => $additionalInformation,
-        'widgetID' => $widgetID,
-        'template' => $template,
-        'model' => $model,
         'k' => $k,
+        'model' => $model,
+        'template' => $template,
+        'widgetID' => $widgetID,
+        'additionalInformation' => $additionalInformation,
+        'buttonDeletePlaceBlock' => $buttonDeletePlaceBlock,
+        'buttonDeleteName' => $buttonDeleteName,
+        'buttonDeleteClasses' => $buttonDeleteClasses
     ]);
 }
 

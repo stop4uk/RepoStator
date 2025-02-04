@@ -173,6 +173,9 @@ class Repeater extends Widget
                 'form' => $this->form,
                 'k' => $k,
                 'additionalField' => $this->additionalField,
+                'buttonDeletePlaceBlock' => $this->buttonDeletePlaceBlock,
+                'buttonDeleteName' => $this->buttonDeleteName,
+                'buttonDeleteClasses' => $this->buttonDeleteClasses
             ], $this->additionalData));
 
             echo $this->render('repeater_table', [
@@ -182,9 +185,6 @@ class Repeater extends Widget
                 'content' => $content,
                 'model' => $model,
                 'k' => $k,
-                'buttonDeletePlaceBlock' => $this->buttonDeletePlaceBlock,
-                'buttonDeleteName' => $this->buttonDeleteName,
-                'buttonDeleteClasses' => $this->buttonDeleteClasses
             ]);
         }
     }
