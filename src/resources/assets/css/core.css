@@ -186,14 +186,22 @@ a {
     word-break: keep-all;
 }
 
+.breadcrumb {
+    padding: 0!important;
+}
+
 .breadcrumb a {
     text-decoration: none;
 }
 
 .breadcrumb > li + li:before {
-    padding: 0 5px;
     color: #ccc;
-    content: "\0023"!important;
+    padding-right: 0.2rem!important;
+    content: "\203A"!important;
+}
+
+.breadcrumb-item {
+    padding-left: 0.2rem!important;
 }
 
 .x-small {

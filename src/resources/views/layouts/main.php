@@ -66,14 +66,14 @@ $this->registerLinkTag(['rel' => 'icon', 'type' => 'image/x-icon', 'href' => Yii
             <main class="content">
                 <div class="container-fluid p-0">
                     <div class="row mb-3">
-                        <div class="col-12 d-flex <?= isset($this->params['breadcrumbs']) ? 'justify-content-lg-between' : 'justify-content-center justify-content-lg-between' ?>">
+                        <div class="col-12 d-grid gap-2 justify-content-center gap-md-0 d-md-flex justify-content-md-between">
                             <?php if ($this->title): ?>
-                                <h3 class="d-table-cell"><strong><?= $this->title;?></strong></h3>
+                                <h3 class="fw-bold mb-0"><?= $this->title;?></h3>
                             <?php endif; ?>
 
                             <?php if (isset($this->params['breadcrumbs']) ): ?>
                                 <?= Breadcrumbs::widget([
-                                    'options' => ['class' => 'mb-1 mt-1 d-none d-lg-flex'],
+                                    'options' => ['class' => 'mb-0 d-flex justify-content-center justify-content-md-end'],
                                     'homeLink' => ['label' => Yii::t('modules', 'Главная'), 'url' => '/'],
                                     'links' => $this->params['breadcrumbs'],
                                 ]) ?>
