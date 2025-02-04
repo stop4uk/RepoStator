@@ -80,11 +80,13 @@ Pjax::begin(['id' => 'dashBoard', 'enablePushState' => false, 'clientOptions' =>
                     'columns' => [
                         [
                             'attribute' => 'job_status',
+                            'headerOptions' => ['style' => 'min-width: 8rem; width: 5%'],
                             'format' => 'html',
                             'value' => fn($data) => JobHelper::statusNameInColor($data->job_status)
                         ],
                         [
                             'attribute' => 'template_id',
+                            'headerOptions' => ['style' => 'min-width: 12rem; width: 10%'],
                             'format' => 'html',
                             'value' => function($data) {
                                 $value = $data->template->name . Html::tag('span', ' #' . $data->report->name, ['class' => 'small text-muted']) . '<br />';
@@ -96,18 +98,20 @@ Pjax::begin(['id' => 'dashBoard', 'enablePushState' => false, 'clientOptions' =>
                         [
                             'attribute' => 'created_at',
                             'contentOptions' => ['class' => 'small'],
+                            'headerOptions' => ['style' => 'min-width: 12rem; width: 8%'],
                             'format' => ['date', Yii::$app->settings->get('system', 'app_language_dateTime')]
                         ],
                         [
                             'attribute' => 'updated_at',
                             'contentOptions' => ['class' => 'small'],
+                            'headerOptions' => ['style' => 'min-width: 12rem; width: 8%'],
                             'format' => ['date', Yii::$app->settings->get('system', 'app_language_dateTime')]
                         ],
                         [
                             'class' => ActionColumn::class,
                             'header' => false,
-                            'headerOptions' => ['width' => '10%'],
                             'contentOptions' => ['class' => 'text-center'],
+                            'headerOptions' => ['style' => 'min-width: 2rem; width: 2%', 'class' => 'text-center'],
                             'template' => '{download}',
                             'buttons' => [
                                 'download' => function($url, $model) {
