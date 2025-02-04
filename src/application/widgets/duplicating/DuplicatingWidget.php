@@ -1,9 +1,9 @@
 <?php
 
-namespace app\modules\reports\widgets\duplicating;
+namespace app\widgets\duplicating;
 
-use yii\helpers\Json;
 use yii\base\Widget;
+use yii\helpers\Json;
 
 final class DuplicatingWidget extends Widget
 {

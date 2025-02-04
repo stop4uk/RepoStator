@@ -1,6 +1,6 @@
 <?php
 
-namespace app\modules\reports\widgets\repeater;
+namespace app\widgets\repeater;
 
 use Yii;
 use yii\base\Widget;

@@ -6,7 +6,7 @@ use yii\bootstrap5\{
     Html
 };
 
-use app\modules\reports\widgets\{
+use app\widgets\{
     repeater\Repeater,
     duplicating\DuplicatingWidget
 };

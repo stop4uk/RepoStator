@@ -11,10 +11,10 @@ use app\modules\reports\{entities\ReportStructureEntity,
     repositories\ReportRepository,
     repositories\StructureRepository,
     search\StructureSearch,
-    services\StructureService,
-    widgets\repeater\actions\AddAction,
-    widgets\repeater\actions\DeleteAction as RepeaterDeleteAction,};
+    services\StructureService,};
 use app\modules\users\{components\rbac\items\Permissions, components\rbac\RbacHelper, repositories\GroupRepository};
+use app\widgets\repeater\actions\AddAction;
+use app\widgets\repeater\actions\DeleteAction as RepeaterDeleteAction;
 use yii\filters\AccessControl;
 use yii\helpers\Url;
 use yii\web\Response;

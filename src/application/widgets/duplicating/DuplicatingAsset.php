@@ -1,5 +1,6 @@
 <?php
-namespace app\modules\reports\widgets\duplicating;
+
+namespace app\widgets\duplicating;
 
 use yii\web\AssetBundle;
 
