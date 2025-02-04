@@ -22,25 +22,26 @@ $form = ActiveForm::begin([
     'validateOnChange' => false,
     'validateOnBlur' => false,
 ]); ?>
-    <div class="row">
-        <?php
-            echo $form->field($model, $formField . "[]")->hiddenInput()->label(false);
-            if (count($model->structureContent['groups']) == 1) {
-                echo Html::beginTag('div', ['class' => "col-12"]);
+    <div class="table-responsive">
+        <div class="row">
+            <?php
+                echo $form->field($model, $formField . "[]")->hiddenInput()->label(false);
+                if (count($model->structureContent['groups']) == 1) {
+                    echo Html::beginTag('div', ['class' => "col-12"]);
                     echo Html::beginTag('div', ['class' => 'row']);
-                        $elements = $this->context->formContents($model->structureContent['constants'][0]);
-                        echo $this->render('form_generateItems', [
-                            'id' => 0,
-                            'elements' => $elements,
-                            'form' => $form,
-                            'model' => $model,
-                            'formField' => $formField,
-                            'constants' => $constants
-                        ]);
+                    $elements = $this->context->formContents($model->structureContent['constants'][0]);
+                    echo $this->render('form_generateItems', [
+                        'id' => 0,
+                        'elements' => $elements,
+                        'form' => $form,
+                        'model' => $model,
+                        'formField' => $formField,
+                        'constants' => $constants
+                    ]);
                     echo Html::endTag('div');
-                echo Html::endTag('div');
-            } else {
-                echo Html::beginTag('div', ['class' => 'col-3 col-md-4 col-xl-3', 'id' => 'nav-tab', 'role' => 'tablist']);
+                    echo Html::endTag('div');
+                } else {
+                    echo Html::beginTag('div', ['class' => 'col-12 col-md-4 col-xl-3', 'id' => 'nav-tab', 'role' => 'tablist']);
                     foreach ($model->structureContent['groups'] as $id => $group) {
                         $showItem = ($firstElement == $id);
 
@@ -55,9 +56,9 @@ $form = ActiveForm::begin([
                             "aria-selected" => (bool)$showItem,
                         ]), ['class' => 'd-grid gap-2']);
                     }
-                echo Html::endTag('div');
+                    echo Html::endTag('div');
 
-                echo Html::beginTag('div', ['class' => 'col-9 col-md-8 col-xl-9 tab-content', 'id' => 'tabs-tabContent']);
+                    echo Html::beginTag('div', ['class' => 'col-12 col-md-8 col-xl-9 tab-content', 'id' => 'tabs-tabContent']);
                     foreach ($model->structureContent['constants'] as $id => $items) {
                         $showItem = ($firstElement == $id);
 
@@ -68,29 +69,28 @@ $form = ActiveForm::begin([
                             'aria-labelledby' => "nav-$id-tab",
                             'tabindex' => 0
                         ]);
-                            echo Html::beginTag('div', ['class' => 'row']);
-                                $elements = $this->context->formContents($items);
-                                echo $this->render('form_generateItems', [
-                                    'id' => $id,
-                                    'elements' => $elements,
-                                    'form' => $form,
-                                    'model' => $model,
-                                    'formField' => $formField,
-                                    'constants' => $constants
-                                ]);
-                            echo Html::endTag('div');
+                        echo Html::beginTag('div', ['class' => 'row']);
+                        $elements = $this->context->formContents($items);
+                        echo $this->render('form_generateItems', [
+                            'id' => $id,
+                            'elements' => $elements,
+                            'form' => $form,
+                            'model' => $model,
+                            'formField' => $formField,
+                            'constants' => $constants
+                        ]);
+                        echo Html::endTag('div');
                         echo Html::endTag('div');
                     }
-                echo Html::endTag('div');
-            }
-        ?>
+                    echo Html::endTag('div');
+                }
+            ?>
+        </div>
     </div>
 
     <?php if (!$view ): ?>
-        <div class="row mt-5">
-            <div class="col-12 mb-2 d-grid">
-                <?= Html::submitButton(Yii::t('views', $model->isNewEntity ? 'Отправить' : 'Обновить'), ['class' => 'btn btn-primary']); ?>
-            </div>
+        <div class="d-grid gap-2 mt-3">
+            <?= Html::submitButton(Yii::t('views', $model->isNewEntity ? 'Отправить' : 'Обновить'), ['class' => 'btn btn-primary']); ?>
         </div>
     <?php endif; ?>
 
@@ -105,5 +105,7 @@ JS);
 }
 
 $this->registerJs(<<<JS
-    document.getElementsByClassName("js-sidebar-toggle")[0].dispatchEvent(new Event('click'));
+    if (window.innerWidth > 812) {
+        document.getElementsByClassName("js-sidebar-toggle")[0].dispatchEvent(new Event('click'));
+    };
 JS);
