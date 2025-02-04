@@ -245,7 +245,7 @@ final class ConstantController extends BaseController
                     }
 
                     Yii::$app->getSession()->setFlash('success', 'Константы успешно добавлены');
-                    return $this->redirect('/constant');
+                    return $this->redirect('/reports/constant');
                 }
             }
         }
