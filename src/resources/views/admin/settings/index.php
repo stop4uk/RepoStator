@@ -31,7 +31,7 @@ $form = ActiveForm::begin([
         <div class="card-body">
             <div class="row">
                 <?php foreach ($items as $key => $inData): ?>
-                    <div class="col-3">
+                    <div class="col-12 col-md-4 col-lg-3">
                         <?php
                             $keyName = $category . '__' . $key;
                             echo $form->field($model, "key[$keyName]")->hint($inData['description'], ['class' => 'text-justify text-muted small'])->label(false);
@@ -43,7 +43,7 @@ $form = ActiveForm::begin([
     </div>
 <?php endforeach; ?>
 
-    <div class="col-12 mb-2 d-grid">
+    <div class="d-grid gap-2">
         <?= Html::submitButton(Yii::t('views', 'Сохранить'), ['class' => 'btn btn-primary']); ?>
     </div>
 
