@@ -66,7 +66,7 @@ $this->registerLinkTag(['rel' => 'icon', 'type' => 'image/x-icon', 'href' => Yii
             <main class="content">
                 <div class="container-fluid p-0">
                     <div class="row mb-3">
-                        <div class="col-12 d-grid gap-2 justify-content-center gap-md-0 d-md-flex justify-content-md-between">
+                        <div class="col-12 d-grid gap-2 justify-content-center gap-md-0 d-md-flex <?= ($this->title) ? 'justify-content-md-between' : 'justify-content-md-end' ?>">
                             <?php if ($this->title): ?>
                                 <h3 class="fw-bold mb-0 text-center text-md-start"><?= $this->title;?></h3>
                             <?php endif; ?>
