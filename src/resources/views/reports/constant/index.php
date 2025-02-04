@@ -155,7 +155,7 @@ $this->title = Yii::t('views', 'Список констант');
                                     'constant.edit.all',
                                 ];
 
-                                return $model->record_status && RbacHelper::canArray($rolesArray, $ruleArray);
+                                return RbacHelper::canArray($rolesArray, $ruleArray);
                             },
                             'delete' => function($model){
                                 $ruleArray = $model->toArray(['created_uid', 'created_gid', 'record_status']);
@@ -165,7 +165,7 @@ $this->title = Yii::t('views', 'Список констант');
                                     'constant.delete.all',
                                 ];
 
-                                return $model->record_status && RbacHelper::canArray($rolesArray, $ruleArray);
+                                return RbacHelper::canArray($rolesArray, $ruleArray);
                             }
                         ]
                     ],
