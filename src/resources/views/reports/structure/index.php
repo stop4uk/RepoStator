@@ -88,7 +88,7 @@ $this->title = Yii::t('views', 'Список структур');
                     ],
                     [
                         'label' => null,
-                        'headerOptions' => ['style' => 'min-width: 12rem; width: 15%'],
+                        'headerOptions' => ['style' => 'min-width: 10rem; width: 12%'],
                         'format' => 'raw',
                         'value' => function($data) {
                             $resultString = '';

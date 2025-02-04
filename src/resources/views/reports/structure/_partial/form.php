@@ -1,17 +1,17 @@
 <?php
 
-use yii\helpers\{
-    Json,
-    Url
-};
+use kartik\select2\Select2;
 use yii\bootstrap5\{
     ActiveForm,
     Html
 };
-use kartik\select2\Select2;
+use yii\helpers\{
+    Json,
+    Url
+};
 
 use app\helpers\CommonHelper;
-use app\modules\reports\widgets\repeater\Repeater;
+use app\widgets\repeater\Repeater;
 
 /**
  * @var \yii\web\View $this
@@ -78,17 +78,16 @@ $form = ActiveForm::begin([
         <?= $form->field($model, 'contentConstants[]')->hiddenInput()->label(false); ?>
 
         <?= Repeater::widget([
-            'appendAction' => Url::to(['addStructure']),
-            'removeAction' => Url::to(['deleteStructure']),
             'form' => $form,
             'models' => $model->getFieldsForStructures(),
             'modelView' => '@resources/views/reports/structure/_partial/form_generateItems',
+            'appendAction' => Url::to(['addStructure']),
+            'removeAction' => Url::to(['deleteStructure']),
             'buttonName' => Yii::t('views', 'Добавить часть структуры'),
             'buttonClasses' => 'btn btn-dark btn-sm',
-            'buttonPlaceBlock' => 'col-12',
+            'buttonDeletePlaceBlock' => 'col-12 col-md-1 text-center',
             'buttonDeleteName' => '<i class="bi bi-trash"></i>',
             'buttonDeleteClasses' => 'btn btn-danger w-100',
-            'buttonDeletePlaceBlock' => 'col-md-1 text-center',
             'additionalField' => $model->report_id
         ]); ?>
         <hr class="mb-4"/>
