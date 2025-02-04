@@ -10,6 +10,7 @@ use yii\bootstrap5\Html;
  * @var string $buttonDeletePlaceBlock
  * @var string $buttonDeleteName
  * @var string|null $buttonDeleteClasses
+ * @var bool $buttonDeleteShowLabelBefore
  */
 
 ?>
@@ -27,7 +28,13 @@ use yii\bootstrap5\Html;
 
         echo $content;
     ?>
-    <div class="col-1" class="<?= $buttonDeletePlaceBlock . '_' . $widgetID ?>"  id="buttonDeleteBlock_<?= $widgetID ?>">
-        <?= Html::button($buttonDeleteName, ['class' => 'remove ' . $buttonDeleteClasses]);?>
+    <div class="<?= $buttonDeletePlaceBlock ?>"  id="buttonDeleteBlock_<?= $widgetID ?>">
+        <?php
+            if ($buttonDeleteShowLabelBefore) {
+                echo Html::label('&nbsp;', '', ['class' => 'form-label']);
+            }
+
+            echo Html::a($buttonDeleteName, '#', ['class' => 'remove ' . $buttonDeleteClasses]);
+        ?>
     </div>
 </div>

@@ -55,42 +55,42 @@ class Repeater extends Widget
     public $additionalData = [];
 
     /**
-     * @return mixed
+     * @var mixed
      */
     public $additionalInformation = null;
 
     /**
-     * @return string
+     * @var string
      */
     public $buttonClasses = 'btn btn-primary btn-sm';
 
     /**
-     * @return string
+     * @var string
      */
     public $buttonDeleteClasses = 'btn btn-danger btn-sm w-100';
 
     /**
-     * @return string
+     * @var string
      */
     public $buttonName;
 
     /**
-     * @return string
+     * @var string
      */
     public string $buttonDeleteName = '<i class="bi bi-trash"></i>';
 
     /**
-     * @return string
-     */
-    public string $buttonPlaceBlock = 'col-md-2 offset-md-10';
-
-    /**
-     * @return string
+     * @var string
      */
     public string $buttonDeletePlaceBlock = 'col-md-1 text-center';
 
     /**
-     * @return int|string|null
+     * @var boolean
+     */
+    public bool $buttonDeleteShowLabelBefore = true;
+
+    /**
+     * @var int|string|null
      */
     public $additionalField = null;
 
@@ -109,11 +109,12 @@ class Repeater extends Widget
         RepeaterAsset::register($view);
 
         $data = Json::encode([
-            'additionalInformation' => $this->additionalInformation,
             'append' => $this->appendAction,
             'remove' => $this->removeAction,
             'template' => $this->template,
             'widgetID' => $this->widgetID,
+            'additionalInformation' => $this->additionalInformation,
+            'buttonDeleteShowLabelBefore' => $this->buttonDeleteShowLabelBefore
         ]);
 
         match($this->template) {
@@ -130,24 +131,25 @@ class Repeater extends Widget
         echo "<div class='list-area'>";
         foreach($this->models as $k => $model) {
             $content = $this->render($this->modelView, array_merge([
-                'additionalInformation' => $this->additionalInformation,
-                'widgetID' => $this->widgetID,
+                'k' => $k,
                 'model' => $model,
                 'form' => $this->form,
-                'k' => $k,
-                'additionalField' => $this->additionalField
+                'widgetID' => $this->widgetID,
+                'additionalField' => $this->additionalField,
+                'additionalInformation' => $this->additionalInformation,
 
             ], $this->additionalData));
 
             echo $this->render('repeater_div', [
-                'additionalInformation' => $this->additionalInformation,
-                'widgetID' => $this->widgetID,
-                'content' => $content,
-                'model' => $model,
                 'k' => $k,
+                'model' => $model,
+                'content' => $content,
+                'widgetID' => $this->widgetID,
+                'additionalInformation' => $this->additionalInformation,
                 'buttonDeletePlaceBlock' => $this->buttonDeletePlaceBlock,
                 'buttonDeleteName' => $this->buttonDeleteName,
-                'buttonDeleteClasses' => $this->buttonDeleteClasses
+                'buttonDeleteClasses' => $this->buttonDeleteClasses,
+                'buttonDeleteShowLabelBefore' => $this->buttonDeleteShowLabelBefore
             ]);
         }
         echo "</div>";
@@ -175,7 +177,8 @@ class Repeater extends Widget
                 'additionalField' => $this->additionalField,
                 'buttonDeletePlaceBlock' => $this->buttonDeletePlaceBlock,
                 'buttonDeleteName' => $this->buttonDeleteName,
-                'buttonDeleteClasses' => $this->buttonDeleteClasses
+                'buttonDeleteClasses' => $this->buttonDeleteClasses,
+                'buttonDeleteShowLabelBefore' => $this->buttonDeleteShowLabelBefore
             ], $this->additionalData));
 
             echo $this->render('repeater_table', [

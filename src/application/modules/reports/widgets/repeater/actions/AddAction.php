@@ -63,6 +63,7 @@ class AddAction extends Action
         $buttonDeleteData = Yii::$app->request->post('buttonDeleteData');
         $additionalField = Yii::$app->request->post('additionalField');
         $additionalInformation = Yii::$app->request->post('additionalInformation');
+        $buttonDeleteShowLabelBefore = Yii::$app->request->post('buttonDeleteShowLabelBefore');
 
         return $this->controller->renderAjax('repeater_' . $template, [
             'k' => $id,
@@ -74,7 +75,8 @@ class AddAction extends Action
             'additionalInformation' => $additionalInformation,
             'buttonDeletePlaceBlock' => $buttonDeleteData['buttonDeletePlaceBlock'],
             'buttonDeleteName' => $buttonDeleteData['buttonDeleteName'],
-            'buttonDeleteClasses' => $buttonDeleteData['buttonDeleteClasses']
+            'buttonDeleteClasses' => $buttonDeleteData['buttonDeleteClasses'],
+            'buttonDeleteShowLabelBefore' => $buttonDeleteShowLabelBefore
         ]);
     }
 }

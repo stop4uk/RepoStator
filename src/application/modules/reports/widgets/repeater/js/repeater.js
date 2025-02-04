@@ -22,6 +22,7 @@ var repeater = function () {};
             appendUrl = runData.append,
             deleteUrl = runData.remove,
             additionalInformation = runData.additionalInformation,
+            buttonDeleteShowLabelBefore = runData.buttonDeleteShowLabelBefore,
             lastRow = Number($(".repeater-item_" + widgetID + ":last").attr("data-id")),
             lastIndex = isNaN(lastRow) ? 0 : ++lastRow,
             wrap = $('.ab-repeater_' + widgetID + ' .list-area');
@@ -34,10 +35,11 @@ var repeater = function () {};
                 widgetID: widgetID,
                 template: template,
                 additionalInformation: additionalInformation,
+                buttonDeleteShowLabelBefore: buttonDeleteShowLabelBefore,
                 additionalData: $('.repeater-item_' + widgetID).find('input,select,textarea').serialize(),
                 additionalField: $('#additionalField_' + widgetID).val() ?? '',
                 buttonDeleteData: {
-                    'buttonDeleteName': $('.repeater-item_' + widgetID + ' .remove').text() ?? '',
+                    'buttonDeleteName': $('.repeater-item_' + widgetID + ' .remove').html() ?? '',
                     'buttonDeleteClasses': $('.repeater-item_' + widgetID + ' .remove').attr('class') ?? '',
                     'buttonDeletePlaceBlock': $("#buttonDeleteBlock_" + widgetID).attr("class") ?? ''
                 }
@@ -66,6 +68,7 @@ var repeater = function () {};
                     widgetID: widgetID,
                     template: template,
                     additionalInformation: additionalInformation,
+                    buttonDeleteShowLabelBefore: buttonDeleteShowLabelBefore,
                     additionalData: $('.repeater-item_' + widgetID).find('input,select,textarea').serialize(),
                     additionalField: $('#additionalField_' + widgetID).val(),
                     buttonDeleteData: {
