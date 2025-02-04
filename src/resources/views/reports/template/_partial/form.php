@@ -120,13 +120,13 @@ $form = ActiveForm::begin([
         </div>
     </div>
     <div class="row <?= $model->getIsNewEntity() || !$model->form_usejobs ? 'd-none' : ''; ?>" id="saveFileData">
-        <div class="col-12 col-md-4 col-xl-3">
+        <div class="col-12 col-md-6 col-xl-4">
             <?= $form->field($model, 'limit_maxfiles')
                 ->textInput(['type' => 'number'])
                 ->hint(Yii::t('models', 'При достижении данного количества, файлы, сформированные по этому шаблону начнут удаляться с наиболее старого'), ['class' => "form-text text-justify"]);
             ?>
         </div>
-        <div class="col-12 col-md-4 col-xl-3">
+        <div class="col-12 col-md-6 col-xl-4">
             <?= $form->field($model, 'limit_maxsavetime')
                 ->textInput(['type' => 'number'])
                 ->hint(Yii::t('models', 'По прошествии данного времени, файлы, сформированные по этому шаблону начнут удаляться вне зависимости от количества'), ['class' => "form-text text-justify"]);
