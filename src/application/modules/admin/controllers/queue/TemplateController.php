@@ -39,7 +39,7 @@ final class TemplateController extends BaseController
             'index' => [
                 'class' => IndexAction::class,
                 'searchModel' => JobSearch::class,
-                'constructParams' => ['onlyMain' => true]
+                'constructParams' => ['onlyMine' => true]
             ]
         ];
     }

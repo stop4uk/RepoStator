@@ -33,7 +33,7 @@ final class DashboardController extends BaseController
         $groups = RbacHelper::getAllowGroupsArray('report.list.all');
         $reports = ReportRepository::getAllow($groups);
         $needSentData = (new SendSearch())->search([]);
-        $queueTemplates = (new JobSearch(['onlyMain' => true]))->search([]);
+        $queueTemplates = (new JobSearch(['onlyMine' => true]))->search([]);
 
         return $this->render('index', [
             'reports' => $reports,

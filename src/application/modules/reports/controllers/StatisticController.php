@@ -40,7 +40,7 @@ final class StatisticController extends BaseController
     {
         $session = Yii::$app->getSession();
         $sessionKey = 'Job_search';
-        $searchModel = new JobSearch(['onlyMain' => true]);
+        $searchModel = new JobSearch(['onlyMine' => true]);
         $searchFilters = $this->request->post();
         $form = new StatisticForm();
 

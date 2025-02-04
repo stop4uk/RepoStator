@@ -20,7 +20,7 @@ use yii\data\ActiveDataProvider;
  * @property int|null $created_gid
  * @property string|null $updated_at
  *
- * @property bool $onlyMain
+ * @property bool $onlyMine
  * @property-read array $groups
  * @property-read array $reports
  *
@@ -36,7 +36,7 @@ class JobSearch extends Model
     public $created_gid;
     public $updated_at;
 
-    public bool $onlyMain = true;
+    public bool $onlyMine = true;
     public readonly array $groups;
     public readonly array $reports;
     public readonly array $templates;
@@ -76,7 +76,7 @@ class JobSearch extends Model
             ->where(['created_gid' => array_keys($this->groups)])
             ->with(['report', 'template']);
 
-        if (!$this->onlyMain) {
+        if (!$this->onlyMine) {
             $query->andFilterWhere(['=', 'created_uid', Yii::$app->getUser()->id]);
         }
 
