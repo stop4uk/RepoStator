@@ -8,7 +8,7 @@ final class m240410_104248_reports_form_jobs extends Migration
 {
     const TABLE = '{{%reports_form_jobs}}';
 
-    public function safeUp()
+    public function safeUp(): void
     {
         $tableOptions = 'ENGINE=InnoDB';
 
@@ -19,7 +19,11 @@ final class m240410_104248_reports_form_jobs extends Migration
             'report_id' => $this->integer(11)->notNull(),
             'template_id' => $this->integer(11)->notNull(),
             'form_period' => $this->string(30)->notNull()->defaultValue(''),
-            'file' => $this->string(255)->null()->defaultValue(null),
+            'file_hash' => $this->string(32)->null()->defaultValue(null),
+            'file_path' => $this->string(255)->null()->defaultValue(null),
+            'file_size' => $this->bigInteger(20)->null()->defaultValue(null),
+            'file_extension' => $this->string(4)->null()->defaultValue(null),
+            'file_mime' => $this->string(255)->null()->defaultValue(null),
             'created_at' => $this->integer(11)->notNull(),
             'created_uid' => $this->integer(11)->null()->defaultValue(null),
             'created_gid' => $this->integer(11)->null()->defaultValue(null),
