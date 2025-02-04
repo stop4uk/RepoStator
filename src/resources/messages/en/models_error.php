@@ -67,7 +67,7 @@ return [
     'В некоторых структурах есть повторяющиеся константы' => 'Some structures have duplicate constants',
     'Укажите колонки для формирования таблицы' => 'Specify the columns to form the table',
     'Укажите строки для расчета показателей относительно колонок' => 'Specify the rows to calculate the indicators relative to the columns',
-    'Одно из значений не может быть выбрано и использовано' => 'One of the values cannot be selected and used',
+    'Одно из значений поля "{nameField}" не может быть выбрано и использовано' => 'One of the values of the "{nameField}" field cannot be selected and used.',
     'Email обязателен' => 'Email is required',
     'Телефон обязателен' => 'Phone is required',
     'Допускается указание букв, цифр, пробела, точки и математических символов' => 'It is allowed to specify letters, numbers, spaces, dots and mathematical symbols',

@@ -2,17 +2,25 @@
 
 namespace app\modules\reports\models;
 
+use Yii;
+use yii\helpers\ArrayHelper;
+
 use app\components\base\BaseModel;
-use app\helpers\{CommonHelper, HtmlPurifier};
-use app\modules\reports\{entities\ReportFormTemplateEntity,
+use app\helpers\{
+    CommonHelper,
+    HtmlPurifier
+};
+use app\modules\reports\{
+    entities\ReportFormTemplateEntity,
     helpers\TemplateHelper,
     repositories\ConstantRepository,
     repositories\ConstantruleRepository,
-    repositories\ReportRepository};
-use app\modules\users\{components\rbac\RbacHelper, repositories\GroupRepository};
-use Yii;
-use yii\helpers\ArrayHelper;
-use yii\web\UploadedFile;
+    repositories\ReportRepository
+};
+use app\modules\users\{
+    components\rbac\RbacHelper,
+    repositories\GroupRepository
+};
 
 /**
  * @property string $name
@@ -27,7 +35,6 @@ use yii\web\UploadedFile;
  * @property string|null $table_columns
  * @property int $limit_maxfiles
  * @property int $limit_maxsavetime
- * @property UploadedFile $uploadedFile
  *
  * @property-read array $groups
  * @property-read array $groupsType
@@ -52,8 +59,6 @@ final class TemplateModel extends BaseModel
     public $table_columns;
     public int $limit_maxfiles = 100;
     public int $limit_maxsavetime = 864000;
-
-    public $uploadedFile;
 
     public readonly array $groups;
     public readonly array $reports;
@@ -176,17 +181,33 @@ final class TemplateModel extends BaseModel
     public function checkDynamicValues($attribute): void
     {
         if (
-            $this->table_type
-            && $this->{$attribute}
+            !$this->table_type
+            || !$this->{$attribute}
         ) {
-            $elements = match ($this->table_type) {
-                ReportFormTemplateEntity::REPORT_TABLE_TYPE_GROUP => $this->groups,
-                ReportFormTemplateEntity::REPORT_TABLE_TYPE_CONST => $this->mergeConstantAndRules
-            };
+            return;
+        }
 
+        $elements = [];
+        switch ($attribute) {
+            case 'table_columns':
+                $elements = match ((int)$this->table_type) {
+                    ReportFormTemplateEntity::REPORT_TABLE_TYPE_GROUP => $this->groups,
+                    ReportFormTemplateEntity::REPORT_TABLE_TYPE_CONST => $this->mergeConstantAndRules
+                };
+                break;
+            case 'table_rows':
+                $elements = match ((int)$this->table_type) {
+                    ReportFormTemplateEntity::REPORT_TABLE_TYPE_GROUP => $this->mergeConstantAndRules,
+                    ReportFormTemplateEntity::REPORT_TABLE_TYPE_CONST => $this->groups
+                };
+                break;
+        }
+
+        if ($elements) {
             foreach ($this->{$attribute} as $element) {
                 if (!in_array($element, array_keys($elements))) {
-                    $this->addError('table_columns', Yii::t('models_error', 'Одно из значений не может быть выбрано и использовано'));
+                    $this->addError($attribute, Yii::t('models_error', 'Одно из значений в поле "{nameField}" не может быть выбрано и использовано', ['nameField' => $this->getAttributeLabel($attribute)]));
+                    break;
                 }
             }
         }
