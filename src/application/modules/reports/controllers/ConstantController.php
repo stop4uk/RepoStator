@@ -233,7 +233,9 @@ final class ConstantController extends BaseController
             $formData = $post['ConstantModel'];
 
             foreach (array_keys($formData) as $index) {
-                $models[$index] = new ConstantModel(new ReportConstantEntity());
+                $models[$index] = new ConstantModel(new ReportConstantEntity([
+                    'scenario' => BaseAR::SCENARIO_INSERT
+                ]));
             }
 
             if (!empty($models) && (ConstantModel::loadMultiple($models, $post, 'ConstantModel'))) {
@@ -249,7 +251,9 @@ final class ConstantController extends BaseController
         }
 
         return $this->render('createMass', [
-            'models' => empty($models) ? [new ConstantModel(new ReportConstantEntity())] : $models,
+            'models' => empty($models) ? [new ConstantModel(new ReportConstantEntity([
+                'scenario' => BaseAR::SCENARIO_INSERT
+            ]))] : $models,
             'errors' => $errors,
         ]);
     }
