@@ -173,7 +173,7 @@ final class ConstantRuleModel extends BaseModel
             $this->addError($attribute, Yii::t('models_error', 'В математическом правиле отсутствуют ' .
                 'константы, которые указаны в кавычках, или, само математическое правило неверно'));
         } else {
-            $constantForCheck = match) {(bool)$this->report_id) {
+            $constantForCheck = match((bool)$this->report_id) {
                 true => ConstantRepository::getAllow(
                     reports: [$this->report_id => $this->report_id],
                     groups: $this->groups
@@ -191,7 +191,7 @@ final class ConstantRuleModel extends BaseModel
         }
     }
 
-    public function checkCanSentList()
+    public function checkCanSentList(): void
     {
         if ($this->groups_only) {
             foreach ($this->groups_only as $group) {
