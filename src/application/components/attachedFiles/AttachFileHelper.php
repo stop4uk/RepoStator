@@ -48,8 +48,8 @@ final class AttachFileHelper
         string $storageID,
         string $pathInput,
         string $pathToSave,
-        string $fileName): bool
-    {
+        string $fileName
+    ): bool {
         $storage = Yii::$app->get($storageID);
         $storage->createDir($pathToSave);
 
