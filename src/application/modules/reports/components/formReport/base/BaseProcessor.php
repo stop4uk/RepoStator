@@ -1,12 +1,19 @@
 <?php
 
-namespace app\modules\reports\components\base;
+namespace app\modules\reports\components\formReport\base;
 
 use Yii;
 use yii\base\Component;
 use yii\helpers\{
     ArrayHelper,
     Json
+};
+use PhpOffice\PhpSpreadsheet\{
+    Reader\IReader,
+    Worksheet\Worksheet,
+    Writer\IWriter,
+    Writer\Xlsx,
+    Spreadsheet
 };
 
 use app\components\base\BaseAR;
@@ -18,7 +25,6 @@ use app\modules\reports\{
     repositories\ConstantruleRepository,
     forms\StatisticForm,
 };
-
 use app\modules\users\{
     repositories\GroupRepository,
     repositories\GroupTypeRepository
@@ -28,77 +34,58 @@ use app\modules\users\{
  * @author Stop4uk <stop4uk@yandex.ru>
  * @package app\modules\reports\components\base
  */
-class BaseProcessor extends Component
+abstract class BaseProcessor extends Component
 {
     protected readonly StatisticForm $form;
     protected readonly ReportFormTemplateEntity $template;
     protected readonly array $period;
     protected readonly array $periodDays;
 
-    public array $indicators = [];
-    public array $indicatorsContent = [];
-    public array $indicatorsRule = [];
-    public array $groups = [];
-    public array $groupsTypeContent = [];
-    public array $groupsToType = [];
+    protected array $indicators = [];
+    protected array $indicatorsContent = [];
+    protected array $indicatorsRule = [];
+    protected array $groups = [];
+    protected array $groupsTypeContent = [];
+    protected array $groupsToType = [];
 
-    public array $sentData = [];
-    public array $calculateCounters = [];
-    public array $calculateCountersByGroupType = [];
-    public array $calculateCountersAll = [];
+    protected array $sentData = [];
+    protected array $calculateCounters = [];
+    protected array $calculateCountersByGroupType = [];
+    protected array $calculateCountersAll = [];
+    protected string $jobID = '';
 
-    public function __construct($form, $template)
-    {
+    /**
+     * @var IReader|Spreadsheet Документ
+     */
+    protected $spreadsheet;
+    /**
+     * @var Worksheet Лист документа
+     */
+    protected $sheet;
+    /**
+     * @var IWriter|Xlsx Коласс записи изменений
+     */
+    protected $writer;
+
+    public function __construct(
+        StatisticForm $form,
+        ReportFormTemplateEntity $template
+    ) {
         $this->form = $form;
         $this->template = $template;
+
         $this->period = $this->getPeriod();
         $this->periodDays = $this->getPeriodDays();
     }
 
-    private function getPeriod(): array
+    abstract public function form();
+
+    final public function setJobID(string $id): void
     {
-        $explodeDates = explode(' - ', $this->form->period);
-        $startTime = match ($this->template->form_datetime) {
-            $this->template::REPORT_DATETIME_PERIOD => strtotime($explodeDates[0] . ' 00:00:00'),
-            $this->template::REPORT_DATETIME_MONTH => strtotime(date('Y-m-01 00:00:00', strtotime($explodeDates[1]))),
-            $this->template::REPORT_DATETIME_WEEK => strtotime(($explodeDates[1] . '-' . (date('N', strtotime($explodeDates[1]))-1) . ' days') . ' 00:00:00')
-        };
-
-        $dates = [
-            'now' => [
-                'start' => $startTime,
-                'end' => strtotime($explodeDates[1].' 23:59:59')
-            ],
-            'appg' => []
-        ];
-
-        if ($this->template->use_appg) {
-            $dates['appg'] = [
-                'start' => ($dates['now']['start'] - 31536000),
-                'end' => ($dates['now']['end'] - 31536000)
-            ];
-        }
-
-        return $dates;
+        $this->jobID = $id;
     }
 
-    private function getPeriodDays(): array
-    {
-        $periodDates = [];
-        $startDate = $this->period['now']['start'];
-        $endDate = $this->period['now']['end'];
-
-        if ($this->template->form_datetime != $this->template::REPORT_DATETIME_PERIOD) {
-            while ($startDate <= $endDate) {
-                $periodDates[$startDate] = Yii::$app->formatter->asDate($startDate);
-                $startDate = strtotime('+1 day', $startDate);
-            }
-        }
-
-        return $periodDates;
-    }
-
-    public function getIndicatorsAndGroupsFromTemplate(): static
+    final public function getIndicatorsAndGroupsFromTemplate(): static
     {
         $inversionFind = ['table_columns' => 'table_rows', 'table_rows' => 'table_columns'];
         $findColumn = match ($this->template->table_type) {
@@ -163,7 +150,7 @@ class BaseProcessor extends Component
         return $this;
     }
 
-    public function getDataFromDB(): static
+    final public function getDataFromDB(): static
     {
         $data = ['now' => [], 'appg' => []];
 
@@ -206,7 +193,7 @@ class BaseProcessor extends Component
         return $this;
     }
 
-    public function setIndicators(array $indicatorsArray): void
+    final public function setIndicators(array $indicatorsArray): void
     {
         $constants = (ConstantRepository::getAllBy(['record' => $indicatorsArray], []))->all();
         $rules = (ConstantruleRepository::getAllBy(['record' => $indicatorsArray], []))->all();
@@ -239,7 +226,7 @@ class BaseProcessor extends Component
         }
     }
 
-    public function calculateAllCounters(): static
+    final public function calculateAllCounters(): static
     {
         foreach ($this->period as $type => $periods) {
             if (
@@ -276,11 +263,63 @@ class BaseProcessor extends Component
         return $this;
     }
 
-    private function calculateForDays(
-        string $type,
-        int $group,
-        array $indicators
-    ): void {
+    final public function setPageSettings(int $paperSize, string $orientation, int|null $fitToPage = null): void
+    {
+        $this->sheet
+            ->getPageSetup()
+            ->setPaperSize($paperSize)
+            ->setOrientation($orientation);
+
+        if ($fitToPage) {
+            $this->sheet->setFitToPage($fitToPage);
+        }
+    }
+
+    private function getPeriod(): array
+    {
+        $explodeDates = explode(' - ', $this->form->period);
+        $startTime = match ($this->template->form_datetime) {
+            $this->template::REPORT_DATETIME_PERIOD => strtotime($explodeDates[0] . ' 00:00:00'),
+            $this->template::REPORT_DATETIME_MONTH => strtotime(date('Y-m-01 00:00:00', strtotime($explodeDates[1]))),
+            $this->template::REPORT_DATETIME_WEEK => strtotime(($explodeDates[1] . '-' . (date('N', strtotime($explodeDates[1]))-1) . ' days') . ' 00:00:00')
+        };
+
+        $dates = [
+            'now' => [
+                'start' => $startTime,
+                'end' => strtotime($explodeDates[1].' 23:59:59')
+            ],
+            'appg' => []
+        ];
+
+        if ($this->template->use_appg) {
+            $dates['appg'] = [
+                'start' => ($dates['now']['start'] - 31536000),
+                'end' => ($dates['now']['end'] - 31536000)
+            ];
+        }
+
+        return $dates;
+    }
+
+    private function getPeriodDays(): array
+    {
+        $periodDates = [];
+        $startDate = $this->period['now']['start'];
+        $endDate = $this->period['now']['end'];
+
+        if ($this->template->form_datetime != $this->template::REPORT_DATETIME_PERIOD) {
+            while ($startDate <= $endDate) {
+                $periodDates[$startDate] = Yii::$app->formatter->asDate($startDate);
+                $startDate = strtotime('+1 day', $startDate);
+            }
+        }
+
+        return $periodDates;
+    }
+
+    private function calculateForDays(string $type, int $group, array $indicators ): void
+    {
         foreach (array_keys($this->periodDays) as $day) {
             $daySumm = [];
 
@@ -324,11 +363,8 @@ class BaseProcessor extends Component
         }
     }
 
-    private function calculateForPeriod(
-        string $type,
-        int $group,
-        array $indicators
-    ): void {
+    private function calculateForPeriod(string $type, int $group, array $indicators): void
+    {
         foreach ($indicators as $record => $indicatorData) {
             $calculateValues = [];
             foreach ($this->sentData[$type][$group] as $counters) {
@@ -364,10 +400,8 @@ class BaseProcessor extends Component
         }
     }
 
-    private function replaceConstantToValues(
-        string $rule,
-        array $indicators
-    ): string {
+    private function replaceConstantToValues(string $rule, array $indicators): string
+    {
         $changeRule = $rule;
 
         preg_match_all('/\"(.*?)\"/', $changeRule, $constants);

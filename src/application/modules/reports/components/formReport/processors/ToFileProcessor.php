@@ -1,10 +1,13 @@
 <?php
 
-namespace app\modules\reports\components\processors;
+namespace app\modules\reports\components\formReport\processors;
 
-use Yii;
-use PhpOffice\PhpSpreadsheet\{
-    IOFactory,
+use app\helpers\CommonHelper;
+use app\modules\reports\{components\formReport\base\BaseProcessor,
+    components\formReport\base\BaseProcessorInterface,
+    entities\ReportFormJobEntity,
+    helpers\TemplateHelper};
+use PhpOffice\PhpSpreadsheet\{IOFactory,
     Reader\IReader,
     Spreadsheet,
     Style\Alignment,
@@ -14,16 +17,8 @@ use PhpOffice\PhpSpreadsheet\{
     Worksheet\PageSetup,
     Worksheet\Worksheet,
     Writer\IWriter,
-    Writer\Xlsx
-};
-
-use app\helpers\CommonHelper;
-use app\modules\reports\{
-    components\base\BaseProcessor,
-    components\base\BaseProcessorInterface,
-    entities\ReportFormJobEntity,
-    helpers\TemplateHelper
-};
+    Writer\Xlsx};
+use Yii;
 
 /**
  * @author Stop4uk <stop4uk@yandex.ru>
@@ -67,15 +62,13 @@ class ToFileProcessor extends BaseProcessor implements BaseProcessorInterface
     {
         $process = $this->getSpreadsheet();
 
-        if ($this->template->table_template) {
-            $process
-                ->getIndicatorsFromFile()
+        if ($this->template->form_type == $this->template::REPORT_TYPE_TEMPLATE) {
+            $process->getIndicatorsFromFile()
                 ->getDataFromDB()
                 ->calculateCountersForFile()
                 ->replaceDataInSpreadsheet();
         } else {
-            $process
-                ->getIndicatorsAndGroupsFromTemplate()
+            $process->getIndicatorsAndGroupsFromTemplate()
                 ->getDataFromDB()
                 ->calculateAllCounters()
                 ->setColumnsTitleAndHeader()
@@ -90,7 +83,7 @@ class ToFileProcessor extends BaseProcessor implements BaseProcessorInterface
 
     private function getSpreadsheet(): static
     {
-        if ($this->template->table_template) {
+        if ($this->template->form_type == $this->template::REPORT_TYPE_TEMPLATE) {
             $file = Yii::getAlias($this->template->table_template);
 
             $this->extension = pathinfo($file, PATHINFO_EXTENSION);
@@ -459,7 +452,7 @@ class ToFileProcessor extends BaseProcessor implements BaseProcessorInterface
 
     private function write(): static
     {
-        $this->writer = match) {(bool)$this->template->table_template) {
+        $this->writer = match((bool)$this->template->table_template) {
             true => IOFactory::createWriter($this->spreadsheet, ucfirst($this->extension)),
             false => new Xlsx($this->spreadsheet)
         };

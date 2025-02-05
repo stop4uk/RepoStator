@@ -2,16 +2,23 @@
 
 namespace app\modules\reports\controllers;
 
-use app\components\base\BaseController;
-use app\modules\reports\{components\factories\FormTemplateFactory,
-    forms\StatisticForm,
-    repositories\TemplateRepository,
-    search\JobSearch};
-use app\modules\users\{components\rbac\items\Permissions, components\rbac\RbacHelper,};
 use Yii;
 use yii\bootstrap5\ActiveForm;
 use yii\filters\AccessControl;
 use yii\web\Response;
+
+use app\components\base\BaseController;
+use app\modules\reports\{
+    components\formReport\FormTemplateFactory,
+    repositories\TemplateRepository,
+    search\JobSearch,
+    forms\StatisticForm,
+};
+use app\modules\users\{
+    components\rbac\items\Permissions,
+    components\rbac\RbacHelper,
+};
+
 
 /**
  * @author Stop4uk <stop4uk@yandex.ru>
@@ -36,7 +43,7 @@ final class StatisticController extends BaseController
         ];
     }
 
-    public function actionIndex()
+    public function actionIndex(): string
     {
         $session = Yii::$app->getSession();
         $sessionKey = 'Job_search';
@@ -77,8 +84,8 @@ final class StatisticController extends BaseController
         }
 
         if ($form->load($this->request->post()) && $form->validate()) {
-            $factory = FormTemplateFactory::process($form);
-            $factory->run();
+            $factory = new FormFactory($form);
+            $factory->process();
         }
     }
 
