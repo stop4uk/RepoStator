@@ -76,7 +76,7 @@ $format = str_replace('php:', '', Yii::$app->settings->get('system', 'app_langua
                         'linkedCalendars' => false,
                     ],
                     'options' => [
-                        'placeholder' => Yii::$app->formatter->asDate(time()) . ' - ' . Yii::$app->formatter->asDate(time()),
+                        'value' => Yii::$app->formatter->asDate(date('Y-m-d', strtotime('-1 day', time()))) . ' - ' . Yii::$app->formatter->asDate(time()),
                     ]
                 ]); ?>
             </div>
@@ -92,7 +92,7 @@ $format = str_replace('php:', '', Yii::$app->settings->get('system', 'app_langua
                         'linkedCalendars' => false,
                     ],
                     'options' => [
-                        'placeholder' => Yii::$app->formatter->asDate(time()) . ' - ' . Yii::$app->formatter->asDate(time()),
+                        'value' => Yii::$app->formatter->asDate(date('Y-m-d', strtotime('-1 day', time()))) . ' - ' . Yii::$app->formatter->asDate(time()),
                     ]
                 ]); ?>
             </div>
