@@ -36,7 +36,6 @@ return [
         '@app' => dirname(__DIR__) . '/',
         '@runtime' => '@root/runtime',
         '@resources' => '@root/resources',
-        '@uploads' => '@root/' . env('YII_UPLOADS_PATH_LOCAL'),
     ],
     'bootstrap' => [
         'log',
@@ -62,7 +61,7 @@ return [
     'components' => [
         AttachFileHelper::STORAGE_LOCAL => [
             'class' => LocalFilesystem::class,
-            'path' => '@uploads'
+            'path' => '@root/_storage'
         ],
         'i18n' => [
             'translations' => [
