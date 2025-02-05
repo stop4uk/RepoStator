@@ -204,7 +204,7 @@ final class AttachFileBehavior extends Behavior
                     'pageSize' => 5,
                 ],
             ]),
-            false => $files
+            false => $files instanceof AttachFileEntity ? $files->toArray() : $files
         };
     }
 
