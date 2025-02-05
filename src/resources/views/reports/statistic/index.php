@@ -60,7 +60,7 @@ $this->title = Yii::t('views', 'Статистика');
                     [
                         'class' => ActionColumn::class,
                         'header' => false,
-                        'headerOptions' => ['style' => 'min-width: 6rem'],
+                        'headerOptions' => ['style' => 'min-width: 2rem'],
                         'contentOptions' => ['class' => 'text-center'],
                         'template' => '{download}',
                         'buttons' => [

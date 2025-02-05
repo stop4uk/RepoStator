@@ -35,37 +35,37 @@ $this->title = Yii::t('views', 'Очередь отчетов');
                 'columns' => [
                     [
                         'attribute' => 'job_status',
-                        'headerOptions' => ['style' => 'min-width: 8rem; width: 5%'],
-                        'contentOptions' => ['class' => 'small'],
                         'format' => 'html',
+                        'headerOptions' => ['style' => 'min-width: 8rem'],
                         'value' => fn($data) => JobHelper::statusNameInColor($data->job_status)
                     ],
                     [
-                        'attribute' => 'report_id',
-                        'headerOptions' => ['style' => 'min-width: 12rem; width: 10%'],
-                        'contentOptions' => ['class' => 'small'],
-                        'value' => fn($data) => $data->report->name
-                    ],
-                    [
                         'attribute' => 'template_id',
-                        'headerOptions' => ['style' => 'min-width: 12rem; width: 10%'],
-                        'contentOptions' => ['class' => 'small'],
-                        'value' => fn($data) => $data->template->name
+                        'format' => 'html',
+                        'headerOptions' => ['style' => 'min-width: 14rem'],
+                        'value' => function($data) {
+                            $value = $data->template->name . Html::tag('span', ' #' . $data->report->name, ['class' => 'small text-muted']) . '<br />';
+                            $value .= $data->form_period;
+
+                            return $value;
+                        }
                     ],
                     [
                         'attribute' => 'created_at',
-                        'headerOptions' => ['style' => 'min-width: 12rem; width: 8%'],
-                        'format' => ['date', Yii::$app->settings->get('system', 'app_language_dateTime')],
+                        'contentOptions' => ['class' => 'small text-center'],
+                        'headerOptions' => ['style' => 'min-width: 8rem', 'class' => 'text-center'],
+                        'format' => ['date', Yii::$app->settings->get('system', 'app_language_dateTime')]
                     ],
                     [
                         'attribute' => 'updated_at',
-                        'headerOptions' => ['style' => 'min-width: 12rem; width: 8%'],
-                        'format' => ['date', Yii::$app->settings->get('system', 'app_language_dateTime')],
+                        'contentOptions' => ['class' => 'small text-center'],
+                        'headerOptions' => ['style' => 'min-width: 8rem', 'class' => 'text-center'],
+                        'format' => ['date', Yii::$app->settings->get('system', 'app_language_dateTime')]
                     ],
                     [
-                        'attribute' => 'file',
-                        'contentOptions' => ['class' => 'text-center'],
-                        'headerOptions' => ['style' => 'min-width: 2rem; width: 2%', 'class' => 'text-center'],
+                        'class' => ActionColumn::class,
+                        'header' => false,
+                        'headerOptions' => ['style' => 'min-width: 2rem'],
                         'format' => 'raw',
                         'value' => function($model) {
                             if ($model->file_name) {

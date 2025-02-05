@@ -80,14 +80,14 @@ Pjax::begin(['id' => 'dashBoard', 'enablePushState' => false, 'clientOptions' =>
                     'columns' => [
                         [
                             'attribute' => 'job_status',
-                            'headerOptions' => ['style' => 'min-width: 8rem; width: 5%'],
                             'format' => 'html',
+                            'headerOptions' => ['style' => 'min-width: 8rem'],
                             'value' => fn($data) => JobHelper::statusNameInColor($data->job_status)
                         ],
                         [
                             'attribute' => 'template_id',
-                            'headerOptions' => ['style' => 'min-width: 12rem; width: 10%'],
                             'format' => 'html',
+                            'headerOptions' => ['style' => 'min-width: 14rem'],
                             'value' => function($data) {
                                 $value = $data->template->name . Html::tag('span', ' #' . $data->report->name, ['class' => 'small text-muted']) . '<br />';
                                 $value .= $data->form_period;
@@ -97,21 +97,20 @@ Pjax::begin(['id' => 'dashBoard', 'enablePushState' => false, 'clientOptions' =>
                         ],
                         [
                             'attribute' => 'created_at',
-                            'contentOptions' => ['class' => 'small'],
-                            'headerOptions' => ['style' => 'min-width: 12rem; width: 8%'],
+                            'contentOptions' => ['class' => 'small text-center'],
+                            'headerOptions' => ['style' => 'min-width: 8rem', 'class' => 'text-center'],
                             'format' => ['date', Yii::$app->settings->get('system', 'app_language_dateTime')]
                         ],
                         [
                             'attribute' => 'updated_at',
-                            'contentOptions' => ['class' => 'small'],
-                            'headerOptions' => ['style' => 'min-width: 12rem; width: 8%'],
+                            'contentOptions' => ['class' => 'small text-center'],
+                            'headerOptions' => ['style' => 'min-width: 8rem', 'class' => 'text-center'],
                             'format' => ['date', Yii::$app->settings->get('system', 'app_language_dateTime')]
                         ],
                         [
                             'class' => ActionColumn::class,
                             'header' => false,
-                            'contentOptions' => ['class' => 'text-center'],
-                            'headerOptions' => ['style' => 'min-width: 2rem; width: 2%', 'class' => 'text-center'],
+                            'headerOptions' => ['style' => 'min-width: 2rem'],
                             'template' => '{download}',
                             'buttons' => [
                                 'download' => function($url, $model) {
