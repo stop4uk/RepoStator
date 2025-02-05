@@ -13,7 +13,7 @@ use app\modules\reports\components\formReport\base\BaseProcessor;
 
 final class FromTemplate extends BaseProcessor
 {
-    public array $templateRecord = [];
+    public $templateRecord = [];
     private array $indicatorsForReplace = [];
 
     public function form(): void
@@ -30,16 +30,19 @@ final class FromTemplate extends BaseProcessor
 
     private function setSpreadsheet(): FromTemplate
     {
-        $this->templateRecord = array_shift($this->template->getAttachedFiles(false));
+        $this->templateRecord = $this->template->getAttachedFiles(false)[0];
         $template = $this->template->getAttachFile($this->templateRecord['file_hash']);
-        $reader = IOFactory::createReader(ucfirst($this->file->file_extension));
+        $reader = IOFactory::createReader(ucfirst($this->templateRecord['file_extension']));
 
         $fileName = Yii::$app->getSecurity()->generateRandomString(6);
-        $tempFile = fopen("@runtime/$fileName.{$this->templateRecord['file_extension']}", 'w');
+        $fileExtension = $this->templateRecord['file_extension'];
+        $filePath = Yii::getAlias('@runtime') . DIRECTORY_SEPARATOR . implode('.', [$fileName, $fileExtension]);
+
+        $tempFile = fopen( $filePath, 'wb');
         fwrite($tempFile, $template['content']);
         fclose($tempFile);
 
-        $this->spreadsheet = $reader->load("@runtime/$fileName.{$this->templateRecord['file_extension']}");
+        $this->spreadsheet = $reader->load($filePath);
         $this->sheet = $this->spreadsheet->getActiveSheet();
 
         return $this;

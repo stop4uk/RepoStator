@@ -2,6 +2,7 @@
 
 namespace app\modules\reports\components\formReport\processors;
 
+use Yii;
 use yii\helpers\ArrayHelper;
 use PhpOffice\PhpSpreadsheet\{
     Spreadsheet,

@@ -169,7 +169,7 @@ abstract class BaseProcessor extends Component
             ->setOrientation($orientation);
 
         if ($fitToPage) {
-            $this->sheet->setFitToPage($fitToPage);
+            $this->sheet->getPageSetup()->setFitToPage($fitToPage);
         }
     }
 

@@ -17,11 +17,15 @@ final class FormDirectWorker extends BaseWorker
         $processor = $this->processor;
         $processor->form();
 
-        $fileName = Yii::$app->getSecurity()->generateRandomString(5) . '.' . $processor->templateRecord['file_extension'];
-        header("Content-Type: {$processor->templateRecord['file_mime']}");
-        header("Content-Disposition: attachment; filename=$fileName");
+        $fileName = Yii::$app->getSecurity()->generateRandomString(5);
+        $fileExtension = $processor->templateRecord['file_extension'] ?? 'xlsx';
+        $fileMime = $processor->templateRecord['file_mime'] ?? 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet';
+
+        $file = implode('.', [$fileName, $fileExtension]);
+        header("Content-Type: $fileMime");
+        header("Content-Disposition: attachment; filename=$file");
         header("Cache-Control: max-age=0");
-        $this->writer->save("php://output");
+        $processor->writer->save("php://output");
         die;
     }
 }

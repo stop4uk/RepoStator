@@ -32,7 +32,7 @@ final class FormFactory
         $this->template = TemplateRepository::get($this->templateID);
     }
 
-    public function process(): BaseWorker
+    public function process(): BaseWorker|null
     {
         $processor = Yii::createObject(match($this->template->form_type) {
             $this->template::REPORT_TYPE_DYNAMIC => FromDynamic::class,
