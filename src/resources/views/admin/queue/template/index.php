@@ -67,9 +67,25 @@ $this->title = Yii::t('views', 'Очередь отчетов');
                         'contentOptions' => ['class' => 'text-center'],
                         'headerOptions' => ['style' => 'min-width: 2rem; width: 2%', 'class' => 'text-center'],
                         'format' => 'raw',
-                        'value' => function($data) {
-                            if ($data->file) {
-                                return Html::a('<i class="bi bi-file-arrow-down"></i>', Url::to(['download', 'path' => base64_encode($data->file ?? '')]));
+                        'value' => function($model) {
+                            if ($model->file_name) {
+                                $fileName = implode('.', [$model->file_name, $model->file_extension]);
+                                $params = serialize([
+                                    'storageID' => $model->storage,
+                                    'pathToFile' => $model->file_path . $fileName,
+                                    'fileName' => $fileName
+                                ]);
+
+                                return Html::a(
+                                    '<i class="bi bi-file-arrow-down text-dark"></i>',
+                                    Url::to(['getfiledirect', 'params' => base64_encode($params)]),
+                                    [
+                                        'data-pjax' => 0,
+                                        'data-bs-toggle' => 'tooltip',
+                                        'data-bs-placement' => 'bottom',
+                                        'title' => Yii::t('views', 'Скачать'),
+                                    ]
+                                );
                             }
                         }
                     ],

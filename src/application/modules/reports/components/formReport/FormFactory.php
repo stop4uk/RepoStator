@@ -3,6 +3,7 @@
 namespace app\modules\reports\components\formReport;
 
 use Yii;
+use yii\web\Response;
 use app\modules\reports\{
     components\formReport\base\BaseWorker,
     components\formReport\processors\FromDynamic,
@@ -32,7 +33,7 @@ final class FormFactory
         $this->template = TemplateRepository::get($this->templateID);
     }
 
-    public function process(): BaseWorker|null
+    public function process(): BaseWorker|Response
     {
         $processor = Yii::createObject(match($this->template->form_type) {
             $this->template::REPORT_TYPE_DYNAMIC => FromDynamic::class,

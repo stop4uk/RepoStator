@@ -12,10 +12,13 @@ use yii\db\ActiveQuery;
 
 use app\components\{
     base\BaseAR,
-    events\objects\StatisticEvent
+    attachedFiles\AttachFileHelper,
 };
 use app\helpers\CommonHelper;
-use app\modules\reports\helpers\JobHelper;
+use app\modules\reports\{
+    helpers\JobHelper,
+    events\StatisticEvent,
+};
 use app\modules\users\entities\UserEntity;
 
 /**
@@ -24,7 +27,6 @@ use app\modules\users\entities\UserEntity;
  * @property int $report_id
  * @property int $template_id
  * @property string $form_period
- * @property string|null $file
  * @property int $created_at
  * @property int $created_uid
  * @property int|null $updated_at
@@ -81,12 +83,15 @@ class ReportFormJobEntity extends BaseAR
     {
         return [
             [['report_id', 'job_id'], 'required'],
-            [['report_id', 'job_status'], 'integer'],
+            [['report_id', 'job_status', 'file_size'], 'integer'],
             ['form_period', 'string', 'length' => [10, 30]],
-            ['file', 'string', 'length' => [10, 255]],
             ['job_id', 'string', 'length' => [2, 32]],
             ['job_status', 'in', 'range' => self::STATUSES],
-            ['job_status', 'default', 'value' => self::STATUS_WAIT]
+            ['job_status', 'default', 'value' => self::STATUS_WAIT],
+            ['storage', 'in', 'range' => array_keys(AttachFileHelper::getStorageName(asList: true))],
+            [['file_name', 'file_path', 'file_mime'], 'string', 'max' => 255],
+            ['file_hash', 'string', 'max' => 32],
+            ['file_extension', 'string', 'max' => 4],
         ];
     }
 
@@ -115,10 +120,12 @@ class ReportFormJobEntity extends BaseAR
         return '{{reports_form_jobs}}';
     }
 
-    public function setComplete(string $file, string $formPeriod): void
+    public function setComplete(array $fileData, string $formPeriod): void
     {
         $this->job_status = self::STATUS_COMPLETE;
-        $this->file = Yii::$app->params['downloadFormFilesAlias'] . DIRECTORY_SEPARATOR . $file;
+        foreach($fileData as $attribute => $value) {
+            $this->{$attribute} = $value;
+        }
 
         if (
             CommonHelper::saveAttempt($this, 'Reports.Jobs')

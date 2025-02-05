@@ -26,7 +26,6 @@ $this->title = Yii::t('views', 'Статистика');
         <div class="card-body">
             <?= GridView::widget([
                 'dataProvider' => $dataProvider,
-                'tableOptions' => ['class' => 'table'],
                 'emptyText' => Yii::t('views', 'Завершенных или активных задач на фомирование отчетов нет'),
                 'columns' => [
                     [
@@ -38,7 +37,7 @@ $this->title = Yii::t('views', 'Статистика');
                     [
                         'attribute' => 'template_id',
                         'format' => 'html',
-                        'headerOptions' => ['style' => 'min-width: 8rem'],
+                        'headerOptions' => ['style' => 'min-width: 14rem'],
                         'value' => function($data) {
                             $value = $data->template->name . Html::tag('span', ' #' . $data->report->name, ['class' => 'small text-muted']) . '<br />';
                             $value .= $data->form_period;
@@ -48,14 +47,14 @@ $this->title = Yii::t('views', 'Статистика');
                     ],
                     [
                         'attribute' => 'created_at',
-                        'contentOptions' => ['class' => 'small'],
-                        'headerOptions' => ['style' => 'min-width: 12rem'],
+                        'contentOptions' => ['class' => 'small text-center'],
+                        'headerOptions' => ['style' => 'min-width: 8rem', 'class' => 'text-center'],
                         'format' => ['date', Yii::$app->settings->get('system', 'app_language_dateTime')]
                     ],
                     [
                         'attribute' => 'updated_at',
-                        'contentOptions' => ['class' => 'small'],
-                        'headerOptions' => ['style' => 'min-width: 12rem'],
+                        'contentOptions' => ['class' => 'small text-center'],
+                        'headerOptions' => ['style' => 'min-width: 8rem', 'class' => 'text-center'],
                         'format' => ['date', Yii::$app->settings->get('system', 'app_language_dateTime')]
                     ],
                     [
@@ -66,10 +65,17 @@ $this->title = Yii::t('views', 'Статистика');
                         'template' => '{download}',
                         'buttons' => [
                             'download' => function($url, $model) {
-                                if ($model->file) {
+                                if ($model->file_name) {
+                                    $fileName = implode('.', [$model->file_name, $model->file_extension]);
+                                    $params = serialize([
+                                        'storageID' => $model->storage,
+                                        'pathToFile' => $model->file_path . $fileName,
+                                        'fileName' => $fileName
+                                    ]);
+
                                     return Html::a(
                                         '<i class="bi bi-file-arrow-down text-dark"></i>',
-                                        Url::to(['download', 'path' => base64_encode($model->file)]),
+                                        Url::to(['getfiledirect', 'params' => base64_encode($params)]),
                                         [
                                             'data-pjax' => 0,
                                             'data-bs-toggle' => 'tooltip',
@@ -99,5 +105,5 @@ $this->title = Yii::t('views', 'Статистика');
     $this->registerJs(<<<JS
         setInterval(function(){
             $.pjax.reload({container:'#jobsList', method: "POST", async: true, push: false , data: $("#searchForm").serialize()});
-        }, 20000);
+        }, 10000);
 JS);

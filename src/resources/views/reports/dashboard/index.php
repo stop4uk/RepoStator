@@ -115,19 +115,29 @@ Pjax::begin(['id' => 'dashBoard', 'enablePushState' => false, 'clientOptions' =>
                             'template' => '{download}',
                             'buttons' => [
                                 'download' => function($url, $model) {
-                                    return Html::a('<i class="bi bi-file-arrow-down text-dark"></i>',
-                                        Url::to(['download', 'path' => base64_encode($model->file)]),
-                                        [
-                                            'data-pjax' => 0,
-                                            'data-bs-toggle' => 'tooltip',
-                                            'data-bs-placement' => 'bottom',
-                                            'title' => Yii::t('views', 'Скачать'),
-                                        ]
-                                    );
+                                    if ($model->file_name) {
+                                        $fileName = implode('.', [$model->file_name, $model->file_extension]);
+                                        $params = serialize([
+                                            'storageID' => $model->storage,
+                                            'pathToFile' => $model->file_path . $fileName,
+                                            'fileName' => $fileName
+                                        ]);
+
+                                        return Html::a(
+                                            '<i class="bi bi-file-arrow-down text-dark"></i>',
+                                            Url::to(['getfiledirect', 'params' => base64_encode($params)]),
+                                            [
+                                                'data-pjax' => 0,
+                                                'data-bs-toggle' => 'tooltip',
+                                                'data-bs-placement' => 'bottom',
+                                                'title' => Yii::t('views', 'Скачать'),
+                                            ]
+                                        );
+                                    }
                                 },
                             ],
                             'visibleButtons' => [
-                                'download' => fn($model) => $model->file
+                                'download' => fn($model) => $model->file_name
                             ]
                         ],
                     ],

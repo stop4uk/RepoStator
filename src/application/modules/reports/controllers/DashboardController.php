@@ -2,10 +2,19 @@
 
 namespace app\modules\reports\controllers;
 
-use app\components\base\BaseController;
-use app\modules\reports\{repositories\ReportRepository, search\JobSearch, search\SendSearch};
-use app\modules\users\components\rbac\RbacHelper;
 use yii\filters\AccessControl;
+
+use app\components\{
+    base\BaseController,
+    attachedFiles\AttachFileActionsTrait,
+};
+use app\modules\reports\{
+    repositories\ReportRepository,
+    search\JobSearch,
+    search\SendSearch
+};
+use app\modules\users\components\rbac\RbacHelper;
+
 
 /**
  * @author Stop4uk <stop4uk@yandex.ru>
@@ -13,6 +22,8 @@ use yii\filters\AccessControl;
  */
 final class DashboardController extends BaseController
 {
+    use AttachFileActionsTrait;
+
     public function behaviors(): array
     {
         return [
@@ -28,7 +39,7 @@ final class DashboardController extends BaseController
         ];
     }
 
-    public function actionIndex()
+    public function actionIndex(): string
     {
         $groups = RbacHelper::getAllowGroupsArray('report.list.all');
         $reports = ReportRepository::getAllow($groups);

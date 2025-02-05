@@ -4,7 +4,10 @@ namespace app\modules\admin\controllers\queue;
 
 use yii\filters\AccessControl;
 
-use app\components\base\BaseController;
+use app\components\{
+    base\BaseController,
+    attachedFiles\AttachFileActionsTrait
+};
 use app\actions\IndexAction;
 use app\modules\reports\search\JobSearch;
 use app\modules\users\components\rbac\items\Permissions;
@@ -15,6 +18,8 @@ use app\modules\users\components\rbac\items\Permissions;
  */
 final class TemplateController extends BaseController
 {
+    use AttachFileActionsTrait;
+
     public function behaviors(): array
     {
         return [
@@ -22,7 +27,6 @@ final class TemplateController extends BaseController
                 'class' => AccessControl::class,
                 'rules' => [
                     [
-                        'actions' => ['index'],
                         'allow' => true,
                         'roles' => [
                             Permissions::ADMIN_QUEUE_TEMPLATE_LIST

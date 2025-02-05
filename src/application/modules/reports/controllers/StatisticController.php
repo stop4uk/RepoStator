@@ -7,7 +7,10 @@ use yii\bootstrap5\ActiveForm;
 use yii\filters\AccessControl;
 use yii\web\Response;
 
-use app\components\base\BaseController;
+use app\components\{
+    base\BaseController,
+    attachedFiles\AttachFileActionsTrait
+};
 use app\modules\reports\{
     components\formReport\FormFactory,
     repositories\TemplateRepository,
@@ -26,6 +29,8 @@ use app\modules\users\{
  */
 final class StatisticController extends BaseController
 {
+    use AttachFileActionsTrait;
+
     public function behaviors(): array
     {
         return [

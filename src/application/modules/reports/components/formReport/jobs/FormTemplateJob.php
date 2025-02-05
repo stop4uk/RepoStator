@@ -28,28 +28,32 @@ final class FormTemplateJob extends BaseObject implements JobInterface
         $processor->setJobID($this->jobID);
         $processor->form();
 
-        $fileName = Yii::$app->getSecurity()->generateRandomString(5) . '.' . $processor->templateRecord['file_extension'];
-        $filePath = Yii::getAlias('@runtime') . DIRECTORY_SEPARATOR . $fileName;
+        $fileName = Yii::$app->getSecurity()->generateRandomString(12);
+        $fileExtension = $processor->templateRecord['file_extension'] ?? 'xlsx';
+        $fileMime = $processor->templateRecord['file_mime'] ?? 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet';
+
+        $fileFullName =  implode('.', [$fileName, $fileExtension]);
+        $filePath = Yii::getAlias('@runtime/'.env('YII_UPLOADS_TEMPORARY_PATH')) . DIRECTORY_SEPARATOR . $fileFullName;
         $processor->writer->save($filePath);
 
         $saveToStorage = AttachFileHelper::saveToStorage(
             Yii::$app->params['storageToSaveReportFiles'],
             $filePath,
-            env('YII_DOWNLOADS_PATH_LOCAL'),
-            $fileName
+            env('YII_DOWNLOADS_PATH_LOCAL', 'downloads'),
+            $fileFullName
         );
 
         if ($saveToStorage) {
             $jobRecord = ReportFormJobEntity::find()->where(['job_id' => $this->jobID])->limit(1)->one();
             $jobRecord->setComplete(
-                file: [
+                fileData: [
                     'storage' => Yii::$app->params['storageToSaveReportFiles'],
                     'file_name' => $fileName,
                     'file_hash' => Yii::$app->getSecurity()->generateRandomString(32),
-                    'file_path' => env('YII_DOWNLOADS_PATH_LOCAL') . DIRECTORY_SEPARATOR,
+                    'file_path' => env('YII_DOWNLOADS_PATH_LOCAL', 'downloads') . DIRECTORY_SEPARATOR,
                     'file_size' => filesize($filePath),
-                    'file_extension' => $processor->templateRecord['file_extension'],
-                    'file_mime' => $processor->templateRecord['file_mime'],
+                    'file_extension' => $fileExtension,
+                    'file_mime' => $fileMime,
                 ],
                 formPeriod: $processor->form->period
             );
@@ -57,6 +61,8 @@ final class FormTemplateJob extends BaseObject implements JobInterface
             try {
                 unlink($filePath);
             } catch(ErrorException $e) {}
+        } else {
+            Yii::error($saveToStorage);
         }
     }
 }
