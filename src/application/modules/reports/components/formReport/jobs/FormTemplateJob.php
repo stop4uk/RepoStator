@@ -33,7 +33,7 @@ final class FormTemplateJob extends BaseObject implements JobInterface
         $fileMime = $processor->templateRecord['file_mime'] ?? 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet';
 
         $fileFullName =  implode('.', [$fileName, $fileExtension]);
-        $filePath = Yii::getAlias('@runtime/'.env('YII_UPLOADS_TEMPORARY_PATH')) . DIRECTORY_SEPARATOR . $fileFullName;
+        $filePath = Yii::getAlias('@runtime/'.env('YII_FILES_TEMPORARY_PATH', 'tmpFiles')) . DIRECTORY_SEPARATOR . $fileFullName;
         $processor->writer->save($filePath);
 
         $saveToStorage = AttachFileHelper::saveToStorage(

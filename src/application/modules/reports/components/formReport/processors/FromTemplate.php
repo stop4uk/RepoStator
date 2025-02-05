@@ -36,7 +36,7 @@ final class FromTemplate extends BaseProcessor
 
         $fileName = Yii::$app->getSecurity()->generateRandomString(6);
         $fileExtension = $this->templateRecord['file_extension'];
-        $filePath = Yii::getAlias('@runtime/'.env('YII_UPLOADS_TEMPORARY_PATH')) . DIRECTORY_SEPARATOR . implode('.', [$fileName, $fileExtension]);
+        $filePath = Yii::getAlias('@runtime/'.env('YII_FILES_TEMPORARY_PATH', 'tmpFiles')) . DIRECTORY_SEPARATOR . implode('.', [$fileName, $fileExtension]);
 
         $tempFile = fopen( $filePath, 'wb');
         fwrite($tempFile, $template['content']);

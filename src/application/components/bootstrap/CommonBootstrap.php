@@ -2,6 +2,7 @@
 
 namespace app\components\bootstrap;
 
+use Yii;
 use yii\base\BootstrapInterface;
 
 /**
@@ -21,6 +22,10 @@ final class CommonBootstrap implements BootstrapInterface
             $app->language = $app->settings->get('system', 'app_language');
             $app->getFormatter()->dateFormat = $app->settings->get('system', 'app_language_date');
             $app->getFormatter()->datetimeFormat = $app->settings->get('system', 'app_language_dateTime');
+
+            if (!is_dir(Yii::getAlias('@runtime') . DIRECTORY_SEPARATOR . env('YII_FILES_TEMPORARY_PATH', 'tmpFiles'))) {
+                mkdir(Yii::getAlias('@runtime') . DIRECTORY_SEPARATOR . env('YII_FILES_TEMPORARY_PATH', 'tmpFiles'), 777);
+            }
         } catch (\Throwable $throwable) {}
     }
 }
