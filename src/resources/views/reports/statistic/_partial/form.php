@@ -80,6 +80,8 @@ $form = ActiveForm::begin([
                         'maxDate' => Yii::$app->formatter->asDate(time()),
                         'ranges' => CommonHelper::getRangesForDate(),
                         'linkedCalendars' => false,
+                        'autoApply' => true,
+                        'autoUpdateInput' => true,
                     ],
                     'options' => [
                         'value' => Yii::$app->formatter->asDate(strtotime(date('Y-01-01'))) . ' - ' . Yii::$app->formatter->asDate(time()),

@@ -86,6 +86,7 @@ $this->title = Yii::t('views', 'Статистика');
         </div>
     </div>
 
+    <?php Pjax::end(); ?>
     <div class="card">
         <div class="card-header">
             <?= Yii::t('views', 'Формирование отчета'); ?>
@@ -95,8 +96,6 @@ $this->title = Yii::t('views', 'Статистика');
         </div>
     </div>
 <?php
-    Pjax::end();
-
     $this->registerJs(<<<JS
         setInterval(function(){
             $.pjax.reload({container:'#jobsList', method: "POST", async: true, push: false , data: $("#searchForm").serialize()});
