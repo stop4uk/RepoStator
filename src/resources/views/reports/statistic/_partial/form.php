@@ -82,7 +82,7 @@ $form = ActiveForm::begin([
                         'linkedCalendars' => false,
                     ],
                     'options' => [
-                        'placeholder' => Yii::$app->formatter->asDate(strtotime(date('Y-01-01'))) . ' - ' . Yii::$app->formatter->asDate(time()),
+                        'value' => Yii::$app->formatter->asDate(strtotime(date('Y-01-01'))) . ' - ' . Yii::$app->formatter->asDate(time()),
                         'readonly' => true,
                         'disabled' => true
                     ]

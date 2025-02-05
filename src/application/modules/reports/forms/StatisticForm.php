@@ -2,10 +2,11 @@
 
 namespace app\modules\reports\forms;
 
-use app\modules\reports\repositories\ReportRepository;
-use app\modules\users\components\rbac\RbacHelper;
 use Yii;
 use yii\base\Model;
+
+use app\modules\reports\repositories\ReportRepository;
+use app\modules\users\components\rbac\RbacHelper;
 
 /**
  * @property int $report
@@ -41,7 +42,7 @@ final class StatisticForm extends Model
             [['report', 'template', 'period'], 'required'],
             [['report', 'template'], 'integer'],
             ['report', 'in', 'range' => array_keys($this->reports)],
-            ['period', 'string']
+            ['period', 'string'],
         ];
     }
 
