@@ -171,6 +171,17 @@ trait AttachFileActionsTrait
             : [];
     }
 
+    public function actionGetfiledirect(string $params): Response
+    {
+        $paramsArray = unserialize(base64_decode($params));
+        $fileData = AttachFileHelper::readStreamFromStorage(
+            storageID: $paramsArray['storageID'],
+            pathToFile: $paramsArray['pathToFile']
+        );
+
+        return $this->response->sendContentAsFile($fileData, $paramsArray['fileName'], ['inline' => false]);
+    }
+
     private function getUserID(): int
     {
         try {

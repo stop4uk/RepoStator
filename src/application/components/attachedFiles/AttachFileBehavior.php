@@ -7,8 +7,9 @@ use ReflectionClass;
 use Yii;
 use yii\base\{
     Behavior,
-    ErrorException,
+    ErrorException
 };
+use yii\web\Application;
 use yii\data\ArrayDataProvider;
 use yii\helpers\{
     FileHelper,
@@ -51,7 +52,10 @@ final class AttachFileBehavior extends Behavior
 
     public function init(): void
     {
-        $this->sessionKey = implode('_', [Yii::$app->controller->getUniqueId(), Yii::$app->getUser()->id]);
+        if (Yii::$app instanceof Application) {
+            $this->sessionKey = implode('_', [Yii::$app->controller->getUniqueId(), Yii::$app->getUser()->id]);
+        }
+
         parent::init();
     }
 
@@ -97,7 +101,7 @@ final class AttachFileBehavior extends Behavior
         $fileData = $this->parseFileData($inputFile, $name, $extension, $mime, $size);
         $key = (string)$this->owner->{$this->modelKey};
 
-        $pathToSave = $path ?: ($this->modelName . DIRECTORY_SEPARATOR . $key);
+        $pathToSave = $path ?: (env('YII_UPLOADS_PATH_LOCAL', 'uploads') . DIRECTORY_SEPARATOR . $this->modelName . DIRECTORY_SEPARATOR . $key);
         $fileName = implode('.', [$fileData['nameSave'], $fileData['extension']]);
         $saveFile = AttachFileHelper::saveToStorage($this->storageID, $inputFile, $pathToSave, $fileName);
 
