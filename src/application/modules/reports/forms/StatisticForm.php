@@ -38,7 +38,7 @@ final class StatisticForm extends Model
     public function rules(): array
     {
         return [
-            [['report', 'template'], 'required'],
+            [['report', 'template', 'period'], 'required'],
             [['report', 'template'], 'integer'],
             ['report', 'in', 'range' => array_keys($this->reports)],
             ['period', 'string']
