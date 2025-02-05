@@ -22,6 +22,18 @@ use yii\console\ExitCode;
  */
 final class FileController extends Controller
 {
+    public function cleanTemporaryFolder()
+    {
+        $filePath = Yii::getAlias('@runtime') . DIRECTORY_SEPARATOR . env('YII_FILES_TEMPORARY_PATH', 'tmpFiles');
+        $files = FileHelper::findFiles($filePath);
+
+        foreach($files as $file) {
+            FileHelper::unlink($file);
+        }
+
+        exit(ExitCode::OK);
+    }
+    
     public function actionClean()
     {
         $templates = [];
