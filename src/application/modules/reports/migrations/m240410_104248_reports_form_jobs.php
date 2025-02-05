@@ -19,6 +19,8 @@ final class m240410_104248_reports_form_jobs extends Migration
             'report_id' => $this->integer(11)->notNull(),
             'template_id' => $this->integer(11)->notNull(),
             'form_period' => $this->string(30)->notNull()->defaultValue(''),
+            'storage' => $this->string(255)->null()->defaultValue(null),
+            'file_name' => $this->string(255)->null()->defaultValue(null),
             'file_hash' => $this->string(32)->null()->defaultValue(null),
             'file_path' => $this->string(255)->null()->defaultValue(null),
             'file_size' => $this->bigInteger(20)->null()->defaultValue(null),

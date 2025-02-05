@@ -2,57 +2,50 @@
 
 namespace app\modules\reports\components\formReport\processors;
 
-use app\components\attachedFiles\AttachFileEntity;
+use Yii;
+use PhpOffice\PhpSpreadsheet\{
+    IOFactory,
+    Worksheet\PageSetup
+};
+
 use app\helpers\CommonHelper;
 use app\modules\reports\components\formReport\base\BaseProcessor;
-use app\modules\reports\entities\ReportFormJobEntity;
-use app\modules\reports\entities\ReportFormTemplateEntity;
-use app\modules\reports\forms\StatisticForm;
-use app\modules\reports\helpers\TemplateHelper;
-use PhpOffice\PhpSpreadsheet\IOFactory;
-use PhpOffice\PhpSpreadsheet\Reader\IReader;
-use PhpOffice\PhpSpreadsheet\Spreadsheet;
-use PhpOffice\PhpSpreadsheet\Style\Alignment;
-use PhpOffice\PhpSpreadsheet\Style\Border;
-use PhpOffice\PhpSpreadsheet\Style\Color;
-use PhpOffice\PhpSpreadsheet\Style\Fill;
-use PhpOffice\PhpSpreadsheet\Worksheet\PageSetup;
-use PhpOffice\PhpSpreadsheet\Worksheet\Worksheet;
-use PhpOffice\PhpSpreadsheet\Writer\IWriter;
-use PhpOffice\PhpSpreadsheet\Writer\Xlsx;
 
 final class FromTemplate extends BaseProcessor
 {
-    private array $file = [];
+    public array $templateRecord = [];
     private array $indicatorsForReplace = [];
 
-    public function form(): ?bool
+    public function form(): void
     {
-        return $this
-            ->setSpreadsheet()
+        $this->setSpreadsheet()
             ->getIndicatorsFromFile()
             ->getDataFromDB()
             ->calculateCountersForFile()
-            ->replaceDataInSpreadsheet()
-            ->setPageSettings(
-                paperSize: PageSetup::PAPERSIZE_A4,
-                orientation: PageSetup::ORIENTATION_LANDSCAPE,
-                fitToPage: 1
-            );
+            ->replaceDataInSpreadsheet();
+
+        $this->setPageSettings(PageSetup::PAPERSIZE_A4, PageSetup::ORIENTATION_LANDSCAPE, 1);
+        $this->write();
     }
 
     private function setSpreadsheet(): FromTemplate
     {
-        $file = array_shift($this->template->getAttachedFiles(false));
+        $this->templateRecord = array_shift($this->template->getAttachedFiles(false));
+        $template = $this->template->getAttachFile($this->templateRecord['file_hash']);
         $reader = IOFactory::createReader(ucfirst($this->file->file_extension));
 
-        $this->spreadsheet = ;
+        $fileName = Yii::$app->getSecurity()->generateRandomString(6);
+        $tempFile = fopen("@runtime/$fileName.{$this->templateRecord['file_extension']}", 'w');
+        fwrite($tempFile, $template['content']);
+        fclose($tempFile);
+
+        $this->spreadsheet = $reader->load("@runtime/$fileName.{$this->templateRecord['file_extension']}");
         $this->sheet = $this->spreadsheet->getActiveSheet();
 
         return $this;
     }
 
-    private function getIndicatorsFromFile(): static
+    private function getIndicatorsFromFile(): FromTemplate
     {
         $useIndicators = [];
         $useIndicatorsWithInner = [];
@@ -87,7 +80,7 @@ final class FromTemplate extends BaseProcessor
         return $this;
     }
 
-    private function calculateCountersForFile(): static
+    private function calculateCountersForFile(): FromTemplate
     {
         if (!isset($this->sentData['now'])) {
             return $this;
@@ -169,151 +162,8 @@ final class FromTemplate extends BaseProcessor
         }
     }
 
-    private function write(): static
+    private function write(): void
     {
-        $this->writer = match((bool)$this->template->table_template) {
-            true => IOFactory::createWriter($this->spreadsheet, ucfirst($this->extension)),
-            false => new Xlsx($this->spreadsheet)
-        };
-
-        return $this;
-    }
-
-    private function save()
-    {
-        $fileName = urlencode(Yii::$app->security->generateRandomString(6)) . '.' . $this->extension;
-
-        if ($this->template->form_usejobs) {
-            $this->writer->save(Yii::getAlias(Yii::$app->params['downloadFormFilesAlias']) . DIRECTORY_SEPARATOR . $fileName);
-
-            (ReportFormJobEntity::find()
-                ->with(['user', 'template'])
-                ->where(['job_id' => $this->jobID])
-                ->limit(1)
-                ->one())->setComplete(
-                file: $fileName,
-                formPeriod: $this->form->period
-            );
-
-            return true;
-        }
-
-        header("Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet");
-        header("Content-Disposition: attachment; filename=$fileName");
-        header("Cache-Control: max-age=0");
-        $this->writer->save("php://output");
-        die;
-    }
-
-    private function setStyle(
-        array $coords,
-        ?string $color = null,
-        ?string $alignHorizontal = null,
-        ?string $alignVertical = null
-    ): void
-    {
-        if ($color) {
-            $this->sheet
-                ->getStyle($coords)
-                ->getFill()
-                ->setFillType(Fill::FILL_SOLID)
-                ->getStartColor()
-                ->setARGB($color);
-        }
-
-        if ($alignHorizontal || $alignVertical) {
-            $sheet = $this->sheet
-                ->getStyle($coords)
-                ->getAlignment();
-
-            if ($alignHorizontal) {
-                $sheet->setHorizontal($alignHorizontal);
-            }
-
-            if ($alignVertical) {
-                $sheet->setVertical($alignVertical);
-            }
-        }
-    }
-
-    private function setColumns(
-        array $columns,
-        int $firstRow,
-        int $secondRow,
-        bool $groupsInHead = false
-    ): void
-    {
-        $columnID = 2;
-        foreach($columns as $columnName) {
-            if ($this->template->use_appg) {
-                $mergeColumnID = ($columnID+1);
-                $this->sheet->setCellValue([$columnID, $firstRow], $columnName)
-                    ->mergeCells([$columnID, $firstRow, $mergeColumnID, $firstRow]);
-
-                $this->sheet->setCellValue([$columnID, $secondRow], date('Y', $this->period['now']['end']));
-                $this->sheet->setCellValue([$mergeColumnID, $secondRow], date('Y', $this->period['appg']['end']));
-
-                $this->setStyle(
-                    coords: [$columnID, $secondRow],
-                    alignHorizontal: Alignment::HORIZONTAL_CENTER,
-                    alignVertical: Alignment::VERTICAL_CENTER
-                );
-
-                $this->setStyle(
-                    coords: [$mergeColumnID, $secondRow],
-                    alignHorizontal: Alignment::HORIZONTAL_CENTER,
-                    alignVertical: Alignment::VERTICAL_CENTER
-                );
-            } else {
-                $this->sheet->setCellValue([$columnID, $firstRow], $columnName);
-                $this->sheet->getStyle([$columnID, $firstRow])->getAlignment()->setTextRotation(90)->setWrapText(true);
-                $this->sheet->getRowDimension($firstRow)->setRowHeight($groupsInHead ? 220 : 74);
-            }
-
-            $this->setStyle(
-                coords: [$columnID, $firstRow],
-                alignHorizontal: Alignment::HORIZONTAL_CENTER,
-                alignVertical:  $this->template->use_appg ? Alignment::VERTICAL_CENTER : null
-            );
-
-            $column = $this->sheet->getColumnDimensionByColumn($columnID);
-            if ($this->template->use_appg) {
-                $column->setAutoSize(true);
-            } else {
-                $column->setWidth(4);
-            }
-
-            $columnID += ($this->template->use_appg ? 2 : 1 );
-        }
-    }
-
-    private function setRowsByColumns(
-        int $column,
-        int $row,
-        int $group,
-        array $data,
-        string $attribute,
-        ?string $color = null
-    ): void
-    {
-        foreach (array_keys($data) as $key) {
-            $column++;
-            $this->sheet->setCellValue([$column, $row], ($this->$attribute['now'][$group][$key] ?? 0));
-            $this->setStyle(
-                coords: [$column, $row],
-                color: $color,
-                alignHorizontal: Alignment::HORIZONTAL_CENTER
-            );
-
-            if ($this->template->use_appg) {
-                $column++;
-                $this->sheet->setCellValue([$column, $row], ($this->$attribute['appg'][$group][$key] ?? 0));
-                $this->setStyle(
-                    coords:[$column, $row],
-                    color: $color,
-                    alignHorizontal: Alignment::HORIZONTAL_CENTER
-                );
-            }
-        }
+        $this->writer = IOFactory::createWriter($this->spreadsheet, ucfirst($this->templateRecord['file_extension']));
     }
 }

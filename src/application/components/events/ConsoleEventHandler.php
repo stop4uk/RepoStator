@@ -12,10 +12,11 @@ use yii\queue\{
 };
 
 use app\modules\reports\{
+    components\formReport\jobs\FormTemplateJob,
     entities\ReportFormJobEntity,
-    events\StatisticEventDispatcher,
-    jobs\FormTemplateJob
+    events\StatisticEventDispatcher
 };
+
 
 /**
  * @author Stop4uk <stop4uk@yandex.ru>
@@ -31,7 +32,6 @@ final class ConsoleEventHandler implements BootstrapInterface
         Event::on(Queue::class, Queue::EVENT_AFTER_ERROR, function (ExecEvent $event) {
             if ($event->job instanceof FormTemplateJob) {
                 (ReportFormJobEntity::find()
-                    ->with(['user', 'template'])
                     ->where(['job_id' => $event->job->jobID])
                     ->limit(1)
                     ->one())->setError();

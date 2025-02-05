@@ -36,7 +36,20 @@ use app\modules\users\{
  */
 abstract class BaseProcessor extends Component
 {
-    protected readonly StatisticForm $form;
+    /**
+     * @var IReader|Spreadsheet Документ
+     */
+    public $spreadsheet;
+    /**
+     * @var Worksheet Лист документа
+     */
+    public $sheet;
+    /**
+     * @var IWriter|Xlsx Коласс записи изменений
+     */
+    public $writer;
+
+    public readonly StatisticForm $form;
     protected readonly ReportFormTemplateEntity $template;
     protected readonly array $period;
     protected readonly array $periodDays;
@@ -54,19 +67,6 @@ abstract class BaseProcessor extends Component
     protected array $calculateCountersAll = [];
     protected string $jobID = '';
 
-    /**
-     * @var IReader|Spreadsheet Документ
-     */
-    protected $spreadsheet;
-    /**
-     * @var Worksheet Лист документа
-     */
-    protected $sheet;
-    /**
-     * @var IWriter|Xlsx Коласс записи изменений
-     */
-    protected $writer;
-
     public function __construct(
         StatisticForm $form,
         ReportFormTemplateEntity $template
@@ -83,71 +83,6 @@ abstract class BaseProcessor extends Component
     final public function setJobID(string $id): void
     {
         $this->jobID = $id;
-    }
-
-    final public function getIndicatorsAndGroupsFromTemplate(): static
-    {
-        $inversionFind = ['table_columns' => 'table_rows', 'table_rows' => 'table_columns'];
-        $findColumn = match ($this->template->table_type) {
-            $this->template::REPORT_TABLE_TYPE_GROUP => 'table_rows',
-            $this->template::REPORT_TABLE_TYPE_CONST => 'table_columns'
-        };
-
-        $groups = GroupRepository::getAll([]);
-        $groupsFromTemplate = CommonHelper::explodeField(
-            string: $this->template->{$inversionFind[$findColumn]}
-        );
-
-        $this->groups = ArrayHelper::map($groups, 'id', 'name');
-        foreach ($this->groups as $groupID => $groupName) {
-            if (!in_array($groupID, $groupsFromTemplate)) {
-                unset($this->groups[$groupID]);
-            }
-        }
-
-        if ($this->template->use_grouptype) {
-            $types = GroupTypeRepository::getAll([], true);
-            $groupsWithType = ArrayHelper::map($groups, 'id', 'name', 'type_id');
-            $this->groupsToType = ArrayHelper::map($groups, 'id', 'type_id');
-
-            foreach ($types as $typeID => $typeName) {
-                if (isset($groupsWithType[$typeID])) {
-                    $innerGroups = [];
-
-                    foreach ($groupsWithType[$typeID] as $id => $name) {
-                        if (in_array($id, $groupsFromTemplate)) {
-                            $innerGroups[$id] = $name;
-                        }
-                    }
-
-                    $this->groupsTypeContent[$typeID] = [
-                        'name' => $typeName,
-                        'groups' => $innerGroups
-                    ];
-                }
-            }
-
-            foreach ($this->groupsTypeContent as $groupID => $inner) {
-                $groupList = $inner['groups'];
-
-                uksort($groupList, function($a, $b) use ($groupsFromTemplate) {
-                    return array_search($a, $groupsFromTemplate) - array_search($b, $groupsFromTemplate);
-                });
-
-                $this->groupsTypeContent[$groupID]['groups'] = $groupList;
-            }
-        }
-
-        $indicatorsFromTemplate = CommonHelper::explodeField(
-            string: $this->template->{$findColumn}
-        );
-
-        $this->setIndicators($indicatorsFromTemplate);
-        uksort($this->indicatorsContent, function($a, $b) use ($indicatorsFromTemplate) {
-            return array_search($a, $indicatorsFromTemplate) - array_search($b, $indicatorsFromTemplate);
-        });
-
-        return $this;
     }
 
     final public function getDataFromDB(): static
@@ -224,43 +159,6 @@ abstract class BaseProcessor extends Component
                 }
             }
         }
-    }
-
-    final public function calculateAllCounters(): static
-    {
-        foreach ($this->period as $type => $periods) {
-            if (
-                !$periods
-                || !isset($this->sentData[$type])
-            ) {
-                continue;
-            }
-
-            foreach ($this->groups as $groupID => $name) {
-                if (!isset($this->sentData[$type][$groupID])) {
-                    continue;
-                }
-
-                switch ($this->template->form_datetime) {
-                    case $this->template::REPORT_DATETIME_PERIOD:
-                        $this->calculateForPeriod(
-                            type: $type,
-                            group: $groupID,
-                            indicators: $this->indicatorsContent
-                        );
-                        break;
-                    default:
-                        $this->calculateForDays(
-                            type: $type,
-                            group: $groupID,
-                            indicators: $this->indicatorsContent,
-                        );
-                        break;
-                }
-            }
-        }
-
-        return $this;
     }
 
     final public function setPageSettings(int $paperSize, string $orientation, int|null $fitToPage = null): void

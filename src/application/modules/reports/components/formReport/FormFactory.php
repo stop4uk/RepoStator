@@ -18,7 +18,7 @@ use app\modules\reports\{
  * @author Stop4uk <stop4uk@yandex.ru>
  * @package app\modules\reports\components\formReport
  */
-class FormFactory
+final class FormFactory
 {
     private string $templateID;
     private StatisticForm $form;

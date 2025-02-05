@@ -17,7 +17,6 @@ use yii2tech\ar\softdelete\SoftDeleteBehavior;
 use app\components\{
     base\BaseAR,
     attachedFiles\AttachFileBehavior,
-    attachedFiles\AttachFileHelper
 };
 use app\helpers\CommonHelper;
 use app\modules\reports\{
@@ -105,7 +104,7 @@ final class ReportFormTemplateEntity extends BaseAR
             ],
             [
                 'class' => AttachFileBehavior::class,
-                'storageID' => AttachFileHelper::STORAGE_LOCAL,
+                'storageID' => Yii::$app->params['storageToUploadReportTemplates'],
                 'modelName' => 'ReportFormTemplateEntity',
                 'modelKey' => 'id',
                 'attachRules' => [
