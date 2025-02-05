@@ -9,7 +9,7 @@ use yii\web\Response;
 
 use app\components\base\BaseController;
 use app\modules\reports\{
-    components\formReport\FormTemplateFactory,
+    components\formReport\FormFactory,
     repositories\TemplateRepository,
     search\JobSearch,
     forms\StatisticForm,
