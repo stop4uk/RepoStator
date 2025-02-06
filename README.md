@@ -25,4 +25,11 @@ make first-run
 
 ИСПОЛЬЗОВАНИЕ
 -------------------
+    * make build
+    * make start/stop/restart Запуск/Остановка и Рестарт всех контейнеров
+    * make forst-run Автоматическое выполнение composer-install и yii/migrate
+    * make ssh Переход в WEB контейнер (с приложением)
+    * make exec/exec-bash YOUR_COMMAND Выполнение комманды YOUR_COMMAND внутри WEB контейнера
+    * make composer-install/composer-install Обновить/Установить пакеты и зависимости composer'a 
+    * make migrate Автоматически найти и применить новые миграции
 RMS.REPOStator доступен по стандартному web порту (80). Логин/пароль admin@admin.loc/12345
