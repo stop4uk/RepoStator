@@ -6,7 +6,7 @@ use yii\db\Migration;
 
 final class m240410_104245_reports_constant_rules extends Migration
 {
-    const TABLE = '{{%reports_constant}}';
+    const TABLE = '{{%reports_constant_rules}}';
 
     public function safeUp(): void
     {

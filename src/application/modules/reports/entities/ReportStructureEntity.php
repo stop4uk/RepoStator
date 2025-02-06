@@ -113,6 +113,6 @@ final class ReportStructureEntity extends BaseAR
 
     public static function tableName(): string
     {
-        return '{{reports_structures}}';
+        return '{{%reports_structures}}';
     }
 }

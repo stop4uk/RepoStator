@@ -114,6 +114,6 @@ final class ReportConstantRuleEntity extends BaseAR
 
     public static function tableName(): string
     {
-        return '{{reports_constant_rules}}';
+        return '{{%reports_constant_rules}}';
     }
 }

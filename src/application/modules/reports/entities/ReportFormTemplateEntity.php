@@ -192,6 +192,6 @@ final class ReportFormTemplateEntity extends BaseAR
 
     public static function tableName(): string
     {
-        return '{{reports_form_templates}}';
+        return '{{%reports_form_templates}}';
     }
 }

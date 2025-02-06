@@ -71,6 +71,6 @@ final class UserGroupEntity extends BaseAR
 
     public static function tableName(): string
     {
-        return '{{users_groups}}';
+        return '{{%users_groups}}';
     }
 }

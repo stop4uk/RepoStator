@@ -42,6 +42,6 @@ final class GroupNestedEntity extends BaseAR
 
     public static function tableName(): string
     {
-        return '{{groups_nested}}';
+        return '{{%groups_nested}}';
     }
 }

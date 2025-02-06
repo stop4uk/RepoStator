@@ -49,6 +49,6 @@ final class UserEmailchangeEntity extends BaseAR
 
     public static function tableName(): string
     {
-        return '{{users_emailchanges}}';
+        return '{{%users_emailchanges}}';
     }
 }

@@ -62,6 +62,6 @@ final class UserSessionEntity extends BaseAR
 
     public static function tableName(): string
     {
-        return '{{users_sessions}}';
+        return '{{%users_sessions}}';
     }
 }

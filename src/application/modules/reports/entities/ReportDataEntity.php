@@ -135,6 +135,6 @@ final class ReportDataEntity extends BaseAR
 
     public static function tableName(): string
     {
-        return '{{reports_data}}';
+        return '{{%reports_data}}';
     }
 }

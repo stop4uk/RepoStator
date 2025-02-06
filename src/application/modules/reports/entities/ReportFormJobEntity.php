@@ -117,7 +117,7 @@ class ReportFormJobEntity extends BaseAR
 
     public static function tableName(): string
     {
-        return '{{reports_form_jobs}}';
+        return '{{%reports_form_jobs}}';
     }
 
     public function setComplete(array $fileData, string $formPeriod): void

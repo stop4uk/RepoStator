@@ -103,6 +103,6 @@ final class ReportDataChangeEntity extends BaseAR
 
     public static function tableName(): string
     {
-        return '{{reports_data_changes}}';
+        return '{{%reports_data_changes}}';
     }
 }

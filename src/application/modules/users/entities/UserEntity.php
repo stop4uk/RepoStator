@@ -168,6 +168,6 @@ final class UserEntity extends BaseAR
 
     public static function tableName(): string
     {
-        return '{{users}}';
+        return '{{%users}}';
     }
 }

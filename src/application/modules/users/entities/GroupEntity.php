@@ -95,6 +95,6 @@ final class GroupEntity extends BaseAR
 
     public static function tableName(): string
     {
-        return '{{groups}}';
+        return '{{%groups}}';
     }
 }
