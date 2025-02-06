@@ -2,6 +2,7 @@
 
 use yii\helpers\Url;
 use yii\widgets\Pjax;
+use yii\grid\ActionColumn;
 use yii\bootstrap5\Html;
 
 use app\widgets\GridView;
