@@ -3,18 +3,17 @@
 namespace app\commands;
 
 use Yii;
-use yii\console\Controller;
-use yii\helpers\{
-    ArrayHelper,
-    FileHelper
+use yii\console\{
+    Controller,
+    ExitCode
 };
+use yii\helpers\FileHelper;
 
-use app\helpers\CommonHelper;
+use app\components\attachedFiles\AttachFileHelper;
 use app\modules\reports\entities\{
     ReportFormTemplateEntity,
     ReportFormJobEntity
 };
-use yii\console\ExitCode;
 
 /**
  * @author Stop4uk <stop4uk@yandex.ru>
@@ -22,7 +21,7 @@ use yii\console\ExitCode;
  */
 final class FileController extends Controller
 {
-    public function cleanTemporaryFolder()
+    public function actionCleantempfilesfolder(): void
     {
         $filePath = Yii::getAlias('@runtime') . DIRECTORY_SEPARATOR . env('YII_FILES_TEMPORARY_PATH', 'tmpFiles');
         $files = FileHelper::findFiles($filePath);
@@ -34,75 +33,60 @@ final class FileController extends Controller
         exit(ExitCode::OK);
     }
     
-    public function actionClean()
+    public function actionCleanformreports(): void
     {
-        $templates = [];
-        foreach (ReportFormTemplateEntity::find()->all() as $row) {
-            if ($row->limit_maxfiles) {
-                $templates[$row->id] = [
-                    'limit_maxfiles' => $row->limit_maxfiles,
-                    'limit_maxsavetime' => $row->limit_maxsavetime
-                ];
+        $workFiles = [];
+        $templates = ReportFormTemplateEntity::find()->where(['form_usejobs' => 1])->with(['resultFiles'])->all();
+
+        if (!$templates) {
+            exit(ExitCode::OK);
+        }
+
+        foreach($templates as $template) {
+            $workFiles[$template->id] = [
+                'limit_maxfiles' => $template->limit_maxfiles,
+                'limit_maxsavetime' => $template->limit_maxsavetime,
+                'files' => $template->resultFiles
+            ];
+        }
+
+        foreach($workFiles as $templateID => $workData) {
+            if (
+                $workData['limit_maxfiles']
+                && count($workData['files']) > $workData['limit_maxfiles']
+            ) {
+                $files = $workFiles['files'];
+                $filesToDelete = [];
+                usort($files, fn($a, $b) => $b['updated_at'] <=> $a['updated_at']);
+
+                while(count($files) > $workData['limit_maxfiles']) {
+                    $filesToDelete[] = array_shift($files);
+                }
+
+                $workData['files'] = $files;
+                foreach ($filesToDelete as $fDelete) {
+                    AttachFileHelper::removeFromStorage(
+                        storageID: $fDelete['storage'],
+                        path: $fDelete['file_path'] . implode('.', [$fDelete['file_name'], $fDelete['file_extension']])
+                    );
+
+                    ReportFormJobEntity::deleteAll(['file_hash' => $fDelete['file_hash']]);
+                }
             }
-        }
-
-        $queryJobs = ReportFormJobEntity::find()
-            ->where(['job_status' => ReportFormJobEntity::STATUS_COMPLETE])
-            ->all();
-
-        $jobs = ArrayHelper::map($queryJobs, 'id', 'file', 'template_id');
-        $jobsForDelete = ArrayHelper::map($queryJobs, 'file', 'id');
-
-        if (!is_dir(Yii::getAlias(Yii::$app->params['downloadFormFilesAlias']))) {
-            exit(ExitCode::OK);
-        }
-
-        $files = FileHelper::findFiles(Yii::getAlias(Yii::$app->params['downloadFormFilesAlias']));
-        if (!count($files) || !$templates || !$jobs) {
-            exit(ExitCode::OK);
-        }
-
-        foreach ($templates as $templateID => $params) {
-            $countFiles = $jobs[$templateID];
 
             if (
-                isset($jobs[$templateID])
-                && $countFiles > $params['limit_maxfiles']
+                $workData['limit_maxsavetime']
+                && count($workData['files'])
             ) {
-                $fTimes = [];
-                foreach ($jobs[$templateID] as $file) {
-                    $fTimes[Yii::getAlias(filemtime($file))][] = $file;
-                }
-
-                if ($fTimes) {
-                    ksort($fTimes);
-                    $count = $countFiles - $jobs[$templateID];
-                    foreach ($fTimes as $time => $elements) {
-                        foreach($elements as $saveFile) {
-                            if ($count > 0) {
-                                if (CommonHelper::deleteFileAttempt($saveFile)) {
-                                    ReportFormJobEntity::deleteAll(['id' => $jobsForDelete[$saveFile]]);
-                                }
-                                $count--;
-                            }
-
-                            break;
-                        }
-                    }
-                }
-
-            }
-
-            foreach ($jobs as $templateID => $files) {
-                $maxSaveTime = $templates[$templateID];
-                foreach ($files as $file) {
-                    $createdTime = Yii::getAlias(filemtime($file));
-                    $diffTime = ((time() - $createdTime) <= $maxSaveTime);
-
+                foreach ($workData['files'] as $file) {
+                    $diffTime = ((time() - $file['updated_at']) >= $workData['limit_maxsavetime']);
                     if ($diffTime) {
-                        if (CommonHelper::deleteFileAttempt($file)) {
-                            ReportFormJobEntity::deleteAll(['id' => $jobsForDelete[$saveFile]]);
-                        }
+                        AttachFileHelper::removeFromStorage(
+                            storageID: $file['storage'],
+                            path: $file['file_path'] . implode('.', [$file['file_name'], $file['file_extension']])
+                        );
+
+                        ReportFormJobEntity::deleteAll(['file_hash' => $file['file_hash']]);
                     }
                 }
             }
