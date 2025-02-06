@@ -42,6 +42,8 @@ use app\modules\reports\{
  * @property int|null $updated_at
  * @property int|null $updated_uid
  *
+ * @property ReportFormJobEntity $resultFiles
+ *
  * @author Stop4uk <stop4uk@yandex.ru>
  * @package app\modules\reports\entities
  */
@@ -183,9 +185,9 @@ final class ReportFormTemplateEntity extends BaseAR
             ->andFilterWhere(['=', 'job_status', ReportFormJobEntity::STATUS_COMPLETE])
             ->andFilterWhere([
                 'or',
-                ['is not', 'file', new Expression('null')],
-                ['!=', 'file', new Expression("''")],
-            ]);
+                ['is not', 'file_name', new Expression('null')],
+                ['!=', 'file_name', new Expression("''")],
+            ])->asArray();
     }
 
     public static function tableName(): string
