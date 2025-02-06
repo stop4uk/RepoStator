@@ -23,8 +23,9 @@ final class CommonBootstrap implements BootstrapInterface
             $app->getFormatter()->dateFormat = $app->settings->get('system', 'app_language_date');
             $app->getFormatter()->datetimeFormat = $app->settings->get('system', 'app_language_dateTime');
 
-            if (!is_dir(Yii::getAlias('@runtime') . DIRECTORY_SEPARATOR . env('YII_FILES_TEMPORARY_PATH', 'tmpFiles'))) {
-                mkdir(Yii::getAlias('@runtime') . DIRECTORY_SEPARATOR . env('YII_FILES_TEMPORARY_PATH', 'tmpFiles'), 777);
+            $tmpFilesPath = Yii::getAlias('@runtime') . DIRECTORY_SEPARATOR . env('YII_FILES_TEMPORARY_PATH', 'tmpFiles');
+            if (!is_dir($tmpFilesPath)) {
+                mkdir($tmpFilesPath);
             }
         } catch (\Throwable $throwable) {}
     }
