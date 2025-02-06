@@ -67,7 +67,7 @@ $this->title = Yii::t('views', 'Очередь отчетов');
                         'class' => ActionColumn::class,
                         'header' => false,
                         'headerOptions' => ['style' => 'min-width: 2rem'],
-                        'format' => 'raw',
+                        'template' => '{download}',
                         'value' => function($model) {
                             if ($model->file_name) {
                                 $fileName = implode('.', [$model->file_name, $model->file_extension]);
