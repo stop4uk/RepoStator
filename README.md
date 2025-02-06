@@ -1,37 +1,75 @@
-Система построения отчетов, сбора цифровых показателей и формирования статистики.
-- Компонент авторизации и регистрации
-- Компонент распределения прав доступа
-- Компонент формирования групп с подчинением
-- Неограниченное число составляющих
-- Формирование статистики из динамического набора части составляющих
-- Формирование статистики на основнии загруженного файла xlsx#ods
-- Базируется на Yii2 Basic
+RMS.REPOStator (Система управления отчетами). Умеет создавать показатели, динамически их встраивать в формы передачи сведений и формировать статистику по ним как из шаблонов, так и по наборным показателям.
+Умеет разграничивать права доступа к системе в целом и разделам
+
 
 СОСТАВЛЯЮЩИЕ
 -------------------
-    Отчеты              Основная единица учета
-    Константы           Показатели, необходимые к передаче и, входящие в состав отчета
-    Структуры           Группа или множество групп показателей привязанных к отчету
-    Правила сложения    Простые математические правила расчета из данных показателей 
-    Шаблоны             Параметры построения итоговых сведений из показателей и мат. правил
+    * Отчеты              Основная единица учета
+    * Константы           Показатели, необходимые к передаче и, входящие в состав отчета
+    * Структуры           Группа или множество групп показателей привязанных к отчету (форма передачи)
+    * Правила сложения    Простые математические правила расчета из данных показателей 
+    * Шаблоны             Параметры построения итоговых сведений из показателей и мат. правил
 
-
-ВАЖНО!
-------------
-- Учетная запись по умолчанию одна: admin@admin.loc с паролем 12345
-- В работе системы применяются очереди. В обязательном порядке для отправки уведомлений 
-посредством Email и, в случае необходимости, для формирования отчетов (указывается при 
-создании шаблона формирования). Для выполнения заданий, необходим воркер.
-Как его делать, можно почитать тут: [https://www.yiiframework.com/extension/yiisoft/yii2-queue/doc/guide/2.0/en/worker](https://www.yiiframework.com/extension/yiisoft/yii2-queue/doc/guide/2.0/en/worker)
-Или тут (для Windows): Как его делать, можно почитать тут: [https://superuser.com/questions/985734/how-do-i-run-a-windows-command-as-a-service](https://superuser.com/questions/985734/how-do-i-run-a-windows-command-as-a-service)
-Все ожидающие задачи, которые стоят в очереди на исполнение может поглядеть администратор
-
-
-ДОПОЛНИТЕЛЬНЫЕ НАСТРОЙКИ
-------------
-Для работы желательно применять очистку файлов сформированных отчетов.
-Чтобы файлы чистились, Вам необходимо добавить задание в cron/планировщик
-Команда для задания
-```php
-php yii file/clean
+УСТАНОВКА
+-------------------
+```ssh
+git clone -b main git@github.com:stop4uk/repostator YOUR_APP
+cd YOUR_APP
+cp .env.example .env
 ```
+Отредактируйте получившийся .env файл под Ваши нужны
+```ssh
+make build && make start
+make first-run
+```
+
+ИСПОЛЬЗОВАНИЕ
+-------------------
+    * make build
+    * make start/stop/restart Запуск/Остановка и Рестарт всех контейнеров
+    * make forst-run Автоматическое выполнение composer-install и yii/migrate
+    * make ssh Переход в WEB контейнер (с приложением)
+    * make exec/exec-bash YOUR_COMMAND Выполнение комманды YOUR_COMMAND внутри WEB контейнера
+    * make composer-install/composer-install Обновить/Установить пакеты и зависимости composer'a 
+    * make migrate Автоматически найти и применить новые миграции
+RMS.REPOStator доступен по стандартному web порту (80). Логин#пароль admin@admin.loc # 12345
+
+===============================
+=
+
+RMS.Reposator (Report Management System). It is able to create indicators, dynamically embed them in information transfer forms and generate statistics on them from both templates and composite indicators.
+Knows how to differentiate access rights to the system as a whole and sections
+
+
+THE COMPONENTS
+-------------------
+    * Reports are the main accounting unit
+    * Constants of Indicators required for transmission and included in the report
+    * Structures A group or set of groups of indicators linked to a report (transmission form)
+    * Addition rules are simple mathematical rules for calculating data from indicators 
+    * Templates for building summary information from indicators and mat. rules
+
+INSTALLATION
+-------------------
+```ssh
+git clone -b main git@github.com:stop4uk/repostator YOUR_APP
+cd YOUR_APP
+cp .env.example .env
+```
+Edit the resulting .env file to suit your needs
+```ssh
+make build && make start
+make first-run
+```
+
+USAGE
+-------------------
+    * make build
+    * make start/stop/restart Startup/Stopping and Restarting all containers
+    * make forst-run Automatic execution of composer-install and yii/migrate
+    * make ssh Transfer to a WEB container (with an application)
+    * make exec/exec-bash YOUR_COMMAND Executing YOUR_COMMAND command inside a WEB container
+    * make composer-install/composer-install Update/Install composer packages and dependencies
+    * make migrate Automatically finds and applies new
+      
+RMS migrations.Reposator is available on the standard web port (80). Login#password admin@admin.loc # 12345

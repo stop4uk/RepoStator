@@ -1,115 +1,87 @@
-version: '3.2'
-networks:
-  repostator:
-    driver: bridge
+version: "3.8"
+
 services:
   nginx:
-    image: nginx:latest
+    image: "nginx:latest"
+    container_name: ${PROJECT_NAME}-nginx
+    restart: always
     ports:
-      - "80:80"
-      - "443:443"
+      - ${WEB_PORT_HTTP}:80
+      - ${WEB_PORT_HTTPS}:443
+    depends_on:
+      - web
+      - mysql
+    links:
+      - web
+    networks:
+      - repostator
     volumes:
-      - ./application:/var/www/html
+      - ./src:/var/www/html
       - ./docker/config/nginx.conf:/etc/nginx/conf.d/default.conf
       - ./docker/runtime/logs/nginx:/var/log/nginx
-    depends_on:
-      - php-fpm
-      - mysql
-    networks:
-      - repostator
-  php-fpm: &web
-    build: ./docker/build/php
-    container_name: repostator-server
-    environment:
-      PHP__display_errors: 'On'
-      PHP__opcache.enable: 'Off'
-      PHP__memory_limit: '1024M'
-      PHP__post_max_size: '256M'
-      PHP__upload_max_size: '128M'
-      PHP__upload_max_filesize: '64M'
-      PHP__date.timezone: '"Europe/Moscow"'
-      PHP_php5enmod: 'memcached mysqli pdo_mysql zip gd soap intl'
-    volumes:
-      - ./application:/var/www/html
-    depends_on:
-      - mysql
-    networks:
-      - repostator
   mysql:
-    image: mariadb:latest
-    restart: on-failure
+    image: "mysql:5.7"
+    restart: always
+    container_name: ${PROJECT_NAME}-mysql
     ports:
-      - "3306:3306"
-    expose:
-      - '3306'
-    environment:
-      MYSQL_ROOT_PASSWORD: ''
-    volumes:
-      - ./docker/runtime/mysql:/var/lib/mysql
-      - ./docker/runtime/logs/mysql:/var/log/mysql
+      - ${DB_PORT}:3306
     networks:
       - repostator
+    volumes:
+      - ./docker/config/mysql-custom.cnf:/etc/mysql/conf.d/custom.cnf
+      - ./docker/runtime/db:/var/lib/mysql
+      - ./docker/runtime/logs/mysql:/var/log
+    environment:
+      MYSQL_DATABASE: ${DB_NAME}
+      MYSQL_ROOT_PASSWORD: ${DB_PASS}
+      MYSQL_ALLOW_EMPTY_PASSWORD: 'yes'
+  web: &application-template
+    image: "${PROJECT_NAME}-web:latest"
+    container_name: ${PROJECT_NAME}-web
+    restart: always
+    build:
+      context: .
+      dockerfile: docker/build/php/Dockerfile
+      target: base
+      args:
+        HOST_UID: 1000
+        HOST_GID: 1000
+        WEB_PORT_HTTP: ${WEB_PORT_HTTP}
+        WEB_PORT_HTTPS: ${WEB_PORT_HTTPS}
+    volumes:
+      - ./src:/var/www/html
+      - ./docker/runtime/composer:/var/www/.composer
+    networks:
+      - repostator
+    links:
+      - mysql
+    depends_on:
+      - mysql
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+    working_dir: /var/www/html
+    environment:
+      PHP_IDE_CONFIG: "serverName=RepostatorServer"
+    env_file:
+      - .env
+  supervisor:
+    <<: *application-template
+    container_name: ${PROJECT_NAME}-supervisor
+    volumes:
+      - ./src:/var/www/html
+      - ./docker/config/supervisord.conf:/etc/supervisor/supervisord.conf
+    entrypoint: [ "/usr/bin/supervisord", "-c", "/etc/supervisor/supervisord.conf" ]
+    environment:
+      PHP_IDE_CONFIG: "serverName=RepostatorServer"
   mailhog:
     image: mailhog/mailhog:latest
+    container_name: ${PROJECT_NAME}-mailhog
     restart: on-failure
     ports:
-      - 1025:1025
+      - ${MAIL_PORT}:1025
       - 8025:8025
     networks:
       - repostator
-  supervisor:
-    <<: *web
-    container_name: repostator-supervisor
-    volumes:
-      - ./application:/var/www/html
-      - ./docker/config/supervisord.conf:/etc/supervisor/supervisord.conf
-      - ./docker/config/cron:/var/spool/cron/crontabs/root
-      - ./docker/config/php/conf.d:/usr/local/etc/php/conf.d
-      - ./docker/runtime/logs/supervisor:/var/log/supervisor
-    entrypoint: [ "/usr/bin/supervisord", "-c", "/etc/supervisor/supervisord.conf" ]
-    networks:
-      - repostator
-
-#  PHPMyAdmin config
-#  phpmyadmin:
-#    image: phpmyadmin:latest
-#    restart: on-failure
-#    ports:
-#      - '8888:80'
-#    environment:
-#      - PMA_ARBITRARY=1
-#      - PMA_HOST=mysql
-#      - UPLOAD_LIMIT=300M
-#    depends_on:
-#      - mysql
-#    networks:
-#      - repostator
-
-#  Apache2 config server
-#  server:
-#    image: alterway/php:8.1-apache
-#    environment:
-#      PHP__display_errors: 'On'
-#      PHP__opcache.enable: 'Off'
-#      PHP__memory_limit: '1024M'
-#      PHP__post_max_size: '256M'
-#      PHP__upload_max_size: '128M'
-#      PHP__upload_max_filesize: '64M'
-#      PHP__date.timezone: '"Europe/Moscow"'
-#      PHP_php5enmod: 'memcached mysqli pdo_mysql zip gd soap intl xdebug'
-#      HTTPD__DocumentRoot: '/var/www/html/public'
-#      HTTPD__ServerAdmin: 'stop4uk@yandex.ru'
-#      HTTPD__AddDefaultCharset: 'UTF-8'
-#      HTTPD_a2enmod: 'rewrite status expires'
-#    ports:
-#      - 80:80
-#    expose:
-#      - '80'
-#    volumes:
-#      - ./application:/var/www/html:delegated
-#      - ./docker/runtime/logs/apache:/var/log/apache2
-#    depends_on:
-#      - mysql
-#      - mailhog
-#    networks:
-#      - repostator
+networks:
+  repostator:
+    driver: bridge
