@@ -33,11 +33,14 @@ final class m240410_104248_reports_form_jobs extends Migration
         ], $tableOptions);
 
         $this->createIndex('UQ_job_id', self::TABLE, ['job_id'], true);
-        $this->createIndex('IDX_job_status', self::TABLE, ['job_status'], false);
-        $this->createIndex('IDX_report_id', self::TABLE, ['report_id'], false);
-        $this->createIndex('IDX_template_id', self::TABLE, ['template_id'], false);
-        $this->createIndex('IDX_created_uid', self::TABLE, ['created_uid'], false);
-        $this->createIndex('IDX_created_gid', self::TABLE, ['created_gid'], false);
+        $this->createIndex('IDX_job_status', self::TABLE, ['job_status']);
+        $this->createIndex('IDX_report_id', self::TABLE, ['report_id']);
+        $this->createIndex('IDX_template_id', self::TABLE, ['template_id']);
+        $this->createIndex('IDX_storage', self::TABLE, ['storage']);
+        $this->createIndex('IDX_file_name', self::TABLE, ['file_name']);
+        $this->createIndex('UQ_file_hash', self::TABLE, ['file_hash'], true);
+        $this->createIndex('IDX_created_uid', self::TABLE, ['created_uid']);
+        $this->createIndex('IDX_created_gid', self::TABLE, ['created_gid']);
     }
 
     public function safeDown(): void
@@ -46,6 +49,9 @@ final class m240410_104248_reports_form_jobs extends Migration
         $this->dropIndex('IDX_job_status', self::TABLE);
         $this->dropIndex('IDX_report_id', self::TABLE);
         $this->dropIndex('IDX_template_id', self::TABLE);
+        $this->dropIndex('IDX_storage', self::TABLE);
+        $this->dropIndex('IDX_file_name', self::TABLE);
+        $this->dropIndex('UQ_file_hash', self::TABLE);
         $this->dropIndex('IDX_created_uid', self::TABLE);
         $this->dropIndex('IDX_created_gid', self::TABLE);
         $this->dropTable(self::TABLE);
