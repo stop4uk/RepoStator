@@ -1,5 +1,7 @@
 <?php
 
+namespace app\modules\reports\migrations;
+
 use yii\db\Migration;
 
 final class m240410_104244_reports_constant extends Migration
