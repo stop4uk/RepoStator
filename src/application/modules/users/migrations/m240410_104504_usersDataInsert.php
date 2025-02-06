@@ -1,5 +1,7 @@
 <?php
 
+namespace app\modules\users\migrations;
+
 use yii\db\Migration;
 
 final class m240410_104504_usersDataInsert extends Migration
