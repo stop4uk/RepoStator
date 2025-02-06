@@ -24,8 +24,13 @@ trait AttachFileActionsTrait
 
     public function init(): void
     {
+        $temporaryPath = Yii::getAlias('@runtime/' . env("YII_FILES_TEMPORARY_PATH", 'tmpUpload'));
+        if (!is_dir($temporaryPath)) {
+            mkdir($temporaryPath, 777);
+        }
+
         $this->sessionKey = implode('_', [parent::getUniqueId(), Yii::$app->getUser()->id]);
-        $this->temporaryPath = Yii::getAlias('@runtime/' . env("YII_FILES_TEMPORARY_PATH", 'tmpUpload'));
+        $this->temporaryPath = $temporaryPath;
 
         parent::init();
     }
