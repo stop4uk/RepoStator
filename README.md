@@ -13,7 +13,7 @@ RMS.REPOStator (Система управления отчетами). Умее�
 УСТАНОВКА
 -------------------
 ```ssh
-git clone -b main git@github.com:stop4uk/repostator YOUR_APP
+git clone git@github.com:stop4uk/repostator YOUR_APP
 cd YOUR_APP
 cp .env.example .env
 ```
