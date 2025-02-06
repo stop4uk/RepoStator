@@ -61,7 +61,7 @@ final class m240412_144258_settingsDataInsert extends Migration
                 'category' => 'system',
                 'key' => 'app_language',
                 'value' => 'ru',
-                'description' => 'Язык системы по умолчанию. Установлен в значение ru. Доступны варианты ru, by, kz, ua, en',
+                'description' => 'Язык системы по умолчанию. Установлен в значение ru. Доступны варианты ru, by, kz, en',
                 'required' => 1,
                 'sort' => 7,
             ],
