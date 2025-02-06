@@ -86,6 +86,9 @@ $this->title = Yii::t('views', 'Статистика');
                                 }
                             },
                         ],
+                        'visibleButtons' => [
+                            'download' => fn($model) => $model->file_name
+                        ]
                     ],
                 ],
             ]); ?>

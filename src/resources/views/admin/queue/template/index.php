@@ -68,27 +68,32 @@ $this->title = Yii::t('views', 'Очередь отчетов');
                         'header' => false,
                         'headerOptions' => ['style' => 'min-width: 2rem'],
                         'template' => '{download}',
-                        'value' => function($model) {
-                            if ($model->file_name) {
-                                $fileName = implode('.', [$model->file_name, $model->file_extension]);
-                                $params = serialize([
-                                    'storageID' => $model->storage,
-                                    'pathToFile' => $model->file_path . $fileName,
-                                    'fileName' => $fileName
-                                ]);
+                        'buttons' => [
+                            'download' => function($url, $model) {
+                                if ($model->file_name) {
+                                    $fileName = implode('.', [$model->file_name, $model->file_extension]);
+                                    $params = serialize([
+                                        'storageID' => $model->storage,
+                                        'pathToFile' => $model->file_path . $fileName,
+                                        'fileName' => $fileName
+                                    ]);
 
-                                return Html::a(
-                                    '<i class="bi bi-file-arrow-down text-dark"></i>',
-                                    Url::to(['getfiledirect', 'params' => base64_encode($params)]),
-                                    [
-                                        'data-pjax' => 0,
-                                        'data-bs-toggle' => 'tooltip',
-                                        'data-bs-placement' => 'bottom',
-                                        'title' => Yii::t('views', 'Скачать'),
-                                    ]
-                                );
-                            }
-                        }
+                                    return Html::a(
+                                        '<i class="bi bi-file-arrow-down text-dark"></i>',
+                                        Url::to(['getfiledirect', 'params' => base64_encode($params)]),
+                                        [
+                                            'data-pjax' => 0,
+                                            'data-bs-toggle' => 'tooltip',
+                                            'data-bs-placement' => 'bottom',
+                                            'title' => Yii::t('views', 'Скачать'),
+                                        ]
+                                    );
+                                }
+                            },
+                        ],
+                        'visibleButtons' => [
+                            'download' => fn($model) => $model->file_name
+                        ]
                     ],
                 ],
             ]); ?>
