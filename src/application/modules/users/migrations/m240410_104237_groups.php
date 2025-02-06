@@ -4,7 +4,7 @@ namespace app\modules\users\migrations;
 
 use yii\db\Migration;
 
-final class m240410_104237_groups extends Migration
+class m240410_104237_groups extends Migration
 {
     const TABLE = '{{%groups}}';
 
