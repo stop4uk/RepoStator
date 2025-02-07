@@ -33,7 +33,7 @@ $form = ActiveForm::begin([
         </div>
         <div class="col-12 col-md-6 col-xl-4 col-xxl-3">
             <?= $form->field($model, 'phone', ['template' => '
-            <label class="form-label" for="profile-phone_mobile">{label}</label>
+            <label class="form-label mb-0" for="profile-phone_mobile">{label}</label>
             <div class="input-group">
                 <span class="input-group-text" id="basic-addon1">+7</span>
                     {input}
