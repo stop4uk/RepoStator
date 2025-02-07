@@ -16,7 +16,7 @@ require __DIR__ . '/vendor/autoload.php';
 require __DIR__ . '/vendor/yiisoft/yii2/Yii.php';
 
 use yii\{
-    base\Exception,
+    base\InvalidConfigException,
     console\Application,
 };
 
@@ -24,6 +24,6 @@ $config = require __DIR__ . '/application/config/console.php';
 
 try {
     exit((new Application($config))->run());
-} catch (Exception $e) {
+} catch (InvalidConfigException $e) {
     echo $e->getMessage();
 }
