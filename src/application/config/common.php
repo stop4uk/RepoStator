@@ -10,6 +10,7 @@ use yii\queue\{
 };
 use yii\symfonymailer\Mailer;
 use creocoder\flysystem\LocalFilesystem;
+use kartik\select2\Select2Asset;
 
 use app\components\{
     attachedFiles\AttachFileHelper,
@@ -106,7 +107,7 @@ return [
         ],
         'db' => [
             'class' => Connection::class,
-            'dsn' => 'mysql:host=' . env('DB_HOST', '127.0.0.1') . ';port=' . env('DB_PORT', '3306') . ';dbname=' . env('DB_NAME', 'repostator'),
+            'dsn' => 'mysql:host=' . env('DB_HOST', 'mysql') . ';port=' . env('DB_PORT', '3306') . ';dbname=' . env('DB_NAME', 'repostator'),
             'username' => env('DB_USER', 'root'),
             'password' => env('DB_PASS', ''),
             'charset' => 'utf8',
@@ -129,6 +130,19 @@ return [
             'preLoad' => [
                 'system'
             ]
+        ],
+        'assetManager' => [
+            'appendTimestamp' => true,
+            'linkAssets' => true,
+            'forceCopy' => (bool)env('YII_DEBUG', false),
+            'basePath' => '@assets',
+            'bundles' => [
+                Select2Asset::class => [
+                    'sourcePath' => '@resources',
+                    'css' => ['assets/components/select2/css/select2.css'],
+                    'js' => ['assets/components/select2/js/select2.full.js'],
+                ],
+            ],
         ],
     ],
 ];
