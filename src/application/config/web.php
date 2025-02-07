@@ -10,7 +10,6 @@ use yii\{
     debug\Module as DebugModule,
     gii\Module as GiiModule
 };
-use kartik\select2\Select2Asset;
 
 use app\components\{
     bootstrap\WebBootstrap,
@@ -45,19 +44,6 @@ $config = [
         'view' => [
             'theme' => [
                 'basePath' => '@resources'
-            ],
-        ],
-        'assetManager' => [
-            'appendTimestamp' => true,
-            'linkAssets' => true,
-            'forceCopy' => (bool)env('YII_DEBUG', false),
-            'basePath' => '@assets',
-            'bundles' => [
-                Select2Asset::class => [
-                    'sourcePath' => '@resources',
-                    'css' => ['assets/components/select2/css/select2.css'],
-                    'js' => ['assets/components/select2/js/select2.full.js'],
-                ],
             ],
         ],
         'user' => [
