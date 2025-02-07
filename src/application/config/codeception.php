@@ -5,6 +5,7 @@ use Symfony\Component\Mailer;
 
 return [
     'id' => 'repostator-test',
+    'defaultRoute' => 'reports/dashboard',
     'components' => [
         'db' => [
             'class' => Connection::class,
@@ -27,6 +28,10 @@ return [
                 'password' => env('TESTMAIL_PASSWORD', ''),
                 'port' => (int)env('TESTMAIL_PORT', 1025),
             ],
+        ],
+        'request' => [
+            'cookieValidationKey' => 'test',
+            'enableCsrfValidation' => false,
         ],
     ],
 ];
