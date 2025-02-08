@@ -1,4 +1,4 @@
-suite_namespace: app\tests\acceptance
+suite_namespace: root\tests\acceptance
 actor: AcceptanceTester
 modules:
     enabled:
@@ -11,3 +11,4 @@ modules:
         - Yii2:
             part: [orm, email, fixtures]
         - Asserts
+        - Filesystem
