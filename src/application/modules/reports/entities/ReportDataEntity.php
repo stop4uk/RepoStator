@@ -119,7 +119,9 @@ final class ReportDataEntity extends BaseAR
 
     public function getChanges(): ActiveQuery
     {
-        return $this->hasMany(ReportDataChangeEntity::class, ['data_id' => 'id'])->with(['createdUser']);
+        return $this->hasMany(ReportDataChangeEntity::class, ['data_id' => 'id'])
+            ->with(['createdUser'])
+            ->orderBy(['id' => SORT_DESC]);
     }
 
     public function beforeSave($insert): bool
