@@ -123,7 +123,7 @@ final class StructureModel extends BaseModel
         return StructureHelper::labels();
     }
 
-    public function checkGroups($attribute)
+    public function checkGroups($attribute): void
     {
         if ($this->groups_only) {
             if ($this->report_id) {
@@ -165,7 +165,10 @@ final class StructureModel extends BaseModel
 
             if ($structuresList) {
                 foreach ($structuresList as $structure) {
-                    if (!$structure->groups_only) {
+                    if (
+                        !$structure->groups_only
+                        && $structure->id != $this->getEntity()->id
+                    ) {
                         $resultQuery['empty']++;
                         continue;
                     }

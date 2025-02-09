@@ -63,9 +63,9 @@ final class DataModel extends BaseModel
     public readonly UserEntity|null $createdUser;
     public readonly array|null $changes;
 
-    public function init()
+    public function init(): void
     {
-        if (!$this->isNewEntity) {
+        if (!$this->getIsNewEntity()) {
             foreach (['report', 'group', 'structure', 'changes', 'createdUser'] as $relation) {
                 $this->{$relation} = $this->entity->{$relation};
             }
@@ -97,7 +97,7 @@ final class DataModel extends BaseModel
 
             ['content', 'checkContent'],
             ['report_id', 'checkAccess'],
-            ['report_id', 'checkReportUnique', 'when' => fn($model) => (!$model->isNewEntity && $model->report->left_period)],
+            ['report_id', 'checkReportUnique', 'when' => fn($model) => $model->report->left_period],
 
             ['form_control', 'safe']
         ];
@@ -108,7 +108,7 @@ final class DataModel extends BaseModel
         return DataHelper::labels();
     }
 
-    public function checkReportUnique()
+    public function checkReportUnique(): void
     {
         if ($this->report_id && $this->group_id && $this->report_datetime) {
             $periodsList = DataHelper::getTimePeriods($this->report, $this->report_datetime);
@@ -178,14 +178,14 @@ final class DataModel extends BaseModel
         }
     }
 
-    public function checkContent()
+    public function checkContent(): void
     {
         if (count(array_filter($this->content)) == 0) {
             $this->addError('content', Yii::t('models_error', 'Нельзя передавать пустой отчет'));
         }
     }
 
-    public function afterValidate()
+    public function afterValidate(): void
     {
         if ($this->content) {
             $this->content = array_filter($this->content);
