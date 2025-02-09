@@ -2,15 +2,25 @@
 
 namespace app\modules\reports\search;
 
-use app\helpers\{CommonHelper, HtmlPurifier,};
-use app\modules\reports\{entities\ReportDataEntity,
-    helpers\DataHelper,
-    helpers\ReportHelper,
-    repositories\ReportRepository,};
-use app\modules\users\{components\rbac\RbacHelper, repositories\GroupRepository};
 use yii\base\Model;
 use yii\data\ActiveDataProvider;
 use yii\helpers\ArrayHelper;
+
+use app\helpers\{
+    CommonHelper,
+    HtmlPurifier,
+};
+use app\modules\reports\{
+    entities\ReportDataEntity,
+    helpers\DataHelper,
+    helpers\ReportHelper,
+    repositories\ReportRepository,
+};
+use app\modules\users\{
+    components\rbac\RbacHelper,
+    repositories\GroupRepository
+};
+
 
 /**
  * @property string|null $name
@@ -110,10 +120,17 @@ final class SendSearch extends Model
 
                 foreach ($this->groupsCanSent as $groupId => $groupName) {
                     if (
-                        (!$groupsOnly || in_array($groupId, $groupsOnly))
+                        (
+                            !$groupsOnly
+                            || in_array($groupId, $groupsOnly)
+                        )
                         && $canAddedNow
                     ) {
-                        if ($sentData && !in_array($groupId, $sentData)) {
+                        if (
+                            ($sentData && !in_array($groupId, $sentData))
+                            || !$sentData
+                            || !$model->timePeriod
+                        ) {
                             $model->canAddedFor[] = [
                                 'groupId' => $groupId,
                                 'groupName' => $groupName,
@@ -122,12 +139,6 @@ final class SendSearch extends Model
 
                             continue;
                         }
-
-                        $model->canAddedFor[] = [
-                            'groupId' => $groupId,
-                            'groupName' => $groupName,
-                            'reportId' => $model->id,
-                        ];
                     }
                 }
             }
