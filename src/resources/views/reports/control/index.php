@@ -147,7 +147,7 @@ $this->title = Yii::t('views', 'Контроль за передачей');
                                 ], $ruleArray)) {
                                     return Html::a(
                                         '<i class="bi bi-pen text-dark"></i>',
-                                        Url::to(['edit', 'id' => $model->id]),
+                                        Url::to(['edit', 'id' => $model->id, 'form_control' => true]),
                                         [
                                             'data-pjax' => 0,
                                             'data-bs-toggle' => 'tooltip',
