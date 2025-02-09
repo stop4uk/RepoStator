@@ -79,9 +79,7 @@ $this->title = Yii::t('views', 'Контроль за передачей');
                 'columns' => [
                     [
                         'attribute' => 'report_id',
-                        'headerOptions' => [
-                            'width' => '40%'
-                        ],
+                        'headerOptions' => ['style' => 'min-width: 14rem'],
                         'format' => 'raw',
                         'value' => function($data) {
                             return Html::tag('i','', [
@@ -94,23 +92,19 @@ $this->title = Yii::t('views', 'Контроль за передачей');
                     ],
                     [
                         'attribute' => 'created_uid',
-                        'headerOptions' => [
-                            'width' => '30%'
-                        ],
+                        'headerOptions' => ['style' => 'min-width: 15rem'],
                         'format' => 'html',
                         'value' => fn($data) => $data->createdUser->shortName . Html::tag('span', "#{$data->group->name}", ['class' => 'ms-1 text-muted small'])
                     ],
                     [
                         'attribute' => 'created_at',
-                        'headerOptions' => [
-                            'width' => '20%'
-                        ],
+                        'headerOptions' => ['style' => 'min-width: 12rem'],
                         'format' => ['date', Yii::$app->settings->get('system', 'app_language_dateTime')],
                     ],
                     [
                         'class' => ActionColumn::class,
                         'header' => false,
-                        'headerOptions' => ['width' => '10%'],
+                        'headerOptions' => ['style' => 'min-width: 6rem'],
                         'contentOptions' => ['class' => 'text-center'],
                         'template' => '{view} {edit} {delete}',
                         'buttons' => [
