@@ -37,8 +37,8 @@ use app\modules\reports\{
  */
 final class ReportEntity extends BaseAR
 {
-    public $canAddedFor;
-    public $timePeriod;
+    public array $canAddedFor = [];
+    public ?object $timePeriod = null;
 
     public function behaviors(): array
     {

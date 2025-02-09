@@ -14,7 +14,7 @@ use yii\bootstrap5\Html;
 if (isset($elements['###'])) {
     foreach ($elements['###'] as $item) {
         if (isset($constants[$item])) {
-            echo Html::beginTag('div', ['class' => 'col-auto col-md-4 col-xl-3']);
+            echo Html::beginTag('div', ['class' => 'col-auto col-md-3 col-xl-3 col-xxl-2']);
                 echo $form->field($model, $formField . "[$item]")->input("number")->label($constants[$item]['name'], ['class' => ['form-label']]);
             echo Html::endTag('div');
         }
@@ -41,7 +41,7 @@ if (isset($elements['###'])) {
                     <div class="accordion-body ps-0 pe-0">
                         <div class="row d-flex justify-content-start">
                             <?php foreach ($items as $item): if (isset($constants[$item])): ?>
-                                <div class="col-auto col-md-4 col-xl-3">
+                                <div class="col-auto col-md-3 col-xl-3 col-xxl-2">
                                     <?= $form->field($model, $formField . "[$item]")->input('number')->label($constants[$item]['name'] ?? $item, ['class' => 'form-label']); ?>
                                 </div>
                             <?php endif; endforeach; ?>
