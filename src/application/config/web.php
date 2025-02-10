@@ -81,15 +81,15 @@ $config = [
                 'profile'                                                                       => 'users/profile',
                 'profile/<action:\w+>'                                                          => 'users/profile/<action>',
                 'recovery'                                                                      => 'users/recovery',
-                'recovery/<action:\w+>'                                                             => 'users/recovery/<action>',
+                'recovery/<action:\w+>'                                                         => 'users/recovery/<action>',
                 'verification'                                                                  => 'users/verification',
-                'verification/<action:\w+>'                                                         => 'users/verification/<action>',
+                'verification/<action:\w+>'                                                     => 'users/verification/<action>',
                 '<action:(login|logout|register)>'                                              => 'users/auth/<action>',
                 '<controller:(dashboard|send|control|statistic)>'                               => 'reports/<controller>',
                 '<controller:(dashboard|send|control|statistic)>/<action>'                      => 'reports/<controller>/<action>',
 
                 '<module:\w+>'                                                                  => '<module>/default',
-                '<module:\w+>/<action:(index|create|view|edit|delete|enable)>'       => '<module>/default/<action>',
+                '<module:\w+>/<action:(index|create|view|edit|delete|enable)>'                  => '<module>/default/<action>',
 
                 'reports/<controller:(constant|constantrule|structure|template)>'               => 'reports/<controller>',
                 'reports/<controller:(constant|constantrule|structure|template)>/<action:\w+>'  => 'reports/<controller>/<action>',
