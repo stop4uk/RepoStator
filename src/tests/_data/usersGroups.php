@@ -8,21 +8,21 @@ return [
         'user_id' => 1,
         'group_id' => 1,
         'created_at' => time(),
-        'create_uid' => 1,
+        'created_uid' => 1,
     ],
     [
         'id' => 2,
         'user_id' => 2,
         'group_id' => 2,
         'created_at' => time(),
-        'create_uid' => 1,
+        'created_uid' => 1,
     ],
     [
         'id' => 3,
         'user_id' => 3,
         'group_id' => 3,
         'created_at' => time(),
-        'create_uid' => 1,
+        'created_uid' => 1,
         'record_status' => BaseAR::RSTATUS_DELETED
     ],
     [
@@ -30,6 +30,6 @@ return [
         'user_id' => 4,
         'group_id' => 2,
         'created_at' => time(),
-        'create_uid' => 1,
+        'created_uid' => 1,
     ],
 ];
