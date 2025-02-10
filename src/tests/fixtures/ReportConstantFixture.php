@@ -1,6 +1,6 @@
 <?php
 
-namespace root\test\fixtures;
+namespace root\tests\fixtures;
 
 use Yii;
 use yii\test\ActiveFixture;

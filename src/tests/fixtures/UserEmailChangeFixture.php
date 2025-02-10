@@ -1,6 +1,6 @@
 <?php
 
-namespace root\test\fixtures;
+namespace root\tests\fixtures;
 
 use Yii;
 use yii\test\ActiveFixture;
@@ -9,7 +9,7 @@ use app\modules\users\entities\UserEmailchangeEntity;
 
 final class UserEmailChangeFixture extends ActiveFixture
 {
-    public $modelClass = UserEntity::class;
+    public $modelClass = UserEmailchangeEntity::class;
     public $depends = [
         UserFixture::class,
     ];
