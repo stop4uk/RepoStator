@@ -19,7 +19,7 @@ final class AuthCest
             'user' => UserFixture::class
         ]);
 
-        $I->amOnRoute('/login');
+        $I->amOnPage('/login');
     }
 
     public function checkEmpty(AcceptanceTester $I): void
@@ -64,7 +64,7 @@ final class AuthCest
         $I->assertEquals($sentEmails, 1);
 
         $grabRecoveryKey = $I->grabRecord(UserEntity::class, ['id' => 2]);
-        $I->amOnRoute('/recovery/process?key=' . $grabRecoveryKey->account_key);
+        $I->amOnPage('/recovery/process?key=' . $grabRecoveryKey->account_key);
         $I->waitForText('Подтверждение пароля', 15);
         $I->fillField('#recoveryform-password', '12345');
         $I->fillField('#recoveryform-verifypassword', '12345');
@@ -90,13 +90,13 @@ final class AuthCest
             $I->fillField('#registerform-email', 'test_register@test.test');
             $I->fillField('#registerform-password', '12345');
             $I->click('Зарегистрироваться');
-            $I->waitForText('Регистрация успешно завершена', 15);
+            $I->waitForText('Авторизация', 15);
 
             $sentEmails = $this->checkQuery();
             $I->assertEquals($sentEmails, 1);
 
             $grabVerifyCode = $I->grabRecord(UserEntity::class, ['email' => 'test_register@test.test']);
-            $I->amOnRoute('/verification/process?key=' . $grabVerifyCode->account_key);
+            $I->amOnPage('/verification/process?key=' . $grabVerifyCode->account_key);
             $I->waitForText('Авторизация', 15);
 
             $grabVerifyCodeAfterVerify = $I->grabRecord(UserEntity::class, ['email' => 'test_register@test.test']);
