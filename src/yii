@@ -1,17 +1,11 @@
 #!/usr/bin/env php
 <?php
 
-/**
- * Yii console bootstrap file.
- */
+defined('YII_DEBUG') or define('YII_DEBUG', env('YII_DEBUG', true));
+defined('YII_ENV') or define('YII_ENV', env('YII_ENV', 'dev'));
 
 require __DIR__ . '/vendor/autoload.php';
-
-define('YII_DEBUG', getenv('YII_DEBUG', true));
-define('YII_ENV', getenv('YII_ENV', 'test'));
-
 require __DIR__ . '/vendor/yiisoft/yii2/Yii.php';
-require __DIR__ . '/application/config/bootstrap.php';
 
 use yii\{
     base\InvalidConfigException,
@@ -21,7 +15,5 @@ use yii\{
 $config = require __DIR__ . '/application/config/console.php';
 
 try {
-    $application = new Application($config);
-    $exitCode = $application->run();
-    exit($exitCode);
-} catch (InvalidConfigException $e) {}
+    exit((new Application($config))->run());
+} catch (InvalidConfigException $e) {echo $e->getMessage();}
