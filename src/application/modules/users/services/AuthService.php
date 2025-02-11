@@ -136,13 +136,14 @@ final class AuthService extends Component implements BaseServiceInterface
     public function recoveryProcess(RecoveryForm $model): bool
     {
         $user = UserEntity::find()
-            ->where([
-                'account_key' => $model->authKey
-            ])
+            ->where(['account_key' => $model->authKey])
             ->limit(1)
             ->one();
 
         if ($user) {
+            $user->password = $model->password;
+            $user->account_key = Yii::$app->getSecurity()->generateRandomString();
+
             if (CommonHelper::saveAttempt($user, 'Users.Auth')) {
                 return true;
             }
