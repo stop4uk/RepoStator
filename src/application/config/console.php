@@ -1,6 +1,9 @@
 <?php
 
-use yii\console\controllers\MigrateController;
+use yii\console\controllers\{
+    MigrateController,
+    FixtureController
+};
 use yii\helpers\ArrayHelper;
 
 use app\components\{
@@ -26,7 +29,11 @@ $config = [
                 'app\modules\users\migrations',
                 'app\modules\reports\migrations'
             ],
-        ]
+        ],
+        'fixture' => [
+            'class' => FixtureController::class,
+            'namespace' => 'root\tests\fixtures',
+        ],
     ],
     'components' => [
         'urlManager' => [

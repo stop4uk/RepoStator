@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace app\tests;
+namespace root\tests;
 
 /**
  * Inherited Methods

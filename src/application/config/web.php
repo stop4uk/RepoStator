@@ -10,7 +10,6 @@ use yii\{
     debug\Module as DebugModule,
     gii\Module as GiiModule
 };
-use kartik\select2\Select2Asset;
 
 use app\components\{
     bootstrap\WebBootstrap,
@@ -45,19 +44,6 @@ $config = [
         'view' => [
             'theme' => [
                 'basePath' => '@resources'
-            ],
-        ],
-        'assetManager' => [
-            'appendTimestamp' => true,
-            'linkAssets' => true,
-            'forceCopy' => (bool)env('YII_DEBUG', false),
-            'basePath' => '@assets',
-            'bundles' => [
-                Select2Asset::class => [
-                    'sourcePath' => '@resources',
-                    'css' => ['assets/components/select2/css/select2.css'],
-                    'js' => ['assets/components/select2/js/select2.full.js'],
-                ],
             ],
         ],
         'user' => [
@@ -95,15 +81,15 @@ $config = [
                 'profile'                                                                       => 'users/profile',
                 'profile/<action:\w+>'                                                          => 'users/profile/<action>',
                 'recovery'                                                                      => 'users/recovery',
-                'recovery/<action:\w+>'                                                             => 'users/recovery/<action>',
+                'recovery/<action:\w+>'                                                         => 'users/recovery/<action>',
                 'verification'                                                                  => 'users/verification',
-                'verification/<action:\w+>'                                                         => 'users/verification/<action>',
+                'verification/<action:\w+>'                                                     => 'users/verification/<action>',
                 '<action:(login|logout|register)>'                                              => 'users/auth/<action>',
                 '<controller:(dashboard|send|control|statistic)>'                               => 'reports/<controller>',
                 '<controller:(dashboard|send|control|statistic)>/<action>'                      => 'reports/<controller>/<action>',
 
                 '<module:\w+>'                                                                  => '<module>/default',
-                '<module:\w+>/<action:(index|create|view|edit|delete|enable)>'       => '<module>/default/<action>',
+                '<module:\w+>/<action:(index|create|view|edit|delete|enable)>'                  => '<module>/default/<action>',
 
                 'reports/<controller:(constant|constantrule|structure|template)>'               => 'reports/<controller>',
                 'reports/<controller:(constant|constantrule|structure|template)>/<action:\w+>'  => 'reports/<controller>/<action>',

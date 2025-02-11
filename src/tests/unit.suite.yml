@@ -1,4 +1,3 @@
-suite_namespace: app\tests\unit
 actor: UnitTester
 modules:
   enabled:
