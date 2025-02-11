@@ -5,25 +5,137 @@ use yii\web\{
     UrlNormalizer,
     Cookie
 };
-use Symfony\Component\Mailer;
-
-use creocoder\flysystem\LocalFilesystem;
-use app\components\attachedFiles\AttachFileHelper;
-use app\modules\users\components\{
-    Identity,
-    rbac\PhpDBRbacManager
+use yii\console\controllers\FixtureController;
+use yii\caching\FileCache;
+use yii\i18n\PhpMessageSource;
+use yii\mutex\MysqlMutex;
+use yii\queue\{
+    db\Queue,
+    LogBehavior
 };
+use Symfony\Component\Mailer;
+use creocoder\flysystem\LocalFilesystem;
+use kartik\select2\Select2Asset;
+
+use app\components\{
+    attachedFiles\AttachFileHelper,
+    bootstrap\CommonBootstrap,
+    bootstrap\WebBootstrap,
+    events\CommonEventHandler,
+    events\WebEventHandler,
+    settings\Settings
+};
+use app\modules\{
+    users\Module as UsersModule,
+    reports\Module as ReportsModule,
+    admin\Module as AdminModule,
+    users\components\Identity,
+    users\components\rbac\PhpDBRbacManager
+};
+
+$params = array_merge(
+    require __DIR__ . '/_params_common.php',
+    require __DIR__ . '/_params_console.php',
+);
 
 return [
     'id' => 'repostator-test',
     'basePath' => dirname(__DIR__) . '/../',
     'aliases' => [
+        '@bower' => '@vendor/bower-asset',
+        '@npm'   => '@vendor/npm-asset',
         '@root' => dirname(__DIR__, 2),
+        '@app' => dirname(__DIR__) . '/',
+        '@runtime' => '@root/runtime',
+        '@resources' => '@root/resources',
+        '@web' => '@root/public',
+        '@assets' => '@root/public/assets',
+    ],
+    'bootstrap' => [
+        'log',
+        'queue',
+        CommonBootstrap::class,
+        CommonEventHandler::class,
+        WebBootstrap::class,
+        WebEventHandler::class,
+    ],
+    'controllerMap' => [
+        'fixture' => [
+            'class' => FixtureController::class,
+            'namespace' => 'root\tests\fixtures',
+        ],
+    ],
+    'modules' => [
+        'users' => [
+            'class' => UsersModule::class,
+            'viewPath' => '@resources/views/users',
+            'layoutClean' => '@resources/views/layouts/clean'
+        ],
+        'reports' => [
+            'class' => ReportsModule::class,
+            'viewPath' => '@resources/views/reports',
+        ],
+        'admin' => [
+            'class' => AdminModule::class,
+            'viewPath' => '@resources/views/admin',
+        ],
     ],
     'components' => [
         AttachFileHelper::STORAGE_LOCAL => [
             'class' => LocalFilesystem::class,
             'path' => '@root/_storage_test'
+        ],
+        'i18n' => [
+            'translations' => [
+                '*' => [
+                    'class' => PhpMessageSource::class,
+                    'basePath' => '@resources/messages',
+                    'forceTranslation' => true,
+                ],
+            ],
+        ],
+        'formatter' => [
+            'thousandSeparator' => '.',
+            'decimalSeparator' => '.',
+            'nullDisplay' => '',
+            'numberFormatterOptions' => [
+                NumberFormatter::MIN_FRACTION_DIGITS => 0,
+            ]
+        ],
+        'cache' => [
+            'class' => FileCache::class,
+            'defaultDuration' => (int)env('YII_DURATION_CACHE', 3600)
+        ],
+        'queue' => [
+            'class' => Queue::class,
+            'db' => 'db',
+            'tableName' => '{{%queue}}',
+            'channel' => 'default',
+            'mutex' => MysqlMutex::class,
+            'as log' => LogBehavior::class,
+        ],
+        'log' =>  require __DIR__ . '/' . match ((bool)env('YII_DEBUG', true)) {
+                true => 'common_logs_file.php',
+                false => 'common_logs_db.php'
+            },
+        'settings' => [
+            'class' => Settings::class,
+            'preLoad' => [
+                'system'
+            ]
+        ],
+        'assetManager' => [
+            'appendTimestamp' => true,
+            'linkAssets' => true,
+            'forceCopy' => (bool)env('YII_DEBUG', false),
+            'basePath' => '@assets',
+            'bundles' => [
+                Select2Asset::class => [
+                    'sourcePath' => '@resources',
+                    'css' => ['assets/components/select2/css/select2.css'],
+                    'js' => ['assets/components/select2/js/select2.full.js'],
+                ],
+            ],
         ],
         'db' => [
             'class' => Connection::class,
@@ -66,6 +178,18 @@ return [
                 'sameSite' => Cookie::SAME_SITE_STRICT,
             ],
         ],
+        'errorHandler' => [
+            'errorAction' => 'error/fault',
+        ],
+        'view' => [
+            'theme' => [
+                'basePath' => '@resources'
+            ],
+        ],
+        'request' => [
+            'csrfParam' => '_csrf-' . env('PROJECT_NAME'),
+            'cookieValidationKey' => env('YII_COOKIE_VALIDATION_KEY'),
+        ],
         'urlManager' => [
             'enablePrettyUrl' => true,
             'showScriptName' => false,
@@ -97,4 +221,5 @@ return [
             ],
         ]
     ],
+    'params' => $params
 ];
