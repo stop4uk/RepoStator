@@ -241,6 +241,13 @@ return [
             Permissions::REPORT_INCLUDES,
         ]
     ],
+    Roles::ROLE_DATASEND => [
+        'type' => 1,
+        'description' => 'Сведения. Только передача',
+        'children' => [
+            Permissions::DATA_SEND
+        ]
+    ],
     Roles::ROLE_DATAALL => [
         'type' => 1,
         'description' => 'Сведения. Своя и подчиненные группы',

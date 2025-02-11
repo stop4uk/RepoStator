@@ -34,6 +34,7 @@ final class Roles
     const ROLE_CONSTANTRULEDELETEDMAIN = 'role_constantRuleDeletedMain';
     const ROLE_CONSTANTRULEGROUP = 'role_constantRuleGroup';
     const ROLE_CONSTANTRULEMAIN = 'role_constantRuleMain';
+    const ROLE_DATASEND = 'role_dataSend';
     const ROLE_DATAALL = 'role_dataAll';
     const ROLE_DATACHECKFULL = 'role_dataCheckFull';
     const ROLE_DATACREATEFOR = 'role_dataCreateFor';
