@@ -1,6 +1,5 @@
 <?php
 
-use yii\db\Connection;
 use yii\web\{
     UrlNormalizer,
     Cookie
@@ -13,7 +12,7 @@ use yii\queue\{
     db\Queue,
     LogBehavior
 };
-use Symfony\Component\Mailer;
+use yii\helpers\ArrayHelper;
 use creocoder\flysystem\LocalFilesystem;
 use kartik\select2\Select2Asset;
 
@@ -38,7 +37,7 @@ $params = array_merge(
     require __DIR__ . '/_params_console.php',
 );
 
-return [
+$config = [
     'id' => 'repostator-test',
     'name' => env('YII_APP_NAME'),
     'sourceLanguage' => env('YII_APP_SOURCE_LANG'),
@@ -142,28 +141,6 @@ return [
                 ],
             ],
         ],
-        'db' => [
-            'class' => Connection::class,
-            'dsn' => 'mysql:host=' . env('TESTDB_HOST', 'mysqltest') . ';port=' . env('TESTDB_PORT', '3316') . ';dbname=' . env('TESTDB_NAME', 'repostator_test'),
-            'username' => env('TESTDB_USER', 'root'),
-            'password' => env('TESTDB_PASS', ''),
-            'charset' => 'utf8',
-            'enableSchemaCache' => false,
-            'schemaCacheDuration' => 0,
-            'schemaCache' => null,
-        ],
-        'mailer' => [
-            'class' => Mailer::class,
-            'viewPath' => '@resources/emails',
-            'useFileTransport' => false,
-            'transport' => [
-                'scheme' => env('TESTMAIL_SCHEME', 'smtp'),
-                'host' => env('TESTMAIL_HOST', 'mailhog'),
-                'username' => env('TESTMAIL_USERNAME', ''),
-                'password' => env('TESTMAIL_PASSWORD', ''),
-                'port' => (int)env('TESTMAIL_PORT', 1025),
-            ],
-        ],
         'user' => [
             'identityClass' => Identity::class,
             'enableAutoLogin' => true,
@@ -228,3 +205,8 @@ return [
     ],
     'params' => $params
 ];
+
+return ArrayHelper::merge(
+    $config,
+    require 'test_components.php'
+);

@@ -13,6 +13,7 @@ use yii\helpers\ArrayHelper;
 $config = ArrayHelper::merge(
     require __DIR__ . '/../application/config/web.php',
     require __DIR__ . '/../application/config/codeception.php',
+    require __DIR__ . '/../application/config/test_components.php',
 );
 
 try {
