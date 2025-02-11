@@ -1,6 +1,6 @@
-namespace: root\tests
-actor_suffix: Tester
+actor: Tester
 bootstrap: _bootstrap.php
+namespace: root\tests
 paths:
     tests: tests
     output: tests/_output

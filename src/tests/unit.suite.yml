@@ -1,4 +1,3 @@
-suite_namespace: root\tests\unit
 actor: UnitTester
 modules:
   enabled:

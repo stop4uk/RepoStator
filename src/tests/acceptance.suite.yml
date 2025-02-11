@@ -1,4 +1,3 @@
-suite_namespace: root\tests\acceptance
 actor: AcceptanceTester
 modules:
     enabled:
