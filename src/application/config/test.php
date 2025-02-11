@@ -149,7 +149,6 @@ $config = [
                 'name' => '_identity-' . env('PROJECT_NAME', 'simple'),
             ],
         ],
-        'authManager' => PhpDBRbacManager::class,
         'session' => [
             'timeout' => env('YII_DURATION_SESSION'),
             'name' => env('PROJECT_NAME') . '_session',
