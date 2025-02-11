@@ -66,6 +66,13 @@ final class GroupModel extends BaseModel
                 'filter' =>  $this->getUniqueFilterString(true),
                 'message' => Yii::t('models_error', 'Название не уникально')
             ],
+            [
+                'code',
+                'unique', 'targetClass' => GroupEntity::class,
+                'filter' =>  $this->getUniqueFilterString(true),
+                'message' => Yii::t('models_error', 'Код группы не уникален'),
+                'when' => fn($model) => $model->code
+            ],
             ['name_full', 'string', 'length' => [4,255], 'message' => Yii::t('models_error', 'Длина от 4 до 255 символов')],
             ['type_id', 'integer'],
             ['type_id', 'in', 'range' => array_keys($this->types), 'message' => Yii::t('models_error', 'Тип группы не соответствует определенным в системе')],
