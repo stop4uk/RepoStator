@@ -105,8 +105,16 @@ final class Identity implements IdentityInterface
             $groups = [$this->group => $allGroups[$this->group]];
             $groupsParent = [];
 
-            $children = $nestedRecord->children(100)->all();
-            $parents = $nestedRecord->parents(100)->all();
+            $children = [];
+            $parents = [];
+
+            if ($nestedRecord->hasMethod('children')) {
+                $children = $nestedRecord->children(100)->all();
+            }
+
+            if ($nestedRecord->hasMethod('parents')) {
+                $parents = $nestedRecord->parents(100)->all();
+            }
 
             if ($children) {
                 foreach ($children as $child) {
