@@ -7,6 +7,7 @@ use app\modules\users\components\rbac\PhpDBRbacManager;
 
 return [
     'components' => [
+        'authManager' => PhpDBRbacManager::class,
         'db' => [
             'class' => Connection::class,
             'dsn' => 'mysql:host=' . env('TESTDB_HOST', 'mysqltest') . ';port=' . env('TESTDB_PORT', '3316') . ';dbname=' . env('TESTDB_NAME', 'repostator_test'),
@@ -20,7 +21,7 @@ return [
         'mailer' => [
             'class' => Mailer::class,
             'viewPath' => '@resources/emails',
-            'useFileTransport' => false,
+            'useFileTransport' => true,
             'transport' => [
                 'scheme' => env('TESTMAIL_SCHEME', 'smtp'),
                 'host' => env('TESTMAIL_HOST', 'mailhog'),
