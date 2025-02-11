@@ -15,8 +15,13 @@ require __DIR__ . '/application/config/bootstrap.php';
 
 use yii\console\Application;
 use yii\base\InvalidConfigException;
+use yii\helpers\ArrayHelper;
 
-$config = require __DIR__ . '/application/config/test.php';
+$config = ArrayHelper::merge(
+    require __DIR__ . '/application/config/console.php',
+    require __DIR__ . '/application/config/test.php'
+);
+
 try {
     $application = new Application($config);
     $exitCode = $application->run();
