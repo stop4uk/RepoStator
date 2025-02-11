@@ -12,7 +12,8 @@ final class GroupFixture extends ActiveFixture
     public $modelClass = GroupEntity::class;
     public $depends = [
         UserFixture::class,
-        GroupTypeFixture::class
+        GroupTypeFixture::class,
+        GroupNestedFixture::class
     ];
 
     public function beforeLoad(): void
