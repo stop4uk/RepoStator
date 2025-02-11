@@ -1,10 +1,6 @@
 #!/usr/bin/env php
 <?php
 
-/**
- * Yii console bootstrap file.
- */
-
 define('YII_DEBUG', true);
 define('YII_ENV', 'test');
 
