@@ -1,13 +1,12 @@
 <?php
 
 use yii\db\Connection;
-use Symfony\Component\Mailer;
+use yii\symfonymailer\Mailer;
 
 use app\modules\users\components\rbac\PhpDBRbacManager;
 
 return [
     'components' => [
-        'authManager' => PhpDBRbacManager::class,
         'db' => [
             'class' => Connection::class,
             'dsn' => 'mysql:host=' . env('TESTDB_HOST', 'mysqltest') . ';port=' . env('TESTDB_PORT', '3316') . ';dbname=' . env('TESTDB_NAME', 'repostator_test'),
