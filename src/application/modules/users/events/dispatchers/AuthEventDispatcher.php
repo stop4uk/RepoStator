@@ -7,8 +7,7 @@ use Yii;
 use app\jobs\SendEmailJob;
 use app\modules\users\{
     events\objects\AuthEvent,
-    entities\UserRightEntity,
-    entities\UserSessionEntity,
+    entities\UserSessionEntity
 };
 
 /**
@@ -55,20 +54,12 @@ final class AuthEventDispatcher
             ];
         }
 
-
         Yii::$app->queue->push(new SendEmailJob([
             'template' => $emailParams['template'],
             'subject' => $emailParams['subject'],
             'email' => $event->user->email,
             'data' => $userArray
         ]));
-
-        $rightModel = new UserRightEntity();
-        $rightModel->item_name = 'role_dataMain';
-        $rightModel->user_id = $event->user->id;
-        $rightModel->created_at = time();
-        $rightModel->created_uid = 1;
-        $rightModel->save(false);
     }
 
     public static function recovery(AuthEvent $event): void
