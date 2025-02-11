@@ -40,7 +40,11 @@ $params = array_merge(
 
 return [
     'id' => 'repostator-test',
+    'name' => env('YII_APP_NAME'),
+    'sourceLanguage' => env('YII_APP_SOURCE_LANG'),
     'basePath' => dirname(__DIR__) . '/../',
+    'runtimePath' => dirname(__DIR__) . '/../runtime',
+    'defaultRoute' => 'reports/dashboard',
     'aliases' => [
         '@bower' => '@vendor/bower-asset',
         '@npm'   => '@vendor/npm-asset',
@@ -51,6 +55,7 @@ return [
         '@web' => '@root/public',
         '@assets' => '@root/public/assets',
     ],
+    'viewPath' => '@resources/views',
     'bootstrap' => [
         'log',
         'queue',
