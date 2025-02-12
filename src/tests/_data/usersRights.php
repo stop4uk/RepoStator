@@ -22,6 +22,12 @@ return [
         'created_uid' => null
     ],
     [
+        'item_name' => Roles::ROLE_REPORTMAIN,
+        'user_id' => 3,
+        'created_at' => time(),
+        'created_uid' => null
+    ],
+    [
         'item_name' => Roles::ROLE_TEMPALTEADD,
         'user_id' => 3,
         'created_at' => time(),

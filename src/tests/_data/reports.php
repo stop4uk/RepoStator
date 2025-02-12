@@ -1,5 +1,7 @@
 <?php
 
+use app\components\base\BaseAR;
+
 return [
     [
         'id' => 1,
@@ -18,5 +20,22 @@ return [
         'created_at' => time(),
         'created_uid' => 1,
         'created_gid' => 1
+    ],
+    [
+        'id' => 3,
+        'name' => 'Тестовый отчет3',
+        'description' => '"<p>Тестовое описание отчета 3</p>"',
+        'created_at' => time(),
+        'created_uid' => 1,
+        'created_gid' => 1,
+        'record_status' => BaseAR::RSTATUS_DELETED
+    ],
+    [
+        'id' => 4,
+        'name' => 'Тестовый отчет4',
+        'description' => '"<p>Тестовое описание отчета 4</p>"',
+        'created_at' => time(),
+        'created_uid' => 3,
+        'created_gid' => 3,
     ],
 ];
