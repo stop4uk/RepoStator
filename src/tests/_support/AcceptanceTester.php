@@ -26,4 +26,14 @@ class AcceptanceTester extends \Codeception\Actor
     /**
      * Define custom actions here
      */
+
+    final public function amLogin(array $userData): void
+    {
+        $this->amOnPage('/login');
+        $this->see('Авторизация');
+        $this->fillField('#loginform-email', $userData['email']);
+        $this->fillField('#loginform-password', $userData['password']);
+        $this->click('Вход');
+        $this->waitForElement('.bi-person-circle', 20);
+    }
 }
