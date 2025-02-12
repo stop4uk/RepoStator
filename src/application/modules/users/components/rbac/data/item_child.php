@@ -327,6 +327,8 @@ return [
         'description' => 'Отчеты. Создание',
         'children' => [
             Permissions::REPORT_CREATE,
+            Permissions::REPORT_LIST,
+            Permissions::REPORT_LIST_MAIN,
         ]
     ],
     Roles::ROLE_REPORTALL => [
@@ -335,10 +337,8 @@ return [
         'children' => [
             Permissions::REPORT_DELETE_ALL,
             Permissions::REPORT_EDIT_ALL,
-            Permissions::REPORT_INCLUDES,
-            Permissions::REPORT_LIST,
-            Permissions::REPORT_LIST_ALL,
             Permissions::REPORT_VIEW_ALL,
+            Permissions::REPORT_LIST
         ]
     ],
     Roles::ROLE_REPORTDELETEDALL => [
@@ -366,10 +366,8 @@ return [
         'children' => [
             Permissions::REPORT_DELETE_GROUP,
             Permissions::REPORT_EDIT_GROUP,
-            Permissions::REPORT_INCLUDES,
-            Permissions::REPORT_LIST,
-            Permissions::REPORT_LIST_GROUP,
             Permissions::REPORT_VIEW_GROUP,
+            Permissions::REPORT_LIST
         ]
     ],
     Roles::ROLE_REPORTMAIN => [
@@ -378,9 +376,8 @@ return [
         'children' => [
             Permissions::REPORT_DELETE_MAIN,
             Permissions::REPORT_EDIT_MAIN,
-            Permissions::REPORT_INCLUDES,
-            Permissions::REPORT_LIST_MAIN,
             Permissions::REPORT_VIEW_MAIN,
+            Permissions::REPORT_LIST
         ]
     ],
     Roles::ROLE_STRUCTUREADD => [
@@ -510,19 +507,24 @@ return [
 
     Permissions::ADMIN_GROUP => [
         'type' => 2,
-        'description' => 'Управление группами'],
+        'description' => 'Управление группами'
+    ],
     Permissions::ADMIN_GROUPTYPE => [
         'type' => 2,
-        'description' => 'Управление типами групп'],
+        'description' => 'Управление типами групп'
+    ],
     Permissions::ADMIN_INCLUDES => [
         'type' => 2,
-        'description' => 'Раздел с административными настройками'],
+        'description' => 'Раздел с административными настройками'
+    ],
     Permissions::ADMIN_LOG => [
         'type' => 2,
-        'description' => 'Просмотр логов'],
+        'description' => 'Просмотр логов'
+    ],
     Permissions::ADMIN_QUEUE => [
         'type' => 2,
-        'description' => 'Просмотр очередей'],
+        'description' => 'Просмотр очередей'
+    ],
     Permissions::ADMIN_QUEUE_SYSTEM => [
         'type' => 2,
         'description' => 'Просмотр очередей. Системная'],
@@ -1134,42 +1136,81 @@ return [
         'ruleName' =>'checkDeleteMain'],
     Permissions::REPORT_INCLUDES => [
         'type' => 2,
-        'description' => 'Раздел с настройкой компонентов отчетов'],
+        'description' => 'Раздел с настройкой компонентов отчетов'
+    ],
     Permissions::REPORT_LIST => [
         'type' => 2,
-        'description' => 'Отчеты. Список'],
+        'description' => 'Отчеты. Список',
+        'children' => [
+            Permissions::REPORT_INCLUDES
+        ]
+    ],
     Permissions::REPORT_LIST_ALL => [
         'type' => 2,
         'description' => 'Отчеты. Список. Своя и подчиненные группы',
-        'ruleName' =>'checkAll'],
+        'ruleName' =>'checkAll',
+
+    ],
     Permissions::REPORT_LIST_GROUP => [
         'type' => 2,
         'description' => 'Отчеты. Список. Своя группа',
-        'ruleName' =>'checkGroup'],
+        'ruleName' =>'checkGroup',
+
+    ],
+    Permissions::REPORT_LIST_MAIN => [
+        'type' => 2,
+        'description' => 'Отчеты. Список. Только свои',
+        'ruleName' =>'checkMain',
+        
+    ],
     Permissions::REPORT_VIEW_ALL => [
         'type' => 2,
         'description' => 'Отчеты. Просмотр. Своя и починенные группы',
-        'ruleName' =>'checkAll'],
+        'ruleName' =>'checkAll',
+        'children' => [
+            Permissions::REPORT_LIST_ALL
+        ]
+    ],
     Permissions::REPORT_VIEW_DELETE_ALL => [
         'type' => 2,
         'description' => 'Отчеты. Удаленные. Просмотр. Своя и подчиненные группы',
-        'ruleName' =>'checkDeleteAll'],
+        'ruleName' =>'checkDeleteAll',
+        'children' => [
+            Permissions::REPORT_LIST_ALL
+        ]
+    ],
     Permissions::REPORT_VIEW_DELETE_GROUP => [
         'type' => 2,
         'description' => 'Отчеты. Удаленные. Просмотр. Своя группа',
-        'ruleName' =>'checkDeleteGroup'],
+        'ruleName' =>'checkDeleteGroup',
+        'children' => [
+            Permissions::REPORT_LIST_GROUP
+        ]
+    ],
     Permissions::REPORT_VIEW_DELETE_MAIN => [
         'type' => 2,
         'description' => 'Отчеты. Удаленные. Просмотр. Только свои',
-        'ruleName' =>'checkDeleteMain'],
+        'ruleName' =>'checkDeleteMain',
+        'children' => [
+            Permissions::REPORT_LIST_MAIN
+        ]
+    ],
     Permissions::REPORT_VIEW_GROUP => [
         'type' => 2,
         'description' => 'Отчеты. Просмотр. Своя группа',
-        'ruleName' =>'checkGroup'],
+        'ruleName' =>'checkGroup',
+        'children' => [
+            Permissions::REPORT_LIST_GROUP
+        ]
+    ],
     Permissions::REPORT_VIEW_MAIN => [
         'type' => 2,
         'description' => 'Отчеты. Просмотр. Только свои',
-        'ruleName' =>'checkMain'],
+        'ruleName' =>'checkMain',
+        'children' => [
+            Permissions::REPORT_LIST_MAIN
+        ]
+    ],
     Permissions::STATISTIC => [
         'type' => 2,
         'description' => 'Формирование отчетов'],
