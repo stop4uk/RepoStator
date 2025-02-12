@@ -61,7 +61,7 @@ final class Settings extends Component
     public function set(
         string $category,
         string $key,
-        string|int|null $value = null
+        string|int $value
     ): void {
         if (array_key_exists($key, $this->items[$category])) {
             Yii::$app->getDb()->createCommand('
