@@ -1161,7 +1161,7 @@ return [
         'type' => 2,
         'description' => 'Отчеты. Список. Только свои',
         'ruleName' =>'checkMain',
-        
+
     ],
     Permissions::REPORT_VIEW_ALL => [
         'type' => 2,
