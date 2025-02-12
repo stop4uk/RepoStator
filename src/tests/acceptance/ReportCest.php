@@ -22,9 +22,9 @@ final class ReportCest
         $I->amOnPage('/reports');
 
         $I->see('Список отчетов');
-        $I->see('Тестовый отчет');
-        $I->see('Тестовый отчет2');
-        $I->see('Тестовый отчет3');
+        $I->see('Тестовый_отчет');
+        $I->see('Тестовый_отчет2');
+        $I->see('Тестовый_отчет3');
         $I->seeElement('.bi-question-circle');
         $I->seeElement('.bi-circle-fill.me-2.text-danger');
     }
@@ -35,9 +35,9 @@ final class ReportCest
         $I->amOnPage('/reports');
 
         $I->see('Список отчетов');
-        $I->dontSee('Тестовый отчет');
-        $I->dontSee('Тестовый отчет2');
-        $I->dontSee('Тестовый отчет3');
+        $I->dontSee('Тестовый_отчет');
+        $I->dontSee('Тестовый_отчет2');
+        $I->dontSee('Тестовый_отчет3');
         $I->dontSeeElement('.bi-circle-fill.me-2.text-danger');
         $I->see('Тестовый отчет4');
         $I->seeElement('.bi-question-circle');

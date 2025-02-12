@@ -23,7 +23,6 @@ return [
         'group_id' => 3,
         'created_at' => time(),
         'created_uid' => 1,
-        'record_status' => BaseAR::RSTATUS_DELETED
     ],
     [
         'id' => 4,
@@ -31,5 +30,6 @@ return [
         'group_id' => 2,
         'created_at' => time(),
         'created_uid' => 1,
+        'record_status' => BaseAR::RSTATUS_DELETED
     ],
 ];
