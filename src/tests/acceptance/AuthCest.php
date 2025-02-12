@@ -19,6 +19,7 @@ final class AuthCest
             'user' => UserFixture::class
         ]);
 
+        $this->clearEmails();
         $I->amOnPage('/login');
     }
 
@@ -31,7 +32,6 @@ final class AuthCest
 
     public function checkWrongPassword(AcceptanceTester $I): void
     {
-        $this->clearEmails();
         $I->submitForm('#login-form', $this->formParams('admin@test.loc', 'qwerty'));
         $I->waitForText('Вы указали неверный пароль', 15);
     }
@@ -40,20 +40,24 @@ final class AuthCest
     {
         $I->submitForm('#login-form', $this->formParams('admin@test.loc', '12345'));
         $I->waitForText('Администрирование', 15);
+
+        $sentEmails = $this->checkQuery();
+        $I->assertEquals($sentEmails, 1);
     }
 
     public function loginByUserWithDataRole(AcceptanceTester $I): void
     {
-        $this->clearEmails();
         $I->submitForm('#login-form', $this->formParams('user1@test.loc', '12345'));
         $I->waitForText('Передать отчет', 15);
         $I->dontSee('Контроль передачи');
         $I->dontSee('Администрирование');
+
+        $sentEmails = $this->checkQuery();
+        $I->assertEquals($sentEmails, 1);
     }
 
     public function recoveryPassword(AcceptanceTester $I): void
     {
-        $this->clearEmails();
         $I->waitForText('Восстановить пароль', 15);
         $I->click('Восстановить пароль');
         $I->waitForText('Восстановление',15);
@@ -77,45 +81,32 @@ final class AuthCest
 
     public function registerWithVerification(AcceptanceTester $I): void
     {
-        $this->clearEmails();
-        $grabSettings = Yii::$app->settings->get('auth', 'register_enableMain');
-        if ($grabSettings == 1) {
-            $I->waitForText('Зарегистрироваться', 15);
-            $I->click('Зарегистрироваться');
-            $I->waitForText('Регистрация', 15);
-            $I->fillField('#registerform-lastname', 'Фамилия');
-            $I->fillField('#registerform-firstname', 'Имя');
-            $I->fillField('#registerform-middlename', 'Отчество');
-            $I->fillField('#registerform-phone', '9999999999');
-            $I->fillField('#registerform-email', 'test_register@test.test');
-            $I->fillField('#registerform-password', '12345');
-            $I->click('Зарегистрироваться');
-            $I->waitForText('Авторизация', 15);
+        $I->waitForText('Зарегистрироваться', 15);
+        $I->click('Зарегистрироваться');
+        $I->waitForText('Регистрация', 15);
+        $I->fillField('#registerform-lastname', 'Фамилия');
+        $I->fillField('#registerform-firstname', 'Имя');
+        $I->fillField('#registerform-middlename', 'Отчество');
+        $I->fillField('#registerform-phone', '9999999999');
+        $I->fillField('#registerform-email', 'test_register@test.test');
+        $I->fillField('#registerform-password', '12345');
+        $I->click('Зарегистрироваться');
+        $I->waitForText('Авторизация', 15);
 
-            $sentEmails = $this->checkQuery();
-            $I->assertEquals($sentEmails, 1);
+        $sentEmails = $this->checkQuery();
+        $I->assertEquals($sentEmails, 1);
 
-            $grabVerifyCode = $I->grabRecord(UserEntity::class, ['email' => 'test_register@test.test']);
-            $I->amOnPage('/verification/process?key=' . $grabVerifyCode->account_key);
-            $I->waitForText('Авторизация', 15);
+        $grabVerifyCode = $I->grabRecord(UserEntity::class, ['email' => 'test_register@test.test']);
+        $I->amOnPage('/verification/process?key=' . $grabVerifyCode->account_key);
+        $I->waitForText('Авторизация', 15);
 
-            $grabVerifyCodeAfterVerify = $I->grabRecord(UserEntity::class, ['email' => 'test_register@test.test']);
-            $I->assertNotEquals($grabVerifyCode->account_key, $grabVerifyCodeAfterVerify->account_key);
-        }
+        $grabVerifyCodeAfterVerify = $I->grabRecord(UserEntity::class, ['email' => 'test_register@test.test']);
+        $I->assertNotEquals($grabVerifyCode->account_key, $grabVerifyCodeAfterVerify->account_key);
     }
 
     public function registerWithoutVerification(AcceptanceTester $I): void
     {
-        $this->clearEmails();
-        Yii::$app->db->createCommand('UPDATE {{%settings}} SET `value`=1 WHERE `key`="login_withoutVerification"')->execute();
-        while(true) {
-            $withVerify = Yii::$app->db->createCommand('SELECT * FROM settings WHERE `key`="login_withoutVerification"')->queryAll()[0]['value'];
-            if ($withVerify == 1) {
-                break;
-            }
-
-            sleep(2);
-        }
+        Yii::$app->settings->set('auth', 'login_withoutVerification', 1);
 
         $I->waitForText('Зарегистрироваться', 15);
         $I->click('Зарегистрироваться');
@@ -131,7 +122,8 @@ final class AuthCest
 
         $sentEmails = $this->checkQuery();
         $I->assertEquals($sentEmails, 1);
-        Yii::$app->db->createCommand('UPDATE settings SET `value`=0 WHERE `key`="login_withoutVerification"')->execute();
+
+        Yii::$app->settings->set('auth', 'login_withoutVerification', 0);
     }
 
     private function formParams($email, $password): array
