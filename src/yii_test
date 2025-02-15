@@ -15,7 +15,7 @@ use yii\{
 
 $config = ArrayHelper::merge(
     require __DIR__ . '/application/config/console.php',
-    require __DIR__ . '/application/config/test.php'
+);
 
 try {
     exit((new Application($config))->run());
