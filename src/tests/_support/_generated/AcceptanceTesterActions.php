@@ -1924,7 +1924,7 @@ trait AcceptanceTesterActions
     /**
      * [!] Method is generated. Documentation taken from corresponding module.
      *
-     * Reloads the current page.
+     * Reloads the current page. All forms will be reset, so the outcome is as if the user would press <kbd>Ctrl</kbd>+<kbd>F5</kbd>.
      * @see \Codeception\Module\WebDriver::reloadPage()
      */
     public function reloadPage(): void {
@@ -2586,22 +2586,22 @@ trait AcceptanceTesterActions
      * [!] Method is generated. Documentation taken from corresponding module.
      *
      * Presses the given key on the given element.
-     * To specify a character and modifier (e.g. <kbd>Ctrl</kbd>, Alt, Shift, Meta), pass an array for `$char` with
+     * To specify a character and modifier (e.g. <kbd>Ctrl</kbd>, <kbd>Alt</kbd>, <kbd>Shift</kbd>, <kbd>Meta</kbd>), pass an array for `$char` with
      * the modifier as the first element and the character as the second.
-     * For special keys, use the constants from [`Facebook\WebDriver\WebDriverKeys`](https://github.com/php-webdriver/php-webdriver/blob/main/lib/WebDriverKeys.php).
+     * For special keys, use the constants from [Facebook\WebDriver\WebDriverKeys](https://github.com/php-webdriver/php-webdriver/blob/main/lib/WebDriverKeys.php).
      *
      * ``` php
      * <?php
      * // <input id="page" value="old">
      * $I->pressKey('#page', 'a'); // => olda
-     * $I->pressKey('#page', ['ctrl', 'a'],'new'); //=> new
-     * $I->pressKey('#page', ['shift', '111'],'1','x'); //=> old!!!1x
-     * $I->pressKey('descendant-or-self::*[@id='page']','u'); //=> oldu
-     * $I->pressKey('#name', ['ctrl', 'a'], \Facebook\WebDriver\WebDriverKeys::DELETE); //=>''
+     * $I->pressKey('#page', ['ctrl', 'a'],'new'); // => new
+     * $I->pressKey('#page', ['shift', '111'], '1', 'x'); // => old!!!1x
+     * $I->pressKey('descendant-or-self::*[@id='page']', 'u'); // => oldu
+     * $I->pressKey('#name', ['ctrl', 'a'], \Facebook\WebDriver\WebDriverKeys::DELETE); // =>''
      * ```
      *
      * @param string|array|WebDriverBy $element
-     * @param array<string|string[]>$chars Can be char or array with modifier. You can provide several chars.
+     * @param string|array<string, string> $chars Can be char or array with modifier. You can provide several chars.
      * @throws ElementNotFound
      * @see \Codeception\Module\WebDriver::pressKey()
      */
