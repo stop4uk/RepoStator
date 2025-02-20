@@ -183,6 +183,8 @@ final class DefaultController extends BaseController
                 'repository' => ReportRepository::class,
                 'requestID' => $this->request->get('id'),
                 'service' => $this->service,
+                'fromEdit' => $this->request->get('fromEdit') ?? false,
+                'redirectUrl' => Url::to(['/reports/view', 'id' => $this->request->get('id')]),
                 'errorMessage' => 'При удалении отчета возникли ошибки. Пожалуйста, обратитесь к администратору',
                 'successMessage' => 'Отчет скрыт. Восстановление отчета доступно только администраторам',
                 'exceptionMessage' => 'Запрашиваемый отчет не найден, или недоступен'
