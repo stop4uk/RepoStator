@@ -1,5 +1,6 @@
 <?php
 
+use app\components\base\BaseAR;
 use app\helpers\CommonHelper;
 
 return [
@@ -58,5 +59,15 @@ return [
         'crated_at' => time(),
         'created_uid' => 1,
         'created_gid' => 1,
+    ],
+    [
+        'id' => 7,
+        'record' => 'record7',
+        'name' => 'ТестКонстанта7',
+        'name_full' => 'Тестовая константа 7',
+        'crated_at' => time(),
+        'created_uid' => 1,
+        'created_gid' => 1,
+        'record_status' => BaseAR::RSTATUS_DELETED
     ],
 ];
