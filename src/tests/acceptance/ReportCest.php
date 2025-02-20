@@ -52,13 +52,13 @@ final class ReportCest
 
     public function view(AcceptanceTester $I): void
     {
-        $I->executeJS('$("tr[data-key=\"1\"] i.bi.bi-eye").click()');
+        $I->executeJS('#viewButton_1');
         $I->waitForText('Просмотр отчета', 15, 'h3');
     }
 
     public function edit(AcceptanceTester $I): void
     {
-        $I->executeJS('$("tr[data-key=\"1\"] i.bi.bi-pen").click()');
+        $I->executeJS('#editButton_1');
         $I->waitForText('Редактирование отчета', 15, 'h3');
         $I->fillField('#reportmodel-left_period', '2880');
         $I->fillField('#reportmodel-block_minutes', '15');
@@ -71,16 +71,16 @@ final class ReportCest
 
     public function delete(AcceptanceTester $I): void
     {
-        $I->executeJS('$("tr[data-key=\"1\"] i.bi.bi-pen").click()');
+        $I->amOnPage('/reports/edit?id=1');
         $I->waitForText('Редактирование отчета', 15, 'h3');
-        $I->click('Удалить отчет');
+        $I->click('Удалить');
         $I->acceptPopup();
         $I->waitForText('Данная запись НЕАКТИВНА', 15);
     }
 
     public function enable(AcceptanceTester $I): void
     {
-        $I->executeJS('$("tr[data-key=\"3\"] i.bi.bi-eye").click()');
+        $I->amOnPage('/reports/view?id=3');
         $I->waitForElementClickable('#enableButton_3');
         $I->click('Сделать карточку активной');
         $I->waitForText('Редактирование отчета', 15, 'h3');
