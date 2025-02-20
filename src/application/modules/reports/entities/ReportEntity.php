@@ -3,6 +3,7 @@
 namespace app\modules\reports\entities;
 
 use Yii;
+use yii\web\Application;
 use yii\behaviors\{
     AttributeBehavior,
     BlameableBehavior,
@@ -29,6 +30,7 @@ use app\modules\reports\{
  * @property int|null $null_day
  * @property int $created_at
  * @property int $created_uid
+ * @property int $created_gid
  * @property int|null $updated_at
  * @property int|null $updated_uid
  *
@@ -40,6 +42,9 @@ final class ReportEntity extends BaseAR
     public array $canAddedFor = [];
     public ?object $timePeriod = null;
 
+    /**
+     * @throws \Throwable
+     */
     public function behaviors(): array
     {
         return [
@@ -60,7 +65,7 @@ final class ReportEntity extends BaseAR
             ],
             [
                 'class' => AttributeBehavior::class,
-                'value' => match (Yii::$app instanceof \yii\web\Application) {
+                'value' => match (Yii::$app instanceof Application) {
                     true => Yii::$app->getUser()->getIdentity()->group,
                     false => null
                 },
