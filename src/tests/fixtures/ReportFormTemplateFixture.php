@@ -12,6 +12,7 @@ final class ReportFormTemplateFixture extends ActiveFixture
     public $modelClass = ReportFormTemplateEntity::class;
     public $depends = [
         ReportFixture::class,
+        ReportConstantRuleFixture::class,
         UserFixture::class,
         GroupFixture::class,
     ];

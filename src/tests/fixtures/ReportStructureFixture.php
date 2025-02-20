@@ -12,6 +12,7 @@ final class ReportStructureFixture extends ActiveFixture
     public $modelClass = ReportStructureEntity::class;
     public $depends = [
         ReportFixture::class,
+        ReportConstantRuleFixture::class,
         GroupFixture::class,
         UserFixture::class,
     ];
