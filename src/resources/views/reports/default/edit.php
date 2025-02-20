@@ -27,7 +27,7 @@ $this->params['breadcrumbs'] = [
                 && RbacHelper::canArray($rolesArray, $ruleArray)
         ) {
             echo Html::a(
-                Yii::t('views', 'Удалить отчет'),
+                Yii::t('views', 'Удалить'),
                 Url::to(['delete', 'id' => $model->getEntity()->id, 'fromEdit' => true]),
                 [
                     'id' => "deleteButton_{$model->getEntity()->id}",
