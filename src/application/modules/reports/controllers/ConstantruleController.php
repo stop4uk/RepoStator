@@ -188,6 +188,8 @@ final class ConstantruleController extends BaseController
                 'repository' => ConstantruleRepository::class,
                 'requestID' => $this->request->get('id'),
                 'service' => $this->service,
+                'fromEdit' => $this->request->get('fromEdit') ?? false,
+                'redirectUrl' => Url::to(['/reports/constantrule/view', 'id' => $this->request->get('id')]),
                 'errorMessage' => 'При удалении правила сложения возникли проблемы. Пожалуйста, обратитесь к администратору',
                 'successMessage' => 'Правило сложения скрыто. Использовать его нельзя. Даже, если, оно присутствует в отчетах - считаться оно не будет',
                 'exceptionMessage' => 'Запрашиваемое правило сложения не найдено, или недоступно'
