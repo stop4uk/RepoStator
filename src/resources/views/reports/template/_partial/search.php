@@ -14,7 +14,7 @@ use app\modules\reports\helpers\TemplateHelper;
  * @var \app\modules\reports\search\TemplateSearch $searchModel
  */
 
-$resource = Url::to(['/reports/template']);
+$resource = Url::to(["/reports/{$this->context->id}"]);
 
 ?>
 

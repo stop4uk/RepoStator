@@ -13,7 +13,7 @@ use app\helpers\CommonHelper;
  * @var \app\modules\reports\search\ConstantruleSearch $searchModel
  */
 
-$resource = Url::to(["/{$this->context->id}"]);
+$resource = Url::to(["/reports/{$this->context->id}"]);
 
 ?>
 
