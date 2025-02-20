@@ -52,13 +52,13 @@ final class ReportCest
 
     public function view(AcceptanceTester $I): void
     {
-        $I->executeJS('#viewButton_1');
+        $I->click('#viewButton_1');
         $I->waitForText('Просмотр отчета', 15, 'h3');
     }
 
     public function edit(AcceptanceTester $I): void
     {
-        $I->executeJS('#editButton_1');
+        $I->click('#editButton_1');
         $I->waitForText('Редактирование отчета', 15, 'h3');
         $I->fillField('#reportmodel-left_period', '2880');
         $I->fillField('#reportmodel-block_minutes', '15');

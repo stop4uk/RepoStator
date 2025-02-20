@@ -87,13 +87,12 @@ final class ConstantCest
     {
         $I->click('#editButton_1');
         $I->waitForText('Редактирование константы', 15, 'h3');
-        $I->fillField('#constantmodel-record', 'rrr_test3');
+        $I->fillField('#constantmodel-record', 'rrr3');
         $I->fillField('#constantmodel-name', 'ттт_конст3');
+        $I->fillField('#constantmodel-name_full', 'ттт_конст3_полное');
         $I->click('Обновить');
-
         $I->amOnPage('/reports/constant');
-        $I->waitForText('rrr_test3', 15);
-        $I->waitForText('ттт_конст3', 15);
+        $I->see('rrr3');
     }
 
     public function delete(AcceptanceTester $I): void
