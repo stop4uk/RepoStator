@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace root\tests;
 
+use yii\helpers\FileHelper;
+
 /**
  * Inherited Methods
  * @method void wantTo($text)
@@ -35,5 +37,46 @@ class AcceptanceTester extends \Codeception\Actor
         $this->fillField('#loginform-password', $userData['password']);
         $this->click('Вход');
         $this->waitForElement('.bi-person-circle', 20);
+    }
+
+    final public function clearEmails(): void
+    {
+        /**
+         * Чистим почтовые уведомления
+         */
+        $sentEmails = FileHelper::findFiles(Yii::getAlias('@runtime/mail'));
+        if ($sentEmails) {
+            foreach ($sentEmails as $email) {
+                FileHelper::unlink($email);
+            }
+        }
+    }
+
+    final public function checkQuery(): int
+    {
+        /**
+         * Тут по сути проверяется и работа очереди с супервизором
+         * Каждое письмо отправляется через очередь и, если, задач в БД нет, значит и задача должна исполниться
+         * Следует учесть, что в данном случае проверяется очередь в стандартной реализации. То есть, через БД
+         */
+        while(true) {
+            $tasks = Yii::$app->db->createCommand('SELECT * FROM {{%queue}}')->execute();
+            if (!$tasks) {
+                $sentEmails = FileHelper::findFiles(Yii::getAlias('@runtime/mail'));
+                if ($sentEmails) {
+                    foreach ($sentEmails as $email) {
+                        FileHelper::unlink($email);
+                    }
+
+                    return count($sentEmails);
+                }
+
+                break;
+            }
+
+            sleep(2);
+        }
+
+        return 0;
     }
 }

@@ -3,7 +3,6 @@
 namespace root\tests\acceptance;
 
 use Yii;
-use yii\helpers\FileHelper;
 
 use root\tests\{
     AcceptanceTester,
@@ -19,7 +18,7 @@ final class AuthCest
             'user' => UserFixture::class
         ]);
 
-        $this->clearEmails();
+        $I->clearEmails();
         $I->amOnPage('/login');
     }
 
@@ -41,7 +40,7 @@ final class AuthCest
         $I->submitForm('#login-form', $this->formParams('admin@test.loc', '12345'));
         $I->waitForText('Администрирование', 15);
 
-        $sentEmails = $this->checkQuery();
+        $sentEmails = $I->checkQuery();
         $I->assertEquals($sentEmails, 1);
     }
 
@@ -52,7 +51,7 @@ final class AuthCest
         $I->dontSee('Контроль передачи');
         $I->dontSee('Администрирование');
 
-        $sentEmails = $this->checkQuery();
+        $sentEmails = $I->checkQuery();
         $I->assertEquals($sentEmails, 1);
     }
 
@@ -64,7 +63,7 @@ final class AuthCest
         $I->fillField('#recoveryform-email', 'user1@test.loc');
         $I->click('Получить инструкцию');
 
-        $sentEmails = $this->checkQuery();
+        $sentEmails = $I->checkQuery();
         $I->assertEquals($sentEmails, 1);
 
         $grabRecoveryKey = $I->grabRecord(UserEntity::class, ['id' => 2]);
@@ -93,7 +92,7 @@ final class AuthCest
         $I->click('Зарегистрироваться');
         $I->waitForText('Авторизация', 15);
 
-        $sentEmails = $this->checkQuery();
+        $sentEmails = $I->checkQuery();
         $I->assertEquals($sentEmails, 1);
 
         $grabVerifyCode = $I->grabRecord(UserEntity::class, ['email' => 'test_register@test.test']);
@@ -120,7 +119,7 @@ final class AuthCest
         $I->click('Зарегистрироваться');
         $I->waitForText('Важных напоминаний и уведомлений нет', 15);
 
-        $sentEmails = $this->checkQuery();
+        $sentEmails = $I->checkQuery();
         $I->assertEquals($sentEmails, 1);
 
         Yii::$app->settings->set('auth', 'login_withoutVerification', 0);
@@ -132,46 +131,5 @@ final class AuthCest
             'LoginForm[email]' => $email,
             'LoginForm[password]' => $password,
         ];
-    }
-
-    private function clearEmails(): void
-    {
-        /**
-         * Чистим почтовые уведомления
-         */
-        $sentEmails = FileHelper::findFiles(Yii::getAlias('@runtime/mail'));
-        if ($sentEmails) {
-            foreach ($sentEmails as $email) {
-                FileHelper::unlink($email);
-            }
-        }
-    }
-
-    private function checkQuery(): int|null
-    {
-        /**
-         * Тут по сути проверяется и работа очереди с супервизором
-         * Каждое письмо отправляется через очередь и, если, задач в БД нет, значит и задача должна исполниться
-         * Следует учесть, что в данном случае проверяется очередь в стандартной реализации. То есть, через БД
-         */
-        while(true) {
-            $tasks = Yii::$app->db->createCommand('SELECT * FROM {{%queue}}')->execute();
-            if (!$tasks) {
-                $sentEmails = FileHelper::findFiles(Yii::getAlias('@runtime/mail'));
-                if ($sentEmails) {
-                    foreach ($sentEmails as $email) {
-                        FileHelper::unlink($email);
-                    }
-
-                    return count($sentEmails);
-                }
-
-                break;
-            }
-
-            sleep(2);
-        }
-
-        return null;
     }
 }
