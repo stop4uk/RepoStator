@@ -12,7 +12,7 @@ final class ReportCest
     public function _before(AcceptanceTester $I): void
     {
         $I->haveFixtures([
-            'user' => ReportFixture::class
+            'report' => ReportFixture::class
         ]);
 
         $I->amLogin(['email' => 'admin@test.loc', 'password' => '12345']);
