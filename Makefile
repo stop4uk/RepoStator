@@ -26,18 +26,18 @@ start: ## Start environment
 	@HOST_UID=$(HOST_UID) HOST_GID=$(HOST_GID) WEB_PORT_HTTP=$(WEB_PORT_HTTP) WEB_PORT_HTTP_TEST=$(WEB_PORT_HTTP_TEST) WEB_PORT_HTTPS=$(WEB_PORT_HTTPS) DB_PORT=$(DB_PORT) DB_NAME=$(DB_NAME) DB_PASS=$(DB_PASS) TESTDB_PORT=$(TESTDB_PORT) TESTDB_NAME=$(TESTDB_NAME) TESTDB_PASS=$(TESTDB_PASS) docker compose -f docker-compose.yml $(PR_NAME) up -d
 
 stop: ## Stop environment
-	docker compose -f docker-compose.yml $(PR_NAME) down
+	@HOST_UID=$(HOST_UID) HOST_GID=$(HOST_GID) docker compose -f docker-compose.yml $(PR_NAME) down
 
 restart: stop start ## Stop and start environment
 
 ssh: ## Get bash inside docker container
-	docker compose $(PR_NAME) exec $(OPTION_T) $(PHP_USER) web bash
+	@HOST_UID=$(HOST_UID) HOST_GID=$(HOST_GID) docker compose $(PR_NAME) exec $(OPTION_T) $(PHP_USER) web bash
 
 exec: ## Run command inside docker container
-	docker compose $(PR_NAME) exec $(OPTION_T) $(PHP_USER) web $$cmd
+	@HOST_UID=$(HOST_UID) HOST_GID=$(HOST_GID) docker compose $(PR_NAME) exec $(OPTION_T) $(PHP_USER) web $$cmd
 
 exec-bash:
-	docker compose $(PR_NAME) exec $(OPTION_T) $(PHP_USER) web bash -c "$(cmd)"
+	@HOST_UID=$(HOST_UID) HOST_GID=$(HOST_GID) docker compose $(PR_NAME) exec $(OPTION_T) $(PHP_USER) web bash -c "$(cmd)"
 
 first-run: ## Installs composer dependencies && run migrate
 	@make exec-bash cmd="COMPOSER_MEMORY_LIMIT=-1 composer install --optimize-autoloader && php yii migrate --interactive=0 && php yii_test migrate --interactive=0"
