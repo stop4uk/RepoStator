@@ -12,7 +12,7 @@ final class ConstantCest
     public function _before(AcceptanceTester $I): void
     {
         $I->haveFixtures([
-            'user' => ReportConstantFixture::class
+            'constant' => ReportConstantFixture::class
         ]);
 
         $I->amLogin(['email' => 'admin@test.loc', 'password' => '12345']);
