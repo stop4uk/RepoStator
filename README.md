@@ -34,7 +34,7 @@ make first-run
     * make migrate Автоматически найти и применить новые миграции
 RMS.REPOStator доступен по стандартному web порту (80). Логин#пароль admin@admin.loc # 12345
 
-===============================
+=================================================
 =
 
 RMS.Reposator (Report Management System). It is able to create indicators, dynamically embed them in information transfer forms and generate statistics on them from both templates and composite indicators.
