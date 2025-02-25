@@ -10,13 +10,19 @@ return [
         'created_uid' => null
     ],
     [
-        'item_name' => Roles::ROLE_DATAMAIN,
+        'item_name' => Roles::ROLE_DATASEND,
         'user_id' => 2,
         'created_at' => time(),
         'created_uid' => null
     ],
     [
         'item_name' => Roles::ROLE_REPORTADD,
+        'user_id' => 3,
+        'created_at' => time(),
+        'created_uid' => null
+    ],
+    [
+        'item_name' => Roles::ROLE_REPORTMAIN,
         'user_id' => 3,
         'created_at' => time(),
         'created_uid' => null

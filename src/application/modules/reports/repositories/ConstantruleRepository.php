@@ -105,37 +105,32 @@ final class ConstantruleRepository implements BaseRepositoryInterface
         bool $active = true,
         bool $asQuery = false,
     ): ActiveQuery|array {
-        $condition = [
-            'or',
-            [
-                'and',
-                ['in', 'created_gid', array_keys($groups)],
-                ['in', 'report_id', array_keys($reports)],
-                [
-                    'or',
-                    ['is', 'groups_only', new Expression('null')],
-                    ['=', 'groups_only', new Expression("''")],
-                    ['REGEXP', 'groups_only', '(' . implode('|', array_keys($groups)) . ')']
-                ]
-            ]
-        ];
-
-        if ($groupsParent = Yii::$app->getUser()->getIdentity()->groupsParent) {
-            $condition[] = [
-                'and',
-                ['in', 'created_gid', $groupsParent],
-                ['in', 'report_id', array_keys($reports)],
-                [
-                    'or',
-                    ['is', 'groups_only', new Expression('null')],
-                    ['=', 'groups_only', new Expression("''")],
-                    ['REGEXP', 'groups_only', '(' . implode('|', array_keys($groups)) . ')']
-                ]
-            ];
-        }
+        $parentGroups = Yii::$app->getUser()->getIdentity()->groupsParent;
+        $groupsForSearch = match((bool)$parentGroups) {
+            true => ArrayHelper::merge(array_keys($groups), array_keys($parentGroups)),
+            false => array_keys($groups)
+        };
 
         $query = ReportConstantRuleEntity::find()
-            ->where($condition);
+            ->where([
+                'or',
+                [
+                    'and',
+                    ['in', 'created_gid', $groupsForSearch],
+                    [
+                        'or',
+                        ['in', 'report_id', array_keys($reports)],
+                        ['is', 'report_id', new Expression('null')],
+                        ['=', 'report_id', new Expression("''")],
+                    ],
+                    [
+                        'or',
+                        ['is', 'groups_only', new Expression('null')],
+                        ['=', 'groups_only', new Expression("''")],
+                        ['REGEXP', 'groups_only', '(' . implode('|', array_keys($groups)) . ')']
+                    ]
+                ]
+        ]);
 
         if ($active) {
             $query->andWhere(['record_status' => BaseAR::RSTATUS_ACTIVE]);

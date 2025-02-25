@@ -2,6 +2,7 @@
 
 namespace app\components\settings;
 
+use Yii;
 use yii\base\{
     Component,
     InvalidArgumentException
@@ -15,10 +16,10 @@ use yii\helpers\Json;
  */
 final class Settings extends Component
 {
-    public $preLoad = ['system'];
-    protected $items = [];
+    public array $preLoad = ['system'];
+    protected array $items = [];
 
-    public function init()
+    public function init(): void
     {
         parent::init();
         if (!empty($this->preLoad)) {
@@ -57,7 +58,22 @@ final class Settings extends Component
         return $value;
     }
 
-    public function load(string|array|null $categories = null)
+    public function set(
+        string $category,
+        string $key,
+        string|int $value
+    ): void {
+        if (array_key_exists($key, $this->items[$category])) {
+            Yii::$app->getDb()->createCommand('
+                UPDATE {{%settings}} SET `value` = :value WHERE
+                category = :category AND `key` = :key
+            ', compact('category', 'key', 'value'))->execute();
+        }
+
+        $this->items[$category][$key] = $value;
+    }
+
+    public function load(string|array|null $categories = null): void
     {
         if (is_string($categories)) {
             $categories = [$categories];
@@ -82,10 +98,8 @@ final class Settings extends Component
         try {
             $result = (new Query())
                 ->select(['category', 'key', 'value'])
-                ->from('settings')
-                ->where([
-                    'category' => $categories
-                ])
+                ->from('{{%settings}}')
+                ->where(['category' => $categories])
                 ->all();
         } catch (\Throwable $throwable) {}
 

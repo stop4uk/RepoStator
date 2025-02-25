@@ -108,71 +108,70 @@ $this->title = Yii::t('views', 'Контроль за передачей');
                         'contentOptions' => ['class' => 'text-center'],
                         'template' => '{view} {edit} {delete}',
                         'buttons' => [
+                            'view' => fn($url, $model) => Html::a(
+                                '<i class="bi bi-eye text-dark"></i>',
+                                Url::to(['view', 'id' => $model->id]),
+                                [
+                                    'data-pjax' => 0,
+                                    'id' => "viewButton_{$model->id}",
+                                    'data-bs-toggle' => 'tooltip',
+                                    'data-bs-placement' => 'bottom',
+                                    'title' => Yii::t('views', 'Просмотреть'),
+                                ]
+                            ),
+                            'edit' => fn($url, $model) => Html::a(
+                                '<i class="bi bi-pen text-dark"></i>',
+                                Url::to(['edit', 'id' => $model->id, 'form_control' => true]),
+                                [
+                                    'data-pjax' => 0,
+                                    'id' => "editButton_{$model->id}",
+                                    'data-bs-toggle' => 'tooltip',
+                                    'data-bs-placement' => 'bottom',
+                                    'title' => Yii::t('views', 'Редактировать'),
+                                ]
+                            ),
+                            'delete' => fn($url, $model) => Html::tag('span',
+                                '<i class="bi bi-trash text-dark"></i>',
+                                [
+                                    'role' => 'button',
+                                    'id' => "deleteButton_{$model->id}",
+                                    'data-bs-toggle' => 'tooltip',
+                                    'data-bs-placement' => 'bottom',
+                                    'title' => Yii::t('views', 'Удалить'),
+                                    'data-message' => Yii::t('views', 'Вы действительно хотите удалить передачи сведений  по отчету "{reportName}" за отчетный период {reportDate}?', ['reportName' => $model->report->name, 'reportDate' => date('d.m.Y H:i', $model->report_datetime)]),
+                                    'data-url' => Url::to(['delete', 'id' => $model->id]),
+                                    'data-pjaxContainer' => '#reportDataList',
+                                    'onclick' => 'workWithRecord($(this))',
+                                ]
+                            )
+                        ],
+                        'visibleButtons' => [
                             'view' => function($url, $model) {
                                 $ruleArray = $model->toArray(['created_uid', 'created_gid', 'record_status']);
-
-                                if (RbacHelper::canArray([
+                                return RbacHelper::canArray([
                                     Permissions::DATA_VIEW_MAIN,
                                     Permissions::DATA_VIEW_GROUP,
                                     Permissions::DATA_VIEW_ALL,
                                     Permissions::DATA_VIEW_DELETE_MAIN,
                                     Permissions::DATA_VIEW_DELETE_GROUP,
                                     Permissions::DATA_VIEW_DELETE_ALL
-                                ], $ruleArray)) {
-                                    return Html::a(
-                                        '<i class="bi bi-eye text-dark"></i>',
-                                        Url::to(['view', 'id' => $model->id]),
-                                        [
-                                            'data-pjax' => 0,
-                                            'data-bs-toggle' => 'tooltip',
-                                            'data-bs-placement' => 'bottom',
-                                            'title' => Yii::t('views', 'Просмотреть'),
-                                        ]
-                                    );
-                                }
+                                ], $ruleArray);
                             },
                             'edit' => function($url, $model) {
                                 $ruleArray = $model->toArray(['created_uid', 'created_gid', 'record_status']);
-
-                                if (RbacHelper::canArray([
-                                    Permissions::DATA_EDIT_MAIN,
-                                    Permissions::DATA_EDIT_GROUP,
-                                    Permissions::DATA_EDIT_ALL,
-                                ], $ruleArray)) {
-                                    return Html::a(
-                                        '<i class="bi bi-pen text-dark"></i>',
-                                        Url::to(['edit', 'id' => $model->id, 'form_control' => true]),
-                                        [
-                                            'data-pjax' => 0,
-                                            'data-bs-toggle' => 'tooltip',
-                                            'data-bs-placement' => 'bottom',
-                                            'title' => Yii::t('views', 'Редактировать'),
-                                        ]
-                                    );
-                                }
+                                return $model->record_status && RbacHelper::canArray([
+                                        Permissions::DATA_EDIT_MAIN,
+                                        Permissions::DATA_EDIT_GROUP,
+                                        Permissions::DATA_EDIT_ALL,
+                                    ], $ruleArray);
                             },
                             'delete' => function($url, $model) {
                                 $ruleArray = $model->toArray(['created_uid', 'created_gid', 'record_status']);
-
-                                if (RbacHelper::canArray([
-                                    Permissions::DATA_DELETE_MAIN,
-                                    Permissions::DATA_DELETE_GROUP,
-                                    Permissions::DATA_DELETE_ALL
-                                ], $ruleArray)) {
-                                    return Html::tag('span',
-                                        Html::tag('i', '', ['class' => 'bi bi-trash text-dark']),
-                                        [
-                                            'role' => 'button',
-                                            'data-bs-toggle' => 'tooltip',
-                                            'data-bs-placement' => 'bottom',
-                                            'title' => Yii::t('views', 'Удалить'),
-                                            'data-message' => Yii::t('views', 'Вы действительно хотите удалить передачи сведений  по отчету "{reportName}" за отчетный период {reportDate}?', ['reportName' => $model->report->name, 'reportDate' => date('d.m.Y H:i', $model->report_datetime)]),
-                                            'data-url' => Url::to(['delete', 'id' => $model->id]),
-                                            'data-pjaxContainer' => '#reportDataList',
-                                            'onclick' => 'workWithRecord($(this))',
-                                        ]
-                                    );
-                                }
+                                return $model->record_status && RbacHelper::canArray([
+                                        Permissions::DATA_DELETE_MAIN,
+                                        Permissions::DATA_DELETE_GROUP,
+                                        Permissions::DATA_DELETE_ALL
+                                    ], $ruleArray);
                             }
                         ],
                     ],

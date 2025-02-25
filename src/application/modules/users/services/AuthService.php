@@ -18,6 +18,8 @@ use app\components\{
 use app\helpers\CommonHelper;
 use app\modules\users\{
     components\Identity,
+    components\rbac\items\Roles,
+    entities\UserRightEntity,
     events\objects\AuthEvent,
     entities\UserEmailchangeEntity,
     entities\UserEntity,
@@ -25,9 +27,8 @@ use app\modules\users\{
     forms\LoginForm,
     forms\RecoveryForm,
     forms\RegisterForm,
-    forms\authVerificationForm,
+    forms\authVerificationForm
 };
-
 
 /**
  * @author Stop4uk <stop4uk@yandex.ru>
@@ -88,21 +89,28 @@ final class AuthService extends Component implements BaseServiceInterface
                 category: 'Users.Signup'
             )
         ) {
-            $transaction->commit();
+            $rightModel = new UserRightEntity();
+            $rightModel->item_name = Roles::ROLE_DATASEND;
+            $rightModel->user_id = $newUser->id;
+            $rightModel->created_at = time();
+            $rightModel->created_uid = 1;
+            if ($rightModel->save(false)) {
+                $transaction->commit();
 
-            $this->trigger(self::EVENT_AFTER_REGISTER, new AuthEvent([
-                'user' => $newUser,
-                'request' => $request
-            ]));
+                $this->trigger(self::EVENT_AFTER_REGISTER, new AuthEvent([
+                    'user' => $newUser,
+                    'request' => $request
+                ]));
 
-            if (
-                Yii::$app->settings->get('auth', 'login_withoutVerification')
-                && !$this->loginProcess($newUser)
-            ) {
-                throw new Exception(Yii::t('exceptions', 'Регистрация успешно завершена, однако, в процессе авторизации возникли ошибки'), 500);
+                if (
+                    Yii::$app->settings->get('auth', 'login_withoutVerification')
+                    && !$this->loginProcess($newUser)
+                ) {
+                    throw new Exception(Yii::t('exceptions', 'Регистрация успешно завершена, однако, в процессе авторизации возникли ошибки'), 500);
+                }
+
+                return $newUser;
             }
-
-            return $newUser;
         }
 
         $transaction->rollBack();
@@ -136,13 +144,14 @@ final class AuthService extends Component implements BaseServiceInterface
     public function recoveryProcess(RecoveryForm $model): bool
     {
         $user = UserEntity::find()
-            ->where([
-                'account_key' => $model->authKey
-            ])
+            ->where(['account_key' => $model->authKey])
             ->limit(1)
             ->one();
 
         if ($user) {
+            $user->password = $model->password;
+            $user->account_key = Yii::$app->getSecurity()->generateRandomString();
+
             if (CommonHelper::saveAttempt($user, 'Users.Auth')) {
                 return true;
             }

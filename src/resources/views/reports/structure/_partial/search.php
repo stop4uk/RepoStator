@@ -13,7 +13,7 @@ use app\helpers\CommonHelper;
  * @var \app\modules\reports\search\StructureSearch $searchModel
  */
 
-$resource = Url::to(['/reports/structure']);
+$resource = Url::to(["/reports/{$this->context->id}"]);
 
 ?>
 

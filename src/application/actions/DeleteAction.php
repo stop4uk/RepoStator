@@ -25,11 +25,14 @@ final class DeleteAction extends Action
     public $errorMessage;
     public $successMessage;
     public $exceptionMessage;
+    public bool $fromEdit = false;
+    public string|null $redirectUrl = null;
 
-    public function run(): array
+    /**
+     * @throws NotFoundHttpException
+     */
+    public function run(): array|Response
     {
-        $this->controller->response->format = Response::FORMAT_JSON;
-
         $entity = match ((bool)$this->repository) {
             true => $this->repository::get($this->requestID),
             false => $this->entity::find()->where(['id' => $this->requestID])->limit(1)->one()
@@ -45,6 +48,12 @@ final class DeleteAction extends Action
                 errorMessage: Yii::t('exceptions', $this->errorMessage)
             );
 
+            if ($this->fromEdit) {
+                $this->controller->setMessage('success', Yii::t('notifications', $this->successMessage));
+                return $this->controller->redirect($this->redirectUrl);
+            }
+
+            $this->controller->response->format = Response::FORMAT_JSON;
             return [
                 'status' => 'success',
                 'message' => Yii::t('notifications', $this->successMessage)

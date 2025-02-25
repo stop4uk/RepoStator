@@ -16,8 +16,8 @@ use kartik\select2\Select2;
 <tr class="repeater-item_<?= $widgetID ?>" data-id="<?= $k ?>">
     <td id="buttonDeleteBlock_<?= $widgetID ?>" class="<?= $buttonDeletePlaceBlock . '_' . $widgetID ?>">
         <?php
-            echo Html::button('<i class="bi bi-copy"></i>',['class' => 'copy btn btn-info p-1']);
-            echo Html::button('<i class="bi bi-dash"></i>',['class' => 'remove btn btn-danger p-1 ms-1']);
+            echo Html::button('<i class="bi bi-copy" id="copyButton_' . $widgetID . '_' . $k . '"></i>',['class' => 'copy btn btn-info p-1']);
+            echo Html::button('<i class="bi bi-dash"  id="dashButton_' . $widgetID . '_' . $k . '"></i>',['class' => 'remove btn btn-danger p-1 ms-1']);
         ?>
     </td>
     <td class="text-center">

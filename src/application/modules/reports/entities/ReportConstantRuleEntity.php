@@ -78,7 +78,7 @@ final class ReportConstantRuleEntity extends BaseAR
         return [
             self::SCENARIO_CHANGE_RECORD_STATUS => ['record_status'],
             self::SCENARIO_INSERT => ['record', 'name', 'description', 'rule', 'report_id', 'groups_only'],
-            self::SCENARIO_UPDATE => ['name', 'description', 'rule', 'report_id', 'groups_only'],
+            self::SCENARIO_UPDATE => ['record', 'name', 'description', 'rule', 'report_id', 'groups_only'],
         ];
     }
 

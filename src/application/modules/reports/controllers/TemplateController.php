@@ -218,6 +218,8 @@ final class TemplateController extends BaseController
                 'repository' => TemplateRepository::class,
                 'requestID' => $this->request->get('id'),
                 'service' => $this->service,
+                'fromEdit' => $this->request->get('fromEdit') ?? false,
+                'redirectUrl' => Url::to(['/reports/template/view', 'id' => $this->request->get('id')]),
                 'errorMessage' => 'При удалении шаблона формирования возникли проблемы. Пожалуйста, обратитесь к администратору',
                 'successMessage' => 'Шаблон формирования отчета скрыт. Использовать его нельзя. Однако, ранее сформированные отчеты по данному шаблону срок хранения которых не вышел - все еще доступны',
                 'exceptionMessage' => 'Запрашиваемый шаблон формирования отчета не найден, или недоступен'

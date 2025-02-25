@@ -13,12 +13,11 @@ use yii\{
     helpers\ArrayHelper
 };
 
-$config = ArrayHelper::merge(
+$$config = ArrayHelper::merge(
     require __DIR__ . '/application/config/console.php',
+    require __DIR__ . '/application/config/test_components.php'
 );
 
 try {
     exit((new Application($config))->run());
-} catch (InvalidConfigException $e) {
-    echo $e->getMessage();
-}
+} catch (InvalidConfigException $e) {echo $e->getMessage();}

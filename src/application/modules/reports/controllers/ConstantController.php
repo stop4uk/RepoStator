@@ -187,6 +187,8 @@ final class ConstantController extends BaseController
                 'repository' => ConstantRepository::class,
                 'requestID' => $this->request->get('id'),
                 'service' => $this->service,
+                'fromEdit' => $this->request->get('fromEdit') ?? false,
+                'redirectUrl' => Url::to(['/reports/constant/view', 'id' => $this->request->get('id')]),
                 'errorMessage' => 'При удалении константы возникли ошибки. Пожалуйста, обратитесь к администратору',
                 'successMessage' => 'Константа скрыта. Использовать ее нельзя. При этом, во всех ранее переданных отчетах, она будет присутствовать',
                 'exceptionMessage' => 'Запрашиваемая константа не найдена, или недоступна'

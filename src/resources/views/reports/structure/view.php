@@ -52,7 +52,14 @@ $this->params['breadcrumbs'] = [
                     Permissions::STRUCTURE_ENABLE_GROUP,
                     Permissions::STRUCTURE_ENABLE_ALL,
                 ], $ruleArray)) {
-                    echo Html::a(Yii::t('views', 'Сделать карточку активной'), Url::to(['enable', 'id' => $model->getEntity()->id]), ['class' => 'btn btn-dark w-100']);
+                    echo Html::a(
+                        Yii::t('views', 'Сделать карточку активной'),
+                        Url::to(['enable', 'id' => $model->getEntity()->id]),
+                        [
+                            'class' => 'btn btn-dark w-100',
+                            'id' => "enableButton_{$model->getEntity()->id}"
+                        ]
+                    );
                 }
             }
             ?>

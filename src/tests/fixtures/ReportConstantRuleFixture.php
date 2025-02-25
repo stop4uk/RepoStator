@@ -13,12 +13,13 @@ final class ReportConstantRuleFixture extends ActiveFixture
     public $depends = [
         UserFixture::class,
         ReportFixture::class,
-        GroupFixture::class
+        GroupFixture::class,
+        ReportConstantFixture::class
     ];
 
     public function beforeLoad(): void
     {
-        $this->dataFile = Yii::getAlias('@root/tests/_data') . DIRECTORY_SEPARATOR . 'reportsConstant.php';
+        $this->dataFile = Yii::getAlias('@root/tests/_data') . DIRECTORY_SEPARATOR . 'reportsConstantRules.php';
         parent::beforeLoad();
     }
 }

@@ -121,25 +121,16 @@ $this->title = Yii::t('views', 'Список шаблонов');
                     [
                         'class' => ActionColumn::class,
                         'header' => false,
-                        'headerOptions' => ['style' => 'min-width: 6rem; width: 8%'],
+                        'headerOptions' => ['style' => 'min-width: 4rem; width: 8%'],
                         'contentOptions' => ['class' => 'text-center'],
                         'template' => '{view} {edit} {delete}',
                         'buttons' => [
                             'view' => function($url, $model) {
-                                return Html::a('<i class="bi bi-eye text-dark"></i>', Url::to(['view', 'id' => $model->id]), ['data-pjax' => 0]);
+                                return Html::a('<i class="bi bi-eye text-dark"></i>', Url::to(['view', 'id' => $model->id]), ['data-pjax' => 0, 'id' => "viewButton_{$model->id}"]);
                             },
                             'edit' => function($url, $model) {
-                                return Html::a('<i class="bi bi-pen text-dark"></i>', Url::to(['edit', 'id' => $model->id]), ['data-pjax' => 0]);
+                                return Html::a('<i class="bi bi-pen text-dark"></i>', Url::to(['edit', 'id' => $model->id]), ['data-pjax' => 0, 'id' => "editButton_{$model->id}"]);
                             },
-                            'delete' => function($url, $model) {
-                                return Html::tag('span', '<i class="bi bi-trash text-dark"></i>', [
-                                    'role' => 'button',
-                                    'data-message' => Yii::t('views', 'Вы действительно хотите удалить шаблон "{name}"?', ['name' =>  $model->name]),
-                                    'data-url' => Url::to(['delete', 'id' => $model->id]),
-                                    'data-pjaxContainer' => '#templatesList',
-                                    'onclick' => 'workWithRecord($(this))',
-                                ]);
-                            }
                         ],
                         'visibleButtons' => [
                             'view' => function($model) {
@@ -165,16 +156,6 @@ $this->title = Yii::t('views', 'Список шаблонов');
 
                                 return $model->record_status && RbacHelper::canArray($rolesArray, $ruleArray);
                             },
-                            'delete' => function($model){
-                                $ruleArray = $model->toArray(['created_uid', 'created_gid', 'record_status']);
-                                $rolesArray = [
-                                    'template.delete.main',
-                                    'template.delete.group',
-                                    'template.delete.all',
-                                ];
-
-                                return $model->record_status && RbacHelper::canArray($rolesArray, $ruleArray);
-                            }
                         ]
                     ],
                 ]

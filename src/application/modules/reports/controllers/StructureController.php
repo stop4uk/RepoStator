@@ -192,6 +192,8 @@ final class StructureController extends BaseController
                 'repository' => StructureRepository::class,
                 'requestID' => $this->request->get('id'),
                 'service' => $this->service,
+                'fromEdit' => $this->request->get('fromEdit') ?? false,
+                'redirectUrl' => Url::to(['/reports/structure/view', 'id' => $this->request->get('id')]),
                 'errorMessage' => 'При удалении структуры возникли проблемы. Пожалуйста, обратитесь к администратору',
                 'successMessage' => 'Отчетная структура скрыта. Использовать ее нельзя. При этом, все ранее переденные через нее отчеты, будут отображаться',
                 'exceptionMessage' => 'Запрашиваемая структура передачи отчета не найдена, или недоступна'

@@ -1,5 +1,6 @@
 <?php
 
+use app\components\base\BaseAR;
 use app\helpers\CommonHelper;
 
 return [
@@ -8,7 +9,7 @@ return [
         'record' => 'record1',
         'name' => 'ТестКонстанта1',
         'name_full' => 'Тестовая константа 1',
-        'crated_at' => time(),
+        'created_at' => time(),
         'created_uid' => 1,
         'created_gid' => 1,
     ],
@@ -17,7 +18,7 @@ return [
         'record' => 'record2',
         'name' => 'ТестКонстанта2',
         'name_full' => 'Тестовая константа 2',
-        'crated_at' => time(),
+        'created_at' => time(),
         'created_uid' => 1,
         'created_gid' => 1,
     ],
@@ -26,7 +27,7 @@ return [
         'record' => 'record3',
         'name' => 'ТестКонстанта3',
         'name_full' => 'Тестовая константа 3',
-        'crated_at' => time(),
+        'created_at' => time(),
         'created_uid' => 1,
         'created_gid' => 1,
     ],
@@ -35,7 +36,7 @@ return [
         'record' => 'record4',
         'name' => 'ТестКонстанта4',
         'name_full' => 'Тестовая константа 4',
-        'crated_at' => time(),
+        'created_at' => time(),
         'created_uid' => 1,
         'created_gid' => 1,
     ],
@@ -45,7 +46,7 @@ return [
         'name' => 'ТестКонстанта5',
         'name_full' => 'Тестовая константа 5',
         'reports_only' => CommonHelper::implodeField([2]),
-        'crated_at' => time(),
+        'created_at' => time(),
         'created_uid' => 1,
         'created_gid' => 1,
     ],
@@ -55,8 +56,18 @@ return [
         'name' => 'ТестКонстанта6',
         'name_full' => 'Тестовая константа 6',
         'reports_only' => CommonHelper::implodeField([1, 2]),
-        'crated_at' => time(),
+        'created_at' => time(),
         'created_uid' => 1,
         'created_gid' => 1,
+    ],
+    [
+        'id' => 7,
+        'record' => 'record7',
+        'name' => 'ТестКонстанта7',
+        'name_full' => 'Тестовая константа 7',
+        'created_at' => time(),
+        'created_uid' => 1,
+        'created_gid' => 1,
+        'record_status' => BaseAR::RSTATUS_DELETED
     ],
 ];

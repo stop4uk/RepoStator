@@ -39,30 +39,26 @@ trait CleanDataProviderByRoleTrait
             $gRole = ((bool)$model->record_status) ? $groupListRole : $groupDeleteRole;
             $aRole = ((bool)$model->record_status) ? $allListRole : $allDeleteRole;
 
-            if (!in_array($model->created_gid, Yii::$app->getUser()->getIdentity()->groupsParent)) {
-                if (
-                    $model->created_gid != $mainGroup
-                    && Yii::$app->getUser()->can($aRole, $ruleArray)
-                ) {
-                    unset($models[$index]);
-                    continue;
-                }
+            if (
+                $model->created_gid != $mainGroup
+                && !Yii::$app->getUser()->can($aRole, $ruleArray)
+            ) {
+                unset($models[$index]);
+            }
 
-                if (
-                    $model->created_gid == $mainGroup
-                    && $model->created_uid != Yii::$app->getUser()->id
-                    && !Yii::$app->getUser()->can($gRole, $ruleArray)
-                ) {
-                    unset($models[$index]);
-                    continue;
-                }
+            if (
+                $model->created_gid == $mainGroup
+                && $model->created_uid != Yii::$app->getUser()->id
+                && !Yii::$app->getUser()->can($gRole, $ruleArray)
+            ) {
+                unset($models[$index]);
+            }
 
-                if (
-                    $model->created_uid == Yii::$app->getUser()->id
-                    && !Yii::$app->getUser()->can($mRole, $ruleArray)
-                ) {
-                    unset($models[$index]);
-                }
+            if (
+                $model->created_uid == Yii::$app->getUser()->id
+                && !Yii::$app->getUser()->can($mRole, $ruleArray)
+            ) {
+                unset($models[$index]);
             }
         }
 
