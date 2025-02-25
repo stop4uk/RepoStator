@@ -28,7 +28,7 @@ $this->title = Yii::t('views', 'Список структур');
     <div class="d-grid d-md-flex justify-content-md-end gap-2 gap-md-0 mb-2">
         <?php
             if (Yii::$app->getUser()->can(Permissions::STRUCTURE_CREATE)) {
-                echo Html::a(Yii::t('views', 'Новая стуктура'), ['create'], ['class' => 'btn btn-primary me-md-2']);
+                echo Html::a(Yii::t('views', 'Новая структура'), ['create'], ['class' => 'btn btn-primary me-md-2']);
             }
 
             echo Html::tag('i', '', [
