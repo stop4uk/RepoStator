@@ -17,6 +17,7 @@ use yii\helpers\Json;
  * @property int|null $left_period
  * @property int|null $block_minutes
  * @property int|null $null_day
+ * @property int|null $allow_dynamicForm
  *
  * @property-read array $groups;
  * @private array $groupsCanSent
@@ -33,6 +34,7 @@ final class ReportModel extends BaseModel
     public $left_period;
     public $block_minutes;
     public $null_day;
+    public $allow_dynamicForm;
 
     public readonly array $groups;
     public readonly array $groupsCanSent;
@@ -109,6 +111,7 @@ final class ReportModel extends BaseModel
             ['null_day', 'default', 'value' => 0],
 
             [['name', 'description'], 'filter', 'filter' => fn($value) => HtmlPurifier::process($value)],
+            ['allow_dynamicForm', 'integer'],
         ];
     }
 

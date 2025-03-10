@@ -130,4 +130,5 @@ return [
     'Версия' => 'Version',
     'Загружен' => 'Uploaded',
     'Загрузил' => 'Uploaded',
+    'Разрешить расчет статистики без шаблонов' => 'Allow statistics calculation without templates'
 ];
