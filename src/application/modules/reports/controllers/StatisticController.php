@@ -13,15 +13,15 @@ use app\components\{
 };
 use app\modules\reports\{
     components\formReport\FormFactory,
+    repositories\ReportRepository,
     repositories\TemplateRepository,
     search\JobSearch,
-    forms\StatisticForm,
+    forms\StatisticForm
 };
 use app\modules\users\{
     components\rbac\items\Permissions,
     components\rbac\RbacHelper,
 };
-
 
 /**
  * @author Stop4uk <stop4uk@yandex.ru>
@@ -94,15 +94,18 @@ final class StatisticController extends BaseController
         }
     }
 
-    public function actionGettemplates(int $report_id): array
+    public function actionGetformsettings(int $report_id): array
     {
         $this->response->format = Response::FORMAT_JSON;
         $groups = RbacHelper::getAllowGroupsArray('constantRule.list.all');
 
-        return ['elements' => TemplateRepository::getAllow(
-            reports: [$report_id => $report_id],
-            groups: $groups
-        )];
+        return [
+            'allowDynamic' => ReportRepository::get($report_id)->allow_dynamicForm,
+            'elements' => TemplateRepository::getAllow(
+                reports: [$report_id => $report_id],
+                groups: $groups
+            )
+        ];
     }
 
     public function actionGetperiod(int $template_id): array

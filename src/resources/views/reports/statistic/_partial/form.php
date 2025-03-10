@@ -99,7 +99,7 @@ $form = ActiveForm::begin([
 <?php
 ActiveForm::end();
 
-$urlForTemplatesList = Url::to(['gettemplates', 'report_id' => '']);
+$urlForTemplatesList = Url::to(['getformsettings', 'report_id' => '']);
 $urlForPeriodSettings = Url::to(['getperiod', 'template_id' => '']);
 $periodTypes = Json::encode([
     'week' => ReportFormTemplateEntity::REPORT_DATETIME_WEEK,
