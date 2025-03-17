@@ -156,6 +156,16 @@ $this->title = Yii::t('views', 'Список шаблонов');
 
                                 return $model->record_status && RbacHelper::canArray($rolesArray, $ruleArray);
                             },
+                            'delete' => function($model) {
+                                $ruleArray = $model->toArray(['created_uid', 'created_gid', 'record_status']);
+                                $rolesArray = [
+                                    'template.delete.main',
+                                    'template.delete.group',
+                                    'template.delete.all',
+                                ];
+
+                                return $model->record_status && RbacHelper::canArray($rolesArray, $ruleArray);
+                            }
                         ]
                     ],
                 ]
