@@ -2,6 +2,7 @@
 
 namespace app\modules\reports\components\formReport\processors;
 
+use app\modules\reports\repositories\TemplateRepository;
 use Yii;
 use PhpOffice\PhpSpreadsheet\{
     IOFactory,
@@ -30,8 +31,10 @@ final class FromTemplate extends BaseProcessor
 
     private function setSpreadsheet(): FromTemplate
     {
-        $this->templateRecord = $this->template->getAttachedFiles(false)[0];
-        $template = $this->template->getAttachFile($this->templateRecord['file_hash']);
+        $template = TemplateRepository::get($this->form->template);
+
+        $this->templateRecord = $template->getAttachedFiles(false)[0];
+        $template = $template->getAttachFile($this->templateRecord['file_hash']);
         $reader = IOFactory::createReader(ucfirst($this->templateRecord['file_extension']));
 
         $fileName = Yii::$app->getSecurity()->generateRandomString(6);

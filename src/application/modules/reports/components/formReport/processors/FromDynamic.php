@@ -17,6 +17,7 @@ use PhpOffice\PhpSpreadsheet\{
 use app\helpers\CommonHelper;
 use app\modules\reports\{
     components\formReport\base\BaseProcessor,
+    entities\ReportFormTemplateEntity,
     helpers\TemplateHelper
 };
 use app\modules\users\{
@@ -49,8 +50,8 @@ final class FromDynamic extends BaseProcessor
     {
         $inversionFind = ['table_columns' => 'table_rows', 'table_rows' => 'table_columns'];
         $findColumn = match ($this->template->table_type) {
-            $this->template::REPORT_TABLE_TYPE_GROUP => 'table_rows',
-            $this->template::REPORT_TABLE_TYPE_CONST => 'table_columns'
+            ReportFormTemplateEntity::REPORT_TABLE_TYPE_GROUP => 'table_rows',
+            ReportFormTemplateEntity::REPORT_TABLE_TYPE_CONST => 'table_columns'
         };
 
         $groups = GroupRepository::getAll([]);
@@ -126,7 +127,7 @@ final class FromDynamic extends BaseProcessor
                 }
 
                 switch ($this->template->form_datetime) {
-                    case $this->template::REPORT_DATETIME_PERIOD:
+                    case ReportFormTemplateEntity::REPORT_DATETIME_PERIOD:
                         $this->calculateForPeriod(
                             type: $type,
                             group: $groupID,
@@ -156,11 +157,11 @@ final class FromDynamic extends BaseProcessor
 
         $columns = [];
         switch ($this->template->table_type) {
-            case $this->template::REPORT_TABLE_TYPE_CONST:
+            case ReportFormTemplateEntity::REPORT_TABLE_TYPE_CONST:
                 $columns = $this->periodDays ?: $indicatorsNames;
                 $rowHeader = Yii::t('views', 'Группы');
                 break;
-            case $this->template::REPORT_TABLE_TYPE_GROUP:
+            case ReportFormTemplateEntity::REPORT_TABLE_TYPE_GROUP:
                 $columns = $this->groups;
                 $rowHeader = Yii::t('views', $this->periodDays ? 'Дни' : 'Константы');
                 break;
@@ -172,7 +173,7 @@ final class FromDynamic extends BaseProcessor
             columns: $columns,
             firstRow: $firstRowForTable,
             secondRow: $secondRowForTable,
-            groupsInHead: ($this->template->table_type == $this->template::REPORT_TABLE_TYPE_GROUP)
+            groupsInHead: ($this->template->table_type == ReportFormTemplateEntity::REPORT_TABLE_TYPE_GROUP)
         );
 
         $this->sheet->setCellValue('A1', $this->template->name)->mergeCells("A1:{$this->sheet->getHighestColumn()}1");
@@ -182,7 +183,7 @@ final class FromDynamic extends BaseProcessor
             alignVertical: Alignment::VERTICAL_CENTER
         );
 
-        if ($this->template->form_datetime == $this->template::REPORT_DATETIME_PERIOD) {
+        if ($this->template->form_datetime == ReportFormTemplateEntity::REPORT_DATETIME_PERIOD) {
             $this->sheet->setCellValue('A2', $this->form->period . ($this->template->use_appg ? Yii::t('views', ' с АППГ') : ''))->mergeCells("A2:{$this->sheet->getHighestColumn()}2");
             $this->setStyle(
                 coords: [1, 2],
@@ -232,7 +233,7 @@ final class FromDynamic extends BaseProcessor
     {
         $rowID = $rowStart = ($this->sheet->getHighestRow()+1);
 
-        if ($this->template->table_type == $this->template::REPORT_TABLE_TYPE_CONST) {
+        if ($this->template->table_type == ReportFormTemplateEntity::REPORT_TABLE_TYPE_CONST) {
             $arrayForForeach = $this->periodDays ?: $this->indicatorsContent;
 
             if ($this->template->use_grouptype) {

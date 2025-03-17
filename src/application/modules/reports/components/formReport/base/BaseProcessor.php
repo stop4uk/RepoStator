@@ -10,25 +10,22 @@ use yii\helpers\{
 };
 use PhpOffice\PhpSpreadsheet\{
     Reader\IReader,
+    Spreadsheet,
     Worksheet\Worksheet,
     Writer\IWriter,
-    Writer\Xlsx,
-    Spreadsheet
+    Writer\Xlsx
 };
 
 use app\components\base\BaseAR;
-use app\helpers\CommonHelper;
 use app\modules\reports\{
+    components\formReport\dto\StatFormDTO,
+    components\formReport\dto\TemplateDTO,
     entities\ReportDataEntity,
     entities\ReportFormTemplateEntity,
     repositories\ConstantRepository,
-    repositories\ConstantruleRepository,
-    forms\StatisticForm,
+    repositories\ConstantruleRepository
 };
-use app\modules\users\{
-    repositories\GroupRepository,
-    repositories\GroupTypeRepository
-};
+
 
 /**
  * @author Stop4uk <stop4uk@yandex.ru>
@@ -49,8 +46,8 @@ abstract class BaseProcessor extends Component
      */
     public $writer;
 
-    public readonly StatisticForm $form;
-    protected readonly ReportFormTemplateEntity $template;
+    public readonly StatFormDTO $form;
+    protected readonly TemplateDTO $template;
     protected readonly array $period;
     protected readonly array $periodDays;
 
@@ -68,8 +65,8 @@ abstract class BaseProcessor extends Component
     protected string $jobID = '';
 
     public function __construct(
-        StatisticForm $form,
-        ReportFormTemplateEntity $template
+        StatFormDTO $form,
+        TemplateDTO $template
     ) {
         $this->form = $form;
         $this->template = $template;
@@ -177,9 +174,9 @@ abstract class BaseProcessor extends Component
     {
         $explodeDates = explode(' - ', $this->form->period);
         $startTime = match ($this->template->form_datetime) {
-            $this->template::REPORT_DATETIME_PERIOD => strtotime($explodeDates[0] . ' 00:00:00'),
-            $this->template::REPORT_DATETIME_MONTH => strtotime(date('Y-m-01 00:00:00', strtotime($explodeDates[1]))),
-            $this->template::REPORT_DATETIME_WEEK => strtotime(($explodeDates[1] . '-' . (date('N', strtotime($explodeDates[1]))-1) . ' days') . ' 00:00:00')
+            ReportFormTemplateEntity::REPORT_DATETIME_PERIOD => strtotime($explodeDates[0] . ' 00:00:00'),
+            ReportFormTemplateEntity::REPORT_DATETIME_MONTH => strtotime(date('Y-m-01 00:00:00', strtotime($explodeDates[1]))),
+            ReportFormTemplateEntity::REPORT_DATETIME_WEEK => strtotime(($explodeDates[1] . '-' . (date('N', strtotime($explodeDates[1]))-1) . ' days') . ' 00:00:00')
         };
 
         $dates = [
@@ -206,7 +203,7 @@ abstract class BaseProcessor extends Component
         $startDate = $this->period['now']['start'];
         $endDate = $this->period['now']['end'];
 
-        if ($this->template->form_datetime != $this->template::REPORT_DATETIME_PERIOD) {
+        if ($this->template->form_datetime != ReportFormTemplateEntity::REPORT_DATETIME_PERIOD) {
             while ($startDate <= $endDate) {
                 $periodDates[$startDate] = Yii::$app->formatter->asDate($startDate);
                 $startDate = strtotime('+1 day', $startDate);
@@ -249,7 +246,7 @@ abstract class BaseProcessor extends Component
 
             $this->calculateCounters[$type][$group][$day] = ($this->calculateCounters[$type][$group][$day] ?? 0) + array_sum($daySumm);
 
-            if ($this->template->table_type == $this->template::REPORT_TABLE_TYPE_GROUP) {
+            if ($this->template->table_type == ReportFormTemplateEntity::REPORT_TABLE_TYPE_GROUP) {
                 $this->calculateCountersAll[$type][$group] = ($this->calculateCountersAll[$type][$group] ?? 0) + array_sum($daySumm);
             } else {
                 $this->calculateCountersAll[$type][0][$day] = ($this->calculateCountersAll[$type][0][$day] ?? 0) + array_sum($daySumm);
@@ -286,7 +283,7 @@ abstract class BaseProcessor extends Component
 
             $this->calculateCounters[$type][$group][$record] = ($this->calculateCounters[$type][$group][$record] ?? 0) + $resultValue;
 
-            if ($this->template->table_type == $this->template::REPORT_TABLE_TYPE_GROUP) {
+            if ($this->template->table_type == ReportFormTemplateEntity::REPORT_TABLE_TYPE_GROUP) {
                 $this->calculateCountersAll[$type][$group] = ($this->calculateCountersAll[$type][$group] ?? 0) + $resultValue;
             } else {
                 $this->calculateCountersAll[$type][0][$record] = ($this->calculateCountersAll[$type][0][$record] ?? 0) + $resultValue;
