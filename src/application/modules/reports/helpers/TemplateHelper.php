@@ -26,7 +26,7 @@ final class TemplateHelper
             'form_type' => Yii::t('entities', 'Тип формирования'),
             'form_result' => Yii::t('entities', 'Тип вывода'),
             'form_usejobs' => Yii::t('entities', 'Использовать очередь'),
-            'table_type' => Yii::t('entites', 'Тип колонок'),
+            'table_type' => Yii::t('entities', 'Тип колонок'),
             'table_rows' => Yii::t('entities', 'Список строк'),
             'table_columns' => Yii::t('entities', 'Список колонок'),
             'limit_maxfiles' => Yii::t('entities', 'Макс. файлов для отчета'),
