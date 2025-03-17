@@ -23,6 +23,7 @@ use app\modules\reports\{
 };
 use app\modules\users\{
     components\rbac\items\Permissions,
+    components\rbac\RbacHelper,
     repositories\GroupRepository
 };
 
@@ -111,7 +112,7 @@ final class StatisticController extends BaseController
 
     public function actionGetdynamicformsettings(int $report_id): array
     {
-        $groupsAllow = Yii::$app->getUser()->getIdentity()->groups;
+        $groupsAllow = RbacHelper::getAllowGroupsArray('template.list.all');
         $groupsCanSent = GroupRepository::getAllBy(['id' => array_keys($groupsAllow), 'accept_send' => 1])->all();
         $groups = ArrayHelper::map($groupsCanSent, 'id', 'name');
 
