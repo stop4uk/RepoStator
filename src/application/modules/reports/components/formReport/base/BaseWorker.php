@@ -2,7 +2,7 @@
 
 namespace app\modules\reports\components\formReport\base;
 
-use app\modules\reports\forms\StatisticForm;
+use app\modules\reports\components\formReport\dto\StatFormDTO;
 
 /**
  * @author Stop4uk <stop4uk@yandex.ru>
@@ -11,11 +11,11 @@ use app\modules\reports\forms\StatisticForm;
 abstract class BaseWorker
 {
     protected BaseProcessor $processor;
-    protected StatisticForm $form;
+    protected StatFormDTO $form;
 
     public function __construct(
         BaseProcessor $processor,
-        StatisticForm $form
+        StatFormDTO $form
     )
     {
         $this->processor = $processor;

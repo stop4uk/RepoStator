@@ -28,6 +28,7 @@ use app\modules\reports\{
  * @property int|null $left_period
  * @property int|null $block_minutes
  * @property int|null $null_day
+ * @property int|null $allow_dynamicForm
  * @property int $created_at
  * @property int $created_uid
  * @property int $created_gid
@@ -86,7 +87,7 @@ final class ReportEntity extends BaseAR
     {
         return [
             self::SCENARIO_CHANGE_RECORD_STATUS => ['record_status'],
-            self::SCENARIO_DEFAULT => ['name', 'description', 'groups_only', 'groups_required', 'left_period', 'block_minutes', 'null_day']
+            self::SCENARIO_DEFAULT => ['name', 'description', 'groups_only', 'groups_required', 'left_period', 'block_minutes', 'null_day', 'allow_dynamicForm']
         ];
     }
 

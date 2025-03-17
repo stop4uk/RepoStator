@@ -123,7 +123,7 @@ $this->title = Yii::t('views', 'Список шаблонов');
                         'header' => false,
                         'headerOptions' => ['style' => 'min-width: 4rem; width: 8%'],
                         'contentOptions' => ['class' => 'text-center'],
-                        'template' => '{view} {edit} {delete}',
+                        'template' => '{view} {edit}',
                         'buttons' => [
                             'view' => function($url, $model) {
                                 return Html::a('<i class="bi bi-eye text-dark"></i>', Url::to(['view', 'id' => $model->id]), ['data-pjax' => 0, 'id' => "viewButton_{$model->id}"]);

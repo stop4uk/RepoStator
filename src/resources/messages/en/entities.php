@@ -130,4 +130,6 @@ return [
     'Версия' => 'Version',
     'Загружен' => 'Uploaded',
     'Загрузил' => 'Uploaded',
+    'Разрешить расчет статистики без шаблонов' => 'Allow statistics calculation without templates',
+    'Динамический отчет без шаблона' => 'Dynamic report without a template',
 ];

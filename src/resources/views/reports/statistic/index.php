@@ -39,7 +39,7 @@ $this->title = Yii::t('views', 'Статистика');
                         'format' => 'html',
                         'headerOptions' => ['style' => 'min-width: 14rem'],
                         'value' => function($data) {
-                            $value = $data->template->name . Html::tag('span', ' #' . $data->report->name, ['class' => 'small text-muted']) . '<br />';
+                            $value = ($data->template->name ?? Yii::t('entities', 'Динамический отчет без шаблона')) . Html::tag('span', ' #' . $data->report->name, ['class' => 'small text-muted']) . '<br />';
                             $value .= $data->form_period;
 
                             return $value;
@@ -101,7 +101,10 @@ $this->title = Yii::t('views', 'Статистика');
             <?= Yii::t('views', 'Формирование отчета'); ?>
         </div>
         <div class="card-body">
-            <?= $this->render('_partial/form', ['model' => $form]); ?>
+            <?php
+                echo $this->render('_partial/form', ['model' => $form]);
+
+            ?>
         </div>
     </div>
 <?php

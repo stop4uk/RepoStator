@@ -2,21 +2,41 @@
 
 namespace app\modules\reports\controllers;
 
-use app\actions\{CreateEditAction, DeleteAction, EnableAction, IndexAction, ViewAction};
-use app\components\{attachedFiles\AttachFileActionsTrait, base\BaseAR, base\BaseController};
-use app\helpers\CommonHelper;
-use app\modules\reports\{entities\ReportFormTemplateEntity,
+use Yii;
+use yii\filters\AccessControl;
+use yii\helpers\{
+    ArrayHelper,
+    FileHelper,
+    Url
+};
+use yii\web\Response;
+
+use app\actions\{
+    CreateEditAction,
+    DeleteAction,
+    EnableAction,
+    IndexAction,
+    ViewAction
+};
+use app\components\{
+    attachedFiles\AttachFileActionsTrait,
+    base\BaseAR,
+    base\BaseController
+};
+use app\modules\reports\{
+    entities\ReportFormTemplateEntity,
     models\TemplateModel,
     repositories\ConstantRepository,
     repositories\ConstantruleRepository,
     repositories\TemplateRepository,
     search\TemplateSearch,
-    services\TemplateService};
-use app\modules\users\{components\rbac\items\Permissions, components\rbac\RbacHelper};
-use Yii;
-use yii\filters\AccessControl;
-use yii\helpers\{ArrayHelper, FileHelper, Url};
-use yii\web\Response;
+    services\TemplateService
+};
+use app\modules\users\{
+    components\rbac\items\Permissions,
+    components\rbac\RbacHelper,
+    repositories\GroupRepository
+};
 
 /**
  * @author Stop4uk <stop4uk@yandex.ru>
@@ -238,15 +258,18 @@ final class TemplateController extends BaseController
     {
         $this->response->format = Response::FORMAT_JSON;
 
-        $groups = RbacHelper::getAllowGroupsArray('template.list.all');
+        $groupsAllow = RbacHelper::getAllowGroupsArray('template.list.all');
+        $groupsCanSent = GroupRepository::getAllBy(['id' => array_keys($groupsAllow), 'accept_send' => 1])->all();
+        $groups = ArrayHelper::map($groupsCanSent, 'id', 'name');
+
         $mergeConstantAndRules = ArrayHelper::merge(
             ConstantRepository::getAllow(
                 reports: [$report_id => $report_id],
-                groups: $groups
+                groups: $groupsAllow
             ),
             ConstantruleRepository::getAllow(
                 reports: [$report_id => $report_id],
-                groups: $groups
+                groups: $groupsAllow
             )
         );
 

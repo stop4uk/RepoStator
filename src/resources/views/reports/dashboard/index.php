@@ -89,7 +89,7 @@ Pjax::begin(['id' => 'dashBoard', 'enablePushState' => false, 'clientOptions' =>
                             'format' => 'html',
                             'headerOptions' => ['style' => 'min-width: 14rem'],
                             'value' => function($data) {
-                                $value = $data->template->name . Html::tag('span', ' #' . $data->report->name, ['class' => 'small text-muted']) . '<br />';
+                                $value = ($data->template->name ?? Yii::t('entities', 'Динамический отчет без шаблона')) . Html::tag('span', ' #' . $data->report->name, ['class' => 'small text-muted']) . '<br />';
                                 $value .= $data->form_period;
 
                                 return $value;

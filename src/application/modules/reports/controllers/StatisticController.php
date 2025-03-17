@@ -5,6 +5,7 @@ namespace app\modules\reports\controllers;
 use Yii;
 use yii\bootstrap5\ActiveForm;
 use yii\filters\AccessControl;
+use yii\helpers\ArrayHelper;
 use yii\web\Response;
 
 use app\components\{
@@ -13,15 +14,18 @@ use app\components\{
 };
 use app\modules\reports\{
     components\formReport\FormFactory,
+    repositories\ConstantRepository,
+    repositories\ConstantruleRepository,
+    repositories\ReportRepository,
     repositories\TemplateRepository,
     search\JobSearch,
-    forms\StatisticForm,
+    forms\StatisticForm
 };
 use app\modules\users\{
     components\rbac\items\Permissions,
     components\rbac\RbacHelper,
+    repositories\GroupRepository
 };
-
 
 /**
  * @author Stop4uk <stop4uk@yandex.ru>
@@ -94,22 +98,38 @@ final class StatisticController extends BaseController
         }
     }
 
-    public function actionGettemplates(int $report_id): array
+    public function actionGetformsettings(int $report_id): array
     {
         $this->response->format = Response::FORMAT_JSON;
-        $groups = RbacHelper::getAllowGroupsArray('constantRule.list.all');
+        return [
+            'allowDynamic' => ReportRepository::get($report_id)->allow_dynamicForm,
+            'elements' => TemplateRepository::getAllow(
+                reports: [$report_id => $report_id],
+                groups: Yii::$app->getUser()->getIdentity()->groups
+            )
+        ];
+    }
 
-        return ['elements' => TemplateRepository::getAllow(
-            reports: [$report_id => $report_id],
-            groups: $groups
-        )];
+    public function actionGetdynamicformsettings(int $report_id): array
+    {
+        $groupsAllow = RbacHelper::getAllowGroupsArray('template.list.all');
+        $groupsCanSent = GroupRepository::getAllBy(['id' => array_keys($groupsAllow), 'accept_send' => 1])->all();
+        $groups = ArrayHelper::map($groupsCanSent, 'id', 'name');
+
+        $mergeConstantAndRules = ArrayHelper::merge(
+            ConstantRepository::getAllow(reports: [$report_id => $report_id], groups: $groupsAllow),
+            ConstantruleRepository::getAllow(reports: [$report_id => $report_id], groups: $groupsAllow)
+        );
+
+        $this->response->format = Response::FORMAT_JSON;
+        return compact('mergeConstantAndRules', 'groups');
     }
 
     public function actionGetperiod(int $template_id): array
     {
-        $this->response->format = Response::FORMAT_JSON;
-
         $template = TemplateRepository::get($template_id);
+
+        $this->response->format = Response::FORMAT_JSON;
         if ($template) {
             return $template->toArray(['form_datetime']);
         }

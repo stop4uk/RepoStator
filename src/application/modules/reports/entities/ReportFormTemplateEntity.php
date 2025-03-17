@@ -64,6 +64,11 @@ final class ReportFormTemplateEntity extends BaseAR
         self::REPORT_TYPE_TEMPLATE
     ];
 
+    const REPORT_TABLE_TYPES = [
+        self::REPORT_TABLE_TYPE_CONST,
+        self::REPORT_TABLE_TYPE_GROUP,
+    ];
+
     const REPORT_DATETIMES = [
         self::REPORT_DATETIME_WEEK,
         self::REPORT_DATETIME_MONTH,

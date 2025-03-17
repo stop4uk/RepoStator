@@ -23,7 +23,7 @@ $form = ActiveForm::begin([
 
     <div class="row">
         <div class="col-12 col-xxl-6">
-            <?= $form->field($model, 'name'); ?>
+            <?= $form->field($model, 'name')->hint($form->field($model, 'allow_dynamicForm')->checkbox()); ?>
         </div>
         <div class="col-12 col-md-6 col-xxl-3">
             <?= $form->field($model, 'left_period')->textInput([
