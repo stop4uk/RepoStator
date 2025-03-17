@@ -98,7 +98,13 @@ final class ReportModel extends BaseModel
             ],
             [['groups_required', 'groups_only'], 'each', 'rule' => ['checkCanSentList']],
             ['left_period', 'integer', 'min' => 10, 'tooSmall' => Yii::t('models_error', 'Минимальное разрграничение передачи 10 минут')],
-            ['left_period', 'required', 'when' => fn($model) => $model->block_minutes, 'whenClient' => 'function(attribute, value) { return ($("#reportmodel-block_minutes").val().length != 0); }'],
+            [
+                'left_period', 'required',
+                'when' => function($model) {
+                    return $model->block_minutes;
+                },
+                'whenClient' => 'function(attribute, value) { return ($("#reportmodel-block_minutes").val().length != 0); }'
+            ],
             ['block_minutes', 'integer', 'min' => 5, 'tooSmall' => Yii::t('models_error', 'Минимальное время ограничения 5 минут')],
             [
                 'block_minutes',
