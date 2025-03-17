@@ -433,6 +433,8 @@ final class FromDynamic extends BaseProcessor
                 $mergeColumnID = ($columnID+1);
                 $this->sheet->setCellValue([$columnID, $firstRow], $columnName)
                     ->mergeCells([$columnID, $firstRow, $mergeColumnID, $firstRow]);
+                $this->sheet->getStyle([$columnID, $firstRow])->getAlignment()->setWrapText(true);
+                $this->sheet->getRowDimension($firstRow)->setRowHeight(30);
 
                 $this->sheet->setCellValue([$columnID, $secondRow], date('Y', $this->period['now']['end']));
                 $this->sheet->setCellValue([$mergeColumnID, $secondRow], date('Y', $this->period['appg']['end']));
@@ -452,6 +454,12 @@ final class FromDynamic extends BaseProcessor
                 $this->sheet->setCellValue([$columnID, $firstRow], $columnName);
                 $this->sheet->getStyle([$columnID, $firstRow])->getAlignment()->setTextRotation(90)->setWrapText(true);
                 $this->sheet->getRowDimension($firstRow)->setRowHeight($groupsInHead ? 220 : 74);
+
+                $this->setStyle(
+                    coords: [$columnID, $secondRow],
+                    alignHorizontal: Alignment::HORIZONTAL_LEFT,
+                    alignVertical: Alignment::VERTICAL_CENTER
+                );
             }
 
             $this->setStyle(
@@ -464,7 +472,7 @@ final class FromDynamic extends BaseProcessor
             if ($this->template->use_appg) {
                 $column->setAutoSize(true);
             } else {
-                $column->setWidth(4);
+                $column->setWidth(6);
             }
 
             $columnID += ($this->template->use_appg ? 2 : 1 );
