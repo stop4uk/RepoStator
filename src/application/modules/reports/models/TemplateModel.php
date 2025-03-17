@@ -109,7 +109,9 @@ final class TemplateModel extends BaseModel
         return [
             [['name', 'report_id', 'form_type'], 'required'],
             ['name', 'string', 'length' => [4, 64]],
-            ['name', 'filter', 'filter' => fn($value) => HtmlPurifier::process($value)],
+            ['name', 'filter', 'filter' => function($value) {
+                return HtmlPurifier::process($value);
+            }],
             [
                 'name',
                 'unique',
