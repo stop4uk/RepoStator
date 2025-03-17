@@ -71,6 +71,15 @@ final class FromDynamic extends BaseProcessor
             $groupsWithType = ArrayHelper::map($groups, 'id', 'name', 'type_id');
             $this->groupsToType = ArrayHelper::map($groups, 'id', 'type_id');
 
+            $types[0] = '';
+            foreach($groupsWithType as $groupID => $groups) {
+                if (!$groupID) {
+                    $groupsWithType[0] = $groups;
+                }
+            }
+
+            unset($groupsWithType['']);
+
             foreach ($types as $typeID => $typeName) {
                 if (isset($groupsWithType[$typeID])) {
                     $innerGroups = [];
