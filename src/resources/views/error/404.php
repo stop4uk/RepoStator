@@ -19,7 +19,7 @@ use yii\bootstrap5\Html;
             <div class="card">
                 <div class="card-body">
                     <div class="m-1 mb-0">
-                        <h4 class="text-center"><?= $message; ?></h4>
+                        <h4 class="text-justify mb-3"><?= $message; ?></h4>
                         <div class="d-grid">
                             <?php if ($link = Yii::$app->getRequest()->getReferrer()) {
                                 echo Html::a(Yii::t('views', 'Назад'), $link, ['class' => 'btn btn-primary mt-3']);
