@@ -2,15 +2,19 @@
 
 namespace app\modules\reports\components\formReport\processors;
 
-use app\modules\reports\repositories\TemplateRepository;
 use Yii;
+use yii\web\BadRequestHttpException;
+use League\Flysystem\FileNotFoundException;
 use PhpOffice\PhpSpreadsheet\{
     IOFactory,
     Worksheet\PageSetup
 };
 
 use app\helpers\CommonHelper;
-use app\modules\reports\components\formReport\base\BaseProcessor;
+use app\modules\reports\{
+    components\formReport\base\BaseProcessor,
+    repositories\TemplateRepository,
+};
 
 final class FromTemplate extends BaseProcessor
 {
@@ -32,11 +36,16 @@ final class FromTemplate extends BaseProcessor
     private function setSpreadsheet(): FromTemplate
     {
         $template = TemplateRepository::get($this->form->template);
-
         $this->templateRecord = $template->getAttachedFiles(false)[0];
-        $template = $template->getAttachFile($this->templateRecord['file_hash']);
-        $reader = IOFactory::createReader(ucfirst($this->templateRecord['file_extension']));
 
+        try {
+            $template = $template->getAttachFile($this->templateRecord['file_hash']);
+        } catch(FileNotFoundException $e) {
+            Yii::error($e->getMessage());
+            throw new BadRequestHttpException(Yii::t('exceptions', 'При попытке формирования отчета возникла ошибка. Файл-шаблон, на основании которого строится отчет отсутствует в хранилище. Пожалуйста, обратитесь к администратору'));
+        }
+
+        $reader = IOFactory::createReader(ucfirst($this->templateRecord['file_extension']));
         $fileName = Yii::$app->getSecurity()->generateRandomString(6);
         $fileExtension = $this->templateRecord['file_extension'];
         $filePath = Yii::getAlias('@runtime/'.env('YII_FILES_TEMPORARY_PATH', 'tmpFiles')) . DIRECTORY_SEPARATOR . implode('.', [$fileName, $fileExtension]);
