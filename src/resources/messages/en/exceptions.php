@@ -54,7 +54,5 @@ return [
     'Запрашиваемый тип группы не найден' => 'The requested group type was not found',
     'При обновлении типа группы возникли ошибки. Пожалуйста, обратитесь к администратору' => 'Errors occurred when updating the group type. Please contact the administrator',
     'При удалении типа группы возникли ошибки. Пожалуйста, проверьте логи' => 'Errors occurred when deleting the group type. Please check the logs',
-
-
-
+    'При попытке формирования отчета возникла ошибка. Файл-шаблон, на основании которого строится отчет отсутствует в хранилище. Пожалуйста, обратитесь к администратору' => 'An error occurred when trying to generate the report. The template file that the report is based on is missing from the repository. Please contact the administrator.'
 ];
