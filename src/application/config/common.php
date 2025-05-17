@@ -133,7 +133,7 @@ return [
         ],
         'assetManager' => [
             'appendTimestamp' => true,
-            'linkAssets' => true,
+            'linkAssets' => (bool)env('YII_DEBUG', false),
             'forceCopy' => (bool)env('YII_DEBUG', false),
             'basePath' => '@assets',
             'bundles' => [
