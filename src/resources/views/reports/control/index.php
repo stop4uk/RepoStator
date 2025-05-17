@@ -16,7 +16,7 @@ use app\modules\users\components\rbac\{
 };
 
 /**
- * @var \app\modules\reports\search\ConstantSearch $searchModel
+ * @var \app\modules\reports\search\DataSearch $searchModel
  * @var \yii\data\ActiveDataProvider $dataProvider
  * @var array $reportsList
  */
@@ -147,7 +147,7 @@ $this->title = Yii::t('views', 'Контроль за передачей');
                             )
                         ],
                         'visibleButtons' => [
-                            'view' => function($url, $model) {
+                            'view' => function($model) {
                                 $ruleArray = $model->toArray(['created_uid', 'created_gid', 'record_status']);
                                 return RbacHelper::canArray([
                                     Permissions::DATA_VIEW_MAIN,
@@ -158,7 +158,7 @@ $this->title = Yii::t('views', 'Контроль за передачей');
                                     Permissions::DATA_VIEW_DELETE_ALL
                                 ], $ruleArray);
                             },
-                            'edit' => function($url, $model) {
+                            'edit' => function($model) {
                                 $ruleArray = $model->toArray(['created_uid', 'created_gid', 'record_status']);
                                 return $model->record_status && RbacHelper::canArray([
                                         Permissions::DATA_EDIT_MAIN,
@@ -166,7 +166,7 @@ $this->title = Yii::t('views', 'Контроль за передачей');
                                         Permissions::DATA_EDIT_ALL,
                                     ], $ruleArray);
                             },
-                            'delete' => function($url, $model) {
+                            'delete' => function($model) {
                                 $ruleArray = $model->toArray(['created_uid', 'created_gid', 'record_status']);
                                 return $model->record_status && RbacHelper::canArray([
                                         Permissions::DATA_DELETE_MAIN,
