@@ -111,7 +111,7 @@ final class DataSearch extends Model
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
             'sort' => [
-                'defaultOrder' => ['id' => SORT_ASC]
+                'defaultOrder' => ['id' => SORT_DESC]
             ],
             'pagination' => [
                 'pageSize' => 50
