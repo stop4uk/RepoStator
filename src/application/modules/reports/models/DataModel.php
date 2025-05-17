@@ -112,7 +112,7 @@ final class DataModel extends BaseModel
     {
         if ($this->report_id && $this->group_id && $this->report_datetime) {
             $periodsList = DataHelper::getTimePeriods($this->report, $this->report_datetime);
-            $periodsArray = ArrayHelper::map($periodsList, 'start', 'end');
+            $periodsArray = ArrayHelper::map((array)$periodsList, 'start', 'end');
 
             if (!in_array($this->report_datetime, array_keys($periodsArray)) && !$this->form_control) {
                 $this->addError('content', Yii::t('models_error', 'Указанное в запросе время не ' .
