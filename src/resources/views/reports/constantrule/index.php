@@ -45,6 +45,7 @@ $this->title = Yii::t('views', 'Список правил');
         <div class="card-body">
             <?= GridView::widget([
                 'dataProvider' => $dataProvider,
+                'layout' => '{pager}{items}{pager}',
                 'emptyText' => Yii::t('views', 'Правила сложения отсутствуют'),
                 'columns' => [
                     [

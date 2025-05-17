@@ -43,6 +43,7 @@ $this->title = Yii::t('views', 'Список констант');
         <div class="card-body">
             <?= GridView::widget([
                 'dataProvider' => $dataProvider,
+                'layout' => '{pager}{items}{pager}',
                 'emptyText' => Yii::t('views', 'Константы для просмотра отсутствуют'),
                 'columns' => [
                     [

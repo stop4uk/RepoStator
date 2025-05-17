@@ -75,6 +75,7 @@ $this->title = Yii::t('views', 'Контроль за передачей');
         <div class="card-body pt-0">
             <?= GridView::widget([
                 'dataProvider' => $dataProvider,
+                'layout' => '{pager}{items}{pager}',
                 'emptyText' => Yii::t('views', 'Подходящие под контроль сведения отсутствуют, или не указаны фильтры отбора'),
                 'columns' => [
                     [
