@@ -7,7 +7,10 @@ use yii\bootstrap5\Html;
 
 use app\helpers\CommonHelper;
 use app\widgets\GridView;
-use app\modules\users\components\rbac\items\Roles;
+use app\modules\users\components\rbac\{
+    items\Roles,
+    items\Permissions,
+};
 
 /**
  * @var \app\modules\admin\search\GroupSearch $searchModel
