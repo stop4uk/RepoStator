@@ -11,6 +11,7 @@ use yii\queue\{
 use yii\symfonymailer\Mailer;
 use creocoder\flysystem\LocalFilesystem;
 use kartik\select2\Select2Asset;
+use klisl\nestable\NestableAsset;
 
 use app\components\{
     attachedFiles\AttachFileHelper,
@@ -142,6 +143,11 @@ return [
                     'css' => ['assets/components/select2/css/select2.css'],
                     'js' => ['assets/components/select2/js/select2.full.js'],
                 ],
+                NestableAsset::class => [
+                    'sourcePath' => '@resources',
+                    'css' => ['assets/components/nestable/css/nestable.css'],
+                    'js' => ['assets/components/nestable/js/jquery.nestable.js'],
+                ]
             ],
         ],
     ],
