@@ -97,7 +97,7 @@ final class ConstantruleSearch extends Model
                 'defaultOrder' => ['id' => SORT_DESC]
             ],
             'pagination' => [
-                'pageSize' => 15
+                'pageSize' => 50
             ],
         ]);
 

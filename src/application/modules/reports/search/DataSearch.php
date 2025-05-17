@@ -114,7 +114,7 @@ final class DataSearch extends Model
                 'defaultOrder' => ['id' => SORT_ASC]
             ],
             'pagination' => [
-                'pageSize' => 15
+                'pageSize' => 50
             ],
         ]);
 
