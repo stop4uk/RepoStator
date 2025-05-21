@@ -158,8 +158,11 @@ abstract class BaseProcessor extends Component
         }
     }
 
-    final public function setPageSettings(int $paperSize, string $orientation, int|null $fitToPage = null): void
-    {
+    final public function setPageSettings(
+        int $paperSize,
+        string $orientation,
+        int|null $fitToPage = null
+    ): void {
         $this->sheet
             ->getPageSetup()
             ->setPaperSize($paperSize)
@@ -167,6 +170,94 @@ abstract class BaseProcessor extends Component
 
         if ($fitToPage) {
             $this->sheet->getPageSetup()->setFitToPage($fitToPage);
+        }
+    }
+
+    protected function calculateForDays(
+        string $type,
+        int $group,
+        array $indicators
+    ): void {
+        foreach (array_keys($this->periodDays) as $day) {
+            $daySumm = [];
+
+            foreach ($indicators as $indicatorData) {
+                $calculateValues = [];
+
+                foreach ($this->sentData[$type][$group] as $period => $counters) {
+                    foreach ($counters as $keyCounter => $valueCounter) {
+                        if (
+                            date('Y-m-d', $day) == date('Y-m-d', $period)
+                            && in_array($keyCounter, $indicatorData['constants'])
+                        ) {
+                            $calculateValues[$keyCounter] = ($calculateValues[$keyCounter] ?? 0) + $valueCounter;
+                        }
+                    }
+                }
+
+                if (count($indicatorData['constants']) == 1) {
+                    $daySumm[] = array_sum($calculateValues);
+                } else {
+                    $daySumm[] = $this->runEval(
+                        $this->replaceConstantToValues(
+                            rule: $indicatorData['rule'],
+                            indicators: $calculateValues
+                        )
+                    );
+                }
+            }
+
+            $this->calculateCounters[$type][$group][$day] = ($this->calculateCounters[$type][$group][$day] ?? 0) + array_sum($daySumm);
+
+            if ($this->template->table_type == ReportFormTemplateEntity::REPORT_TABLE_TYPE_GROUP) {
+                $this->calculateCountersAll[$type][$group] = ($this->calculateCountersAll[$type][$group] ?? 0) + array_sum($daySumm);
+            } else {
+                $this->calculateCountersAll[$type][0][$day] = ($this->calculateCountersAll[$type][0][$day] ?? 0) + array_sum($daySumm);
+            }
+
+            if ($this->template->use_grouptype) {
+                $this->calculateCountersByGroupType[$type][$this->groupsToType[$group]][$day] = ($this->calculateCountersByGroupType[$type][$this->groupsToType[$group]][$day] ?? 0) + array_sum($daySumm);
+            }
+        }
+    }
+
+    protected function calculateForPeriod(
+        string $type,
+        int $group,
+        array $indicators
+    ): void {
+        foreach ($indicators as $record => $indicatorData) {
+            $calculateValues = [];
+            foreach ($this->sentData[$type][$group] as $counters) {
+                foreach ($counters as $keyCounter => $valueCounter) {
+                    if (in_array($keyCounter, $indicatorData['constants'])) {
+                        $calculateValues[$keyCounter] = ($calculateValues[$keyCounter] ?? 0) + $valueCounter;
+                    }
+                }
+            }
+
+            if (count($indicatorData['constants']) == 1) {
+                $resultValue = array_sum($calculateValues);
+            } else {
+                $resultValue = $this->runEval(
+                    $this->replaceConstantToValues(
+                        rule: $indicatorData['rule'],
+                        indicators: $calculateValues
+                    )
+                );
+            }
+
+            $this->calculateCounters[$type][$group][$record] = ($this->calculateCounters[$type][$group][$record] ?? 0) + $resultValue;
+
+            if ($this->template->table_type == ReportFormTemplateEntity::REPORT_TABLE_TYPE_GROUP) {
+                $this->calculateCountersAll[$type][$group] = ($this->calculateCountersAll[$type][$group] ?? 0) + $resultValue;
+            } else {
+                $this->calculateCountersAll[$type][0][$record] = ($this->calculateCountersAll[$type][0][$record] ?? 0) + $resultValue;
+            }
+
+            if ($this->template->use_grouptype) {
+                $this->calculateCountersByGroupType[$type][$this->groupsToType[$group]][$record] = ($this->calculateCountersByGroupType[$type][$this->groupsToType[$group]][$record] ?? 0) + $resultValue;
+            }
         }
     }
 
@@ -213,90 +304,10 @@ abstract class BaseProcessor extends Component
         return $periodDates;
     }
 
-    private function calculateForDays(string $type, int $group, array $indicators ): void
-    {
-        foreach (array_keys($this->periodDays) as $day) {
-            $daySumm = [];
-
-            foreach ($indicators as $indicatorData) {
-                $calculateValues = [];
-
-                foreach ($this->sentData[$type][$group] as $period => $counters) {
-                    foreach ($counters as $keyCounter => $valueCounter) {
-                        if (
-                            date('Y-m-d', $day) == date('Y-m-d', $period)
-                            && in_array($keyCounter, $indicatorData['constants'])
-                        ) {
-                            $calculateValues[$keyCounter] = ($calculateValues[$keyCounter] ?? 0) + $valueCounter;
-                        }
-                    }
-                }
-
-                if (count($indicatorData['constants']) == 1) {
-                    $daySumm[] = array_sum($calculateValues);
-                } else {
-                    $daySumm[] = $this->runEval(
-                        $this->replaceConstantToValues(
-                            rule: $indicatorData['rule'],
-                            indicators: $calculateValues
-                        )
-                    );
-                }
-            }
-
-            $this->calculateCounters[$type][$group][$day] = ($this->calculateCounters[$type][$group][$day] ?? 0) + array_sum($daySumm);
-
-            if ($this->template->table_type == ReportFormTemplateEntity::REPORT_TABLE_TYPE_GROUP) {
-                $this->calculateCountersAll[$type][$group] = ($this->calculateCountersAll[$type][$group] ?? 0) + array_sum($daySumm);
-            } else {
-                $this->calculateCountersAll[$type][0][$day] = ($this->calculateCountersAll[$type][0][$day] ?? 0) + array_sum($daySumm);
-            }
-
-            if ($this->template->use_grouptype) {
-                $this->calculateCountersByGroupType[$type][$this->groupsToType[$group]][$day] = ($this->calculateCountersByGroupType[$type][$this->groupsToType[$group]][$day] ?? 0) + array_sum($daySumm);
-            }
-        }
-    }
-
-    private function calculateForPeriod(string $type, int $group, array $indicators): void
-    {
-        foreach ($indicators as $record => $indicatorData) {
-            $calculateValues = [];
-            foreach ($this->sentData[$type][$group] as $counters) {
-                foreach ($counters as $keyCounter => $valueCounter) {
-                    if (in_array($keyCounter, $indicatorData['constants'])) {
-                        $calculateValues[$keyCounter] = ($calculateValues[$keyCounter] ?? 0) + $valueCounter;
-                    }
-                }
-            }
-
-            if (count($indicatorData['constants']) == 1) {
-                $resultValue = array_sum($calculateValues);
-            } else {
-                $resultValue = $this->runEval(
-                    $this->replaceConstantToValues(
-                        rule: $indicatorData['rule'],
-                        indicators: $calculateValues
-                    )
-                );
-            }
-
-            $this->calculateCounters[$type][$group][$record] = ($this->calculateCounters[$type][$group][$record] ?? 0) + $resultValue;
-
-            if ($this->template->table_type == ReportFormTemplateEntity::REPORT_TABLE_TYPE_GROUP) {
-                $this->calculateCountersAll[$type][$group] = ($this->calculateCountersAll[$type][$group] ?? 0) + $resultValue;
-            } else {
-                $this->calculateCountersAll[$type][0][$record] = ($this->calculateCountersAll[$type][0][$record] ?? 0) + $resultValue;
-            }
-
-            if ($this->template->use_grouptype) {
-                $this->calculateCountersByGroupType[$type][$this->groupsToType[$group]][$record] = ($this->calculateCountersByGroupType[$type][$this->groupsToType[$group]][$record] ?? 0) + $resultValue;
-            }
-        }
-    }
-
-    private function replaceConstantToValues(string $rule, array $indicators): string
-    {
+    private function replaceConstantToValues(
+        string $rule,
+        array $indicators
+    ): string {
         $changeRule = $rule;
 
         preg_match_all('/\"(.*?)\"/', $changeRule, $constants);
