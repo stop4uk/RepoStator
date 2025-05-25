@@ -6,10 +6,7 @@ use Yii;
 use yii\helpers\ArrayHelper;
 
 use app\components\base\BaseModel;
-use app\helpers\{
-    CommonHelper,
-    HtmlPurifier
-};
+use app\helpers\HtmlPurifier;
 use app\modules\reports\{
     entities\ReportFormTemplateEntity,
     helpers\TemplateHelper,

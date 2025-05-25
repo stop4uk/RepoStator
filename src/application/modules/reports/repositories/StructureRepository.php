@@ -14,7 +14,6 @@ use app\components\{
     base\BaseAR,
     base\BaseARInterface
 };
-use app\helpers\CommonHelper;
 use app\modules\reports\entities\ReportStructureEntity;
 
 /**

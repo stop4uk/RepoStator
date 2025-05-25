@@ -8,11 +8,9 @@ use yii\behaviors\{
     BlameableBehavior,
     TimestampBehavior
 };
-use yii\helpers\Json;
 use yii2tech\ar\softdelete\SoftDeleteBehavior;
 
 use app\components\base\BaseAR;
-use app\helpers\CommonHelper;
 use app\modules\reports\{
     models\ConstantModel,
     helpers\ConstantHelper

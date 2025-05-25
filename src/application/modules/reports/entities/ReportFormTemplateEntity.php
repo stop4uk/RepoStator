@@ -18,7 +18,6 @@ use app\components\{
     base\BaseAR,
     attachedFiles\AttachFileBehavior,
 };
-use app\helpers\CommonHelper;
 use app\modules\reports\{
     models\TemplateModel,
     helpers\TemplateHelper,

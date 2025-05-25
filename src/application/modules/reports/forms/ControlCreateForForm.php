@@ -2,11 +2,20 @@
 
 namespace app\modules\reports\forms;
 
-use app\modules\reports\{entities\ReportEntity, repositories\DataRepository, repositories\ReportRepository};
-use app\modules\users\{components\rbac\RbacHelper, repositories\GroupRepository};
 use Yii;
 use yii\base\Model;
 use yii\validators\DateValidator;
+
+use app\modules\reports\{
+    entities\ReportEntity,
+    repositories\DataRepository,
+    repositories\ReportRepository
+};
+use app\modules\users\{
+    components\rbac\RbacHelper,
+    repositories\GroupRepository
+};
+
 
 /**
  * @property int $group

@@ -10,11 +10,9 @@ use yii\behaviors\{
     TimestampBehavior
 };
 use yii\db\ActiveQuery;
-use yii\helpers\Json;
 use yii2tech\ar\softdelete\SoftDeleteBehavior;
 
 use app\components\base\BaseAR;
-use app\helpers\CommonHelper;
 use app\modules\reports\{
     models\ReportModel,
     helpers\ReportHelper

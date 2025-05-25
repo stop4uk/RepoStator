@@ -3,13 +3,9 @@
 namespace app\modules\reports\models;
 
 use Yii;
-use yii\helpers\Json;
 
 use app\components\base\BaseModel;
-use app\helpers\{
-    CommonHelper,
-    HtmlPurifier
-};
+use app\helpers\HtmlPurifier;
 use app\modules\reports\{
     entities\ReportConstantEntity,
     entities\ReportConstantRuleEntity,
