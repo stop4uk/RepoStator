@@ -250,7 +250,7 @@ final class AttachFileBehavior extends Behavior
     public function getCanFilesToAttach(): array
     {
         $files = $this->getFilesInDB()
-            ?: Yii::$app->getSession()->get($this->sessionKey);
+            ?: Yii::$app->getSession()->get(AttachFileHelper::getSessionKey($this->owner::class));
 
         if ($files) {
             $countsByType = [];
@@ -304,7 +304,7 @@ final class AttachFileBehavior extends Behavior
     {
         $files = $this->getFilesInDB($type);
         if (!$files) {
-            $files = Yii::$app->getSession()->get($this->sessionKey) ?: [];
+            $files = Yii::$app->getSession()->get(AttachFileHelper::getSessionKey($this->owner::class)) ?: [];
         }
 
         return $files;

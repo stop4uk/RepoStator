@@ -20,7 +20,7 @@ use app\components\attachedFiles\{
  * @var string $uploadButtonTitle Текст кнопки загрузки файла
  * @var string $uploadButtonOptions Классы для кнопки загрузки
  * @var bool $showFileAsImage Отображать файл в виде фотографии
- * @var bool $isNewRecord когда загрузка осуществляется до сохранения привязанной записи в БД
+ * @var bool $loadInSession когда загрузка осуществляется до сохранения привязанной записи в БД
  * @var string $uploadButtonHintText Текст описание для кнопки загрузки
  * @var string $sessionKey Ключ параметра в пользовательской сессии со списком файлов
  * @var \yii\db\BaseActiveRecord $parentModel Модель, к которой привязывается виджет
@@ -66,7 +66,7 @@ JS);
                         'modelClass' => $parentModel::class,
                         'modelKey' => (string)$parentModel->{$parentModel->modelKey},
                         'modelType'  => $type,
-                        'isNewRecord' => $isNewRecord
+                        'loadInSession' => $loadInSession
                     ];
 
                     echo FileUploadWidget::widget([

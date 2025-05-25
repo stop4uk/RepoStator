@@ -82,7 +82,6 @@ final class AttachFileWidget extends Widget
             'uploadButtonOptions' => $this->uploadButtonOptions,
             'canDeleted' => $this->canDeleted,
             'showFileAsImage' => $this->showFileAsImage,
-            'isNewRecord' => $this->isNewRecord,
             'uploadButtonHintText' => $this->uploadButtonHintText,
             'dataProvider' => $this->model->getAttachedFiles(),
             'canAttached' => $this->model->getCanFilesToAttach(),
