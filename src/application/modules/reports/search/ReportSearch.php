@@ -30,6 +30,7 @@ final class ReportSearch extends Model
     public $block_minutes;
     public $hasGroupOnly;
     public $hasGroupRequired;
+    public $allow_dynamicFormSearch;
 
     public readonly bool $onlyActive;
     public readonly array $groups;
@@ -52,7 +53,7 @@ final class ReportSearch extends Model
             ['name', 'string', 'length' => [4, 64]],
             ['left_period', 'integer', 'min' => 10],
             ['block_minutes', 'integer', 'min' => 5],
-            [['hasGroupOnly', 'hasGroupRequired'], 'integer'],
+            [['hasGroupOnly', 'hasGroupRequired', 'allow_dynamicFormSearch'], 'integer'],
             [['hasGroupOnly', 'hasGroupRequired'], 'in', 'range' => array_keys($this->groups)],
             ['name', 'filter', 'filter' => fn($value) => HtmlPurifier::process($value)],
         ];
@@ -87,7 +88,8 @@ final class ReportSearch extends Model
 
         $query->andFilterWhere(['like', 'name', $this->name])
             ->andFilterWhere(['=', 'left_period', $this->left_period])
-            ->andFilterWhere(['=', 'block_minutes', $this->block_minutes]);
+            ->andFilterWhere(['=', 'block_minutes', $this->block_minutes])
+            ->andFilterWhere(['=', 'allow_dynamicForm', $this->allow_dynamicFormSearch]);
 
         if ($this->hasGroupOnly) {
             $query->andFilterWhere(['REGEXP', 'groups_only', '\b' . $this->hasGroupOnly . '\b']);

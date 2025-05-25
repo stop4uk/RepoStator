@@ -40,4 +40,5 @@ return [
     'Роли доступа' => 'Access Roles',
     'ФИО' => 'FULL NAME',
     'Подтверждение пароля' => 'Password Confirmation',
+    'Разрешена статистика без шаблона' => 'Statistics without a template are allowed.'
 ];

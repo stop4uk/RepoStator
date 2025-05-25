@@ -33,6 +33,7 @@ final class ReportHelper
 
             'hasGroupOnly' => Yii::t('models', 'Ограничен группой'),
             'hasGroupRequired' => Yii::t('models', 'Ожидает группу'),
+            'allow_dynamicFormSearch' => Yii::t('models', 'Разрешена статистика без шаблона')
         ];
     }
 }

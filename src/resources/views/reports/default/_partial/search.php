@@ -28,7 +28,7 @@ $resource = Url::to(['/reports']);
         ]); ?>
         <div class="row">
             <div class="col-12 col-md-7 col-xl-4">
-                <?= $form->field($searchModel, 'name'); ?>
+                <?= $form->field($searchModel, 'name')->hint($form->field($searchModel, 'allow_dynamicFormSearch')->checkbox()); ?>
             </div>
             <div class="col-12 col-md-5 col-xl-4">
                 <?= $form->field($searchModel, 'hasGroupOnly')->widget(Select2::class, [
