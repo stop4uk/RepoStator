@@ -2,8 +2,6 @@
 
 namespace app\modules\reports\components\formReport\dto;
 
-use app\components\base\BaseARInterface;
-
 /**
  * @property string $name
  * @property int $report_id

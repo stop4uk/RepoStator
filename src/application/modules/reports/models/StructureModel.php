@@ -2,16 +2,20 @@
 
 namespace app\modules\reports\models;
 
+use Yii;
+
 use app\components\base\BaseModel;
-use app\helpers\{CommonHelper, HtmlPurifier};
-use app\modules\reports\{entities\ReportStructureEntity,
+use app\helpers\HtmlPurifier;
+use app\modules\reports\{
+    entities\ReportStructureEntity,
     helpers\StructureHelper,
     repositories\ConstantRepository,
     repositories\ReportRepository,
     repositories\StructureRepository};
-use app\modules\users\{components\rbac\RbacHelper, repositories\GroupRepository};
-use Yii;
-use yii\helpers\Json;
+use app\modules\users\{
+    components\rbac\RbacHelper,
+    repositories\GroupRepository
+};
 
 /**
  * @property int report_id
@@ -67,7 +71,7 @@ final class StructureModel extends BaseModel
     public function init()
     {
         if ($this->content) {
-            $arrayData = Json::decode($this->content);
+            $arrayData = $this->content;
             $this->contentGroups = $arrayData['groups'];
             $this->contentConstants = $arrayData['constants'];
         }

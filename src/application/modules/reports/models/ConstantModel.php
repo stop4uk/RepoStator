@@ -2,15 +2,17 @@
 
 namespace app\modules\reports\models;
 
+use Yii;
 use app\components\base\BaseModel;
-use app\helpers\{CommonHelper, HtmlPurifier};
-use app\modules\reports\{entities\ReportConstantEntity,
+use app\helpers\HtmlPurifier;
+use app\modules\reports\{
+    entities\ReportConstantEntity,
     entities\ReportConstantRuleEntity,
     helpers\ConstantHelper,
-    repositories\ReportRepository};
+    repositories\ReportRepository
+};
 use app\modules\users\components\rbac\RbacHelper;
-use Yii;
-use yii\helpers\Json;
+
 
 /**
  * @property string $record

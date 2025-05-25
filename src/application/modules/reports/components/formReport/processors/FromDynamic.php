@@ -14,7 +14,6 @@ use PhpOffice\PhpSpreadsheet\{
     Writer\Xlsx
 };
 
-use app\helpers\CommonHelper;
 use app\modules\reports\{
     components\formReport\base\BaseProcessor,
     entities\ReportFormTemplateEntity,

@@ -2,20 +2,34 @@
 
 namespace app\modules\reports\controllers;
 
-use app\actions\{CreateEditAction, DeleteAction, EnableAction, IndexAction, ViewAction};
-use app\components\{base\BaseAR, base\BaseController};
-use app\modules\reports\{entities\ReportConstantEntity,
-    models\ConstantModel,
-    repositories\ConstantRepository,
-    search\ConstantSearch,
-    services\ConstantService};
-use app\modules\users\components\rbac\items\Permissions;
-use app\widgets\repeater\actions\AddAction;
-use app\widgets\repeater\actions\DeleteAction as RepeaterDeleteAction;
 use Yii;
 use yii\filters\AccessControl;
 use yii\helpers\Url;
 use yii\web\Response;
+
+use app\actions\{
+    CreateEditAction,
+    DeleteAction,
+    EnableAction,
+    IndexAction,
+    ViewAction
+};
+use app\components\{
+    base\BaseAR,
+    base\BaseController
+};
+use app\widgets\repeater\actions\{
+    AddAction,
+    DeleteAction as RepeaterDeleteAction
+};
+use app\modules\reports\{
+    entities\ReportConstantEntity,
+    models\ConstantModel,
+    repositories\ConstantRepository,
+    search\ConstantSearch,
+    services\ConstantService
+};
+use app\modules\users\components\rbac\items\Permissions;
 
 /**
  * @author Stop4uk <stop4uk@yandex.ru>

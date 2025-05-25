@@ -2,20 +2,36 @@
 
 namespace app\modules\reports\controllers;
 
-use app\actions\{CreateEditAction, DeleteAction, EnableAction, IndexAction, ViewAction};
-use app\components\{base\BaseAR, base\BaseController};
+use yii\web\Response;
+use yii\filters\AccessControl;
+use yii\helpers\Url;
+
+use app\actions\{
+    CreateEditAction,
+    DeleteAction,
+    EnableAction,
+    IndexAction,
+    ViewAction
+};
+use app\components\{
+    base\BaseAR,
+    base\BaseController
+};
 use app\helpers\CommonHelper;
-use app\modules\reports\{entities\ReportConstantRuleEntity,
+use app\modules\reports\{
+    entities\ReportConstantRuleEntity,
     models\ConstantRuleModel,
     repositories\ConstantRepository,
     repositories\ConstantruleRepository,
     repositories\ReportRepository,
     search\ConstantruleSearch,
     services\ConstantruleService};
-use app\modules\users\{components\rbac\items\Permissions, components\rbac\RbacHelper, repositories\GroupRepository};
-use yii\filters\AccessControl;
-use yii\helpers\Url;
-use yii\web\Response;
+use app\modules\users\{
+    components\rbac\items\Permissions,
+    components\rbac\RbacHelper,
+    repositories\GroupRepository
+};
+
 
 /**
  * @author Stop4uk <stop4uk@yandex.ru>

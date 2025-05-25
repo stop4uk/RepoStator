@@ -2,22 +2,39 @@
 
 namespace app\modules\reports\controllers;
 
-use app\actions\{CreateEditAction, DeleteAction, EnableAction, IndexAction, ViewAction};
-use app\components\{base\BaseAR, base\BaseController};
-use app\helpers\CommonHelper;
-use app\modules\reports\{entities\ReportStructureEntity,
+use yii\web\Response;
+use yii\filters\AccessControl;
+use yii\helpers\Url;
+
+use app\actions\{
+    CreateEditAction,
+    DeleteAction,
+    EnableAction,
+    IndexAction,
+    ViewAction
+};
+use app\components\{
+    base\BaseAR,
+    base\BaseController
+};
+use app\widgets\repeater\actions\{
+    AddAction,
+    DeleteAction as RepeaterDeleteAction
+};
+use app\modules\reports\{
+    entities\ReportStructureEntity,
     models\StructureModel,
     repositories\ConstantRepository,
     repositories\ReportRepository,
     repositories\StructureRepository,
     search\StructureSearch,
-    services\StructureService,};
-use app\modules\users\{components\rbac\items\Permissions, components\rbac\RbacHelper, repositories\GroupRepository};
-use app\widgets\repeater\actions\AddAction;
-use app\widgets\repeater\actions\DeleteAction as RepeaterDeleteAction;
-use yii\filters\AccessControl;
-use yii\helpers\Url;
-use yii\web\Response;
+    services\StructureService
+};
+use app\modules\users\{
+    components\rbac\items\Permissions,
+    components\rbac\RbacHelper,
+    repositories\GroupRepository
+};
 
 /**
  * @author Stop4uk <stop4uk@yandex.ru>

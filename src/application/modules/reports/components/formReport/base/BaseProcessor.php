@@ -4,10 +4,7 @@ namespace app\modules\reports\components\formReport\base;
 
 use Yii;
 use yii\base\Component;
-use yii\helpers\{
-    ArrayHelper,
-    Json
-};
+use yii\helpers\ArrayHelper;
 use PhpOffice\PhpSpreadsheet\{
     Reader\IReader,
     Spreadsheet,

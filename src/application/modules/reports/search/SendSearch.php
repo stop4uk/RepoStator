@@ -6,10 +6,7 @@ use yii\base\Model;
 use yii\data\ActiveDataProvider;
 use yii\helpers\ArrayHelper;
 
-use app\helpers\{
-    CommonHelper,
-    HtmlPurifier,
-};
+use app\helpers\HtmlPurifier;
 use app\modules\reports\{
     entities\ReportDataEntity,
     helpers\DataHelper,
@@ -20,7 +17,6 @@ use app\modules\users\{
     components\rbac\RbacHelper,
     repositories\GroupRepository
 };
-
 
 /**
  * @property string|null $name
