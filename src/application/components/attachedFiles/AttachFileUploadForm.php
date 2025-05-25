@@ -18,7 +18,7 @@ final class AttachFileUploadForm extends Model
     public $modelKey;
     public $modelType;
     public $uploadFile;
-    public bool $isNewRecord = false;
+    public bool $loadInSession = false;
 
     private ActiveRecordInterface|null $workModel = null;
 

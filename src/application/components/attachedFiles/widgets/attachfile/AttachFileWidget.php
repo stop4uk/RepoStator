@@ -2,9 +2,10 @@
 
 namespace app\components\attachedFiles\widgets\attachfile;
 
-use Yii;
 use yii\base\Widget;
 use yii\db\ActiveRecordInterface;
+
+use app\components\attachedFiles\AttachFileHelper;
 
 /**
  * @author Stop4uk <stop4uk@yandex.ru>
@@ -51,7 +52,9 @@ final class AttachFileWidget extends Widget
     /**
      * @var bool
      */
-    public $isNewRecord = false;
+    public bool $loadInSession = false;
+    public bool $showAllFiles = true;
+    public string $pjaxIDContainer = 'attachedFileList';
 
     /**
      * @var array
@@ -79,12 +82,15 @@ final class AttachFileWidget extends Widget
             'uploadButtonOptions' => $this->uploadButtonOptions,
             'canDeleted' => $this->canDeleted,
             'showFileAsImage' => $this->showFileAsImage,
-            'filesGridColumns' => $this->filesGridColumns,
             'isNewRecord' => $this->isNewRecord,
             'uploadButtonHintText' => $this->uploadButtonHintText,
             'dataProvider' => $this->model->getAttachedFiles(),
             'canAttached' => $this->model->getCanFilesToAttach(),
-            'sessionKey' => implode('_', [Yii::$app->controller->getUniqueId(), Yii::$app->getUser()->id])
+            'loadInSession' => $this->loadInSession,
+            'showAllFiles' => $this->showAllFiles,
+            'filesGridColumns' => $this->filesGridColumns,
+            'sessionKey' => AttachFileHelper::getSessionKey($this->model::class),
+            'pjaxIDContainer' => $this->pjaxIDContainer,
         ]);
     }
 }

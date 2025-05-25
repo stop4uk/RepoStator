@@ -46,14 +46,13 @@ final class AttachFileBehavior extends Behavior
     public $modelKey;
     public $attachRules;
 
-    private int $userID;
-    private string $sessionKey;
     private $filesInDB = null;
+    private $_session;
 
     public function init(): void
     {
         if (Yii::$app instanceof Application) {
-            $this->sessionKey = implode('_', [Yii::$app->controller->getUniqueId(), Yii::$app->getUser()->id]);
+            $this->_session = Yii::$app->session;
         }
 
         parent::init();
@@ -96,7 +95,8 @@ final class AttachFileBehavior extends Behavior
         string|null $extension = null,
         string|null $mime = null,
         string|int|null $size = null,
-        bool $unlinkFile = true
+        bool $unlinkFile = true,
+        array $additionalParams = []
     ): bool {
         $fileData = $this->parseFileData($inputFile, $name, $extension, $mime, $size);
         $key = (string)$this->owner->{$this->modelKey};
@@ -109,7 +109,7 @@ final class AttachFileBehavior extends Behavior
         $file_version = $lastAttachedFile ? ($lastAttachedFile->file_version+1) : 1;
 
         if ($saveFile) {
-            $model = new AttachFileEntity([
+            $model = new AttachFileModel([
                 'storage' => $this->storageID,
                 'name' => $fileData['nameOrig'],
                 'modelName' => $this->modelName,
@@ -124,6 +124,14 @@ final class AttachFileBehavior extends Behavior
                 'file_version' => $file_version,
                 'file_status' => AttachFileHelper::FSTATUS_ACTIVE,
             ]);
+
+            if ($additionalParams) {
+                foreach ($additionalParams as $key => $value) {
+                    if ($model->hasAttribute($key)) {
+                        $model->{$key} = $value;
+                    }
+                }
+            }
 
             if ($model->save()) {
                 if ($unlinkFile) {

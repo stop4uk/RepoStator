@@ -4,6 +4,7 @@ namespace app\components\attachedFiles;
 
 use Yii;
 use yii\base\Exception;
+use yii\web\Application;
 use yii\helpers\ArrayHelper;
 
 /**
@@ -92,5 +93,14 @@ final class AttachFileHelper
         } catch (Exception $e) {
             return false;
         }
+    }
+
+    public static function getSessionKey(string|null $modelName = null): string
+    {
+        if (Yii::$app instanceof Application) {
+            return implode('_', [($modelName ? str_replace('\\', '_', $modelName) : '') . 'sUpload', Yii::$app->getUser()->getId()]);
+        }
+
+        return 'sUploadConsole';
     }
 }
