@@ -5,7 +5,6 @@ services:
     restart: always
     ports:
       - ${WEB_PORT_HTTP}:80
-      - ${WEB_PORT_HTTP_TEST}:88
       - ${WEB_PORT_HTTPS}:443
     depends_on:
       - web
@@ -31,23 +30,6 @@ services:
     environment:
       MYSQL_DATABASE: ${DB_NAME}
       MYSQL_ROOT_PASSWORD: ${DB_PASS}
-      MYSQL_ALLOW_EMPTY_PASSWORD: 'yes'
-    networks:
-      - repostator
-  mysqltest:
-    image: "mysql:5.7"
-    restart: always
-    container_name: ${PROJECT_NAME}-mysqltest
-    ports:
-      - ${TESTDB_PORT}:${TESTDB_PORT}
-    volumes:
-      - ./docker/config/mysql-custom.cnf:/etc/mysql/conf.d/custom.cnf
-      - ./docker/runtime/db_test:/var/lib/mysql
-      - ./docker/runtime/logs/mysql_test:/var/log
-    environment:
-      MYSQL_TCP_PORT: ${TESTDB_PORT}
-      MYSQL_DATABASE: ${TESTDB_NAME}
-      MYSQL_ROOT_PASSWORD: ${TESTDB_PASS}
       MYSQL_ALLOW_EMPTY_PASSWORD: 'yes'
     networks:
       - repostator
@@ -96,18 +78,6 @@ services:
     ports:
       - ${MAIL_PORT}:1025
       - 8025:8025
-    networks:
-      - repostator
-  selenium:
-    image: selenium/standalone-firefox:latest
-    hostname: selenium,
-    ports:
-      - '4444:4444'
-      - '5900:5900'
-    shm_size: 1g
-    privileged: true
-    volumes:
-      - ./src:/var/www/html
     networks:
       - repostator
 networks:

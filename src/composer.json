@@ -30,18 +30,7 @@
     "require-dev": {
         "yiisoft/yii2-debug": "~2.1.0",
         "yiisoft/yii2-gii": "~2.2.0",
-        "yiisoft/yii2-faker": "~2.0.0",
         "insolita/yii2-migration-generator": "^3.2",
-        "symfony/browser-kit": "*",
-        "elisdn/yii2-gii-fixture-generator": "^1.1",
-        "codeception/codeception": "*",
-        "codeception/module-asserts": "*",
-        "codeception/module-yii2": "^1.1.10",
-        "codeception/module-filesystem": "*",
-        "codeception/verify": "*",
-        "codeception/module-rest": "*",
-        "codeception/module-phpbrowser": "*",
-        "codeception/module-webdriver": "^4.0"
     },
     "autoload": {
         "psr-4": {
