@@ -22,6 +22,7 @@ use app\components\{
 use app\modules\{
     users\Module as UsersModule,
     reports\Module as ReportsModule,
+    forms\Module as FormsModule,
     admin\Module as AdminModule
 };
 
@@ -54,6 +55,10 @@ return [
         'reports' => [
             'class' => ReportsModule::class,
             'viewPath' => '@resources/views/reports',
+        ],
+        'forms' => [
+            'class' => FormsModule::class,
+            'viewPath' => '@resources/views/forms',
         ],
         'admin' => [
             'class' => AdminModule::class,

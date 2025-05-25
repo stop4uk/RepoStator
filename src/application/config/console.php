@@ -27,12 +27,9 @@ $config = [
             'class' => MigrateController::class,
             'migrationNamespaces' => [
                 'app\modules\users\migrations',
-                'app\modules\reports\migrations'
+                'app\modules\reports\migrations',
+                'app\modules\forms\migrations',
             ],
-        ],
-        'fixture' => [
-            'class' => FixtureController::class,
-            'namespace' => 'root\tests\fixtures',
         ],
     ],
     'components' => [
