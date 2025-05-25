@@ -221,7 +221,10 @@ final class ConstantruleController extends BaseController
             $reports  = [$report_id => $report_id];
             if ($reportInformation && $reportInformation->groups_only) {
                 $groups = array_filter($groupsCanSent, function($key) use ($reportInformation) {
-                    return in_array($key, CommonHelper::explodeField($reportInformation->groups_only));
+                    return (
+                        (!is_array($reportInformation->groups_only) && $reportInformation->groups_only == $key)
+                        || in_array($key, $reportInformation->groups_only)
+                    );
                 }, ARRAY_FILTER_USE_KEY);
             }
         } else {

@@ -31,8 +31,8 @@ final class TemplateDTO
     public int|null $use_appg;
     public int|null $use_grouptype;
     public int|null $table_type;
-    public string|null $table_rows = null;
-    public string|null $table_columns = null;
+    public array|string|null $table_rows = null;
+    public array|string|null $table_columns = null;
     public int $limit_maxfiles = 0;
     public int $limit_maxsavetime = 0;
 

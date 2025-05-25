@@ -91,19 +91,6 @@ final class TemplateModel extends BaseModel
         parent::__construct($entity, $config);
     }
 
-    public function init()
-    {
-        if ($this->table_rows) {
-            $this->table_rows = CommonHelper::explodeField($this->table_rows);
-        }
-
-        if ($this->table_columns) {
-            $this->table_columns = CommonHelper::explodeField($this->table_columns);
-        }
-
-        parent::init();
-    }
-
     public function rules(): array
     {
         return [

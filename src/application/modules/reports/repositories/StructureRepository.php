@@ -142,7 +142,12 @@ final class StructureRepository implements BaseRepositoryInterface
 
         if ($structures) {
             foreach ($structures as $struct) {
-                if ($struct->groups_only && in_array($group, CommonHelper::explodeField($struct->groups_only))) {
+                if ($struct->groups_only
+                    && (
+                        (!is_array($struct->groups_only) && $group == $struct->groups_only)
+                        || in_array($group, $struct->groups_only)
+                    )
+                ) {
                     return $struct;
                 }
             }

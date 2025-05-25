@@ -67,7 +67,10 @@ final class ConstantRuleModel extends BaseModel
 
             if ($reportInformation && $reportInformation->groups_only) {
                 $groups = array_filter($groupsCanSent, function($key) use ($reportInformation) {
-                    return in_array($key, CommonHelper::explodeField($reportInformation->groups_only));
+                    return (
+                        (!is_array($reportInformation->groups_only) && $key == $reportInformation->groups_only)
+                        || in_array($key, $reportInformation->groups_only)
+                    );
                 }, ARRAY_FILTER_USE_KEY);
             }
         } else {
@@ -93,19 +96,14 @@ final class ConstantRuleModel extends BaseModel
 
     public function init(): void
     {
-        if ($this->groups_only) {
-            $this->groups_only = CommonHelper::explodeField($this->groups_only);
-        }
-
-        if ($this->description) {
-            $this->description = Json::decode($this->description);
-        }
-
         if (!$this->isNewEntity && $this->groups_only) {
             $reportData = ReportRepository::get($this->report_id);
             if ($reportData->groups_only) {
                 foreach ($this->groups as $group => $name) {
-                    if (!in_array($group, CommonHelper::explodeField($reportData->groups_only))) {
+                    if (
+                        (!is_array($reportData->groups_only) && $reportData->groups_only != $group)
+                        ||  !in_array($group, $reportData->groups_only)
+                    ) {
                         unset($this->groups[$group]);
                     }
                 }

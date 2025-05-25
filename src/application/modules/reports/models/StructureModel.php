@@ -72,15 +72,14 @@ final class StructureModel extends BaseModel
             $this->contentConstants = $arrayData['constants'];
         }
 
-        if ($this->groups_only) {
-            $this->groups_only = CommonHelper::explodeField($this->groups_only);
-        }
-
         if (!$this->isNewEntity && $this->groups_only) {
             $reportData = ReportRepository::get($this->report_id);
             if ($reportData->groups_only) {
                 foreach ($this->groups as $group => $name) {
-                    if (!in_array($group, CommonHelper::explodeField($reportData->groups_only))) {
+                    if (
+                        (!is_array($reportData->groups_only) && $reportData->groups_only != $group)
+                        ||  !in_array($group, $reportData->groups_only)
+                    ) {
                         unset($this->groups[$group]);
                     }
                 }
@@ -143,7 +142,7 @@ final class StructureModel extends BaseModel
                 }
 
                 if (isset($reportData) && $reportData->groups_only) {
-                    if (!in_array($group, CommonHelper::explodeField($reportData->groups_only))) {
+                    if (!in_array($group, $reportData->groups_only)) {
                         $this->addError('groups_only', Yii::t('models_error', 'Одна из указанных групп, а именно, ' .
                             '"{name}", не может быть выбрана, так как отчет, для которого строится структура не поддерживает ее.', [
                             'name' => $this->groups[$group]
@@ -190,7 +189,12 @@ final class StructureModel extends BaseModel
                 ) {
                     $haveGroups = [];
                     foreach ($resultQuery['withOnly'] as $structID => $list) {
-                        $haveGroups += CommonHelper::explodeField($list);
+                        if (is_array($list)) {
+                            $haveGroups += $list;
+                            continue;
+                        }
+
+                        $haveGroups[] = $list;
                     }
 
                     $haveGroups = array_unique($haveGroups);
@@ -230,7 +234,7 @@ final class StructureModel extends BaseModel
         $haveError = false;
 
         foreach ($this->contentConstants as $constants) {
-            if (is_string($constants)) {
+            if (!is_array($constants)) {
                 $haveError = true;
                 $this->addError("contentConstants", Yii::t('models_error', 'Заполните содержимое ' .
                     'раздела в структуре или, удалите раздел'));
@@ -249,7 +253,7 @@ final class StructureModel extends BaseModel
             }
 
             foreach ($constants as $constant) {
-                if (!is_string($constant)) {
+                if (!!is_array($constant)) {
                     $haveError = true;
                     $this->addError("contentConstants", Yii::t('models_error', 'В структуре {id} ' .
                         'присутствует неверная константа', ['id' => $key]));

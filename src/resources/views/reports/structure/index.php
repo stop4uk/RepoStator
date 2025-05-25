@@ -70,7 +70,7 @@ $this->title = Yii::t('views', 'Список структур');
                         'headerOptions' => ['style' => 'min-width: 12rem; width: 10%'],
                         'value' => function($data) {
                             if ($data->record_status) {
-                                $dataContent = Json::decode($data->content);
+                                $dataContent = $data->content;
                                 $counts = ['groups' => count($dataContent['groups']), 'constants' => 0];
 
                                 foreach ($dataContent['constants'] as $groupItems) {

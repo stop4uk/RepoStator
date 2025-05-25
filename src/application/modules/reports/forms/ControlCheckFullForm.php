@@ -112,12 +112,22 @@ final class ControlCheckFullForm extends Model
 
             if ($resultQuery = $query->all()) {
                 $allowGroups = Yii::$app->getUser()->getIdentity()->groups;
-                $requiredGroups = CommonHelper::explodeField($this->reportData->groups_required);
+                $requiredGroups = $this->reportData->groups_required;
                 $haveReports = ArrayHelper::map($resultQuery, 'id', 'group_id');
 
-                foreach ($requiredGroups as $group) {
-                    if (!in_array($group, $haveReports) &&  isset($allowGroups[$group])) {
-                        $result[] = $allowGroups[$group];
+                if ($requiredGroups) {
+                    if (
+                        !is_array($requiredGroups) &&
+                        !in_array($requiredGroups, $haveReports)
+                        && isset($allowGroups[$requiredGroups])
+                    ) {
+                        $result[] = $allowGroups[$requiredGroups];
+                    } else {
+                        foreach ($requiredGroups as $group) {
+                            if (!in_array($group, $haveReports) && isset($allowGroups[$group])) {
+                                $result[] = $allowGroups[$group];
+                            }
+                        }
                     }
                 }
             }

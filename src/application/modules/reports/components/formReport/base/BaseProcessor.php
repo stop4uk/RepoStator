@@ -104,7 +104,7 @@ abstract class BaseProcessor extends Component
             foreach ($data as $type => $rows) {
                 if ($rows) {
                     foreach ($rows as $sentData) {
-                        $counters = Json::decode($sentData->content);
+                        $counters = $sentData->content;
                         $clean = true;
 
                         foreach ($counters as $indicator => $value) {
@@ -125,7 +125,7 @@ abstract class BaseProcessor extends Component
         return $this;
     }
 
-    final public function setIndicators(array $indicatorsArray): void
+    final public function setIndicators(array|string $indicatorsArray): void
     {
         $constants = (ConstantRepository::getAllBy(['record' => $indicatorsArray], []))->all();
         $rules = (ConstantruleRepository::getAllBy(['record' => $indicatorsArray], []))->all();

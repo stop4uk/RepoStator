@@ -133,13 +133,17 @@ final class FromTemplate extends BaseProcessor
 
             foreach ($this->indicatorsRule as $ruleName) {
                 $constants = $this->indicatorsContent[$ruleName]['constants'];
-                $groups = $this->indicatorsContent[$ruleName]['groups_only']
-                    ? CommonHelper::explodeField($this->indicatorsContent[$ruleName]['groups_only'])
-                    : [];
+                $groups = $this->indicatorsContent[$ruleName]['groups_only'];
 
                 foreach ($countersData as $recordName => $counters) {
                     if (in_array($recordName, $constants)) {
-                        if (($groups && in_array($groupID, $groups)) || !$groups) {
+                        if (
+                            !$groups
+                            || (
+                                (!is_array($groups) && $groups == $groupID)
+                                || in_array($groupID, $groups)
+                            )
+                        ) {
                             $this->calculateCounters[$ruleName] = ($this->calculateCounters[$ruleName] ?? 0) + $counters['all'];
                             $this->calculateCounters[$ruleName. '#D'] = ($this->calculateCounters[$ruleName. '#D'] ?? 0) + ($counters['D'] ?? 0);
                             $this->calculateCounters[$ruleName. '#M'] = ($this->calculateCounters[$ruleName. '#M'] ?? 0) + ($counters['M'] ?? 0);

@@ -46,19 +46,6 @@ final class ConstantModel extends BaseModel
         parent::__construct($entity, $config);
     }
 
-    public function init()
-    {
-        if ($this->reports_only) {
-            $this->reports_only = CommonHelper::explodeField($this->reports_only);
-        }
-
-        if ($this->description) {
-            $this->description = Json::decode($this->description);
-        }
-
-        parent::init();
-    }
-
     public function rules(): array
     {
         return [

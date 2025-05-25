@@ -55,13 +55,14 @@ final class FromDynamic extends BaseProcessor
         };
 
         $groups = GroupRepository::getAll([]);
-        $groupsFromTemplate = CommonHelper::explodeField(
-            string: $this->template->{$inversionFind[$findColumn]}
-        );
+        $groupsFromTemplate = $this->template->{$inversionFind[$findColumn]};
 
         $this->groups = ArrayHelper::map($groups, 'id', 'name');
         foreach ($this->groups as $groupID => $groupName) {
-            if (!in_array($groupID, $groupsFromTemplate)) {
+            if (
+                (!is_array($groupsFromTemplate) && $groupsFromTemplate != $groupID)
+                || !in_array($groupID, $groupsFromTemplate)
+            ) {
                 unset($this->groups[$groupID]);
             }
         }
@@ -108,9 +109,7 @@ final class FromDynamic extends BaseProcessor
             }
         }
 
-        $indicatorsFromTemplate = CommonHelper::explodeField(
-            string: $this->template->{$findColumn}
-        );
+        $indicatorsFromTemplate = $this->template->{$findColumn};
 
         $this->setIndicators($indicatorsFromTemplate);
         uksort($this->indicatorsContent, function($a, $b) use ($indicatorsFromTemplate) {

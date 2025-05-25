@@ -230,7 +230,10 @@ final class StructureController extends BaseController
 
         $groups = match ((bool)$reportInformation->groups_only) {
             true => array_filter($groupsCanSent, function($key) use ($reportInformation) {
-                return in_array($key, CommonHelper::explodeField($reportInformation->groups_only));
+                return (
+                    (!is_array($reportInformation->groups_only) && $reportInformation->groups_only == $key)
+                    || in_array($key, $reportInformation->groups_only)
+                );
             }, ARRAY_FILTER_USE_KEY),
             false => $groupsCanSent
         };

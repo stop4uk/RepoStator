@@ -97,7 +97,6 @@ final class SendSearch extends Model
 
         foreach ($models as $index => $model) {
             $nowTime = time();
-            $groupsOnly = $model->groups_only ? CommonHelper::explodeField($model->groups_only) : [];
 
             $model->timePeriod = DataHelper::getTimePeriods($model, $nowTime, true);
             $model->canAddedFor = [];
@@ -121,8 +120,11 @@ final class SendSearch extends Model
                 foreach ($this->groupsCanSent as $groupId => $groupName) {
                     if (
                         (
-                            !$groupsOnly
-                            || in_array($groupId, $groupsOnly)
+                            !$model->groups_only
+                            || (
+                                (!is_array($model->groups_only) && $model->groups_only == $groupId)
+                                || (is_array($model->groups_only) && in_array($groupId, $model->groups_only))
+                            )
                         )
                         && $canAddedNow
                     ) {

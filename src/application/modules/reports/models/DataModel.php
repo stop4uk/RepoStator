@@ -69,10 +69,6 @@ final class DataModel extends BaseModel
             foreach (['report', 'group', 'structure', 'changes', 'createdUser'] as $relation) {
                 $this->{$relation} = $this->entity->{$relation};
             }
-
-            if ($this->content) {
-                $this->content = Json::decode($this->content);
-            }
         } else {
             $this->group = GroupRepository::get($this->group_id);
             $this->report = ReportRepository::get($this->report_id);
@@ -83,7 +79,7 @@ final class DataModel extends BaseModel
 
         if ($this->structure !== null) {
             $this->struct_id = $this->structure->id;
-            $this->structureContent = Json::decode($this->structure->content);
+            $this->structureContent = $this->structure->content;
         }
 
         parent::init();

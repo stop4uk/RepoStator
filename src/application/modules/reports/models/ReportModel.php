@@ -50,23 +50,6 @@ final class ReportModel extends BaseModel
         parent::__construct($entity, $config);
     }
 
-    public function init()
-    {
-        if ($this->groups_only) {
-            $this->groups_only = CommonHelper::explodeField($this->groups_only);
-        }
-
-        if ($this->groups_required) {
-            $this->groups_required = CommonHelper::explodeField($this->groups_required);
-        }
-
-        if ($this->description) {
-            $this->description = Json::decode($this->description);
-        }
-
-        parent::init();
-    }
-
     public function rules(): array
     {
         return [
