@@ -90,17 +90,6 @@ final class ReportDataChangeEntity extends BaseAR
         return $this->hasOne(UserEntity::class, ['id' => 'created_uid']);
     }
 
-    public function beforeSave($insert): bool
-    {
-        if ($this->scenario != self::SCENARIO_CHANGE_RECORD_STATUS) {
-            if ($this->content) {
-                $this->content = Json::encode($this->content);
-            }
-        }
-
-        return parent::beforeSave($insert);
-    }
-
     public static function tableName(): string
     {
         return '{{%reports_data_changes}}';
