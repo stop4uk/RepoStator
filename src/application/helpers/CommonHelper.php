@@ -105,16 +105,6 @@ final class CommonHelper
         return (int)$notCleanAttributes;
     }
 
-    public static function explodeField(string $string): array
-    {
-        return explode(', ', $string);
-    }
-
-    public static function implodeField(array $array): string
-    {
-        return implode(', ', $array);
-    }
-
     public static function getDefaultDropdown(): array
     {
         return [
