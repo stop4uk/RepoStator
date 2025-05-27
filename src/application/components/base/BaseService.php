@@ -8,8 +8,6 @@ use yii\base\{
     Exception
 };
 
-use app\helpers\CommonHelper;
-
 /**
  * @author Stop4uk <stop4uk@yandex.ru>
  * @package app\componetns\base
@@ -25,9 +23,9 @@ class BaseService extends Component implements BaseServiceInterface
         $entity->recordAction($model);
 
         $transaction = $entity::getDb()->beginTransaction();
-        if ($saveModel = CommonHelper::saveAttempt($entity, $categoryForLog)) {
+        if ($entity->save(logCategory: $categoryForLog)) {
             $transaction->commit();
-            return $saveModel;
+            return $entity;
         }
 
         $transaction->rollBack();
@@ -56,7 +54,7 @@ class BaseService extends Component implements BaseServiceInterface
         $entity->record_status = BaseAR::RSTATUS_ACTIVE;
 
         $transaction = $entity::getDb()->beginTransaction();
-        if (CommonHelper::saveAttempt($entity, 'Application')) {
+        if ($entity->save(logCategory: 'Application')) {
             $transaction->commit();
             return true;
         }

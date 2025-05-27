@@ -29,7 +29,6 @@ final class CommonHelper
 {
     const VAR_YES = 1;
     const VAR_NO = 0;
-
     const VALUES = [
         self::VAR_NO,
         self::VAR_YES
@@ -69,24 +68,6 @@ final class CommonHelper
         }
 
         return $post;
-    }
-
-    public static function saveAttempt(
-        BaseAR $entity,
-        string $category,
-        bool $validate = true
-    ): BaseAR|bool {
-        try {
-            if ($entity->validate() && $entity->save($validate)) {
-                return $entity;
-            }
-
-            Yii::error($entity->getErrors(), $category);
-        } catch (Exception $e) {
-            Yii::error($e->getMessage(), $category);
-        }
-
-        return false;
     }
 
     public static function getDataShowAttribute($model): int

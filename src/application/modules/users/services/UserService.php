@@ -11,7 +11,6 @@ use app\components\base\{
     BaseAR,
     BaseService,
 };
-use app\helpers\CommonHelper;
 use app\modules\users\{
     events\objects\UserEvent,
     entities\UserGroupEntity,
@@ -44,7 +43,7 @@ final class UserService extends BaseService
         }
 
         $transaction = $model->getEntity()::getDb()->beginTransaction();
-        if (CommonHelper::saveAttempt($model->getEntity(), 'Users.Profile')) {
+        if ($model->getEntity()->save(logCategory: 'Users.Profile')) {
             if ($this->afterSave($model)) {
                 $transaction->commit();
 
@@ -104,7 +103,7 @@ final class UserService extends BaseService
         $entity->account_status = $entity::STATUS_ACTIVE;
 
         $transaction = $entity::getDb()->beginTransaction();
-        if (CommonHelper::saveAttempt($entity, 'Users')) {
+        if ($entity->save(logCategory: 'Users')) {
             $transaction->commit();
             return true;
         }

@@ -12,7 +12,6 @@ use app\components\{
     base\BaseARInterface,
 
 };
-use app\helpers\CommonHelper;
 use app\modules\reports\entities\ReportDataChangeEntity;
 
 /**
@@ -28,15 +27,10 @@ final class ControlService extends BaseService
 
         $transaction = Yii::$app->db->beginTransaction();
 
-        if (
-            $saveEntity = CommonHelper::saveAttempt(
-                entity: $model->getEntity(),
-                category: 'Reports.Control'
-            )
-        ) {
+        if ($model->getEntity()->save(logCategory: 'Reports.Control')) {
             if ($this->afterEdit($model, $changeData)) {
                 $transaction->commit();
-                return $saveEntity;
+                return $model->getEntity();
             }
         }
 

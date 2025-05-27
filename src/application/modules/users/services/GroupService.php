@@ -11,7 +11,6 @@ use app\components\base\{
     BaseARInterface,
     BaseService,
 };
-use app\helpers\CommonHelper;
 use app\modules\users\entities\GroupNestedEntity;
 
 /**
@@ -29,15 +28,10 @@ final class GroupService extends BaseService
         $model->getEntity()->recordAction($model);
 
         $transaction = Yii::$app->db->beginTransaction();
-        if (
-            $saveModel = CommonHelper::saveAttempt(
-                entity: $model->getEntity(),
-                category: $categoryForLog
-            )
-        ) {
+        if ($model->getEntity()->save(logCategory: $categoryForLog)) {
             if ($this->afterSave($model, $newEntity)) {
                 $transaction->commit();
-                return $saveModel;
+                return $model->getEntity();
             }
         }
 
@@ -76,9 +70,6 @@ final class GroupService extends BaseService
         $nested->group_id = $model->getEntity()->id;
         $nested->appendTo($parent);
 
-        return (bool)CommonHelper::saveAttempt(
-            entity: $nested,
-            category: 'Groups'
-        );
+        return $nested->save(logCategory: 'Groups');
     }
 }

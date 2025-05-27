@@ -14,7 +14,6 @@ use app\components\{
     base\BaseAR,
     attachedFiles\AttachFileHelper,
 };
-use app\helpers\CommonHelper;
 use app\modules\reports\{
     helpers\JobHelper,
     events\StatisticEvent,
@@ -128,7 +127,7 @@ class ReportFormJobEntity extends BaseAR
         }
 
         if (
-            CommonHelper::saveAttempt($this, 'Reports.Jobs')
+            $this->save(logCategory: 'Reports.Jobs')
             && Yii::$app->settings->get('report', 'notification_tComplete')
         ) {
             $this->trigger(self::EVENT_AFTER_COMPLETE, new StatisticEvent([
@@ -143,7 +142,7 @@ class ReportFormJobEntity extends BaseAR
     {
         $this->job_status = self::STATUS_ERROR;
         if (
-            CommonHelper::saveAttempt($this, 'Reports.Jobs')
+            $this->save(logCategory: 'Reports.Jobs')
             && Yii::$app->settings->get('report', 'notification_tError')
         ) {
             $this->trigger(self::EVENT_AFTER_ERROR, new StatisticEvent([

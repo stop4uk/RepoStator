@@ -12,7 +12,6 @@ use app\components\{
     base\BaseARInterface,
     base\BaseService,
 };
-use app\helpers\CommonHelper;
 use app\modules\reports\models\TemplateModel;
 
 /**
@@ -31,43 +30,17 @@ final class TemplateService extends BaseService
      */
     public function save($model, $categoryForLog = null, $errorMessage = null): BaseARInterface
     {
-        $isNewRecordWhenLoad = $model->getIsNewEntity();
-        $session = Yii::$app->getSession();
-        $sessionKey = implode('_', [Yii::$app->controller->getUniqueId(), Yii::$app->getUser()->id]);
-        $sessionFiles = $session->get($sessionKey);
-
         $model->getEntity()->recordAction($model);
         $transaction = Yii::$app->db->beginTransaction();
-        if ($saveEntity = CommonHelper::saveAttempt($model->getEntity(), 'Reports.Template')) {
-            $saveTemplate = true;
+        if ($model->getEntity()->save(logCategory: 'Reports.Template')) {
+            try {
+                $model->getEntity()->attachFileFromSession();
+                $transaction->commit();
 
-            if ($isNewRecordWhenLoad && $sessionFiles) {
-                foreach ($sessionFiles as $file) {
-                    $saveFile = $model->getEntity()->attachFile(
-                        inputFile: $file['fullPath'],
-                        type: $file['file_type']
-                            ?: array_key_first($model->getEntity()->attachRules),
-                        name: $file['name'],
-                        extension: $file['extension'],
-                        unlinkFile: false
-                    );
-
-                    if (!$saveFile) {
-                        $saveTemplate = false;
-                        break;
-                    }
-                }
+                return $model->getEntity();
+            } catch(ErrorException $e) {
+                Yii::error($e->getMessage(), 'Reports.Template');
             }
-
-            if($saveTemplate && $sessionFiles) {
-                foreach ($sessionFiles as $sessionFile) {
-                    try{unlink($sessionFile['fullPath']);} catch (ErrorException $e){}
-                }
-                $session->remove($sessionKey);
-            }
-
-            $transaction->commit();
-            return $saveEntity;
         }
 
         $transaction->rollBack();

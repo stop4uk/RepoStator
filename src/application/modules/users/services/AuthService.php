@@ -15,7 +15,6 @@ use app\components\{
     base\BaseARInterface,
     base\BaseAR,
 };
-use app\helpers\CommonHelper;
 use app\modules\users\{
     components\Identity,
     components\rbac\items\Roles,
@@ -83,33 +82,28 @@ final class AuthService extends Component implements BaseServiceInterface
         $entity->recordAction($model);
         $transaction = Yii::$app->db->beginTransaction();
 
-        if (
-            $newUser = CommonHelper::saveAttempt(
-                entity: $entity,
-                category: 'Users.Signup'
-            )
-        ) {
+        if ($entity->save(logCategory: 'Users.Signup')) {
             $rightModel = new UserRightEntity();
             $rightModel->item_name = Roles::ROLE_DATASEND;
-            $rightModel->user_id = $newUser->id;
+            $rightModel->user_id = $entity->id;
             $rightModel->created_at = time();
             $rightModel->created_uid = 1;
             if ($rightModel->save(false)) {
                 $transaction->commit();
 
                 $this->trigger(self::EVENT_AFTER_REGISTER, new AuthEvent([
-                    'user' => $newUser,
+                    'user' => $entity,
                     'request' => $request
                 ]));
 
                 if (
                     Yii::$app->settings->get('auth', 'login_withoutVerification')
-                    && !$this->loginProcess($newUser)
+                    && !$this->loginProcess($entity)
                 ) {
                     throw new Exception(Yii::t('exceptions', 'Регистрация успешно завершена, однако, в процессе авторизации возникли ошибки'), 500);
                 }
 
-                return $newUser;
+                return $entity;
             }
         }
 
@@ -152,7 +146,7 @@ final class AuthService extends Component implements BaseServiceInterface
             $user->password = $model->password;
             $user->account_key = Yii::$app->getSecurity()->generateRandomString();
 
-            if (CommonHelper::saveAttempt($user, 'Users.Auth')) {
+            if ($user->save(logCategory: 'Users.Auth')) {
                 return true;
             }
         }
@@ -196,7 +190,7 @@ final class AuthService extends Component implements BaseServiceInterface
         if ($user) {
             $user->account_status = UserEntity::STATUS_ACTIVE;
             $user->account_key = Yii::$app->getSecurity()->generateRandomString(32);
-            if (CommonHelper::saveAttempt($user, 'Users.Auth')) {
+            if ($user->save(logCategory: 'Users.Auth')) {
                 return true;
             }
         }
@@ -219,11 +213,11 @@ final class AuthService extends Component implements BaseServiceInterface
             $request->record_status = BaseAR::RSTATUS_DELETED;
             $transaction = Yii::$app->db->beginTransaction();
 
-            if (CommonHelper::saveAttempt($request, 'Users.InitialData'))  {
+            if ($request->save(logCategory: 'Users.InitialData'))  {
                 $user = UserRepository::get($request->user_id);
                 $user->scenario = $user::SCENARIO_CHANGE_EMAIL;
                 $user->email = $request->email;
-                if (CommonHelper::saveAttempt($user, 'Users.Profile')) {
+                if ($user->save(logCategory: 'Users.Profile')) {
                     $transaction->commit();
                     return true;
                 }

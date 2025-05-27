@@ -6,7 +6,6 @@ use Yii;
 use yii\base\Exception;
 
 use app\components\base\BaseService;
-use app\helpers\CommonHelper;
 use app\modules\users\{
     events\objects\ProfileEvent,
     entities\UserEmailchangeEntity,
@@ -31,7 +30,7 @@ final class ProfileService extends BaseService
         $entity->key = Yii::$app->getSecurity()->generateRandomString(32);
 
         $user = UserRepository::get(Yii::$app->getUser()->id);
-        if (CommonHelper::saveAttempt($entity, 'Users.InitialData')) {
+        if ($entity->save(logCategory: 'Users.InitialData')) {
             $this->trigger(self::EVENT_AFTER_CHANGEEMAIL, new ProfileEvent([
                 'userName' => $user->shortName,
                 'email' => $entity->email,
@@ -69,7 +68,7 @@ final class ProfileService extends BaseService
         $entity->account_cpass_required = 0;
         $entity->recordAction($form);
 
-        if (CommonHelper::saveAttempt($entity, 'Users.InitialData')) {
+        if ($entity->save(logCategory: 'Users.InitialData')) {
             return true;
         }
 

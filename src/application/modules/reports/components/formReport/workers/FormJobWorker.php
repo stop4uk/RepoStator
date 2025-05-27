@@ -5,7 +5,6 @@ namespace app\modules\reports\components\formReport\workers;
 use Yii;
 use yii\helpers\Url;
 
-use app\helpers\CommonHelper;
 use app\modules\reports\{
     components\formReport\base\BaseWorker,
     components\formReport\jobs\FormTemplateJob,
@@ -28,7 +27,7 @@ final class FormJobWorker extends BaseWorker
             'form_period' => $this->form->period
         ]);
 
-        if (CommonHelper::saveAttempt($saveModel, 'Reports.Jobs')) {
+        if ($saveModel->save(logCategory: 'Reports.Jobs')) {
             Yii::$app->queue->push(new FormTemplateJob([
                 'processor' => $this->processor,
                 'jobID' => $jobID
