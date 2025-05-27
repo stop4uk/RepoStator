@@ -149,6 +149,42 @@ final class AttachFileBehavior extends Behavior
         return false;
     }
 
+    public function attachFileFromSession(array $additionalParams = []): void
+    {
+        $sessionKey = AttachFileHelper::getSessionKey($this->owner::class);
+        $sessionFiles = $this->_session->get($sessionKey);
+        $filesToUnlink = [];
+
+        if ($sessionFiles) {
+            foreach ($sessionFiles as $file) {
+                $saveFile = $this->attachFile(
+                    inputFile: $file['file_path'],
+                    type: $file['file_type'],
+                    name: $file['name'],
+                    extension: $file['file_extension'],
+                    mime: $file['file_mime'],
+                    unlinkFile: false,
+                    additionalParams: $additionalParams
+                );
+
+                if ($saveFile) {
+                    unset($sessionFiles[$file['file_hash']]);
+                    $filesToUnlink[] = $file['file_path'];
+                }
+            }
+
+            if ($filesToUnlink) {
+                foreach ($sessionFiles as $sessionFile) {
+                    try{
+                        unlink($sessionFile['fullPath']);
+                    } catch (ErrorException $e){}
+                }
+            }
+
+            $this->_session->set($sessionKey, $sessionFiles);
+        }
+    }
+
     public function detachFiles(
         string|null $hash = null,
         string|null $type = null,
