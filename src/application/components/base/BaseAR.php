@@ -35,7 +35,11 @@ class BaseAR extends ActiveRecord implements BaseARInterface
         }
 
         try {
-            parent::save($runValidation, $attributeNames);
+            $save = parent::save($runValidation, $attributeNames);
+
+            if ($save) {
+                return true;
+            }
         } catch (Exception $exception) {
             Yii::error($exception->getMessage(), $logCategory);
             return false;
