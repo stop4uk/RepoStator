@@ -106,11 +106,16 @@ $this->title = Yii::t('views', 'Список правил');
                             }
 
                             if ($data->groups_only) {
+                                $groups = match(is_array($data->groups_only)) {
+                                    true => $data->groups_only,
+                                    false => $data->groups_only ? [$data->groups_only] : [],
+                                };
+
                                 $resultString .= Html::tag('span', '<i class="bi bi-collection"></i>', [
                                     'class' => 'text-danger fw-bold ms-1',
                                     'data-bs-toggle' => 'tooltip',
                                     'data-bs-placement' => 'bottom',
-                                    'title' => Yii::t('views', 'Расчет для {n, plural, =1{одной группы} one{# группы} few{# групп} many{# групп} other{# групп}}', ['n' => count(CommonHelper::explodeField($data->groups_only))]),
+                                    'title' => Yii::t('views', 'Расчет для {n, plural, =1{одной группы} one{# группы} few{# групп} many{# групп} other{# групп}}', ['n' => count($groups)]),
                                 ]);
                             }
 

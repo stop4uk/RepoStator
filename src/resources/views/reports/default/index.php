@@ -126,20 +126,30 @@ $this->title = Yii::t('views', 'Список отчетов');
                             $resultString = '';
 
                             if ($data->groups_only) {
+                                $groups = match(is_array($data->groups_only)) {
+                                    true => $data->groups_only,
+                                    false => $data->groups_only ? [$data->groups_only] : [],
+                                };
+
                                 $resultString .= Html::tag('span', '<i class="bi bi-exclamation-triangle ms-1"></i>', [
                                     'class' => 'text-danger fw-bold',
                                     'data-bs-toggle' => 'tooltip',
                                     'data-bs-placement' => 'bottom',
-                                    'title' => Yii::t('views', 'Доступен только для {n, plural, =1{одной группы} one{# группы} few{# групп} many{# групп} other{# групп}}', ['n' => count(CommonHelper::explodeField($data->groups_only))]),
+                                    'title' => Yii::t('views', 'Доступен только для {n, plural, =1{одной группы} one{# группы} few{# групп} many{# групп} other{# групп}}', ['n' => count($groups)]),
                                 ]);
                             }
 
                             if ($data->groups_required) {
+                                $groups = match(is_array($data->groups_required)) {
+                                    true => $data->groups_required,
+                                    false => $data->groups_required ? [$data->groups_required] : [],
+                                };
+
                                 $resultString .= Html::tag('span', '<i class="bi bi-card-checklist ms-1"></i>', [
                                     'class' => 'text-primary fw-bold',
                                     'data-bs-toggle' => 'tooltip',
                                     'data-bs-placement' => 'bottom',
-                                    'title' => Yii::t('views', 'Обязателен для {n, plural, =1{одной группы} one{# группы} few{# групп} many{# групп} other{# групп}}', ['n' => count(CommonHelper::explodeField($data->groups_required))]),
+                                    'title' => Yii::t('views', 'Обязателен для {n, plural, =1{одной группы} one{# группы} few{# групп} many{# групп} other{# групп}}', ['n' => count($groups)]),
                                 ]);
                             }
 

@@ -91,11 +91,16 @@ $this->title = Yii::t('views', 'Список констант');
                             $resultString = '';
 
                             if ($data->reports_only) {
+                                $reports = match(is_array($data->reports_only)) {
+                                    true => $data->reports_only,
+                                    false => $data->reports_only ? [$data->reports_only] : [],
+                                };
+
                                 $resultString .= Html::tag('span', '<i class="bi bi-exclamation-triangle p-1"></i>', [
                                     'class' => 'text-danger fw-bold',
                                     'data-bs-toggle' => 'tooltip',
                                     'data-bs-placement' => 'bottom',
-                                    'title' => Yii::t('views', 'Доступна только для {n, plural, =1{одного отчета} one{# отчета} few{# отчетов} many{# отчетов} other{# отчетов}}', ['n' => count(CommonHelper::explodeField($data->reports_only))]),
+                                    'title' => Yii::t('views', 'Доступна только для {n, plural, =1{одного отчета} one{# отчета} few{# отчетов} many{# отчетов} other{# отчетов}}', ['n' => count($reports)]),
                                 ]);
                             }
 
