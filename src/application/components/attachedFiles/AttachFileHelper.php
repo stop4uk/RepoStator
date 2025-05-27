@@ -10,6 +10,9 @@ use yii\helpers\ArrayHelper;
 /**
  * @author Stop4uk <stop4uk@yandex.ru>
  * @package app\componetns\attachedFiles
+ *
+ *
+ * Full information about base extension https://github.com/creocoder/yii2-flysystem
  */
 final class AttachFileHelper
 {
