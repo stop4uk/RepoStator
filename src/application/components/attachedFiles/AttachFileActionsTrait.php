@@ -145,34 +145,39 @@ trait AttachFileActionsTrait
         $session = Yii::$app->getSession();
         $sessionKey = AttachFileHelper::getSessionKey($paramsArray['modelClass']);
         $sessionFiles = $session->get($sessionKey);
+        $fileData = [];
 
         if (
             $sessionFiles
             && isset($sessionFiles[$paramsArray['hash']])
         ) {
             $fName = implode('.', [$paramsArray['hash'], $sessionFiles[$paramsArray['hash']]['file_extension']]);
-
             $filePath = $this->temporaryPath . DIRECTORY_SEPARATOR . $fName;
-            if (is_file($filePath)) {
-                $fileData = [
-                    'content' => file_get_contents($filePath),
-                    'name' => $fName
-                ];
-            }
-        } else {
-            $object = Yii::createObject($paramsArray['modelClass']);
-            $model = $object
-                ->find()
-                ->where([$object->modelKey => $paramsArray['modelKey']])
-                ->limit(1)
-                ->one();
+            if (!is_file($filePath)) {
+                Yii::error('Get attached file from session load error: ' . $params, 'Application');
+                Yii::$app->getSession()->setFlash('error', Yii::t('exceptions', 'В хранилище отсутствует заправшиваемый файл'));
 
-            $fileData = $model->getAttachFile($paramsArray['hash']);
+                return [];
+            }
+
+            return $this->response->sendContentAsFile(file_get_contents($filePath), $fName, ['inline' => false]);
         }
 
-        return $fileData
-            ? $this->response->sendContentAsFile($fileData['content'], $fileData['name'], ['inline' => false])
-            : [];
+        $object = Yii::createObject($paramsArray['modelClass']);
+        $model = $object->find()
+            ->where([$object->modelKey => $paramsArray['modelKey']])
+            ->limit(1)
+            ->one();
+
+        $fileData = $model->getAttachFile($paramsArray['hash']);
+        if (!$fileData) {
+            Yii::error('Get attached file from storage load error: ' . $params, 'Application');
+            Yii::$app->getSession()->setFlash('error', Yii::t('exceptions', 'В хранилище отсутствует запрашиваемый файл'));
+
+            return [];
+        }
+
+        return $this->response->sendContentAsFile($fileData['content'], $fileData['name'], ['inline' => false]);
     }
 
     public function actionGetfiledirect(string $params): Response
