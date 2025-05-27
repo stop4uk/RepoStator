@@ -2,8 +2,14 @@
 
 namespace app\helpers;
 
+use ReflectionClass;
+
 use Yii;
-use yii\base\Exception;
+use yii\web\Request;
+use yii\base\{
+    Model,
+    Exception
+};
 use yii\helpers\{
     ArrayHelper,
     FileHelper
@@ -29,6 +35,42 @@ final class CommonHelper
         self::VAR_YES
     ];
 
+    public static function formFilter(
+        BaseModel|Model $searchModel,
+        Request &$request,
+        string $sessionName
+    ): array
+    {
+        $session = Yii::$app->getSession();
+        $modelName = (new ReflectionClass($searchModel))->getShortName();
+        $post = $request->post();
+
+        if ($request->isGet) {
+            $session->remove($sessionName);
+            return [];
+        }
+
+        if ($request->isPost) {
+            $filters = $post[$modelName] ?? [];
+            $haveFilters = $session->get($sessionName)[$modelName] ?? [];
+            if ($request->getQueryParam('page') !== null) {
+                if ($filters) {
+                    $request->setQueryParams(['page' => 1]);
+                    $session->set($sessionName, $post);
+                    return $post;
+                }
+
+                return $haveFilters
+                    ? $session->get($sessionName)
+                    : $post;
+            }
+
+            $session->set($sessionName, $post);
+        }
+
+        return $post;
+    }
+
     public static function saveAttempt(
         BaseAR $entity,
         string $category,
@@ -45,44 +87,6 @@ final class CommonHelper
         }
 
         return false;
-    }
-
-    public static function saveFileAttempt(
-        BaseModel $model,
-        string $field,
-        string $alias,
-        ?int $userId = null
-    ): ?string {
-        $path = Yii::getAlias($alias);
-        $pathToDB = $alias;
-        if ($userId) {
-            $pathToDB .= DIRECTORY_SEPARATOR . $userId;
-            $path .= DIRECTORY_SEPARATOR . $userId;
-        }
-
-        if (!is_dir($path)) {
-            mkdir($path, 0755, true);
-        }
-
-        $extension = $model->{$field}->extension;
-        $fileName = implode('.', [Yii::$app->getSecurity()->generateRandomString(16), $extension]);
-
-        if ($model->{$field}->saveAs($path . DIRECTORY_SEPARATOR . $fileName)) {
-            return $pathToDB . DIRECTORY_SEPARATOR . $fileName;
-        }
-
-        return null;
-    }
-
-    public static function deleteFileAttempt(string $path): bool
-    {
-        $path = Yii::getAlias($path);
-
-        if (file_exists(Yii::getAlias($path))) {
-            return FileHelper::unlink($path);
-        }
-
-        return true;
     }
 
     public static function getDataShowAttribute($model): int
