@@ -8,7 +8,6 @@ use yii\db\{
 };
 use yii\helpers\Json;
 
-use app\helpers\CommonHelper;
 use app\modules\reports\entities\ReportEntity;
 
 final class m250525_221711_modify_reportsTable extends Migration
@@ -23,7 +22,7 @@ final class m250525_221711_modify_reportsTable extends Migration
         $groupsRequired= ReportEntity::findAll(['is not', 'groups_required', new Expression('null')]);
         if ($groupsRequired) {
             foreach ($groupsRequired as $groupR) {
-                $list = CommonHelper::explodeField($groupR->groups_required);
+                $list = explode(', ', $groupR->groups_required);
                 $groupR->groups_required = Json::encode($list);
                 $groupR->save(false);
             }
@@ -32,7 +31,7 @@ final class m250525_221711_modify_reportsTable extends Migration
         $groupsOnly= ReportEntity::findAll(['is not', 'groups_only', new Expression('null')]);
         if ($groupsOnly) {
             foreach ($groupsOnly as $groupO) {
-                $list = CommonHelper::explodeField($groupO->groups_only);
+                $list = explode(', ', $groupO->groups_only);
                 $groupO->groups_only = Json::encode($list);
                 $groupO->save(false);
             }

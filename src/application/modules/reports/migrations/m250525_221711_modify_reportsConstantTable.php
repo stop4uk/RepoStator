@@ -8,7 +8,6 @@ use yii\db\{
 };
 use yii\helpers\Json;
 
-use app\helpers\CommonHelper;
 use app\modules\reports\entities\ReportConstantEntity;
 
 final class m250525_221711_modify_reportsConstantTable extends Migration
@@ -22,7 +21,7 @@ final class m250525_221711_modify_reportsConstantTable extends Migration
         $reports= ReportConstantEntity::findAll(['is not', 'reports_only', new Expression('null')]);
         if ($reports) {
             foreach ($reports as $report) {
-                $list = CommonHelper::explodeField($report->reports_only);
+                $list = explode(', ', $report->reports_only);
                 $report->reports_only = Json::encode($list);
                 $report->save(false);
             }

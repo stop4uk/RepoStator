@@ -8,7 +8,6 @@ use yii\db\{
 };
 use yii\helpers\Json;
 
-use app\helpers\CommonHelper;
 use app\modules\reports\entities\ReportStructureEntity;
 
 final class m250525_221711_modify_reportsStructureTable extends Migration
@@ -22,7 +21,7 @@ final class m250525_221711_modify_reportsStructureTable extends Migration
         $groups= ReportStructureEntity::findAll(['is not', 'groups_only', new Expression('null')]);
         if ($groups) {
             foreach ($groups as $group) {
-                $list = CommonHelper::explodeField($group->groups_only);
+                $list = explode(', ', $group->groups_only);
                 $group->groups_only = Json::encode($list);
                 $group->save(false);
             }

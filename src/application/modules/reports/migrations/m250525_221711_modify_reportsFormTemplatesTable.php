@@ -8,7 +8,6 @@ use yii\db\{
 };
 use yii\helpers\Json;
 
-use app\helpers\CommonHelper;
 use app\modules\reports\entities\ReportFormTemplateEntity;
 
 final class m250525_221711_modify_reportsFormTemplatesTable extends Migration
@@ -23,7 +22,7 @@ final class m250525_221711_modify_reportsFormTemplatesTable extends Migration
         $columns = ReportFormTemplateEntity::find()->where(['is not', 'table_columns', new Expression('null')])->all();
         if ($rows) {
             foreach ($rows as $row) {
-                $list = CommonHelper::explodeField($row->table_rows);
+                $list = explode(', ', $row->table_rows);
                 $row->table_rows = Json::encode($list);
                 $row->save(false);
             }
@@ -31,7 +30,7 @@ final class m250525_221711_modify_reportsFormTemplatesTable extends Migration
 
         if ($columns) {
             foreach ($columns as $column) {
-                $list = CommonHelper::explodeField($column->table_columns);
+                $list = explode(', ', $column->table_columns);
                 $column->table_columns = Json::encode($list);
                 $column->save(false);
             }
