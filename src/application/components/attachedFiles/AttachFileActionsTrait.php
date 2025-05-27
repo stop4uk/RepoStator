@@ -141,6 +141,7 @@ trait AttachFileActionsTrait
     public function actionGetfile(string $params): Response|array
     {
         $paramsArray = unserialize(base64_decode($params));
+
         $session = Yii::$app->getSession();
         $sessionKey = AttachFileHelper::getSessionKey($paramsArray['modelClass']);
         $sessionFiles = $session->get($sessionKey);
@@ -181,6 +182,13 @@ trait AttachFileActionsTrait
             storageID: $paramsArray['storageID'],
             pathToFile: $paramsArray['pathToFile']
         );
+
+        if (!$fileData) {
+            Yii::error('Direct file load error: ' . $params, 'Application');
+            Yii::$app->getSession()->setFlash('error', Yii::t('exceptions', 'Запрашиваемый файл отсутствует в хранилище'));
+
+            return $this->redirect(Yii::$app->getRequest()->getReferrer());
+        }
 
         return $this->response->sendContentAsFile($fileData, $paramsArray['fileName'], ['inline' => false]);
     }

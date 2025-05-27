@@ -73,6 +73,10 @@ final class AttachFileHelper
         string $pathToFile
     ): string|null {
         $storage = Yii::$app->get($storageID);
+        if (!$storage->has($pathToFile)) {
+            return null;
+        }
+
         $readFile = $storage->readStream($pathToFile);
         $contents = stream_get_contents($readFile);
         fclose($readFile);
