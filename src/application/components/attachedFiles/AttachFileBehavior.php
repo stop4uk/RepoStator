@@ -232,8 +232,13 @@ final class AttachFileBehavior extends Behavior
 
         if ($file) {
             $pathToFile = $file->file_path . DIRECTORY_SEPARATOR . implode('.', [$file->file_hash, $file->file_extension]);
+            $fileContent = AttachFileHelper::readFromStorage($file->storage, $pathToFile);
+            if (!$fileContent) {
+                return null;
+            }
+
             return [
-                'content' => AttachFileHelper::readFromStorage($file->storage, $pathToFile),
+                'content' => $fileContent,
                 'name' => $file->name
             ];
         }
