@@ -44,8 +44,8 @@ final class FormFactory
                 'use_grouptype' => $this->form->dynamic_use_grouptype,
                 'use_appg' => $this->form->dynamic_use_appg,
                 'table_type' => $this->form->dynamic_form_type,
-                'table_rows' => CommonHelper::implodeField($this->form->dynamic_form_row),
-                'table_columns' => CommonHelper::implodeField($this->form->dynamic_form_column),
+                'table_rows' => $this->form->dynamic_form_row,
+                'table_columns' => $this->form->dynamic_form_column,
                 'limit_maxfiles' => 0,
                 'limit_maxsavetime' => 0,
             ]
